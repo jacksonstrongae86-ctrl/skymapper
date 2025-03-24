@@ -15,6 +15,10 @@ export interface WindData {
   speed: number;
   direction: number;
 }
+export interface LatLng {
+  lat: number;
+  lng: number;
+}
 
 export interface SidebarProps {
   sidebarActive: boolean;
@@ -56,4 +60,4 @@ export interface WaypointInputProps {
 
 export interface MapEventHandlerProps {
   onMapClick: (e: LeafletMouseEvent) => void;
-} 
+}
