@@ -28,6 +28,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat"; // Establecer un valor por defecto si no es válido
   console.log("type", mapTypeUrl);
   return (
+    <div className="">
     <MapContainer
       center={[51.505, -0.09]}
       zoom={13}
@@ -141,6 +142,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         />
       ))}
     </MapContainer>
+    </div>
   );
 };
 
