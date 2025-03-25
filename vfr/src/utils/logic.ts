@@ -1,14 +1,4 @@
-import React, {useEffect} from 'react';
-import dynamic from 'next/dynamic';
-
-import {MapEventHandlerProps, LatLng } from '../utils/types';
-
-// Dynamically import MapContainer and other leaflet components
-export const MapContainer = dynamic(() => import('react-leaflet').then(mod => mod.MapContainer), { ssr: false });
-export const TileLayer = dynamic(() => import('react-leaflet').then(mod => mod.TileLayer), { ssr: false });
-export const Marker = dynamic(() => import('react-leaflet').then(mod => mod.Marker), { ssr: false });
-export const Polyline = dynamic(() => import('react-leaflet').then(mod => mod.Polyline), { ssr: false });
-import { useMap } from 'react-leaflet';
+import {LatLng } from '../utils/types';
 
 // Utility functions
 export const toRad = (deg: number): number => deg * (Math.PI / 180);
@@ -22,8 +12,6 @@ export const IAStoTAS = (ias: number, fl: number): number => {
   if (tempAtAltitude <= 0) tempAtAltitude = 1;
   return ias * Math.sqrt(seaLevelTemp / tempAtAltitude);
 };
-
-
 
 export const getDistance = (wp1: LatLng, wp2: LatLng): number => {
   const R = 3440;
@@ -59,18 +47,4 @@ export const getGroundSpeed = (track: number, tas: number, windDir: number, wind
   return tas - windSpeed * Math.cos(windAngle);
 };
 
-// Map event handler component
-export const MapEventHandler: React.FC<MapEventHandlerProps> = ({ onMapClick }) => {
-  const map = useMap();
 
-  useEffect(() => {
-    if (!map) return;
-
-    map.on('click', onMapClick);
-    return () => {
-      map.off('click', onMapClick);
-    };
-  }, [map, onMapClick]);
-
-  return null;
-};

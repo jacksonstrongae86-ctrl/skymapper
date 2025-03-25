@@ -61,3 +61,10 @@ export interface WaypointInputProps {
 export interface MapEventHandlerProps {
   onMapClick: (e: LeafletMouseEvent) => void;
 }
+
+export interface MapComponentProps {
+  onMapClick: (e: LeafletMouseEvent) => void;
+  waypoints: Waypoint[];
+  setWaypoints: (waypoints: Waypoint[]) => void;
+  mapType: string;
+}
