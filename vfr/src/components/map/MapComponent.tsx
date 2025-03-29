@@ -7,8 +7,21 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { Waypoint } from "../../utils/types";
-import   { LeafletMouseEvent } from "leaflet";
+import   L, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
+
+const DefaultIcon = L.icon({
+  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  iconSize: [25, 41], // Size of the icon
+  iconAnchor: [12, 41], // Anchor point of the icon
+  popupAnchor: [1, -34], // Popup anchor point
+  shadowSize: [41, 41], // Size of the shadow
+});
+
+// Set the default icon globally
+L.Marker.prototype.options.icon = DefaultIcon;
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
