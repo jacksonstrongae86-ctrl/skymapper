@@ -7,13 +7,12 @@ const MapControls: React.FC<MapControlsProps> = ({
   mapType,
   setMapType,
   onDeleteLastWaypoint,
-  onClearWaypoints
+  onClearWaypoints,
 }) => {
   return (
-    <>
+    <div className="bg-white p-4 rounded-lg shadow-md space-y-4">
       <select
-        id="mapType"
-        className="map-control map-select"
+        className="w-full p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
         value={mapType}
         onChange={(e) => setMapType(e.target.value)}
       >
@@ -24,29 +23,28 @@ const MapControls: React.FC<MapControlsProps> = ({
       </select>
 
       <button
-        id="deleteWaypoint"
-        className="map-control delete-waypoint"
+        className="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-md"
         onClick={onDeleteLastWaypoint}
       >
         🗑️ Delete Last
       </button>
 
       <button
-        id="clearWaypoints"
-        className="map-control clear-waypoints"
+        className="w-full bg-yellow-600 hover:bg-yellow-700 text-white py-2 rounded-md"
         onClick={onClearWaypoints}
       >
-        🧹Clear Waypoints
+        🧹 Clear Waypoints
       </button>
 
       <button
-        id="openSidebar"
-        className={`map-control open-sidebar ${!sidebarActive ? 'hidden' : ''}`}
-        onClick={() => setSidebarActive(false)}
+        className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md ${
+          sidebarActive ? 'hidden' : ''
+        }`}
+        onClick={() => setSidebarActive(true)}
       >
         📂 Open Sidebar
       </button>
-    </>
+    </div>
   );
 };
 
