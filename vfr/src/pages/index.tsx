@@ -11,8 +11,9 @@ import {
   getHeading,
   getGroundSpeed,
 } from "../utils/logic";
+import WaypointInput from "../components/waypoints/WaypointInput";
 
-// Carga dinámica de componentes de react-leaflet para evitar problemas con SSR en Next.js
+// Dynamically import MapComponent to avoid SSR issues
 const MapComponent = dynamic(() => import("../components/map/MapComponent"), {
   ssr: false,
 });
@@ -27,7 +28,6 @@ export default function Home() {
   const [results, setResults] = useState<JSX.Element[]>([]);
   const defaultTAS = 100;
 
-  // Manejo de clics en el mapa
   const handleMapClick = useCallback((e: LeafletMouseEvent) => {
     const { lat, lng } = e.latlng;
     const newWaypoint: Waypoint = {
@@ -50,7 +50,6 @@ export default function Home() {
     setWaypoints([]);
   };
 
-  // Obtención de datos del viento
   const fetchWindData = async () => {
     if (waypoints.length < 2) return;
 
@@ -124,35 +123,100 @@ export default function Home() {
   }, [waypoints, storedWindData, updateCalculations]);
 
   return (
-    <div id="container">
-      <Sidebar
-        sidebarActive={sidebarActive}
-        setSidebarActive={setSidebarActive}
-        fuelConsumption={fuelConsumption}
-        setFuelConsumption={setFuelConsumption}
-        selectedDateTime={selectedDateTime}
-        setSelectedDateTime={setSelectedDateTime}
-        fetchWindData={fetchWindData}
-        updateCalculations={updateCalculations}
-        waypoints={waypoints}
-        results={results}
-      />
-
-      <MapComponent
-        onMapClick={handleMapClick}
-        waypoints={waypoints}
-        setWaypoints={setWaypoints}
-        mapType={mapType}
-      />
-
-      <MapControls
-        sidebarActive={sidebarActive}
-        setSidebarActive={setSidebarActive}
-        mapType={mapType}
-        setMapType={setMapType}
-        onDeleteLastWaypoint={handleDeleteLastWaypoint}
-        onClearWaypoints={handleClearWaypoints}
-      />
+    <div className="flex h-screen">
+      {/* Sidebar */}
+      <div className="w-1/4 bg-gray-800 text-white p-4 overflow-y-auto z-20">
+        <Sidebar
+          sidebarActive={sidebarActive}
+          setSidebarActive={setSidebarActive}
+          fuelConsumption={fuelConsumption}
+          setFuelConsumption={setFuelConsumption}
+          selectedDateTime={selectedDateTime}
+          setSelectedDateTime={setSelectedDateTime}
+          fetchWindData={fetchWindData}
+          updateCalculations={updateCalculations}
+          waypoints={waypoints}
+          results={results}
+        />
+        {waypoints.map((waypoint, index) => (
+          <WaypointInput
+            key={index}
+            index={index + 1}
+            type={waypoint.type}
+            altitude={waypoint.altitude}
+            ias={waypoint.ias}
+            altitudeChange={waypoint.altitudeChange}
+            rocRod={waypoint.rocRod}
+            iasClimbDescent={waypoint.iasClimbDescent}
+            onTypeChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = { ...waypoint, type: value };
+              setWaypoints(updatedWaypoints);
+            }}
+            onAltitudeChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = {
+                ...waypoint,
+                altitude: parseFloat(value) || 0,
+              };
+              setWaypoints(updatedWaypoints);
+            }}
+            onIasChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = {
+                ...waypoint,
+                ias: parseFloat(value) || defaultTAS,
+              };
+              setWaypoints(updatedWaypoints);
+            }}
+            onAltitudeChangeChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = {
+                ...waypoint,
+                altitudeChange: parseFloat(value) || 0,
+              };
+              setWaypoints(updatedWaypoints);
+            }}
+            onRocRodChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = {
+                ...waypoint,
+                rocRod: parseFloat(value) || 500,
+              };
+              setWaypoints(updatedWaypoints);
+            }}
+            onIasClimbDescentChange={(value) => {
+              const updatedWaypoints = [...waypoints];
+              updatedWaypoints[index] = {
+                ...waypoint,
+                iasClimbDescent: parseFloat(value) || defaultTAS,
+              };
+              setWaypoints(updatedWaypoints);
+            }}
+          />
+        ))}
+      </div>
+      {/* Map */}
+      <div className="relative flex-1">
+        <div className="absolute inset-0">
+          <MapComponent
+            onMapClick={handleMapClick}
+            waypoints={waypoints}
+            setWaypoints={setWaypoints}
+            mapType={mapType}
+          />
+        </div>
+        <div className="absolute top-4 left-4 z-10">
+          <MapControls
+            sidebarActive={sidebarActive}
+            setSidebarActive={setSidebarActive}
+            mapType={mapType}
+            setMapType={setMapType}
+            onDeleteLastWaypoint={handleDeleteLastWaypoint}
+            onClearWaypoints={handleClearWaypoints}
+          />
+        </div>
+      </div>
     </div>
   );
 }
