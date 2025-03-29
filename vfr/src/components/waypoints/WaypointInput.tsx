@@ -14,27 +14,28 @@ const WaypointInput: React.FC<WaypointInputProps> = ({
   onIasChange,
   onAltitudeChangeChange,
   onRocRodChange,
-  onIasClimbDescentChange
+  onIasClimbDescentChange,
 }) => {
-  const isSpecial = type !== "waypoint";
+  const isSpecial = type !== 'waypoint';
 
   return (
-    <div className="waypoint-input-container">
-      <label>Altitude (ft) (Optional):
+    <div className="bg-gray-100 p-4 rounded-lg shadow-md mb-4">
+      <h3 className="text-lg font-semibold text-gray-700 mb-2">Waypoint {index}</h3>
+
+      <label className="block mb-2 text-sm font-medium text-gray-600">
+        Altitude (ft) (Optional):
         <input
           type="number"
-          id={`waypoint-altitude-${index}`}
-          placeholder="Enter altitude"
-          className="styled-input"
+          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
           value={altitude}
           onChange={(e) => onAltitudeChange(e.target.value)}
         />
       </label>
 
-      <label>✈️ Waypoint {index} Type:
+      <label className="block mb-2 text-sm font-medium text-gray-600">
+        ✈️ Type:
         <select
-          id={`waypoint-type-${index}`}
-          className="styled-select"
+          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
           value={type}
           onChange={(e) => onTypeChange(e.target.value as WaypointInputProps['type'])}
         >
@@ -46,12 +47,11 @@ const WaypointInput: React.FC<WaypointInputProps> = ({
         </select>
       </label>
 
-      <label>💨 IAS (kt):
+      <label className="block mb-2 text-sm font-medium text-gray-600">
+        💨 IAS (kt):
         <input
           type="number"
-          id={`waypoint-ias-${index}`}
-          placeholder="Enter IAS"
-          className="styled-input"
+          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
           value={ias}
           onChange={(e) => onIasChange(e.target.value)}
         />
@@ -59,34 +59,31 @@ const WaypointInput: React.FC<WaypointInputProps> = ({
 
       {isSpecial && (
         <>
-          <label>🗻 Altitude Change (ft):
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            🗻 Altitude Change (ft):
             <input
               type="number"
-              id={`waypoint-altchange-${index}`}
-              placeholder="Enter altitude change"
-              className="styled-input"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
               value={altitudeChange}
               onChange={(e) => onAltitudeChangeChange(e.target.value)}
             />
           </label>
 
-          <label>📉 ROC/ROD (ft/min):
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            📉 ROC/ROD (ft/min):
             <input
               type="number"
-              id={`waypoint-rocrod-${index}`}
-              placeholder="Enter ROC/ROD"
-              className="styled-input"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
               value={rocRod}
               onChange={(e) => onRocRodChange(e.target.value)}
             />
           </label>
 
-          <label>⚡ IAS in Climb/Descent:
+          <label className="block mb-2 text-sm font-medium text-gray-600">
+            ⚡ IAS in Climb/Descent:
             <input
               type="number"
-              id={`ias-climb-descent-${index}`}
-              placeholder="Enter IAS for Climb/Descent"
-              className="styled-input"
+              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
               value={iasClimbDescent}
               onChange={(e) => onIasClimbDescentChange(e.target.value)}
             />
