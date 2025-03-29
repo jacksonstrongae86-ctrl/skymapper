@@ -198,7 +198,7 @@ export default function Home() {
       </div>
       {/* Map */}
       <div className="relative flex-1">
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 z-10">
           <MapComponent
             onMapClick={handleMapClick}
             waypoints={waypoints}
@@ -206,7 +206,7 @@ export default function Home() {
             mapType={mapType}
           />
         </div>
-        <div className="absolute top-4 left-4 z-10">
+        <div className="absolute top-4 right-4 z-30">
           <MapControls
             sidebarActive={sidebarActive}
             setSidebarActive={setSidebarActive}
