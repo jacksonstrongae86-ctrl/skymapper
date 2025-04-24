@@ -12,9 +12,13 @@ export interface Waypoint {
 }
 
 export interface WindData {
-  speed: number;
-  direction: number;
+  speed: number; // Wind speed in knots
+  direction: number; // Wind direction in degrees
 }
+
+// Define WindDataArray as an array of WindData
+export type WindDataArray = WindData[];
+
 export interface LatLng {
   lat: number;
   lng: number;
@@ -31,6 +35,7 @@ export interface SidebarProps {
   updateCalculations: () => void;
   waypoints: Waypoint[];
   results: ReactNode;
+  onWaypointUpdate: (index: number, field: keyof Waypoint, value: any) => void;
 }
 
 export interface MapControlsProps {
@@ -68,3 +73,4 @@ export interface MapComponentProps {
   setWaypoints: (waypoints: Waypoint[]) => void;
   mapType: string;
 }
+

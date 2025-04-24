@@ -68,21 +68,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
         <TileLayer
           url={
             mapTypeUrl === "street"
-              ? "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              ? "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
               : mapTypeUrl === "sat"
               ? "https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"
               : mapTypeUrl === "hybrid"
               ? "https://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}"
               : mapTypeUrl === "terrain"
               ? "https://{s}.google.com/vt/lyrs=p&x={x}&y={y}&z={z}"
-              : "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              : "http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}"
           }
           attribution="&copy; OpenStreetMap contributors"
-          subdomains={
-            mapTypeUrl === "hybrid" || mapTypeUrl === "terrain"
-              ? ["mt0", "mt1", "mt2", "mt3"]
-              : ["a", "b", "c"]
-          }
+          subdomains={["mt0", "mt1", "mt2", "mt3"]}
         />
 
         {waypoints.map((waypoint, index) => (

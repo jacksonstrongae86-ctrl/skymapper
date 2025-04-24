@@ -18,7 +18,7 @@ const MapControls: React.FC<MapControlsProps> = ({
       >
         <option value="street">🗺️ Street</option>
         <option value="sat">🛰️ Satellite</option>
-        <option value="hybrid">🗺️ Hybrid</option>
+        <option value="hybrid">🛰️🗺️ Hybrid</option>
         <option value="terrain">⛰️ Terrain</option>
       </select>
 
