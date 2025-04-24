@@ -153,16 +153,11 @@ console.log("🌍 Fetching wind data for:", { lat, lon, altitudesFt, timestamp }
 export default function Home() {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [storedWindData, setStoredWindData] = useState<WindDataArray | null>(null);
-  const [sidebarActive, setSidebarActive] = useState<boolean>(false);
   const [fuelConsumption, setFuelConsumption] = useState<number>(8);
   const [selectedDateTime, setSelectedDateTime] = useState<string>("");
   const [mapType, setMapType] = useState<string>("street");
   const [results, setResults] = useState<JSX.Element[]>([]);
   const defaultTAS = 100;
-
-  useEffect(() => {
-    console.log("Sidebar active state:", sidebarActive);
-  }, [sidebarActive]);
 
   const handleWaypointUpdate = useCallback((index: number, field: keyof Waypoint, value: any) => {
     setWaypoints((prev) => {
@@ -282,8 +277,6 @@ console.log("✅ Updated Wind Data:", updatedWindData);
   return (
     <div className="relative h-screen">
       <Sidebar
-        sidebarActive={sidebarActive}
-        setSidebarActive={setSidebarActive}
         fuelConsumption={fuelConsumption}
         setFuelConsumption={setFuelConsumption}
         selectedDateTime={selectedDateTime}
@@ -367,8 +360,6 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         </div>
         <div className="absolute top-4 right-4 z-30">
           <MapControls
-            sidebarActive={sidebarActive}
-            setSidebarActive={setSidebarActive}
             mapType={mapType}
             setMapType={setMapType}
             onDeleteLastWaypoint={handleDeleteLastWaypoint}

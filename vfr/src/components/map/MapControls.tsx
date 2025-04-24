@@ -2,8 +2,6 @@ import React from 'react';
 import { MapControlsProps } from '../../utils/types';
 
 const MapControls: React.FC<MapControlsProps> = ({
-  sidebarActive,
-  setSidebarActive,
   mapType,
   setMapType,
   onDeleteLastWaypoint,
@@ -34,15 +32,6 @@ const MapControls: React.FC<MapControlsProps> = ({
         onClick={onClearWaypoints}
       >
         🧹 Clear Waypoints
-      </button>
-
-      <button
-        className={`w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md ${
-          sidebarActive ? 'hidden' : ''
-        }`}
-        onClick={() => setSidebarActive(true)}
-      >
-        📂 Open Sidebar
       </button>
     </div>
   );

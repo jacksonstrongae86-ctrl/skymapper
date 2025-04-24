@@ -25,8 +25,6 @@ export interface LatLng {
 }
 
 export interface SidebarProps {
-  sidebarActive: boolean;
-  setSidebarActive: (active: boolean) => void;
   fuelConsumption: number;
   setFuelConsumption: (consumption: number) => void;
   selectedDateTime: string;
@@ -39,8 +37,6 @@ export interface SidebarProps {
 }
 
 export interface MapControlsProps {
-  sidebarActive: boolean;
-  setSidebarActive: (active: boolean) => void;
   mapType: string;
   setMapType: (type: string) => void;
   onDeleteLastWaypoint: () => void;
