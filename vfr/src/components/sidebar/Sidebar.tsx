@@ -20,6 +20,7 @@ sidebarWidth,
 }) => {
     const [isResizing, setIsResizing] = useState(false);
     const [isSettingsVisible, setIsSettingsVisible] = useState(true);
+    const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
   
   const handleMouseDown = () => {
     setIsResizing(true);
@@ -116,7 +117,7 @@ sidebarWidth,
       ) : (
         // Regular sidebar content - Fix the height and overflow
         <div className="flex flex-col h-full">  {/* Add flex-col and h-full */}
-          <div className="p-6 flex-none"> {/* Keep flex-none for header */}
+          <div className="px-6 flex-none"> {/* Keep flex-none for header */}
             {/* Control buttons container */}
             <div className="absolute top-4 right-4 flex gap-2">
               <button
@@ -140,7 +141,7 @@ sidebarWidth,
             {/* Only show content if not minimized */}
             {!isMinimized && (
               <>
-                <h1 className="text-2xl font-bold mb-4 mt-5">VFR Flight Planner</h1>
+                <h1 className="text-2xl font-bold mb-4 mt-10">VFR Flight Planner</h1>
                 <p className="text-sm text-gray-300 mb-6">
                   Click on the map to add waypoints. Drag markers to adjust positions. Set a TAS for each leg.
                 </p>
@@ -152,7 +153,7 @@ sidebarWidth,
                     className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 
                     flex items-center justify-between text-sm font-medium border-b border-slate-700"
                   >
-                    <span className="flex items-center gap-2">
+                    <span className="flex items-center gap-2 font-semibold text-base">
                       <span>⚙️</span>
                       <span>Flight Settings</span>
                     </span>
@@ -206,109 +207,125 @@ sidebarWidth,
             )}
           </div>
 
-          {/* Scrollable content area - Add grid layout and custom scrollbar */}
-          <div className="flex-1 overflow-y-auto px-6 pr-8 custom-scrollbar"> {/* Added pr-8 for scrollbar spacing */}
-            <div className={`${isFullScreen ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}`}>
-              <h2 className="text-xl font-bold mb-4 sticky top-0 bg-slate-900 py-2 z-10 col-span-full">
-                Waypoints
-              </h2>
-              {waypoints.map((waypoint, index) => {
-                const isSpecial = waypoint.type !== 'waypoint';
-                return (
-                  <div key={index} className="bg-gray-100 p-4 rounded-lg shadow-md">
-                    <h3 className="text-lg font-semibold text-gray-700 mb-2">Waypoint {index + 1}</h3>
+          {/* Scrollable content area */}
+          <div className="flex-1 px-6 pb-6 overflow-hidden">
+            {/* Waypoints Section with Toggle */}
+            <div className="border border-slate-700 rounded-lg h-full flex flex-col"> {/* Added h-full and flex flex-col */}
+              <button
+                onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
+                className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 
+                flex items-center justify-between text-sm font-medium border-b border-slate-700 flex-none"
+              >
+                <span className="flex items-center gap-2 font-bold text-base">
+                  <span>📍</span>
+                  <span>Waypoints</span>
+                </span>
+                <span>{isWaypointsVisible ? '−' : '+'}</span>
+              </button>
 
-                    <label className="block mb-2 text-sm font-medium text-gray-600">
-                      Altitude (ft) (Optional):
-                      <input
-                        type="number"
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                        value={waypoint.altitude}
-                        onChange={(e) =>
-                          handleNumericInput(e.target.value, (num) =>
-                            onWaypointUpdate(index, 'altitude', num)
-                          )
-                        }
-                      />
-                    </label>
+              <div className={`transition-all duration-300 ease-in-out overflow-hidden flex-1`}>
+                <div className="h-full overflow-y-auto custom-scrollbar p-4"> {/* Changed to h-full */}
+                  <div className={`${isFullScreen ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}`}>
+                    {waypoints.map((waypoint, index) => {
+                      const isSpecial = waypoint.type !== 'waypoint';
+                      return (
+                        <div key={index} className="bg-gray-100 p-4 rounded-xl shadow-md">
+                          <h3 className="text-base font-semibold text-gray-700 mb-2">Waypoint {index + 1}</h3>
 
-                    <label className="block mb-2 text-sm font-medium text-gray-600">
-                      ✈️ Type:
-                      <select
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                        value={waypoint.type}
-                        onChange={(e) => onWaypointUpdate(index, 'type', e.target.value)}
-                      >
-                        <option value="waypoint">🛩️ Normal Waypoint</option>
-                        <option value="BOC">🚀 BOC (Bottom of Climb)</option>
-                        <option value="TOC">⬆️ TOC (Top of Climb)</option>
-                        <option value="TOD">⬇️ TOD (Top of Descent)</option>
-                        <option value="BOD">🛬 BOD (Bottom of Descent)</option>
-                      </select>
-                    </label>
+                          <label className="block mb-2 text-sm font-medium text-gray-600">
+                            Altitude (ft) (Optional):
+                            <input
+                              type="number"
+                              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                              value={waypoint.altitude}
+                              onChange={(e) =>
+                                handleNumericInput(e.target.value, (num) =>
+                                  onWaypointUpdate(index, 'altitude', num)
+                                )
+                              }
+                            />
+                          </label>
 
-                    <label className="block mb-2 text-sm font-medium text-gray-600">
-                      💨 IAS (kt):
-                      <input
-                        type="number"
-                        className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                        value={waypoint.ias}
-                        onChange={(e) =>
-                          handleNumericInput(e.target.value, (num) =>
-                            onWaypointUpdate(index, 'ias', num)
-                          )
-                        }
-                      />
-                    </label>
+                          <label className="block mb-2 text-sm font-medium text-gray-600">
+                            ✈️ Type:
+                            <select
+                              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                              value={waypoint.type}
+                              onChange={(e) => onWaypointUpdate(index, 'type', e.target.value)}
+                            >
+                              <option value="waypoint">🛩️ Normal Waypoint</option>
+                              <option value="BOC">🚀 BOC (Bottom of Climb)</option>
+                              <option value="TOC">⬆️ TOC (Top of Climb)</option>
+                              <option value="TOD">⬇️ TOD (Top of Descent)</option>
+                              <option value="BOD">🛬 BOD (Bottom of Descent)</option>
+                            </select>
+                          </label>
 
-                    {isSpecial && (
-                      <>
-                        <label className="block mb-2 text-sm font-medium text-gray-600">
-                          🗻 Altitude Change (ft):
-                          <input
-                            type="number"
-                            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                            value={waypoint.altitudeChange}
-                            onChange={(e) =>
-                              handleNumericInput(e.target.value, (num) =>
-                                onWaypointUpdate(index, 'altitudeChange', num)
-                              )
-                            }
-                          />
-                        </label>
+                          <label className="block mb-2 text-sm font-medium text-gray-600">
+                            💨 IAS (kt):
+                            <input
+                              type="number"
+                              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                              value={waypoint.ias}
+                              onChange={(e) =>
+                                handleNumericInput(e.target.value, (num) =>
+                                  onWaypointUpdate(index, 'ias', num)
+                                )
+                              }
+                            />
+                          </label>
 
-                        <label className="block mb-2 text-sm font-medium text-gray-600">
-                          📉 ROC/ROD (ft/min):
-                          <input
-                            type="number"
-                            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                            value={waypoint.rocRod}
-                            onChange={(e) =>
-                              handleNumericInput(e.target.value, (num) =>
-                                onWaypointUpdate(index, 'rocRod', num)
-                              )
-                            }
-                          />
-                        </label>
+                          {isSpecial && (
+                            <>
+                              <label className="block mb-2 text-sm font-medium text-gray-600">
+                                🗻 Altitude Change (ft):
+                                <input
+                                  type="number"
+                                  className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                                  value={waypoint.altitudeChange}
+                                  onChange={(e) =>
+                                    handleNumericInput(e.target.value, (num) =>
+                                      onWaypointUpdate(index, 'altitudeChange', num)
+                                    )
+                                  }
+                                />
+                              </label>
 
-                        <label className="block mb-2 text-sm font-medium text-gray-600">
-                          ⚡ IAS in Climb/Descent:
-                          <input
-                            type="number"
-                            className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
-                            value={waypoint.iasClimbDescent}
-                            onChange={(e) =>
-                              handleNumericInput(e.target.value, (num) =>
-                                onWaypointUpdate(index, 'iasClimbDescent', num)
-                              )
-                            }
-                          />
-                        </label>
-                      </>
-                    )}
+                              <label className="block mb-2 text-sm font-medium text-gray-600">
+                                📉 ROC/ROD (ft/min):
+                                <input
+                                  type="number"
+                                  className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                                  value={waypoint.rocRod}
+                                  onChange={(e) =>
+                                    handleNumericInput(e.target.value, (num) =>
+                                      onWaypointUpdate(index, 'rocRod', num)
+                                    )
+                                  }
+                                />
+                              </label>
+
+                              <label className="block mb-2 text-sm font-medium text-gray-600">
+                                ⚡ IAS in Climb/Descent:
+                                <input
+                                  type="number"
+                                  className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+                                  value={waypoint.iasClimbDescent}
+                                  onChange={(e) =>
+                                    handleNumericInput(e.target.value, (num) =>
+                                      onWaypointUpdate(index, 'iasClimbDescent', num)
+                                    )
+                                  }
+                                />
+                              </label>
+                            </>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
-                );
-              })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
