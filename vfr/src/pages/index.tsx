@@ -158,6 +158,10 @@ export default function Home() {
   const [mapType, setMapType] = useState<string>("street");
   const [results, setResults] = useState<JSX.Element[]>([]);
   const defaultTAS = 100;
+  const [sidebarWidth, setSidebarWidth] = useState(256);
+  const [isMinimized, setIsMinimized] = useState(false);
+  const [isFullScreen, setIsFullScreen] = useState(false);
+  const [bottomHeight, setBottomHeight] = useState(25);
 
   const handleWaypointUpdate = useCallback((index: number, field: keyof Waypoint, value: any) => {
     setWaypoints((prev) => {
@@ -251,17 +255,26 @@ console.log("✅ Updated Wind Data:", updatedWindData);
       const fuelBurn = (time / 60) * fuelConsumption;
 
       return (
-        <tr key={i}>
-          <td>WP{i + 1}</td>
-          <td>{distance.toFixed(1)}</td>
-          <td>{track.toFixed(0)}</td>
-          <td>{heading.toFixed(0)}</td>
-          <td>{gs.toFixed(0)}</td>
-          <td>{time.toFixed(1)}</td>
-          <td>{tas.toFixed(0)}</td>
-          <td>{fuelBurn.toFixed(1)}</td>
-          <td>
-            💨 {windInfo.speed.toFixed(1)} kt @ {windInfo.direction.toFixed(0)}°
+        <tr 
+          key={i}
+          className={`
+            transition-colors duration-150 
+            ${i % 2 === 0 ? 'bg-slate-800/50' : 'bg-slate-800/20'} 
+            hover:bg-slate-700/50
+          `}
+        >
+          <td className="py-3 px-4 border-b border-slate-700/50 font-medium text-white">
+            {`WP${i + 1} → WP${i + 2}`}
+          </td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{distance.toFixed(1)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{track.toFixed(0)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{heading.toFixed(0)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{gs.toFixed(0)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{time.toFixed(1)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{tas.toFixed(0)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">{fuelBurn.toFixed(1)}</td>
+          <td className="py-3 px-4 border-b border-slate-700/50">
+            {`${windInfo.speed.toFixed(1)} kt @ ${windInfo.direction.toFixed(0)}°`}
           </td>
         </tr>
       );
@@ -286,8 +299,14 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         results={results}
         waypoints={waypoints}
         onWaypointUpdate={handleWaypointUpdate} // Ensure this is passed
+        sidebarWidth={sidebarWidth}
+        setSidebarWidth={setSidebarWidth}
+        isMinimized={isMinimized}
+        setIsMinimized={setIsMinimized}
+        isFullScreen={isFullScreen}
+        setIsFullScreen={setIsFullScreen}
       />
-      {/* <div className="w-1/4 bg-gray-800 text-white p-4 overflow-y-auto z-20">
+{/* <div className="w-1/4 bg-gray-800 text-white p-4 overflow-y-auto z-20">
         {waypoints.map((waypoint, index) => (
           <WaypointInput
             key={index}
@@ -350,7 +369,12 @@ console.log("✅ Updated Wind Data:", updatedWindData);
 
       {/* Main Map Area */}
       <div className="relative flex-1">
-        <div className="absolute inset-0 z-10 h-[75vh]"> {/* Adjusted height */}
+        <div 
+          className="absolute inset-0 z-10"
+          style={{ 
+            height: `calc(100vh - ${bottomHeight}vh)` // Dynamic height based on BottomSidebar
+          }}
+        > 
           <MapComponent
             onMapClick={handleMapClick}
             waypoints={waypoints}
@@ -369,7 +393,14 @@ console.log("✅ Updated Wind Data:", updatedWindData);
       </div>
 
       {/* Bottom Results Sidebar */}
-      <BottomSidebar results={results} />
+      <BottomSidebar 
+        results={results} 
+        sidebarWidth={sidebarWidth}
+        isMinimized={isMinimized}
+        isFullScreen={isFullScreen}
+        waypoints={waypoints}
+        onHeightChange={setBottomHeight}
+      />
     </div>
   );
 }

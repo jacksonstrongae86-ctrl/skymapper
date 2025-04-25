@@ -51,8 +51,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
   return (
     <div className="relative w-full h-full">
       <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
+        center={[40.4167, -3.7033]}
+        zoom={10}
         style={{ height: "100%", width: "100%" }}
         // whenReady={(mapInstance) => {
         //   mapRef.current = mapInstance; // Directly assign the map instance

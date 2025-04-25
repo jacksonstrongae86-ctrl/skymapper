@@ -34,6 +34,12 @@ export interface SidebarProps {
   waypoints: Waypoint[];
   results: ReactNode;
   onWaypointUpdate: (index: number, field: keyof Waypoint, value: any) => void;
+  sidebarWidth: number;
+  setSidebarWidth: (width: number) => void;
+  isMinimized: boolean;
+  setIsMinimized: (minimized: boolean) => void;
+  isFullScreen: boolean;
+  setIsFullScreen: (fullScreen: boolean) => void;
 }
 
 export interface MapControlsProps {

@@ -22,3 +22,164 @@
 body {
   @apply bg-gray-100;
 }
+
+.custom-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1e293b;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: #64748b;
+  }
+
+  table {
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+  }
+
+  th {
+    background-color: #1e293b;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    white-space: nowrap;
+  }
+
+  tr:hover td {
+    background-color: rgba(148, 163, 184, 0.05);
+  }
+}
+
+@media (max-width: 1024px) {
+  .custom-scrollbar {
+    overflow-x: auto;
+  }
+  
+  .custom-scrollbar table {
+    min-width: 800px;
+  }
+}
+
+/* Add these print styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 2cm;
+  }
+
+  /* Hide everything except print content */
+  body > *:not(.print-content) {
+    display: none !important;
+  }
+
+  .print-content {
+    display: block !important;
+  }
+
+  /* Map page styling */
+  .print-map {
+    page-break-after: always;
+    height: 297mm; /* A4 height */
+  }
+
+  .print-map-container {
+    height: calc(100% - 4cm);
+    margin-top: 2cm;
+  }
+
+  /* Results pages styling */
+  .print-results {
+    page-break-before: always;
+  }
+
+  .print-header {
+    font-size: 24pt;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1cm;
+    color: black;
+  }
+
+  .print-info {
+    margin: 1cm 0;
+    border: 1px solid #ddd;
+    padding: 1cm;
+    background-color: #f8f8f8;
+  }
+
+  .print-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1cm;
+  }
+
+  .print-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1cm;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .print-table thead {
+    display: table-header-group;
+    background-color: #f3f4f6;
+  }
+
+  .print-table th {
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
+  }
+
+  .print-table tbody tr {
+    display: table-row;
+    page-break-inside: avoid;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .print-table tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+
+  .print-table td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+    color: black;
+    white-space: nowrap;
+  }
+
+  .print-table td:first-child {
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .print-table td::before {
+    display: none;
+  }
+
+  .print-results > * + * {
+    margin-top: 1cm;
+  }
+}

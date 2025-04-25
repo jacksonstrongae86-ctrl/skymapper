@@ -11,12 +11,15 @@ const Sidebar: React.FC<SidebarProps> = ({
   results,
   waypoints,
   onWaypointUpdate,
+sidebarWidth,
+  setSidebarWidth,
+  isMinimized,
+  setIsMinimized,
+  isFullScreen,
+  setIsFullScreen,
 }) => {
-  const [sidebarWidth, setSidebarWidth] = useState(256); // Default width in pixels
-  const [isResizing, setIsResizing] = useState(false);
-  const [isMinimized, setIsMinimized] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
-
+    const [isResizing, setIsResizing] = useState(false);
+  
   const handleMouseDown = () => {
     setIsResizing(true);
   };
