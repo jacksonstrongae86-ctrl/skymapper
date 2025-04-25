@@ -152,7 +152,7 @@ sidebarWidth,
             {/* Only show content if not minimized */}
             {!isMinimized && (
               <>
-                <h1 className="text-2xl font-bold mb-4">VFR Flight Planner</h1>
+                <h1 className="text-2xl font-bold mb-4 mt-5">VFR Flight Planner</h1>
                 <p className="text-sm text-gray-300 mb-6">
                   Click on the map to add waypoints. Drag markers to adjust positions. Set a TAS for each leg.
                 </p>
