@@ -19,6 +19,7 @@ sidebarWidth,
   setIsFullScreen,
 }) => {
     const [isResizing, setIsResizing] = useState(false);
+    const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   
   const handleMouseDown = () => {
     setIsResizing(true);
@@ -105,23 +106,10 @@ sidebarWidth,
           <div className="flex flex-col items-center gap-4 p-2">
             <button
               className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-white"
-              title="Fuel Settings"
-            >
-              ⛽
-            </button>
-            <button
-              className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-white"
               title="Wind Data"
               onClick={fetchWindData}
             >
               💨
-            </button>
-            <button
-              className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-white"
-              title="Update Calculations"
-              onClick={updateCalculations}
-            >
-              🔄
             </button>
           </div>
         </div>
@@ -157,43 +145,63 @@ sidebarWidth,
                   Click on the map to add waypoints. Drag markers to adjust positions. Set a TAS for each leg.
                 </p>
 
-                <form className="space-y-4">
-                  <label className="block text-sm font-medium">
-                    Fuel Consumption (Gal/hr):
-                    <input
-                      type="number"
-                      className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring focus:ring-blue-300 focus:outline-none"
-                      value={fuelConsumption}
-                      onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
-                    />
-                  </label>
-
-                  <label className="block text-sm font-medium">
-                    Select Date and Time:
-                    <input
-                      type="datetime-local"
-                      className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 text-white focus:ring focus:ring-blue-300 focus:outline-none"
-                      value={selectedDateTime}
-                      onChange={(e) => setSelectedDateTime(e.target.value)}
-                    />
-                  </label>
-
+                {/* Settings Section with Toggle */}
+                <div className="mb-6 border border-slate-700 rounded-lg overflow-hidden">
                   <button
-                    type="button"
-                    className="w-full bg-cyan-700 hover:bg-cyan-800 text-white py-2 rounded-md"
-                    onClick={fetchWindData}
+                    onClick={() => setIsSettingsVisible(!isSettingsVisible)}
+                    className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 
+                    flex items-center justify-between text-sm font-medium border-b border-slate-700"
                   >
-                    Fetch Wind Data
+                    <span className="flex items-center gap-2">
+                      <span>⚙️</span>
+                      <span>Flight Settings</span>
+                    </span>
+                    <span>{isSettingsVisible ? '−' : '+'}</span>
                   </button>
-                </form>
 
-                <button
-                  type="button"
-                  className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-md mt-4"
-                  onClick={updateCalculations}
-                >
-                  Update Info 🔄
-                </button>
+                  <div className={`transition-all duration-300 ease-in-out 
+                    ${isSettingsVisible ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                    <div className="p-4 space-y-4">
+                      <label className="block text-sm font-medium">
+                        Fuel Consumption (Gal/hr):
+                        <input
+                          type="number"
+                          className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 
+                          text-white focus:ring focus:ring-blue-300 focus:outline-none"
+                          value={fuelConsumption}
+                          onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
+                        />
+                      </label>
+
+                      <label className="block text-sm font-medium">
+                        Select Date and Time:
+                        <input
+                          type="datetime-local"
+                          className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 
+                          text-white focus:ring focus:ring-blue-300 focus:outline-none"
+                          value={selectedDateTime}
+                          onChange={(e) => setSelectedDateTime(e.target.value)}
+                        />
+                      </label>
+
+                      <button
+                        type="button"
+                        className="w-full bg-cyan-700 hover:bg-cyan-800 text-white py-2 rounded-md"
+                        onClick={fetchWindData}
+                      >
+                        Fetch Wind Data
+                      </button>
+
+                      <button
+                        type="button"
+                        className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-md"
+                        onClick={updateCalculations}
+                      >
+                        Update Info 🔄
+                      </button>
+                    </div>
+                  </div>
+                </div>
               </>
             )}
           </div>
