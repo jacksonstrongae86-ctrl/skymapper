@@ -254,33 +254,8 @@ console.log("✅ Updated Wind Data:", updatedWindData);
       const time = (distance / gs) * 60;
       const fuelBurn = (time / 60) * fuelConsumption;
 
-      return (
-        <tr 
-          key={i}
-          className={`
-            transition-colors duration-150 
-            ${i % 2 === 0 ? 'bg-slate-800/50' : 'bg-slate-800/20'} 
-            hover:bg-slate-700/50
-          `}
-        >
-          <td className="py-3 px-4 border-b border-slate-700/50 font-medium text-white">
-            {`WP${i + 1} → WP${i + 2}`}
-          </td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{distance.toFixed(1)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{track.toFixed(0)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{heading.toFixed(0)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{gs.toFixed(0)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{time.toFixed(1)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{tas.toFixed(0)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">{fuelBurn.toFixed(1)}</td>
-          <td className="py-3 px-4 border-b border-slate-700/50">
-            {`${windInfo.speed.toFixed(1)} kt @ ${windInfo.direction.toFixed(0)}°`}
-          </td>
-        </tr>
-      );
     });
 
-    setResults(newResults);
   }, [waypoints, storedWindData, fuelConsumption]);
 
   useEffect(() => {
@@ -394,11 +369,12 @@ console.log("✅ Updated Wind Data:", updatedWindData);
 
       {/* Bottom Results Sidebar */}
       <BottomSidebar 
-        results={results} 
+        waypoints={waypoints}
+        storedWindData={storedWindData}
+        fuelConsumption={fuelConsumption}
         sidebarWidth={sidebarWidth}
         isMinimized={isMinimized}
         isFullScreen={isFullScreen}
-        waypoints={waypoints}
         onHeightChange={setBottomHeight}
       />
     </div>
