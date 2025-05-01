@@ -128,13 +128,13 @@
   --input-border: #ffe082;
   --input-text: #5d4037;
 
-  --results-header-bg: #0a0e4b;
-  --results-header-text: #d4d6e2;
-  --results-bg1: #0a0e4b;
-  --results-bg2: #0a0e4b;
-  --results-hover: #0a0e4b;
-  --results-border: #0a0e4b;
-  --results-text: #055ed1;
+  --results-header-bg: #f3b227;
+  --results-header-text: #92400e;
+  --results-bg1: #fffbeb;
+  --results-bg2: #fef3c7;
+  --results-hover: #fde68a;
+  --results-border: #fcd34d;
+  --results-text: #b45309;
 }
 
 .theme-darkblue {
