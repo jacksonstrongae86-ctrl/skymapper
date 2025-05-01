@@ -16,6 +16,14 @@
 
   --button-bg: #334155;
   --button-hover: #475569;
+  --button-text: #f8fafc;
+
+  --results-header-bg: #1e293b;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #1e293b;
+  --results-bg2: #2c3e50;
+  --results-hover: #34495e;
+  --results-border: #0a0e4b;
   --results-text: #adb3bb;
 }
 
@@ -40,7 +48,13 @@
   --input-border: #ced4da;
   --input-text: #495057;
 
-  --results-text: #3c3e41;
+  --results-header-bg: #8fc1d8;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #ffffff;
+  --results-bg2: #f8f9fa;
+  --results-hover: #e9ecef;
+  --results-border: #0a0e4b;
+  --results-text: #4070af;
 }
 
 /* Additional Themes */
@@ -62,7 +76,13 @@
   --input-border: #81d4fa;
   --input-text: #01579b;
 
-  --results-text: #0277bd;
+  --results-header-bg: #0a0e4b;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #0a0e4b;
+  --results-bg2: #0a0e4b;
+  --results-hover: #0a0e4b;
+  --results-border: #0a0e4b;
+  --results-text: #055ed1;
 }
 
 /* Rose Theme – a soft and elegant pink tone */
@@ -74,15 +94,21 @@
   --sidebar-text: #880e4f;
   --sidebar-border: rgba(136, 14, 79, 0.2);
   
-  --button-bg: #d81b60;        /* Rose-tinted buttons */
-  --button-hover: #c2185b;
+  --button-bg: #fa9dbf;        /* Rose-tinted buttons */
+  --button-hover: #fa82b2;
   --button-text: #ffffff;
   
   --input-bg: #fce4ec;
   --input-border: #f48fb1;
   --input-text: #880e4f;
 
-  --results-text: #ad1457;
+  --results-header-bg: #fa6ca0;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #f3acde54;
+  --results-bg2: #f2ddf8;
+  --results-hover: #d7bcd8;
+  --results-border: #0a0e4b;
+  --results-text: #595b5e;
 }
 
 /* Amber Theme – a warm, inviting tone */
@@ -102,7 +128,37 @@
   --input-border: #ffe082;
   --input-text: #5d4037;
 
-  --results-text: #ff8f00;
+  --results-header-bg: #0a0e4b;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #0a0e4b;
+  --results-bg2: #0a0e4b;
+  --results-hover: #0a0e4b;
+  --results-border: #0a0e4b;
+  --results-text: #055ed1;
+}
+
+.theme-darkblue {
+  --background: #010440;
+  --foreground: #d4d6e2;
+  
+  --sidebar-bg: #142377;
+  --sidebar-text: #7ea5d9;
+  --sidebar-border: rgba(12, 23, 173, 0.2);
+
+  --button-bg: #020873;
+  --button-hover: #030abc;
+
+  --input-bg: #7ea5d9;
+  --input-border: #0c223f;
+  --input-text: #06114e;
+
+  --results-header-bg: #0a0e4b;
+  --results-header-text: #d4d6e2;
+  --results-bg1: #0a0e4b;
+  --results-bg2: #0a0e4b;
+  --results-hover: #0a0e4b;
+  --results-border: #0a0e4b;
+  --results-text: #055ed1;
 }
 
 /* These inline variables help if you use them in your components */
@@ -152,7 +208,6 @@ body {
   }
 
   th {
-    background-color: #1e293b;
     position: sticky;
     top: 0;
     z-index: 10;

@@ -171,7 +171,7 @@ sidebarWidth,
                         <input
                           type="number"
                           className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
-                          text-[var(--sidebar-text)] focus:ring focus:ring-blue-300 focus:outline-none"
+                          text-[var(--input-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={fuelConsumption}
                           onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
                         />
@@ -182,7 +182,7 @@ sidebarWidth,
                         <input
                           type="datetime-local"
                           className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
-                          text-[var(--sidebar-text)] focus:ring focus:ring-blue-300 focus:outline-none"
+                          text-[var(--input-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={selectedDateTime}
                           onChange={(e) => setSelectedDateTime(e.target.value)}
                         />

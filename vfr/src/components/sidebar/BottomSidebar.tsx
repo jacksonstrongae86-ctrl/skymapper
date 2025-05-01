@@ -66,11 +66,11 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           key={i}
           className={`
             transition-colors duration-150 
-            ${i % 2 === 0 ? 'bg-slate-800/50' : 'bg-slate-800/20'} 
-            hover:bg-slate-700/50
+            ${i % 2 === 0 ? 'bg-[var(--results-bg2)]' : 'bg-[var(--results-bg1)]'} 
+            hover:bg-[var(--results-hover)]
           `}
         >
-          <td className="py-3 px-4 border-b border-slate-700/50 font-medium text-white">
+          <td className="py-3 px-4 border-b border-slate-700/50 font-semibold text-[var(--results-text)]">
             {`WP${i + 1} → WP${i + 2}`}
           </td>
           <td className="py-3 px-4 border-b border-slate-700/50">{distance.toFixed(1)}</td>
@@ -288,7 +288,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         {!isBottomMinimized && (
           <div className="p-4">
             <table className="w-full">
-              <thead className="bg-yellow-800 sticky top-18.5 z-10">
+              <thead className="bg-[var(--results-header-bg)] sticky top-18.5 z-10">
                 <tr>
                   {[
                     ['#', '', '🔢'],

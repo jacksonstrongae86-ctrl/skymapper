@@ -33,7 +33,7 @@ const MapControls: React.FC<MapControlsProps> = ({
             key={t}
             onClick={() => setTheme(t)}
             title={t.charAt(0).toUpperCase() + t.slice(1)}
-            className={`w-10 h-10 rounded-full focus:outline-none flex items-center justify-center border-2 ${
+            className={`w-6 h-6 rounded-full focus:outline-none flex items-center justify-center border-2 ${
               theme === t ? "border-blue-500" : "border-transparent"
             }`}
             style={{ backgroundColor: themeColours[t] }}
