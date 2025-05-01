@@ -84,18 +84,18 @@ sidebarWidth,
 
   return (
     <div
-      className={`bg-slate-900 text-white transition-all duration-300 md:translate-x-0 md:block fixed ${
+      className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] transition-all duration-300 md:translate-x-0 md:block fixed ${
         isFullScreen ? 'inset-0' : 'top-0 left-0 h-full'
       } z-50 flex`}
-      style={{ 
+      style={{ backgroundColor: "var(--background)", color: "var(--foreground)",
         width: `${sidebarWidth}px`,
         minWidth: isMinimized ? '48px' : '256px'
       }}
     >
       {isMinimized ? (
         // Minimized tab view
-        <div className="flex flex-col h-full w-12 bg-slate-800 border-r border-slate-700">
-          <div className="p-2 mb-2 border-b border-slate-700">
+        <div className="flex flex-col h-full w-12 bg-[var(--background)] border-r border-[var(--sidebar-border)]">
+          <div className="p-2 mb-2 border-b border-[var(--sidebar-border)] ">
             <button
               className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-400 flex items-center justify-center text-gray-800 text-xs"
               onClick={handleMinimizeMaximize}
@@ -106,7 +106,7 @@ sidebarWidth,
           </div>
           <div className="flex flex-col items-center gap-4 p-2">
             <button
-              className="w-8 h-8 rounded-lg bg-slate-700 hover:bg-slate-600 flex items-center justify-center text-white"
+              className="w-8 h-8 rounded-lg bg-[var(--button-bg)] hover:bg-[var(--button-hover)] flex items-center justify-center text-white"
               title="Wind Data"
               onClick={fetchWindData}
             >
@@ -142,16 +142,19 @@ sidebarWidth,
             {!isMinimized && (
               <>
                 <h1 className="text-2xl font-bold mb-4 mt-10">VFR Flight Planner</h1>
-                <p className="text-sm text-gray-300 mb-6">
+                <p className="text-sm text-[var(--sidebar-text)] mb-6"
+
+                >
                   Click on the map to add waypoints. Drag markers to adjust positions. Set a TAS for each leg.
                 </p>
 
                 {/* Settings Section with Toggle */}
-                <div className="mb-6 border border-slate-700 rounded-lg overflow-hidden">
+                <div className="mb-6 border border-[var(--sidebar-border)] rounded-lg overflow-hidden">
                   <button
                     onClick={() => setIsSettingsVisible(!isSettingsVisible)}
-                    className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 
-                    flex items-center justify-between text-sm font-medium border-b border-slate-700"
+                    className={`w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)]
+                    flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg`}
+                    
                   >
                     <span className="flex items-center gap-2 font-semibold text-base">
                       <span>⚙️</span>
@@ -167,8 +170,8 @@ sidebarWidth,
                         Fuel Consumption (Gal/hr):
                         <input
                           type="number"
-                          className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 
-                          text-white focus:ring focus:ring-blue-300 focus:outline-none"
+                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
+                          text-[var(--sidebar-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={fuelConsumption}
                           onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
                         />
@@ -178,8 +181,8 @@ sidebarWidth,
                         Select Date and Time:
                         <input
                           type="datetime-local"
-                          className="w-full mt-1 p-2 border border-gray-600 rounded-md bg-gray-700 
-                          text-white focus:ring focus:ring-blue-300 focus:outline-none"
+                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
+                          text-[var(--sidebar-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={selectedDateTime}
                           onChange={(e) => setSelectedDateTime(e.target.value)}
                         />
@@ -210,11 +213,11 @@ sidebarWidth,
           {/* Scrollable content area */}
           <div className="flex-1 px-6 pb-6 overflow-hidden">
             {/* Waypoints Section with Toggle */}
-            <div className="border border-slate-700 rounded-lg h-full flex flex-col"> {/* Added h-full and flex flex-col */}
+            <div className="border border-[var(--sidebar-border)] rounded-lg h-full flex flex-col"> {/* Added h-full and flex flex-col */}
               <button
                 onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
-                className="w-full px-4 py-2 bg-slate-800 hover:bg-slate-700 
-                flex items-center justify-between text-sm font-medium border-b border-slate-700 flex-none"
+                className="w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)] 
+                flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg"
               >
                 <span className="flex items-center gap-2 font-bold text-base">
                   <span>📍</span>
@@ -338,7 +341,7 @@ sidebarWidth,
           onMouseDown={handleMouseDown}
         >
           {/* Vertical line with hover effect */}
-          <div className="h-full w-full bg-gray-700 group-hover:bg-gray-500 transition-colors duration-200"></div>
+          <div className="h-full w-full bg-[var(--button-bg)] group-hover:bg-[var(--button-hover)] transition-colors duration-200"></div>
           
           {/* Resize indicator dots */}
           <div className="absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">

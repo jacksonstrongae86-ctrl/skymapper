@@ -164,8 +164,8 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
 
   return (
     <div 
-      className="fixed bottom-0 bg-slate-900 text-white shadow-lg z-40 transition-all duration-300"
-      style={{ 
+      className="fixed bottom-0 text-[var(--results-text)] shadow-lg z-40 transition-all duration-300"
+      style={{ backgroundColor: "var(--background)", color: "var(--foreground)",
         left: isFullScreen ? '0' : (isMinimized ? '48px' : `${sidebarWidth}px`),
         width: isFullScreen ? '100%' : `calc(100% - ${sidebarWidth}px)`,
         height: `${height}%`
@@ -178,7 +178,7 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
           onMouseDown={handleMouseDown}
         >
           {/* Horizontal line with hover effect */}
-          <div className="w-full h-full bg-gray-700 group-hover:bg-gray-500 transition-colors duration-200"></div>
+          <div className="w-full h-full bg-[var(--button-bg)] group-hover:bg-[var(--button-hover)] transition-colors duration-200"></div>
 
           {/* Resize indicator dots */}
           <div className="absolute flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
@@ -191,11 +191,11 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
 
       <div className="h-full overflow-auto custom-scrollbar">
         {/* Enhanced header with controls */}
-        <div className="sticky top-0 z-10 bg-gradient-to-r from-slate-800 to-slate-900 p-4 border-b border-slate-700">
+        <div className="sticky top-0 z-10 bg-[var(--sidebar-bg)] p-4 border-b border-[var(--sidebar-border)]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
-              <h2 className="text-xl font-bold text-white">Flight Results</h2>
-              <span className="px-2 py-1 bg-slate-700 rounded-full text-sm font-medium">
+              <h2 className="text-xl font-bold text-[var(--foreground)]">Flight Results</h2>
+              <span className="px-2 py-1 bg-[var(--background)] rounded-full text-sm font-medium">
                 {Array.isArray(results) ? results.length : 0} legs
               </span>
             </div>
@@ -206,18 +206,20 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
                   onClick={handleFullScreen}
                   title={height >= 90 ? "Exit Full Screen" : "Full Screen"}
                 >
-                  {height >= 90 ? "−" : "⌞ ⌝"}
+                  {height >= 90 ? "-" : "⌞ ⌝"}
                 </button>
                 )}
+              {(height < 90) && (
               <button
                 className="w-6 h-6 rounded-full bg-yellow-500 hover:bg-yellow-400 flex items-center justify-center text-gray-800 text-xs"
                 onClick={handleMinimizeMaximize}
                 title={isBottomMinimized ? "Maximize" : "Minimize"}
               >
-                {isBottomMinimized ? "+" : "−"}
+                {isBottomMinimized ? "+" : "-"}
               </button>
+              )}
               <button
-                className="bg-slate-700 hover:bg-slate-600 text-white py-2 px-4 rounded-md 
+                className="bg-[var(--button-bg)] hover:bg-[var(--button-hover)] text-[var(--sidebar-text)] py-2 px-4 rounded-md 
                 transition-colors duration-200 flex items-center gap-2 hover:shadow-lg ml-2"
                 onClick={handlePrint}
               >
@@ -231,8 +233,8 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
         {/* Show table only when not minimized */}
         {!isBottomMinimized && (
           <div className="p-4">
-            <table className="w-full text-sm">
-              <thead className="bg-slate-800 sticky top-0 z-10">
+            <table className="w-full">
+              <thead className="bg-yellow-800 sticky top-18.5 z-10">
                 <tr>
                   {[
                     ['#', '', '🔢'],
@@ -260,7 +262,7 @@ const BottomSidebar: React.FC<PrintableBottomSidebarProps> = ({
                   ))}
                 </tr>
               </thead>
-              <tbody className="text-slate-300">
+              <tbody className="text-[var(--results-text)]">
                 {results}
               </tbody>
             </table>
