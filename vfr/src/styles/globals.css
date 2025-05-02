@@ -66,9 +66,9 @@
   --sidebar-text: #880e4f;
   --sidebar-border: rgba(136, 14, 79, 0.2);
   
-  --button-bg: #ebb3c7;        /* Rose-tinted buttons */
+  --button-bg: #ffccde;        /* Rose-tinted buttons */
   --button-hover: #dd94ae;
-  --button-text: #ffffff;
+  --button-text: #8b5353;
   
   --input-bg: #fce4ec;
   --input-border: #f48fb1;
@@ -76,7 +76,7 @@
 
   --results-header-bg: #fa6ca0;
   --results-header-text: #d4d6e2;
-  --results-bg1: #f3acde54;
+  --results-bg1: #f5c0f065;
   --results-bg2: #f2ddf8;
   --results-hover: #d7bcd8;
   --results-border: #0a0e4b;
@@ -94,7 +94,7 @@
   
   --button-bg: #f8d093;        /* Amber-tinted buttons */
   --button-hover: #e2ba7e;
-  --button-text: #ffffff;
+  --button-text: #726967;
   
   --input-bg: #fff8e1;
   --input-border: #ffe082;

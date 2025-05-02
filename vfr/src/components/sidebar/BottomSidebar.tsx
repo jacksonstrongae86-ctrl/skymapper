@@ -303,12 +303,12 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
                   ].map(([label, unit, icon]) => (
                     <th
                       key={label}
-                      className="py-3 px-4 text-left font-semibold first:rounded-tl-lg last:rounded-tr-lg whitespace-nowrap"
+                      className="py-3 px-4 text-left font-semibold first:rounded-tl-lg last:rounded-tr-lg whitespace-nowrap border-b border-[var(--sidebar-border)] text-[var(--results-text)]"
                     >
                       <div className="flex items-center gap-2">
                         <span className="text-slate-400">{icon}</span>
                         <div className="flex flex-col">
-                          <span className="text-white">{label}</span>
+                          <span className="text-[var(--button-text)]">{label}</span>
                           {unit && <span className="text-xs text-slate-400">({unit})</span>}
                         </div>
                       </div>
