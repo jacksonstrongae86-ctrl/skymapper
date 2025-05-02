@@ -133,6 +133,174 @@
   --results-text: #055ed1;
 }
 
+.theme-minimalist {
+  --background: #f5f5f5; /* Light gray background */
+  --foreground: #333333; /* Dark gray text */
+
+  --sidebar-bg: #ffffff; /* White sidebar */
+  --sidebar-text: #4a4a4a; /* Medium gray text */
+  --sidebar-border: #e0e0e0; /* Light gray border */
+
+  --button-bg: #e0e0e0; /* Light gray buttons */
+  --button-hover: #d6d6d6; /* Slightly darker hover */
+  --button-text: #333333; /* Dark text */
+
+  --results-header-bg: #ffffff; /* White header */
+  --results-header-text: #4a4a4a; /* Medium gray text */
+  --results-bg1: #ffffff; /* White rows */
+  --results-bg2: #f9f9f9; /* Light gray rows */
+  --results-hover: #eaeaea; /* Hover effect */
+  --results-border: #e0e0e0; /* Light gray border */
+  --results-text: #333333; /* Dark text */
+}
+
+.theme-neon {
+  --background: #1a1a1a; /* Dark background */
+  --foreground: #e0e0e0; /* Light text */
+
+  --sidebar-bg: #2a2a2a; /* Dark sidebar */
+  --sidebar-text: #00ffcc; /* Neon teal text */
+  --sidebar-border: #00ffcc; /* Neon teal border */
+
+  --button-bg: #00ffcc; /* Neon teal buttons */
+  --button-hover: #00e6b8; /* Slightly darker hover */
+  --button-text: #1a1a1a; /* Dark text */
+
+  --results-header-bg: #2a2a2a; /* Dark header */
+  --results-header-text: #00ffcc; /* Neon teal text */
+  --results-bg1: #1a1a1a; /* Dark rows */
+  --results-bg2: #2a2a2a; /* Slightly lighter rows */
+  --results-hover: #333333; /* Hover effect */
+  --results-border: #00ffcc; /* Neon teal border */
+  --results-text: #e0e0e0; /* Light text */
+}
+
+.theme-pastel {
+  --background: #fef6e4; /* Soft cream background */
+  --foreground: #5f4b66; /* Muted purple text */
+
+  --sidebar-bg: #f8ede3; /* Light pastel sidebar */
+  --sidebar-text: #5f4b66; /* Muted purple text */
+  --sidebar-border: #e4d8c3; /* Light border */
+
+  --button-bg: #d8a7b1; /* Pastel pink buttons */
+  --button-hover: #c78a9e; /* Slightly darker hover */
+  --button-text: #ffffff; /* White text */
+
+  --results-header-bg: #f8ede3; /* Light pastel header */
+  --results-header-text: #5f4b66; /* Muted purple text */
+  --results-bg1: #ffffff; /* White rows */
+  --results-bg2: #fef6e4; /* Cream rows */
+  --results-hover: #f4e4d8; /* Hover effect */
+  --results-border: #e4d8c3; /* Light border */
+  --results-text: #5f4b66; /* Muted purple text */
+}
+
+.theme-darkblue {
+  --background: #1e3a8a; /* Blue gradient */
+  --foreground: #ffffff; /* White text */
+
+  --sidebar-bg: #1e40af; /* Sidebar gradient */
+  --sidebar-text: #ffffff; /* White text */
+  --sidebar-border: #3b82f6; /* Light blue border */
+
+  --button-bg: #2563eb;
+  --button-hover: #1d4ed8; /* Darker hover */
+  --button-text: #ffffff; /* White text */
+
+  --results-header-bg: #1e40af; /* Dark blue header */
+  --results-header-text: #ffffff; /* White text */
+  --results-bg1: #2563eb; /* Blue rows */
+  --results-bg2: #1e3a8a; /* Darker blue rows */
+  --results-hover: #1d4ed8;
+  --results-border: #3b82f6;
+  --results-text: #ffffff;
+}
+
+.theme-cyberpunk {
+  --background: #0d0d0d; /* Dark background */
+  --foreground: #e0e0e0; /* Light text */
+
+  --sidebar-bg: #1a1a1a; /* Dark sidebar */
+  --sidebar-text: #ff00ff; /* Neon pink text */
+  --sidebar-border: #ff00ff; /* Neon pink border */
+
+  --button-bg: #ff00ff; /* Neon pink buttons */
+  --button-hover: #ff33ff; /* Slightly lighter hover */
+  --button-text: #0d0d0d; /* Dark text */
+
+  --results-header-bg: #1a1a1a; /* Dark header */
+  --results-header-text: #ff00ff; /* Neon pink text */
+  --results-bg1: #0d0d0d; /* Dark rows */
+  --results-bg2: #1a1a1a; /* Slightly lighter rows */
+  --results-hover: #333333; /* Hover effect */
+  --results-border: #ff00ff; /* Neon pink border */
+  --results-text: #e0e0e0; /* Light text */
+}
+
+.theme-earthy {
+  --background: #f4f1ea; /* Soft beige background */
+  --foreground: #5b4636; /* Dark brown text */
+
+  --sidebar-bg: #e8e2d9; /* Light beige sidebar */
+  --sidebar-text: #5b4636; /* Dark brown text */
+  --sidebar-border: #d6cbbf; /* Subtle border */
+
+  --button-bg: #a67c52; /* Earthy brown buttons */
+  --button-hover: #8c6a45; /* Slightly darker hover */
+  --button-text: #ffffff; /* White text */
+
+  --results-header-bg: #e8e2d9; /* Light beige header */
+  --results-header-text: #5b4636; /* Dark brown text */
+  --results-bg1: #ffffff; /* White rows */
+  --results-bg2: #f4f1ea; /* Beige rows */
+  --results-hover: #e8e2d9; /* Hover effect */
+  --results-border: #d6cbbf; /* Subtle border */
+  --results-text: #5b4636; /* Dark brown text */
+}
+
+.theme-monochrome {
+  --background: #f5f5f5; /* Light gray background */
+  --foreground: #333333; /* Dark gray text */
+
+  --sidebar-bg: #e0e0e0; /* Medium gray sidebar */
+  --sidebar-text: #333333; /* Dark gray text */
+  --sidebar-border: #b0b0b0; /* Subtle border */
+
+  --button-bg: #b0b0b0; /* Medium gray buttons */
+  --button-hover: #a0a0a0; /* Slightly darker hover */
+  --button-text: #333333; /* Dark text */
+
+  --results-header-bg: #e0e0e0; /* Medium gray header */
+  --results-header-text: #333333; /* Dark gray text */
+  --results-bg1: #ffffff; /* White rows */
+  --results-bg2: #f5f5f5; /* Light gray rows */
+  --results-hover: #eaeaea; /* Hover effect */
+  --results-border: #b0b0b0; /* Subtle border */
+  --results-text: #333333; /* Dark gray text */
+}
+
+.theme-ocean {
+  --background: #e0f7fa; /* Light aqua background */
+  --foreground: #006064; /* Deep teal text */
+
+  --sidebar-bg: #b2ebf2; /* Aqua sidebar */
+  --sidebar-text: #004d40; /* Dark teal text */
+  --sidebar-border: #80deea; /* Light aqua border */
+
+  --button-bg: #00acc1; /* Teal buttons */
+  --button-hover: #00838f; /* Slightly darker hover */
+  --button-text: #ffffff; /* White text */
+
+  --results-header-bg: #b2ebf2; /* Aqua header */
+  --results-header-text: #004d40; /* Dark teal text */
+  --results-bg1: #e0f7fa; /* Light aqua rows */
+  --results-bg2: #b2ebf2; /* Aqua rows */
+  --results-hover: #80deea; /* Hover effect */
+  --results-border: #00acc1; /* Teal border */
+  --results-text: #004d40; /* Dark teal text */
+}
+
 /* These inline variables help if you use them in your components */
 @theme inline {
   --color-background: var(--background);
