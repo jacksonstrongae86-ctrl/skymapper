@@ -34,7 +34,7 @@
   --foreground: #343a40;       /* Darker, elegant text */
   
   /* Sidebar styling */
-  --sidebar-bg: #c5dffd;       /* Pure white sidebar */
+  --sidebar-bg: #c8d7db;       /* Pure white sidebar */
   --sidebar-text: #24282c;     
   --sidebar-border: #b8cde2;   /* Light, subtle border */
   
@@ -48,41 +48,13 @@
   --input-border: #ced4da;
   --input-text: #495057;
 
-  --results-header-bg: #8fc1d8;
+  --results-header-bg: #b0e0ec;
   --results-header-text: #d4d6e2;
   --results-bg1: #ffffff;
   --results-bg2: #f8f9fa;
   --results-hover: #e9ecef;
   --results-border: #0a0e4b;
   --results-text: #4070af;
-}
-
-/* Additional Themes */
-
-/* Sky Theme – an elegant light blue tone */
-.theme-sky {
-  --background: #e0f7fa;       /* Pale sky blue background */
-  --foreground: #01579b;       /* Deep blue text */
-  
-  --sidebar-bg: #b3e5fc;       /* Light blue sidebar */
-  --sidebar-text: #01579b;
-  --sidebar-border: rgba(1, 87, 155, 0.2);
-  
-  --button-bg: #4fc3f7;        /* Sky-tinted buttons */
-  --button-hover: #29b6f6;
-  --button-text: #ffffff;
-  
-  --input-bg: #e0f7fa;
-  --input-border: #81d4fa;
-  --input-text: #01579b;
-
-  --results-header-bg: #0a0e4b;
-  --results-header-text: #d4d6e2;
-  --results-bg1: #0a0e4b;
-  --results-bg2: #0a0e4b;
-  --results-hover: #0a0e4b;
-  --results-border: #0a0e4b;
-  --results-text: #055ed1;
 }
 
 /* Rose Theme – a soft and elegant pink tone */
@@ -94,8 +66,8 @@
   --sidebar-text: #880e4f;
   --sidebar-border: rgba(136, 14, 79, 0.2);
   
-  --button-bg: #fa9dbf;        /* Rose-tinted buttons */
-  --button-hover: #fa82b2;
+  --button-bg: #ebb3c7;        /* Rose-tinted buttons */
+  --button-hover: #dd94ae;
   --button-text: #ffffff;
   
   --input-bg: #fce4ec;
@@ -120,8 +92,8 @@
   --sidebar-text: #5d4037;
   --sidebar-border: #ffe082;   /* Light amber border */
   
-  --button-bg: #ffb74d;        /* Amber-tinted buttons */
-  --button-hover: #ffa726;
+  --button-bg: #f8d093;        /* Amber-tinted buttons */
+  --button-hover: #e2ba7e;
   --button-text: #ffffff;
   
   --input-bg: #fff8e1;
@@ -132,7 +104,7 @@
   --results-header-text: #92400e;
   --results-bg1: #fffbeb;
   --results-bg2: #fef3c7;
-  --results-hover: #fde68a;
+  --results-hover: #e9e1b4;
   --results-border: #fcd34d;
   --results-text: #b45309;
 }

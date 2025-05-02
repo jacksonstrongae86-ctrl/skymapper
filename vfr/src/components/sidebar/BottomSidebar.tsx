@@ -246,7 +246,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       )}
 
       <div className="h-full overflow-auto custom-scrollbar">
-        <div className="sticky top-0 z-10 bg-[var(--sidebar-bg)] p-4 border-b border-[var(--sidebar-border)]">
+        <div className="sticky top-0 z-10 bg-[var(--background)] p-4 border-b border-[var(--sidebar-border)]">
           <div className="flex justify-between items-center">
             <div className="flex items-center gap-3">
               <h2 className="text-xl font-bold text-[var(--foreground)]">Flight Results</h2>
@@ -288,7 +288,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         {!isBottomMinimized && (
           <div className="p-4">
             <table className="w-full">
-              <thead className="bg-[var(--results-header-bg)] sticky top-18.5 z-10">
+              <thead className="bg-[var(--button-bg)] sticky top-18.5 z-10">
                 <tr>
                   {[
                     ['#', '', '🔢'],

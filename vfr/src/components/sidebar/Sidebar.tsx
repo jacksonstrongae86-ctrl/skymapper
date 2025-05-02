@@ -156,7 +156,7 @@ sidebarWidth,
                     flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg`}
                     
                   >
-                    <span className="flex items-center gap-2 font-semibold text-base">
+                    <span className="flex items-center gap-2 font-semibold text-base text-[var(--button-text)]">
                       <span>⚙️</span>
                       <span>Flight Settings</span>
                     </span>
@@ -190,7 +190,7 @@ sidebarWidth,
 
                       <button
                         type="button"
-                        className="w-full bg-cyan-700 hover:bg-cyan-800 text-white py-2 rounded-md"
+                        className="w-full bg-cyan-600/80 hover:bg-cyan-800 text-white py-2 rounded-md"
                         onClick={fetchWindData}
                       >
                         Fetch Wind Data
@@ -198,7 +198,7 @@ sidebarWidth,
 
                       <button
                         type="button"
-                        className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-md"
+                        className="w-full bg-green-600/80 hover:bg-green-800 text-white py-2 rounded-md"
                         onClick={updateCalculations}
                       >
                         Update Info 🔄
@@ -219,7 +219,7 @@ sidebarWidth,
                 className="w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)] 
                 flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg"
               >
-                <span className="flex items-center gap-2 font-bold text-base">
+                <span className="flex items-center gap-2 font-bold text-base text-[var(--button-text)]">
                   <span>📍</span>
                   <span>Waypoints</span>
                 </span>

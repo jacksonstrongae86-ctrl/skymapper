@@ -1,14 +1,12 @@
 import React, { createContext, useState, useContext } from "react";
 
-export type Theme = "dark" | "clear" | "sky" | "rose" | "amber" | "darkblue";
+export type Theme = "dark" | "clear" | "rose" | "amber";
 
 export const themeColours: Record<Theme, string> = {
   dark: "#0c0e27",   // same as --background in .theme-dark
   clear: "#cfe0f1",  // same as --background in .theme-clear
-  sky: "#e0f7fa",
   rose: "#fce4ec",
   amber: "#fff8e1",
-  darkblue: "#0c0e27", // same as --background in .theme-dark
 };
 
 
