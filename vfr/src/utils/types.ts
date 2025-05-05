@@ -9,8 +9,8 @@ export interface Waypoint {
   altitudeChange: number;
   rocRod: number;
   iasClimbDescent: number;
+  visible: boolean;
 }
-
 export interface WindData {
   speed: number; // Wind speed in knots
   direction: number; // Wind direction in degrees
@@ -33,7 +33,7 @@ export interface SidebarProps {
   updateCalculations: () => void;
   waypoints: Waypoint[];
   results: ReactNode;
-  onWaypointUpdate: (index: number, field: keyof Waypoint, value: any) => void;
+  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
   isMinimized: boolean;
