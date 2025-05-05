@@ -65,13 +65,13 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         <tr
           key={i}
           className={`
-            transition-colors duration-150 
-            ${i % 2 === 0 ? 'bg-[var(--results-bg2)]' : 'bg-[var(--results-bg1)]'} 
+            transition-colors duration-150
+            ${i % 2 === 0 ? 'bg-[var(--results-bg2)]' : 'bg-[var(--results-bg1)]'}
             hover:bg-[var(--results-hover)]
           `}
         >
           <td className="py-3 px-4 border-b border-slate-700/50 font-semibold text-[var(--results-text)]">
-            {`WP${i + 1} → WP${i + 2}`}
+            {`WP${i + 1} → WP${i + 2} (${wp.type})`}
           </td>
           <td className="py-3 px-4 border-b border-slate-700/50">{distance.toFixed(1)}</td>
           <td className="py-3 px-4 border-b border-slate-700/50">{track.toFixed(0)}</td>
@@ -141,19 +141,19 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   const handlePrint = () => {
     // Store current scroll position
     const scrollPos = window.scrollY;
-  
+
     // Calculate totals
-    const totalDistance = results.reduce((acc, result) => 
+    const totalDistance = results.reduce((acc, result) =>
       acc + parseFloat(result.props.children[1].props.children), 0);
-    const totalTime = results.reduce((acc, result) => 
+    const totalTime = results.reduce((acc, result) =>
       acc + parseFloat(result.props.children[5].props.children), 0);
-    const totalFuel = results.reduce((acc, result) => 
+    const totalFuel = results.reduce((acc, result) =>
       acc + parseFloat(result.props.children[7].props.children), 0);
-  
+
     // Create print container
     const printContent = document.createElement('div');
     printContent.className = 'print-content';
-  
+
     // Create map page
     const mapElement = document.querySelector('.leaflet-container');
     if (mapElement) {
@@ -167,7 +167,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       `;
       printContent.appendChild(mapContainer);
     }
-  
+
     // Create results section
     const resultsSection = document.createElement('div');
     resultsSection.className = 'print-results';
@@ -198,9 +198,9 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           </tr>
         </thead>
         <tbody>
-          ${results.map(result => 
+          ${results.map(result =>
             `<tr>
-              ${result.props.children.map((child: { props: { children: any; }; }) => 
+              ${result.props.children.map((child: { props: { children: any; }; }) =>
                 `<td>${child.props.children}</td>`
               ).join('')}
             </tr>`
@@ -209,13 +209,13 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       </table>
     `;
     printContent.appendChild(resultsSection);
-  
+
     // Add to document temporarily
     document.body.appendChild(printContent);
-  
+
     // Trigger print
     window.print();
-  
+
     // Cleanup
     document.body.removeChild(printContent);
     window.scrollTo(0, scrollPos);
@@ -274,7 +274,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
                 </button>
               )}
               <button
-                className="bg-[var(--button-bg)] hover:bg-[var(--button-hover)] text-[var(--sidebar-text)] py-2 px-4 rounded-md 
+                className="bg-[var(--button-bg)] hover:bg-[var(--button-hover)] text-[var(--sidebar-text)] py-2 px-4 rounded-md
                 transition-colors duration-200 flex items-center gap-2 hover:shadow-lg ml-2"
                 onClick={handlePrint}
               >
