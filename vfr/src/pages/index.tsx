@@ -1,9 +1,10 @@
-import React, { useState, useEffect, useCallback, JSX } from "react";
+import React, { useState, useCallback, JSX, useEffect } from "react";
 import dynamic from "next/dynamic";
 import { LeafletMouseEvent } from "leaflet";
 import Sidebar from "../components/sidebar/Sidebar";
 import MapControls from "../components/map/MapControls";
-import { Waypoint, WindData, WindDataArray } from "../utils/types";
+import { Waypoint, WindDataArray } from "../utils/types";
+import { calculateTransitionWaypoint } from "../utils/logic";
 import {
   IAStoTAS,
   getDistance,
@@ -12,25 +13,25 @@ import {
   getGroundSpeed,
 } from "../utils/logic";
 // import WaypointInput from "../components/waypoints/WaypointInput";
-import BottomSidebar from '../components/sidebar/BottomSidebar';
+import BottomSidebar from "../components/sidebar/BottomSidebar";
 
 // Standard pressure levels accepted by Open-Meteo
-const standardPressureLevels = [1000, 925, 850, 700, 500, 400, 300, 250, 200, 100];
+// const standardPressureLevels = [1000, 925, 850, 700, 500, 400, 300, 250, 200, 100];
 
-// Function to convert altitude in feet to hPa
-const ftToHpa = (altitudeFt: number): number => {
-  // Simplified barometric formula
-  return 1013.25 * Math.pow(1 - (altitudeFt / 145366.45), 5.25588);
-};
+// // Function to convert altitude in feet to hPa
+// const ftToHpa = (altitudeFt: number): number => {
+//   // Simplified barometric formula
+//   return 1013.25 * Math.pow(1 - (altitudeFt / 145366.45), 5.25588);
+// };
 
-const mapAltitudesToPressureLevels = (altitudesFt: number[]): number[] => {
-  return altitudesFt.map((ft) => {
-    const actualPressure = ftToHpa(ft);
-    return standardPressureLevels.reduce((closest, level) =>
-      Math.abs(level - actualPressure) < Math.abs(closest - actualPressure) ? level : closest
-    );
-  });
-};
+// const mapAltitudesToPressureLevels = (altitudesFt: number[]): number[] => {
+//   return altitudesFt.map((ft) => {
+//     const actualPressure = ftToHpa(ft);
+//     return standardPressureLevels.reduce((closest, level) =>
+//       Math.abs(level - actualPressure) < Math.abs(closest - actualPressure) ? level : closest
+//     );
+//   });
+// };
 
 // Dynamically import MapComponent to avoid SSR issues
 const MapComponent = dynamic(() => import("../components/map/MapComponent"), {
@@ -45,9 +46,19 @@ async function fetchECMWFWindData(
 ): Promise<{
   timestamp: Date;
   location: { lat: number; lon: number };
-  windData: { altitude: number; pressure: number; speed: number; direction: number }[];
+  windData: {
+    altitude: number;
+    pressure: number;
+    speed: number;
+    direction: number;
+  }[];
 }> {
-console.log("🌍 Fetching wind data for:", { lat, lon, altitudesFt, timestamp });
+  console.log("🌍 Fetching wind data for:", {
+    lat,
+    lon,
+    altitudesFt,
+    timestamp,
+  });
 
   // Convert altitude in feet to pressure levels
   function ftToHpa(feet: number): number {
@@ -58,13 +69,17 @@ console.log("🌍 Fetching wind data for:", { lat, lon, altitudesFt, timestamp }
   }
 
   // Standard pressure levels supported by Open-Meteo
-  const standardPressureLevels = [1000, 925, 850, 700, 500, 400, 300, 250, 200, 100];
+  const standardPressureLevels = [
+    1000, 925, 850, 700, 500, 400, 300, 250, 200, 100,
+  ];
 
   // Map altitudes to closest pressure levels
   const closestPressureLevels = altitudesFt.map((ft) => {
     const actualPressure = ftToHpa(ft);
     return standardPressureLevels.reduce((closest, level) =>
-      Math.abs(level - actualPressure) < Math.abs(closest - actualPressure) ? level : closest
+      Math.abs(level - actualPressure) < Math.abs(closest - actualPressure)
+        ? level
+        : closest
     );
   });
 
@@ -118,7 +133,11 @@ console.log("🌍 Fetching wind data for:", { lat, lon, altitudesFt, timestamp }
       const direction = data.hourly[directionKey]?.[closestTimeIndex] || 0;
 
       console.log(`🛰️ Altitude: ${altitude} ft, Pressure: ${pressure} hPa`);
-      console.log(`   ➡️ Raw Speed: ${rawSpeed} km/h, Speed: ${speedInKnots.toFixed(2)} kts, Direction: ${direction}°`);
+      console.log(
+        `   ➡️ Raw Speed: ${rawSpeed} km/h, Speed: ${speedInKnots.toFixed(
+          2
+        )} kts, Direction: ${direction}°`
+      );
 
       return {
         altitude,
@@ -152,40 +171,102 @@ console.log("🌍 Fetching wind data for:", { lat, lon, altitudesFt, timestamp }
 
 export default function Home() {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
-  const [storedWindData, setStoredWindData] = useState<WindDataArray | null>(null);
+  const [storedWindData, setStoredWindData] = useState<WindDataArray | null>(
+    null
+  );
   const [fuelConsumption, setFuelConsumption] = useState<number>(8);
   const [selectedDateTime, setSelectedDateTime] = useState<string>("");
   const [mapType, setMapType] = useState<string>("street");
-  const [results, setResults] = useState<JSX.Element[]>([]);
+  const [results] = useState<JSX.Element[]>([]);
   const defaultTAS = 100;
   const [sidebarWidth, setSidebarWidth] = useState(256);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [bottomHeight, setBottomHeight] = useState(25);
 
-  const handleWaypointUpdate = useCallback((index: number, field: keyof Waypoint, value: any) => {
-    setWaypoints((prev) => {
-      const updated = [...prev];
-      updated[index] = {
-        ...updated[index],
-        [field]: value,
-      };
-      return updated;
-    });
-  }, []);
+  const handleWaypointUpdate = useCallback(
+    (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
+      setWaypoints((prev) => {
+        // Create a copy of the waypoints array
+        let updated = [...prev];
 
-  const handleMapClick = useCallback((e: LeafletMouseEvent) => {
-    const { lat, lng } = e.latlng;
-    setWaypoints(prev => [...prev, {
-      position: [lat, lng],
-      type: "waypoint",
-      altitude: 5000,
-      ias: defaultTAS,
-      altitudeChange: 0,
-      rocRod: 500,
-      iasClimbDescent: defaultTAS,
-    }]);
-  }, [defaultTAS]);
+        // Update the current waypoint with the new value
+        updated[index] = {
+          ...updated[index],
+          [field]: value,
+        };
+
+        // Handle type changes that require transition waypoints
+        if (
+          field === "type" &&
+          typeof value === "string" &&
+          ["BOC", "TOC", "TOD", "BOD"].includes(value) &&
+          index < prev.length - 1
+        ) {
+          const currentWaypoint = updated[index];
+          const nextWaypoint = updated[index + 1];
+
+          // Remove any existing invisible waypoints between current and next
+          updated = updated.filter((wp, i) => {
+            if (i > index && i <= index + 1) {
+              return wp.visible !== false;
+            }
+            return true;
+          });
+
+          // Recalculate indices after filtering
+          const newIndex = updated.findIndex((wp) => wp === currentWaypoint);
+
+          // Check if we have all required parameters for transition
+          console.log(`Entering waypoint update`, currentWaypoint.altitudeChange,
+            currentWaypoint.rocRod,
+            currentWaypoint.iasClimbDescent);
+          if (
+            currentWaypoint.altitudeChange != 0 &&
+            currentWaypoint.rocRod &&
+            currentWaypoint.iasClimbDescent &&
+            nextWaypoint
+          ) {
+            // Calculate the transition waypoint
+            const transitionWaypoint = calculateTransitionWaypoint(
+              currentWaypoint,
+              nextWaypoint,
+              value as "BOC" | "TOC" | "TOD" | "BOD"
+            );
+
+            // Insert the transition waypoint after the current waypoint if it's not null
+            if (transitionWaypoint) {
+              updated.splice(newIndex + 1, 0, transitionWaypoint);
+            }
+            console.log("Added transition waypoint:", transitionWaypoint);
+          }
+        }
+
+        console.log("Updated waypoints array:", updated);
+        return updated;
+      });
+    },
+    []
+  );
+  const handleMapClick = useCallback(
+    (e: LeafletMouseEvent) => {
+      const { lat, lng } = e.latlng;
+      setWaypoints((prev) => [
+        ...prev,
+        {
+          position: [lat, lng],
+          type: "waypoint",
+          altitude: 5000,
+          ias: defaultTAS,
+          altitudeChange: 100,
+          rocRod: 500,
+          iasClimbDescent: defaultTAS,
+          visible: true,
+        },
+      ]);
+    },
+    [defaultTAS]
+  );
 
   const handleDeleteLastWaypoint = () => {
     setWaypoints((prev) => prev.slice(0, -1));
@@ -202,7 +283,9 @@ export default function Home() {
     const altitudesFt = waypoints.map((wp) => wp.altitude);
 
     // Get the current timestamp or use the selected date/time
-    const timestamp = selectedDateTime ? new Date(selectedDateTime) : new Date();
+    const timestamp = selectedDateTime
+      ? new Date(selectedDateTime)
+      : new Date();
 
     // Fetch wind data using the ECMWF API logic
     const updatedWindData = await Promise.all(
@@ -210,12 +293,17 @@ export default function Home() {
         const { position } = wp;
         const [lat, lon] = position;
 
-        const windData = await fetchECMWFWindData(lat, lon, [altitudesFt[index]], timestamp);
+        const windData = await fetchECMWFWindData(
+          lat,
+          lon,
+          [altitudesFt[index]],
+          timestamp
+        );
 
         // Extract the wind data for the current waypoint
         const windInfo = windData.windData[0]; // Since we're passing one altitude at a time
-console.log(`🌬️ Wind Data for Waypoint ${index + 1}:`, windInfo);
-  
+        console.log(`🌬️ Wind Data for Waypoint ${index + 1}:`, windInfo);
+
         return {
           speed: windInfo.speed || 0,
           direction: windInfo.direction || 0,
@@ -223,14 +311,23 @@ console.log(`🌬️ Wind Data for Waypoint ${index + 1}:`, windInfo);
       })
     );
 
-console.log("✅ Updated Wind Data:", updatedWindData);
+    console.log("✅ Updated Wind Data:", updatedWindData);
     setStoredWindData(updatedWindData);
   };
-
+  const [legCalculations, setLegCalculations] = useState<
+    Array<{
+      distance: number;
+      track: number;
+      heading: number;
+      groundSpeed: number;
+      time: number;
+      fuelBurn: number;
+    }>
+  >([]);
   const updateCalculations = useCallback(() => {
     if (waypoints.length < 2 || !storedWindData) return;
 
-    const newResults = waypoints.slice(0, -1).map((wp, i) => {
+    const newCalculations = waypoints.slice(0, -1).map((wp, i) => {
       const nextWp = waypoints[i + 1];
       const distance = getDistance(
         { lat: wp.position[0], lng: wp.position[1] },
@@ -241,7 +338,6 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         { lat: nextWp.position[0], lng: nextWp.position[1] }
       );
 
-// Use wind data specific to the current waypoint
       const windInfo = storedWindData[i] || { speed: 0, direction: 0 };
       const tas = IAStoTAS(wp.ias, wp.altitude / 100);
       const heading = getHeading(
@@ -250,18 +346,33 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         windInfo.direction,
         windInfo.speed
       );
-      const gs = getGroundSpeed(track, tas, windInfo.direction, windInfo.speed);
-      const time = (distance / gs) * 60;
+      const groundSpeed = getGroundSpeed(
+        track,
+        tas,
+        windInfo.direction,
+        windInfo.speed
+      );
+      const time = (distance / groundSpeed) * 60;
       const fuelBurn = (time / 60) * fuelConsumption;
 
+      return {
+        distance,
+        track,
+        heading,
+        groundSpeed,
+        time,
+        fuelBurn,
+      };
     });
 
+    setLegCalculations(newCalculations);
   }, [waypoints, storedWindData, fuelConsumption]);
-
   useEffect(() => {
+    if (waypoints.length > 0) {
+      fetchWindData();
+    }
     updateCalculations();
-  }, [waypoints, storedWindData, updateCalculations]);
-
+  }, [waypoints]);
   return (
     <div className="relative h-screen">
       <Sidebar
@@ -281,7 +392,7 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         isFullScreen={isFullScreen}
         setIsFullScreen={setIsFullScreen}
       />
-{/* <div className="w-1/4 bg-gray-800 text-white p-4 overflow-y-auto z-20">
+      {/* <div className="w-1/4 bg-gray-800 text-white p-4 overflow-y-auto z-20">
         {waypoints.map((waypoint, index) => (
           <WaypointInput
             key={index}
@@ -305,7 +416,7 @@ console.log("✅ Updated Wind Data:", updatedWindData);
               };
               setWaypoints(updatedWaypoints);
             }}
-            
+
             onIasChange={(value) => {
               const updatedWaypoints = [...waypoints];
               updatedWaypoints[index] = {
@@ -344,12 +455,12 @@ console.log("✅ Updated Wind Data:", updatedWindData);
 
       {/* Main Map Area */}
       <div className="relative flex-1">
-        <div 
+        <div
           className="absolute inset-0 z-10"
-          style={{ 
-            height: `calc(100vh - ${bottomHeight}vh)` // Dynamic height based on BottomSidebar
+          style={{
+            height: `calc(100vh - ${bottomHeight}vh)`, // Dynamic height based on BottomSidebar
           }}
-        > 
+        >
           <MapComponent
             onMapClick={handleMapClick}
             waypoints={waypoints}
@@ -368,7 +479,7 @@ console.log("✅ Updated Wind Data:", updatedWindData);
       </div>
 
       {/* Bottom Results Sidebar */}
-      <BottomSidebar 
+      <BottomSidebar
         waypoints={waypoints}
         storedWindData={storedWindData}
         fuelConsumption={fuelConsumption}
@@ -376,6 +487,7 @@ console.log("✅ Updated Wind Data:", updatedWindData);
         isMinimized={isMinimized}
         isFullScreen={isFullScreen}
         onHeightChange={setBottomHeight}
+        legCalculations={legCalculations}
       />
     </div>
   );
