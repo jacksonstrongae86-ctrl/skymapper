@@ -1,4 +1,4 @@
-import {LatLng } from '../utils/types';
+import {LatLng, Waypoint } from '../utils/types';
 
 // Utility functions
 export const toRad = (deg: number): number => deg * (Math.PI / 180);
@@ -47,4 +47,46 @@ export const getGroundSpeed = (track: number, tas: number, windDir: number, wind
   return tas - windSpeed * Math.cos(windAngle);
 };
 
+// Add this function to your utils/logic.ts or similar file
+export const calculateTransitionWaypoint = (
+  startWaypoint: Waypoint,
+  endWaypoint: Waypoint,
+  type: 'BOC' | 'TOC' | 'TOD' | 'BOD'
+): Waypoint | null => {
+  if (!startWaypoint.altitude || !endWaypoint.altitude || !startWaypoint.altitudeChange) {
+    return null;
+  }
+
+  const distance = getDistance(
+    { lat: startWaypoint.position[0], lng: startWaypoint.position[1] },
+    { lat: endWaypoint.position[0], lng: endWaypoint.position[1] }
+  );
+
+  // Calculate time to climb/descend based on ROC/ROD
+  const timeInMinutes = Math.abs(startWaypoint.altitudeChange!) / startWaypoint.rocRod!;
+
+  // Calculate distance covered during climb/descent using IAS in climb/descent
+  const speedInNmPerMinute = startWaypoint.iasClimbDescent! / 60;
+  const distanceCovered = speedInNmPerMinute * timeInMinutes;
+
+  // Calculate position ratio based on type
+  const ratio = type === 'TOC' || type === 'BOD' ? distanceCovered / distance : 0;
+
+  // Interpolate position
+  const newLat = startWaypoint.position[0] + (endWaypoint.position[0] - startWaypoint.position[0]) * ratio;
+  const newLng = startWaypoint.position[1] + (endWaypoint.position[1] - startWaypoint.position[1]) * ratio;
+
+  return {
+    position: [newLat, newLng],
+    altitude: type === 'TOC' || type === 'BOD' ?
+      startWaypoint.altitude + startWaypoint.altitudeChange :
+      startWaypoint.altitude,
+    type,
+    ias: startWaypoint.iasClimbDescent!,
+    visible: false, // This waypoint won't show on the map or sidebar
+    altitudeChange: 0, // No further altitude change at transition point
+    rocRod: startWaypoint.rocRod!,
+    iasClimbDescent: startWaypoint.iasClimbDescent!
+  };
+};
 
