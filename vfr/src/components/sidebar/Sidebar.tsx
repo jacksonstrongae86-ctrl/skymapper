@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { SidebarProps } from '../../utils/types';
+import React, { useState } from "react";
+import { SidebarProps } from "../../utils/types";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
@@ -10,16 +10,16 @@ const Sidebar: React.FC<SidebarProps> = ({
   updateCalculations,
   waypoints,
   onWaypointUpdate,
-sidebarWidth,
+  sidebarWidth,
   setSidebarWidth,
   isMinimized,
   setIsMinimized,
   isFullScreen,
   setIsFullScreen,
 }) => {
-    const [isResizing, setIsResizing] = useState(false);
-    const [isSettingsVisible, setIsSettingsVisible] = useState(true);
-    const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
+  const [isResizing, setIsResizing] = useState(false);
+  const [isSettingsVisible, setIsSettingsVisible] = useState(true);
+  const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
 
   const handleMouseDown = () => {
     setIsResizing(true);
@@ -61,20 +61,23 @@ sidebarWidth,
 
   React.useEffect(() => {
     if (isResizing) {
-      window.addEventListener('mousemove', handleMouseMove);
-      window.addEventListener('mouseup', handleMouseUp);
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
     } else {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
   }, [isResizing]);
 
-  const handleNumericInput = (value: string, callback: (num: number) => void) => {
+  const handleNumericInput = (
+    value: string,
+    callback: (num: number) => void
+  ) => {
     const num = parseFloat(value);
     if (!isNaN(num)) {
       callback(num);
@@ -84,11 +87,13 @@ sidebarWidth,
   return (
     <div
       className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] transition-all duration-300 md:translate-x-0 md:block fixed ${
-        isFullScreen ? 'inset-0' : 'top-0 left-0 h-full'
+        isFullScreen ? "inset-0" : "top-0 left-0 h-full"
       } z-50 flex`}
-      style={{ backgroundColor: "var(--background)", color: "var(--foreground)",
+      style={{
+        backgroundColor: "var(--background)",
+        color: "var(--foreground)",
         width: `${sidebarWidth}px`,
-        minWidth: isMinimized ? '48px' : '256px'
+        minWidth: isMinimized ? "48px" : "256px",
       }}
     >
       {isMinimized ? (
@@ -115,8 +120,12 @@ sidebarWidth,
         </div>
       ) : (
         // Regular sidebar content - Fix the height and overflow
-        <div className="flex flex-col h-full">  {/* Add flex-col and h-full */}
-          <div className="px-6 flex-none"> {/* Keep flex-none for header */}
+        <div className="flex flex-col h-full">
+          {" "}
+          {/* Add flex-col and h-full */}
+          <div className="px-6 flex-none">
+            {" "}
+            {/* Keep flex-none for header */}
             {/* Control buttons container */}
             <div className="absolute top-4 right-4 flex gap-2">
               <button
@@ -127,24 +136,24 @@ sidebarWidth,
                 {isFullScreen ? "−" : "⌞ ⌝"}
               </button>
               {!isFullScreen && (
-              <button
-                className="w-6 h-6 rounded-full bg-yellow-500 hover:bg-yellow-400 flex items-center justify-center text-gray-800 text-xs"
-                onClick={handleMinimizeMaximize}
-                title="Minimize"
-              >
-                −
-              </button>
+                <button
+                  className="w-6 h-6 rounded-full bg-yellow-500 hover:bg-yellow-400 flex items-center justify-center text-gray-800 text-xs"
+                  onClick={handleMinimizeMaximize}
+                  title="Minimize"
+                >
+                  −
+                </button>
               )}
             </div>
-
             {/* Only show content if not minimized */}
             {!isMinimized && (
               <>
-                <h1 className="text-2xl font-bold mb-4 mt-10">VFR Flight Planner</h1>
-                <p className="text-sm text-[var(--sidebar-text)] mb-6"
-
-                >
-                  Click on the map to add waypoints. Drag markers to adjust positions. Set a TAS for each leg.
+                <h1 className="text-2xl font-bold mb-4 mt-10">
+                  VFR Flight Planner
+                </h1>
+                <p className="text-sm text-[var(--sidebar-text)] mb-6">
+                  Click on the map to add waypoints. Drag markers to adjust
+                  positions. Set a TAS for each leg.
                 </p>
 
                 {/* Settings Section with Toggle */}
@@ -153,17 +162,22 @@ sidebarWidth,
                     onClick={() => setIsSettingsVisible(!isSettingsVisible)}
                     className={`w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)]
                     flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg`}
-
                   >
                     <span className="flex items-center gap-2 font-semibold text-base text-[var(--button-text)]">
                       <span>⚙️</span>
                       <span>Flight Settings</span>
                     </span>
-                    <span>{isSettingsVisible ? '−' : '+'}</span>
+                    <span>{isSettingsVisible ? "−" : "+"}</span>
                   </button>
 
-                  <div className={`transition-all duration-300 ease-in-out
-                    ${isSettingsVisible ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
+                  <div
+                    className={`transition-all duration-300 ease-in-out
+                    ${
+                      isSettingsVisible
+                        ? "max-h-96 opacity-100"
+                        : "max-h-0 opacity-0"
+                    }`}
+                  >
                     <div className="p-4 space-y-4">
                       <label className="block text-sm font-medium">
                         Fuel Consumption (Gal/hr):
@@ -172,7 +186,9 @@ sidebarWidth,
                           className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)]
                           text-[var(--input-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={fuelConsumption}
-                          onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
+                          onChange={(e) =>
+                            setFuelConsumption(parseFloat(e.target.value))
+                          }
                         />
                       </label>
 
@@ -208,11 +224,12 @@ sidebarWidth,
               </>
             )}
           </div>
-
           {/* Scrollable content area */}
           <div className="flex-1 px-6 pb-6 overflow-hidden">
             {/* Waypoints Section with Toggle */}
-            <div className="border border-[var(--sidebar-border)] rounded-lg h-full flex flex-col"> {/* Added h-full and flex flex-col */}
+            <div className="border border-[var(--sidebar-border)] rounded-lg h-full flex flex-col">
+              {" "}
+              {/* Added h-full and flex flex-col */}
               <button
                 onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
                 className="w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)]
@@ -222,17 +239,37 @@ sidebarWidth,
                   <span>📍</span>
                   <span>Waypoints</span>
                 </span>
-                <span>{isWaypointsVisible ? '−' : '+'}</span>
+                <span>{isWaypointsVisible ? "−" : "+"}</span>
               </button>
+              <div
+                className={`transition-all duration-300 ease-in-out overflow-hidden flex-1`}
+              >
+                <div className="h-full overflow-y-auto custom-scrollbar p-4">
+                  {" "}
+                  {/* Changed to h-full */}
+                  <div
+                    className={`${
+                      isFullScreen
+                        ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                        : "space-y-4"
+                    }`}
+                  >
+                    {waypoints.map((waypoint, absoluteIndex) => {
+                      if (waypoint.visible === false) return null;
 
-              <div className={`transition-all duration-300 ease-in-out overflow-hidden flex-1`}>
-                <div className="h-full overflow-y-auto custom-scrollbar p-4"> {/* Changed to h-full */}
-                  <div className={`${isFullScreen ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}`}>
-                    {waypoints.filter(wp => wp.visible !== false).map((waypoint, index) => {
-                      const isSpecial = waypoint.type !== 'waypoint';
+                      // Calculate visible index (count only visible waypoints before this one)
+                      const visibleIndex = waypoints
+                        .slice(0, absoluteIndex)
+                        .filter((wp) => wp.visible !== false).length;
+                      const isSpecial = waypoint.type !== "waypoint";
                       return (
-                        <div key={index} className="bg-gray-100 p-4 rounded-xl shadow-md">
-                          <h3 className="text-base font-semibold text-gray-700 mb-2">Waypoint {index + 1}</h3>
+                        <div
+                          key={absoluteIndex}
+                          className="bg-gray-100 p-4 rounded-xl shadow-md"
+                        >
+                          <h3 className="text-base font-semibold text-gray-700 mb-2">
+                            Waypoint {visibleIndex + 1}
+                          </h3>
 
                           <label className="block mb-2 text-sm font-medium text-gray-600">
                             Altitude (ft) (Optional):
@@ -242,7 +279,7 @@ sidebarWidth,
                               value={waypoint.altitude}
                               onChange={(e) =>
                                 handleNumericInput(e.target.value, (num) =>
-                                  onWaypointUpdate(index, 'altitude', num)
+                                  onWaypointUpdate(absoluteIndex, "altitude", num)
                                 )
                               }
                             />
@@ -253,13 +290,32 @@ sidebarWidth,
                             <select
                               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
                               value={waypoint.type}
-                              onChange={(e) => onWaypointUpdate(index, 'type', e.target.value as "waypoint" | "BOC" | "TOC" | "TOD" | "BOD")}
+                              onChange={(e) =>
+                                onWaypointUpdate(
+                                  absoluteIndex,
+                                  "type",
+                                  e.target.value as
+                                    | "waypoint"
+                                    | "BOC"
+                                    | "TOC"
+                                    | "TOD"
+                                    | "BOD"
+                                )
+                              }
                             >
-                              <option value="waypoint">🛩️ Normal Waypoint</option>
-                              <option value="BOC">🚀 BOC (Bottom of Climb)</option>
+                              <option value="waypoint">
+                                🛩️ Normal Waypoint
+                              </option>
+                              <option value="BOC">
+                                🚀 BOC (Bottom of Climb)
+                              </option>
                               <option value="TOC">⬆️ TOC (Top of Climb)</option>
-                              <option value="TOD">⬇️ TOD (Top of Descent)</option>
-                              <option value="BOD">🛬 BOD (Bottom of Descent)</option>
+                              <option value="TOD">
+                                ⬇️ TOD (Top of Descent)
+                              </option>
+                              <option value="BOD">
+                                🛬 BOD (Bottom of Descent)
+                              </option>
                             </select>
                           </label>
 
@@ -271,7 +327,7 @@ sidebarWidth,
                               value={waypoint.ias}
                               onChange={(e) =>
                                 handleNumericInput(e.target.value, (num) =>
-                                  onWaypointUpdate(index, 'ias', num)
+                                  onWaypointUpdate(absoluteIndex, "ias", num)
                                 )
                               }
                             />
@@ -287,7 +343,11 @@ sidebarWidth,
                                   value={waypoint.altitudeChange}
                                   onChange={(e) =>
                                     handleNumericInput(e.target.value, (num) =>
-                                      onWaypointUpdate(index, 'altitudeChange', num)
+                                      onWaypointUpdate(
+                                        absoluteIndex,
+                                        "altitudeChange",
+                                        num
+                                      )
                                     )
                                   }
                                 />
@@ -301,7 +361,7 @@ sidebarWidth,
                                   value={waypoint.rocRod}
                                   onChange={(e) =>
                                     handleNumericInput(e.target.value, (num) =>
-                                      onWaypointUpdate(index, 'rocRod', num)
+                                      onWaypointUpdate(absoluteIndex, "rocRod", num)
                                     )
                                   }
                                 />
@@ -315,7 +375,11 @@ sidebarWidth,
                                   value={waypoint.iasClimbDescent}
                                   onChange={(e) =>
                                     handleNumericInput(e.target.value, (num) =>
-                                      onWaypointUpdate(index, 'iasClimbDescent', num)
+                                      onWaypointUpdate(
+                                        absoluteIndex,
+                                        "iasClimbDescent",
+                                        num
+                                      )
                                     )
                                   }
                                 />
