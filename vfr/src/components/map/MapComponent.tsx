@@ -7,13 +7,16 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { Waypoint } from "../../utils/types";
-import   L, { LeafletMouseEvent } from "leaflet";
+import L, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 
 const DefaultIcon = L.icon({
-  iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconRetinaUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
   iconSize: [25, 41], // Size of the icon
   iconAnchor: [12, 41], // Anchor point of the icon
   popupAnchor: [1, -34], // Popup anchor point
@@ -81,27 +84,34 @@ const MapComponent: React.FC<MapComponentProps> = ({
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
         />
 
-        {waypoints.map((waypoint, index) => (
-          <Marker
-            key={index}
-            position={waypoint.position}
-            draggable={true}
-            eventHandlers={{
-              dragend: (e) => {
-                const updatedWaypoints = [...waypoints];
-                updatedWaypoints[index] = {
-                  ...waypoint,
-                  position: [e.target.getLatLng().lat, e.target.getLatLng().lng],
-                };
-                setWaypoints(updatedWaypoints);
-              },
-            }}
-          />
-        ))}
+        {waypoints
+          .filter((wp) => wp.visible !== false)
+          .map((waypoint, index) => (
+            <Marker
+              key={index}
+              position={waypoint.position}
+              draggable={true}
+              eventHandlers={{
+                dragend: (e) => {
+                  const updatedWaypoints = [...waypoints];
+                  updatedWaypoints[index] = {
+                    ...waypoint,
+                    position: [
+                      e.target.getLatLng().lat,
+                      e.target.getLatLng().lng,
+                    ],
+                  };
+                  setWaypoints(updatedWaypoints);
+                },
+              }}
+            />
+          ))}
 
-        {waypoints.length > 1 && (
+        {waypoints.filter((wp) => wp.visible !== false).length > 1 && (
           <Polyline
-            positions={waypoints.map((wp) => wp.position)}
+            positions={waypoints
+              .filter((wp) => wp.visible !== false)
+              .map((wp) => wp.position)}
             color="blue"
           />
         )}
