@@ -8,7 +8,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   setSelectedDateTime,
   fetchWindData,
   updateCalculations,
-  results,
   waypoints,
   onWaypointUpdate,
 sidebarWidth,
@@ -21,7 +20,7 @@ sidebarWidth,
     const [isResizing, setIsResizing] = useState(false);
     const [isSettingsVisible, setIsSettingsVisible] = useState(true);
     const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  
+
   const handleMouseDown = () => {
     setIsResizing(true);
   };
@@ -154,7 +153,7 @@ sidebarWidth,
                     onClick={() => setIsSettingsVisible(!isSettingsVisible)}
                     className={`w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)]
                     flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg`}
-                    
+
                   >
                     <span className="flex items-center gap-2 font-semibold text-base text-[var(--button-text)]">
                       <span>⚙️</span>
@@ -163,14 +162,14 @@ sidebarWidth,
                     <span>{isSettingsVisible ? '−' : '+'}</span>
                   </button>
 
-                  <div className={`transition-all duration-300 ease-in-out 
+                  <div className={`transition-all duration-300 ease-in-out
                     ${isSettingsVisible ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
                     <div className="p-4 space-y-4">
                       <label className="block text-sm font-medium">
                         Fuel Consumption (Gal/hr):
                         <input
                           type="number"
-                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
+                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)]
                           text-[var(--input-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={fuelConsumption}
                           onChange={(e) => setFuelConsumption(parseFloat(e.target.value))}
@@ -181,7 +180,7 @@ sidebarWidth,
                         Select Date and Time:
                         <input
                           type="datetime-local"
-                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)] 
+                          className="w-full mt-1 p-2 border border-[var(--sidebar-border)] rounded-md bg-[var(--input-bg)]
                           text-[var(--input-text)] focus:ring focus:ring-blue-300 focus:outline-none"
                           value={selectedDateTime}
                           onChange={(e) => setSelectedDateTime(e.target.value)}
@@ -216,7 +215,7 @@ sidebarWidth,
             <div className="border border-[var(--sidebar-border)] rounded-lg h-full flex flex-col"> {/* Added h-full and flex flex-col */}
               <button
                 onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
-                className="w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)] 
+                className="w-full px-4 py-2 bg-[var(--button-bg)] hover:bg-[var(--button-hover)]
                 flex items-center justify-between text-sm font-medium border-b border-[var(--sidebar-border)] flex-none rounded-t-lg"
               >
                 <span className="flex items-center gap-2 font-bold text-base text-[var(--button-text)]">
@@ -229,7 +228,7 @@ sidebarWidth,
               <div className={`transition-all duration-300 ease-in-out overflow-hidden flex-1`}>
                 <div className="h-full overflow-y-auto custom-scrollbar p-4"> {/* Changed to h-full */}
                   <div className={`${isFullScreen ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4' : 'space-y-4'}`}>
-                    {waypoints.map((waypoint, index) => {
+                    {waypoints.filter(wp => wp.visible !== false).map((waypoint, index) => {
                       const isSpecial = waypoint.type !== 'waypoint';
                       return (
                         <div key={index} className="bg-gray-100 p-4 rounded-xl shadow-md">
@@ -254,7 +253,7 @@ sidebarWidth,
                             <select
                               className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
                               value={waypoint.type}
-                              onChange={(e) => onWaypointUpdate(index, 'type', e.target.value)}
+                              onChange={(e) => onWaypointUpdate(index, 'type', e.target.value as "waypoint" | "BOC" | "TOC" | "TOD" | "BOD")}
                             >
                               <option value="waypoint">🛩️ Normal Waypoint</option>
                               <option value="BOC">🚀 BOC (Bottom of Climb)</option>
@@ -342,7 +341,7 @@ sidebarWidth,
         >
           {/* Vertical line with hover effect */}
           <div className="h-full w-full bg-[var(--button-bg)] group-hover:bg-[var(--button-hover)] transition-colors duration-200"></div>
-          
+
           {/* Resize indicator dots */}
           <div className="absolute flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
             <div className="w-1 h-1 rounded-full bg-gray-400"></div>
