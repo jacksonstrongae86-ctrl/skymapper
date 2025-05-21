@@ -6,25 +6,7 @@ import {
   getHeading,
   getGroundSpeed,
 } from "../../utils/logic";
-import { Waypoint, WindDataArray } from "../../utils/types";
-
-interface BottomSidebarProps {
-  waypoints: Waypoint[];
-  storedWindData: WindDataArray | null;
-  fuelConsumption: number;
-  sidebarWidth: number;
-  isMinimized: boolean;
-  isFullScreen: boolean;
-  onHeightChange?: (height: number) => void;
-  legCalculations: Array<{
-    distance: number;
-    track: number;
-    heading: number;
-    groundSpeed: number;
-    time: number;
-    fuelBurn: number;
-  }>;
-}
+import { Waypoint, BottomSidebarProps } from "../../utils/types";
 
 const BottomSidebar: React.FC<BottomSidebarProps> = ({
   waypoints,
