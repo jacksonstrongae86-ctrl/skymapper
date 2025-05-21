@@ -25,6 +25,7 @@
   --results-hover: #34495e;
   --results-border: #0a0e4b;
   --results-text: #adb3bb;
+  --results-units: #d4d6e2;
 }
 
 /* Clear theme – light, elegant & pleasant */
@@ -39,7 +40,7 @@
   --sidebar-border: #b8cde2;   /* Light, subtle border */
   
   /* Button styling */
-  --button-bg: #a5d5e7;        /* Clean white background for buttons */
+  --button-bg: #a0cbf3;        /* Clean white background for buttons */
   --button-hover: #8cc5da;      /* A soft hover state */
   --button-text: #343a40;
   
@@ -55,6 +56,7 @@
   --results-hover: #e9ecef;
   --results-border: #0a0e4b;
   --results-text: #4070af;
+  --results-units: #555a5f;
 }
 
 /* Rose Theme – a soft and elegant pink tone */
@@ -152,6 +154,7 @@
   --results-hover: #eaeaea; /* Hover effect */
   --results-border: #e0e0e0; /* Light gray border */
   --results-text: #333333; /* Dark text */
+  --results-units: #4a4a4a; /* Medium gray text for units */
 }
 
 .theme-neon {

@@ -371,7 +371,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
                             {label}
                           </span>
                           {unit && (
-                            <span className="text-xs text-slate-400">
+                            <span className="text-xs text-[var(--results-units)]">
                               ({unit})
                             </span>
                           )}

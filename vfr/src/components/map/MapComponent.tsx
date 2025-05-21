@@ -12,16 +12,11 @@ import "leaflet/dist/leaflet.css";
 
 const DefaultIcon = L.icon({
   iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconRetinaUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png",
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  iconSize: [25, 41], // Size of the icon
-  iconAnchor: [12, 41], // Anchor point of the icon
-  popupAnchor: [1, -34], // Popup anchor point
-  shadowSize: [41, 41], // Size of the shadow
+    "https://img.icons8.com/?size=100&id=txB98GsUmhgP&format=png&color=000000",
+  iconSize: [30, 30], // Size of the icon
+  iconAnchor: [15, 30], // Anchor point of the icon
 });
+
 
 // Set the default icon globally
 L.Marker.prototype.options.icon = DefaultIcon;
@@ -112,7 +107,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
             positions={waypoints
               .filter((wp) => wp.visible !== false)
               .map((wp) => wp.position)}
-            color="blue"
+            color="black"
           />
         )}
       </MapContainer>

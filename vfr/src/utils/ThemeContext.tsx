@@ -1,20 +1,11 @@
 import React, { createContext, useState, useContext } from "react";
 
-export type Theme = "dark" | "clear" | "rose" | "amber" | "minimalist" | "neon" | "pastel" | "darkblue" | "cyberpunk" | "earthy" | "monochrome" | "ocean";
+export type Theme = "dark" | "clear" | "minimalist";
 
 export const themeColours: Record<Theme, string> = {
   dark: "#0c0e27",   // same as --background in .theme-dark
   clear: "#cfe0f1",  // same as --background in .theme-clear
-  rose: "#fce4ec",
-  amber: "#fff8e1",
   minimalist: "#ffffff", // same as --background in .theme-minimalist
-  neon: "#000000", // same as --background in .theme-neon
-  pastel: "#f0f4c3", // same as --background in .theme-pastel
-  darkblue: "#001f3f", // same as --background in .theme-darkblue
-  cyberpunk: "#000000", // same as --background in .theme-cyberpunk
-  earthy: "#f0e68c", // same as --background in .theme-earthy
-  monochrome: "#000000", // same as --background in .theme-monochrome
-  ocean: "#e0f7fa", // same as --background in .theme-ocean
 };
 
 

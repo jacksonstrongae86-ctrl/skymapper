@@ -1,5 +1,14 @@
 import React, { useState } from "react";
 import { SidebarProps } from "../../utils/types";
+import Image from "next/image";
+import logo from './skymapperlogo-removebg-preview.png';
+import { Prompt } from "next/font/google";
+
+const prompt = Prompt({
+  subsets: ["latin"],
+  weight: ["400", "600", "700"],
+});
+
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
@@ -148,9 +157,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             {/* Only show content if not minimized */}
             {!isMinimized && (
               <>
-                <h1 className="text-2xl font-bold mb-4 mt-10">
-                  VFR Flight Planner
-                </h1>
+                <div className="flex items-center space-x-2 mb-4 mt-10">
+                  <Image
+                    src={logo}
+                    alt="Logo"
+                    width={64}
+                    height={64}
+                    className="mb-0"
+                  />
+                  <span className={`{${prompt.className} text-2xl font-semibold`}>SkyMapper</span>
+                </div>
+
                 <p className="text-sm text-[var(--sidebar-text)] mb-6">
                   Click on the map to add waypoints. Drag markers to adjust
                   positions. Set a TAS for each leg.
