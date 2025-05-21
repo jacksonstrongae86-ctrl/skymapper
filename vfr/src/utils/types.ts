@@ -1,5 +1,6 @@
-import { ReactNode } from 'react';
+import { ReactNode, TouchEvent } from 'react';
 import { LeafletMouseEvent } from 'leaflet';
+
 
 export interface Waypoint {
   position: [number, number];
@@ -10,6 +11,42 @@ export interface Waypoint {
   rocRod: number;
   iasClimbDescent: number;
   visible: boolean;
+}
+
+export interface ScrollableContentProps {
+  isWaypointsVisible: boolean;
+  setIsWaypointsVisible: (visible: boolean) => void;
+  waypoints: Waypoint[];
+  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  isFullScreen: boolean;
+  handleNumericInput: (value: string, callback: (num: number) => void) => void;
+}
+
+export interface WaypointCardProps {
+  waypoint: Waypoint;
+  absoluteIndex: number;
+  visibleIndex: number;
+  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  handleNumericInput: (value: string, callback: (num: number) => void) => void;
+}
+export interface UseSidebarVisibilityProps {
+  setSidebarWidth: (width: number) => void;
+  setIsMinimized: (isMinimized: boolean) => void;
+  setIsFullScreen: (isFullScreen: boolean) => void;
+  isMinimized: boolean;
+  isFullScreen: boolean;
+}
+
+export interface ResizeHandleProps {
+  onMouseDown: (e: React.MouseEvent) => void;
+  onTouchStart: (e: TouchEvent) => void;
+  isVisible: boolean;
+}
+
+export interface UseSidebarResizeProps {
+  setSidebarWidth: (width: number) => void;
+  minWidth: number;
+  maxWidth: number;
 }
 
 export interface LegCalculation {
