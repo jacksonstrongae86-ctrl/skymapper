@@ -11,6 +11,26 @@ export interface Waypoint {
   iasClimbDescent: number;
   visible: boolean;
 }
+
+export interface LegCalculation {
+  distance: number;
+  track: number;
+  heading: number;
+  groundSpeed: number;
+  time: number;
+  fuelBurn: number;
+}
+
+export interface WindAPIResponse {
+  timestamp: Date;
+  location: { lat: number; lon: number };
+  windData: {
+    altitude: number;
+    pressure: number;
+    speed: number;
+    direction: number;
+  }[];
+}
 export interface WindData {
   speed: number; // Wind speed in knots
   direction: number; // Wind direction in degrees
