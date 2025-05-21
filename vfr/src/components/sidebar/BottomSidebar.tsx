@@ -90,12 +90,64 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         const time = (distance / gs) * 60;
         const fuelBurn = (time / 60) * fuelConsumption;
 
+        const formatLegName = (
+          wp: Waypoint,
+          visibleIndex: number,
+          nextVisibleIndex: number
+        ) => {
+          const isTransition = !wp.visible;
+
+          if (isTransition) {
+            return {
+              mainText: `Transition (${wp.type})`,
+              isSpecialFormat: true,
+            };
+          }
+
+          // If current waypoint is special type but visible (main waypoint)
+          if (["BOC", "TOC", "TOD", "BOD"].includes(wp.type)) {
+            return {
+              mainText: `WP${visibleIndex + 1} → WP${nextVisibleIndex}`,
+              subText: wp.type,
+              isSpecialFormat: true,
+            };
+          }
+
+          return {
+            mainText: `WP${visibleIndex + 1} → WP${nextVisibleIndex}`,
+            isSpecialFormat: false,
+          };
+        };
+
         return (
           <tr key={i} className={rowClass}>
-            <td className="py-3 px-4 border-b border-slate-700/50 font-semibold text-[var(--results-text)]">
-              {isTransition
-                ? `Transition (${wp.type})`
-                : `WP${visibleIndex + 1} → WP${nextVisibleIndex}`}
+            <td className="py-3 px-4 border-b border-slate-700/50">
+              {(() => {
+                const legName = formatLegName(
+                  wp,
+                  visibleIndex,
+                  nextVisibleIndex
+                );
+
+                return (
+                  <div className="flex flex-col">
+                    <span
+                      className={`${
+                        legName.isSpecialFormat
+                          ? "font-bold text-[var(--results-text)]"
+                          : ""
+                      }`}
+                    >
+                      {legName.mainText}
+                    </span>
+                    {legName.subText && (
+                      <span className="font-normal text-[var(--results-text)] text-xs">
+                        {legName.subText}
+                      </span>
+                    )}
+                  </div>
+                );
+              })()}
             </td>
             <td className="py-3 px-4 border-b border-slate-700/50">
               {distance.toFixed(1)}
