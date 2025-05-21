@@ -47,46 +47,71 @@ export const getGroundSpeed = (track: number, tas: number, windDir: number, wind
   return tas - windSpeed * Math.cos(windAngle);
 };
 
-// Add this function to your utils/logic.ts or similar file
 export const calculateTransitionWaypoint = (
-  startWaypoint: Waypoint,
-  endWaypoint: Waypoint,
-  type: 'BOC' | 'TOC' | 'TOD' | 'BOD'
+  currentWaypoint: Waypoint,
+  nextWaypoint: Waypoint,
+  type: "BOC" | "TOC" | "TOD" | "BOD"
 ): Waypoint | null => {
-  if (!startWaypoint.altitude || !endWaypoint.altitude || !startWaypoint.altitudeChange) {
+  if (!currentWaypoint.altitudeChange || !currentWaypoint.rocRod || !currentWaypoint.iasClimbDescent) {
+    console.warn('Missing required parameters for transition calculation');
     return null;
   }
 
-  const distance = getDistance(
-    { lat: startWaypoint.position[0], lng: startWaypoint.position[1] },
-    { lat: endWaypoint.position[0], lng: endWaypoint.position[1] }
+  // 1. Calculate time in minutes and hours
+  const timeInMinutes = Math.abs(currentWaypoint.altitudeChange) / currentWaypoint.rocRod;
+  const timeInHours = timeInMinutes / 60;
+
+  // 2. Calculate distance in nautical miles
+  const distanceNM = currentWaypoint.iasClimbDescent * timeInHours;
+
+  // 3. Get bearing between current and next waypoint
+  const bearing = getBearing(
+    { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] },
+    { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] }
   );
 
-  // Calculate time to climb/descend based on ROC/ROD
-  const timeInMinutes = Math.abs(startWaypoint.altitudeChange!) / startWaypoint.rocRod!;
+  // 4. Convert distance to angular distance (radians)
+  const angularDistance = (distanceNM * 1852) / 71000;
 
-  // Calculate distance covered during climb/descent using IAS in climb/descent
-  const speedInNmPerMinute = startWaypoint.iasClimbDescent! / 60;
-  const distanceCovered = speedInNmPerMinute * timeInMinutes;
+  // 5. Convert current position and bearing to radians
+  const lat1 = toRadians(currentWaypoint.position[0]);
+  const lon1 = toRadians(currentWaypoint.position[1]);
+  const bearingRad = toRadians(bearing);
 
-  // Calculate position ratio based on type
-  const ratio = type === 'TOC' || type === 'BOD' ? distanceCovered / distance : 0;
+  // 6. Calculate new position
+  const newLat = Math.asin(
+    Math.sin(lat1) * Math.cos(angularDistance) +
+    Math.cos(lat1) * Math.sin(angularDistance) * Math.cos(bearingRad)
+  );
 
-  // Interpolate position
-  const newLat = startWaypoint.position[0] + (endWaypoint.position[0] - startWaypoint.position[0]) * ratio;
-  const newLng = startWaypoint.position[1] + (endWaypoint.position[1] - startWaypoint.position[1]) * ratio;
+  const newLon = lon1 + Math.atan2(
+    Math.sin(bearingRad) * Math.sin(angularDistance) * Math.cos(lat1),
+    Math.cos(angularDistance) - Math.sin(lat1) * Math.sin(newLat)
+  );
+
+  // 7. Convert back to degrees
+  const newLatDeg = toDegrees(newLat);
+  const newLonDeg = toDegrees(newLon);
+
+  // 8. Calculate new altitude based on type
+  const newAltitude = type === "TOC" || type === "BOD"
+    ? currentWaypoint.altitude! + currentWaypoint.altitudeChange
+    : currentWaypoint.altitude;
 
   return {
-    position: [newLat, newLng],
-    altitude: type === 'TOC' || type === 'BOD' ?
-      startWaypoint.altitude + startWaypoint.altitudeChange :
-      startWaypoint.altitude,
+    position: [newLatDeg, newLonDeg],
     type,
-    ias: startWaypoint.iasClimbDescent!,
-    visible: false, // This waypoint won't show on the map or sidebar
-    altitudeChange: 0, // No further altitude change at transition point
-    rocRod: startWaypoint.rocRod!,
-    iasClimbDescent: startWaypoint.iasClimbDescent!
+    altitude: newAltitude,
+    ias: currentWaypoint.iasClimbDescent,
+    visible: false,
+    altitudeChange: 0,
+    rocRod: currentWaypoint.rocRod,
+    iasClimbDescent: currentWaypoint.iasClimbDescent
   };
 };
+
+// Helper functions for degree/radian conversion
+const toRadians = (degrees: number): number => degrees * (Math.PI / 180);
+const toDegrees = (radians: number): number => radians * (180 / Math.PI);
+
 
