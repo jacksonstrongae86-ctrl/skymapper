@@ -1,18 +1,9 @@
-import { ReactNode, TouchEvent } from 'react';
+import { JSX, ReactNode, TouchEvent } from 'react';
 import { LeafletMouseEvent } from 'leaflet';
 
 
-export interface Waypoint {
-  position: [number, number];
-  type: 'waypoint' | 'BOC' | 'TOC' | 'TOD' | 'BOD';
-  altitude: number;
-  ias: number;
-  altitudeChange: number;
-  rocRod: number;
-  iasClimbDescent: number;
-  visible: boolean;
-}
 
+// Sidebar
 export interface ScrollableContentProps {
   isWaypointsVisible: boolean;
   setIsWaypointsVisible: (visible: boolean) => void;
@@ -48,7 +39,39 @@ export interface UseSidebarResizeProps {
   minWidth: number;
   maxWidth: number;
 }
+// Bottom Sidebar
+export interface BottomSidebarProps {
+  waypoints: Waypoint[];
+  storedWindData: WindDataArray | null;
+  fuelConsumption: number;
+  sidebarWidth: number;
+  isMinimized: boolean;
+  isFullScreen: boolean;
+  onHeightChange?: (height: number) => void;
+  legCalculations: Array<{
+    distance: number;
+    track: number;
+    heading: number;
+    groundSpeed: number;
+    time: number;
+    fuelBurn: number;
+  }>;
+}
+export interface FlightResultsTableProps {
+  results: JSX.Element[];
+}
 
+// Index
+export interface Waypoint {
+  position: [number, number];
+  type: 'waypoint' | 'BOC' | 'TOC' | 'TOD' | 'BOD';
+  altitude: number;
+  ias: number;
+  altitudeChange: number;
+  rocRod: number;
+  iasClimbDescent: number;
+  visible: boolean;
+}
 export interface LegCalculation {
   distance: number;
   track: number;
