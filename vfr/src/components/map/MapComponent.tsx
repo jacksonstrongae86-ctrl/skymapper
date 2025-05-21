@@ -9,6 +9,7 @@ import {
 import { Waypoint } from "../../utils/types";
 import L, { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
+import { useMapHandlers } from "../../hooks/useMapHandlers";
 
 const DefaultIcon = L.icon({
   iconUrl:
@@ -24,44 +25,27 @@ L.Marker.prototype.options.icon = DefaultIcon;
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
   waypoints: Waypoint[];
-  setWaypoints: React.Dispatch<React.SetStateAction<Waypoint[]>>;
   mapType: string;
+  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
   onMapClick,
   waypoints,
-  setWaypoints,
   mapType,
+  onWaypointUpdate,
 }) => {
-  // const mapRef = useRef<L.Map | null>(null);
-
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
-
-  // Force Leaflet to recalculate the map layout
-  // useEffect(() => {
-  //   if (mapRef.current) {
-  //     mapRef.current.invalidateSize();
-  //   }
-  // }, [mapRef]);
-
+  const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   return (
     <div className="relative w-full h-full">
       <MapContainer
         center={[40.4167, -3.7033]}
         zoom={10}
         style={{ height: "100%", width: "100%" }}
-        // whenReady={(mapInstance) => {
-        //   mapRef.current = mapInstance; // Directly assign the map instance
-        // }}
       >
-        {/* Handle map click events */}
-        <MapEvents
-          onMapClick={onMapClick}
-          waypoints={waypoints}
-          setWaypoints={setWaypoints}
-        />
+        <MapEvents onMapClick={onMapClick} />
 
         <TileLayer
           url={
@@ -81,26 +65,24 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
         {waypoints
           .filter((wp) => wp.visible !== false)
-          .map((waypoint, index) => (
-            <Marker
-              key={index}
-              position={waypoint.position}
-              draggable={true}
-              eventHandlers={{
-                dragend: (e) => {
-                  const updatedWaypoints = [...waypoints];
-                  updatedWaypoints[index] = {
-                    ...waypoint,
-                    position: [
+          .map((waypoint, absoluteIndex) => {
+            return (
+              <Marker
+                key={absoluteIndex}
+                position={waypoint.position}
+                draggable={true}
+                eventHandlers={{
+                  dragend: (e) => {
+                    const newPosition: [number, number] = [
                       e.target.getLatLng().lat,
                       e.target.getLatLng().lng,
-                    ],
-                  };
-                  setWaypoints(updatedWaypoints);
-                },
-              }}
-            />
-          ))}
+                    ];
+                    onWaypointDrag(absoluteIndex, newPosition);
+                  },
+                }}
+              />
+            );
+          })}
 
         {waypoints.filter((wp) => wp.visible !== false).length > 1 && (
           <Polyline
@@ -118,8 +100,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
 // Component to handle map click events
 const MapEvents: React.FC<{
   onMapClick: (e: LeafletMouseEvent) => void;
-  waypoints: Waypoint[];
-  setWaypoints: React.Dispatch<React.SetStateAction<Waypoint[]>>;
 }> = ({ onMapClick }) => {
   useMapEvents({
     click: onMapClick,
