@@ -187,67 +187,99 @@ export default function Home() {
   const handleWaypointUpdate = useCallback(
     (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
       setWaypoints((prev) => {
-        // Create a copy of the waypoints array
-        let updated = [...prev];
+        const updated = [...prev];
 
-        // Update the current waypoint with the new value
+        // Update the current waypoint
         updated[index] = {
           ...updated[index],
           [field]: value,
         };
 
-        // Handle type changes that require transition waypoints
-        if (
-          field === "type" &&
-          typeof value === "string" &&
-          ["BOC", "TOC", "TOD", "BOD"].includes(value) &&
-          index < prev.length - 1
-        ) {
-          const currentWaypoint = updated[index];
-          const nextWaypoint = updated[index + 1];
+        // Handle special waypoint types
+        if (field === "type") {
+          // If changing to a normal waypoint, remove any following transition waypoint
+          if (value === "waypoint") {
+            return updated.filter((wp, i) => {
+              if (i === index + 1 && wp.visible === false) {
+                return false; // Remove the transition waypoint
+              }
+              return true;
+            });
+          }
 
-          // Remove any existing invisible waypoints between current and next
-          updated = updated.filter((wp, i) => {
-            if (i > index && i <= index + 1) {
+          // If changing to a special type, handle transition waypoint creation
+          if (["BOC", "TOC", "TOD", "BOD"].includes(value as string)) {
+            // Remove any existing transition waypoints
+            const filtered = updated.filter((wp, i) => {
+              if (i > index && i < index + 2) {
+                return wp.visible !== false;
+              }
+              return true;
+            });
+
+            const currentWaypoint = filtered[index];
+            const nextWaypoint = filtered[index + 1];
+
+            if (nextWaypoint) {
+              // Try to calculate transition waypoint
+              const transitionWaypoint = calculateTransitionWaypoint(
+                currentWaypoint,
+                nextWaypoint,
+                value as "BOC" | "TOC" | "TOD" | "BOD"
+              );
+
+              if (transitionWaypoint) {
+                // Insert the transition waypoint after the current waypoint
+                filtered.splice(index + 1, 0, transitionWaypoint);
+                console.log("Added transition waypoint:", transitionWaypoint);
+                return filtered;
+              }
+            }
+
+            return filtered;
+          }
+        }
+
+        // Handle updates to parameters that affect transition waypoints
+        if (
+          ["altitudeChange", "rocRod", "iasClimbDescent"].includes(field) &&
+          ["BOC", "TOC", "TOD", "BOD"].includes(updated[index].type)
+        ) {
+          // Remove existing transition waypoint
+          const filtered = updated.filter((wp, i) => {
+            if (i > index && i < index + 2) {
               return wp.visible !== false;
             }
             return true;
           });
 
-          // Recalculate indices after filtering
-          const newIndex = updated.findIndex((wp) => wp === currentWaypoint);
+          const currentWaypoint = filtered[index];
+          const nextWaypoint = filtered[index + 1];
 
-          // Check if we have all required parameters for transition
-          console.log(`Entering waypoint update`, currentWaypoint.altitudeChange,
-            currentWaypoint.rocRod,
-            currentWaypoint.iasClimbDescent);
-          if (
-            currentWaypoint.altitudeChange != 0 &&
-            currentWaypoint.rocRod &&
-            currentWaypoint.iasClimbDescent &&
-            nextWaypoint
-          ) {
-            // Calculate the transition waypoint
+          if (nextWaypoint) {
+            // Recalculate transition waypoint with new parameters
             const transitionWaypoint = calculateTransitionWaypoint(
               currentWaypoint,
               nextWaypoint,
-              value as "BOC" | "TOC" | "TOD" | "BOD"
+              currentWaypoint.type as "BOC" | "TOC" | "TOD" | "BOD"
             );
 
-            // Insert the transition waypoint after the current waypoint if it's not null
             if (transitionWaypoint) {
-              updated.splice(newIndex + 1, 0, transitionWaypoint);
+              filtered.splice(index + 1, 0, transitionWaypoint);
+              console.log("Updated transition waypoint:", transitionWaypoint);
+              return filtered;
             }
-            console.log("Added transition waypoint:", transitionWaypoint);
           }
+
+          return filtered;
         }
 
-        console.log("Updated waypoints array:", updated);
         return updated;
       });
     },
     []
   );
+
   const handleMapClick = useCallback(
     (e: LeafletMouseEvent) => {
       const { lat, lng } = e.latlng;
