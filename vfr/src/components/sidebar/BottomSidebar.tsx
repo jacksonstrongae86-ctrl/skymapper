@@ -182,23 +182,22 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
     setIsResizing(true);
   };
 
-  const handleMouseMove = (e: MouseEvent) => {
-    if (isResizing) {
-      const windowHeight = window.innerHeight;
-      const fromBottom = windowHeight - e.clientY;
-      const percentage = (fromBottom / windowHeight) * 100;
-      // Limit height between 10% and 75%
-      const newHeight = Math.min(75, Math.max(10, percentage));
-      setHeight(newHeight);
-      onHeightChange?.(newHeight);
-    }
-  };
-
   const handleMouseUp = () => {
     setIsResizing(false);
   };
 
   React.useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isResizing) {
+        const windowHeight = window.innerHeight;
+        const fromBottom = windowHeight - e.clientY;
+        const percentage = (fromBottom / windowHeight) * 100;
+        // Limit height between 10% and 75%
+        const newHeight = Math.min(75, Math.max(10, percentage));
+        setHeight(newHeight);
+        onHeightChange?.(newHeight);
+      }
+    };
     if (isResizing) {
       window.addEventListener("mousemove", handleMouseMove);
       window.addEventListener("mouseup", handleMouseUp);
@@ -211,7 +210,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isResizing]);
+  }, [isResizing, onHeightChange]);
 
   const handlePrint = () => {
     // Store current scroll position
