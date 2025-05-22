@@ -4,12 +4,12 @@ import { UseSidebarResizeProps } from "../utils/types";
 export const useSidebarResize = ({
   setSidebarWidth,
   minWidth = 256,
-  maxWidth = window.innerWidth * 0.8,
+  maxWidth,
 }: UseSidebarResizeProps) => {
   const [isResizing, setIsResizing] = useState(false);
   const [startX, setStartX] = useState(0);
   const [startWidth, setStartWidth] = useState(0);
-
+  const effectiveMaxWidth = typeof window !== "undefined" ? maxWidth ?? window.innerWidth * 0.8 : 800;
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsResizing(true);
     setStartX(e.clientX);
@@ -28,7 +28,7 @@ export const useSidebarResize = ({
 
       const diff = clientX - startX;
       const newWidth = Math.min(
-        maxWidth,
+        effectiveMaxWidth,
         Math.max(minWidth, startWidth + diff)
       );
       setSidebarWidth(newWidth);
@@ -62,7 +62,7 @@ export const useSidebarResize = ({
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
     };
-  }, [isResizing, startX, startWidth, setSidebarWidth, maxWidth, minWidth]);
+  }, [isResizing, startX, startWidth, setSidebarWidth, effectiveMaxWidth, minWidth]);
 
   return {
     handleMouseDown,

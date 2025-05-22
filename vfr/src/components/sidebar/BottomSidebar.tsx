@@ -187,6 +187,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   };
 
   React.useEffect(() => {
+    if (typeof window === "undefined") return;
     const handleMouseMove = (e: MouseEvent) => {
       if (isResizing) {
         const windowHeight = window.innerHeight;
@@ -213,6 +214,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   }, [isResizing, onHeightChange]);
 
   const handlePrint = () => {
+    if (typeof window === "undefined") return;
     // Store current scroll position
     const scrollPos = window.scrollY;
 

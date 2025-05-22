@@ -5,6 +5,7 @@ export const handlePrint = (
   waypoints: Waypoint[],
   fuelConsumption: number
 ) => {
+  if (typeof window === "undefined") return;
   const scrollPos = window.scrollY;
 
   const totalDistance = results.reduce(

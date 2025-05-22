@@ -31,7 +31,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,
     minWidth: 256,
-    maxWidth: window.innerWidth * 0.8,
+    maxWidth: typeof window !== "undefined" ? window.innerWidth * 0.8 : 800,
   });
 
   const { handleMinimizeMaximize, handleFullScreen } = useSidebarVisibility({
