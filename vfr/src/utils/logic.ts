@@ -71,7 +71,7 @@ export const calculateTransitionWaypoint = (
   );
 
   // 4. Convert distance to angular distance (radians)
-  const angularDistance = (distanceNM * 1852) / 71000;
+  const angularDistance = (distanceNM * 1852) / 6371000;
 
   // 5. Convert current position and bearing to radians
   const lat1 = toRadians(currentWaypoint.position[0]);
