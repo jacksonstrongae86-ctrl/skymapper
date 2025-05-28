@@ -1,4 +1,4 @@
-import {LatLng, Waypoint } from '../utils/types';
+import { LatLng, Waypoint } from '../utils/types';
 
 // Utility functions
 export const toRad = (deg: number): number => deg * (Math.PI / 180);
@@ -47,6 +47,24 @@ export const getGroundSpeed = (track: number, tas: number, windDir: number, wind
   return tas - windSpeed * Math.cos(windAngle);
 };
 
+function getPointAtDistanceAndBearing(from: LatLng, bearing: number, distanceNM: number): LatLng {
+  const R = 6371000; // Earth radius in meters
+  const distance = distanceNM * 1852; // Convert to meters
+  const angularDistance = distance / R;
+
+  const lat1 = toRad(from.lat);
+  const lon1 = toRad(from.lng);
+  const bearingRad = toRad(bearing);
+
+  const lat2 = Math.asin(Math.sin(lat1) * Math.cos(angularDistance) +
+                         Math.cos(lat1) * Math.sin(angularDistance) * Math.cos(bearingRad));
+
+  const lon2 = lon1 + Math.atan2(Math.sin(bearingRad) * Math.sin(angularDistance) * Math.cos(lat1),
+                                 Math.cos(angularDistance) - Math.sin(lat1) * Math.sin(lat2));
+
+  return { lat: toDeg(lat2), lng: toDeg(lon2) };
+}
+
 export const calculateTransitionWaypoint = (
   currentWaypoint: Waypoint,
   nextWaypoint: Waypoint,
@@ -64,54 +82,34 @@ export const calculateTransitionWaypoint = (
   // 2. Calculate distance in nautical miles
   const distanceNM = currentWaypoint.iasClimbDescent * timeInHours;
 
-  // 3. Get bearing between current and next waypoint
-  const bearing = getBearing(
-    { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] },
-    { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] }
-  );
+  // 3. Define direction of segment based on type
+  const transitionBefore = type === "TOC" || type === "TOD";
+  const from = transitionBefore
+    ? { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] }
+    : { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
+  const to = transitionBefore
+    ? { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] }
+    : { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
 
-  // 4. Convert distance to angular distance (radians)
-  const angularDistance = (distanceNM * 1852) / 6371000;
+  // 4. Calculate bearing
+  const bearing = getBearing(from, to);
 
-  // 5. Convert current position and bearing to radians
-  const lat1 = toRadians(currentWaypoint.position[0]);
-  const lon1 = toRadians(currentWaypoint.position[1]);
-  const bearingRad = toRadians(bearing);
+  // 5. Calculate position at given distance
+  const newPosition = getPointAtDistanceAndBearing(from, bearing, distanceNM);
 
-  // 6. Calculate new position
-  const newLat = Math.asin(
-    Math.sin(lat1) * Math.cos(angularDistance) +
-    Math.cos(lat1) * Math.sin(angularDistance) * Math.cos(bearingRad)
-  );
-
-  const newLon = lon1 + Math.atan2(
-    Math.sin(bearingRad) * Math.sin(angularDistance) * Math.cos(lat1),
-    Math.cos(angularDistance) - Math.sin(lat1) * Math.sin(newLat)
-  );
-
-  // 7. Convert back to degrees
-  const newLatDeg = toDegrees(newLat);
-  const newLonDeg = toDegrees(newLon);
-
-  // 8. Calculate new altitude based on type
-  const newAltitude = type === "TOC" || type === "BOD"
+  // 6. Calculate new altitude
+  const newAltitude = (type === "TOC" || type === "BOD")
     ? currentWaypoint.altitude! + currentWaypoint.altitudeChange
     : currentWaypoint.altitude;
 
   return {
-    position: [newLatDeg, newLonDeg],
+    position: [newPosition.lat, newPosition.lng],
     type,
     altitude: newAltitude,
     ias: currentWaypoint.iasClimbDescent,
     visible: false,
     altitudeChange: 0,
     rocRod: currentWaypoint.rocRod,
-    iasClimbDescent: currentWaypoint.iasClimbDescent
+    iasClimbDescent: currentWaypoint.iasClimbDescent,
   };
 };
-
-// Helper functions for degree/radian conversion
-const toRadians = (degrees: number): number => degrees * (Math.PI / 180);
-const toDegrees = (radians: number): number => radians * (180 / Math.PI);
-
-
