@@ -1,11 +1,13 @@
 import React, { createContext, useState, useContext } from "react";
 
-export type Theme = "dark" | "clear" | "minimalist";
+export type Theme = "dark" | "cyber" | "aurora" | "quantum" | "solar";
 
 export const themeColours: Record<Theme, string> = {
-  dark: "#0c0e27",   // same as --background in .theme-dark
-  clear: "#cfe0f1",  // same as --background in .theme-clear
-  minimalist: "#ffffff", // same as --background in .theme-minimalist
+  dark: "#121212",
+  cyber: "#0ff0fc",
+  aurora: "#4b9cd3",
+  quantum: "#8a2be2",      
+  solar: "#ffcc00",
 };
 
 

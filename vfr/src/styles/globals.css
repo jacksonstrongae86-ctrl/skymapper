@@ -8,7 +8,7 @@
 }
 
 /* Dark theme – keep as is */
-.theme-dark {
+/* .theme-dark {
   --background: #0c0e27;
   --foreground: #ededed;
 
@@ -28,9 +28,105 @@
   --results-border: #0a0e4b;
   --results-text: #adb3bb;
   --results-units: #d4d6e2;
+} */
+/* Modern Dark Theme */
+
+/* Modern Theme Variables */
+.theme-dark {
+  --background: #0f172a;
+  --foreground: #f8fafc;
+  --sidebar-bg: #1e293b;
+  --sidebar-text: #e2e8f0;
+  --sidebar-border: #64748b;
+  --button-bg: #3b82f6;
+  --button-hover: #2563eb;
+  --button-text: #ffffff;
+  --results-header-bg: #334155;
+  --results-header-text: #f1f5f9;
+  --results-bg1: #1e293b;
+  --results-bg2: #334155;
+  --results-hover: #475569;
+  --results-border: #475569;
+  --results-text: #e2e8f0;
+  --results-units: #94a3b8;
 }
 
-/* Clear theme – light, elegant & pleasant */
+.theme-cyber {
+  --background: #09091b;
+  --foreground: #ffffff;
+  --sidebar-bg: #1a1b4b;
+  --sidebar-text: #00fff2;
+  --sidebar-border: #00ccff;
+  --button-bg: #00fff2;
+  --button-hover: #00ccff;
+  --button-text: #000000;
+  --results-header-bg: #1a1b4b;
+  --results-header-text: #00fff2;
+  --results-bg1: #09091b;
+  --results-bg2: #1a1b4b;
+  --results-hover: #292a71;
+  --results-border: #00fff2;
+  --results-text: #ffffff;
+  --results-units: #00ccff;
+}
+
+.theme-aurora {
+  --background: #042f2e;
+  --foreground: #ecfdf5;
+  --sidebar-bg: #064e3b;
+  --sidebar-text: #6ee7b7;
+  --sidebar-border: #059669;
+  --button-bg: #10b981;
+  --button-hover: #059669;
+  --button-text: #ffffff;
+  --results-header-bg: #065f46;
+  --results-header-text: #6ee7b7;
+  --results-bg1: #042f2e;
+  --results-bg2: #064e3b;
+  --results-hover: #065f46;
+  --results-border: #059669;
+  --results-text: #ecfdf5;
+  --results-units: #34d399;
+}
+
+.theme-quantum {
+  --background: #18005c;
+  --foreground: #ffffff;
+  --sidebar-bg: #310091;
+  --sidebar-text: #bf7af0;
+  --sidebar-border: #7c3aed;
+  --button-bg: #8b5cf6;
+  --button-hover: #7c3aed;
+  --button-text: #ffffff;
+  --results-header-bg: #310091;
+  --results-header-text: #bf7af0;
+  --results-bg1: #18005c;
+  --results-bg2: #310091;
+  --results-hover: #4300c7;
+  --results-border: #7c3aed;
+  --results-text: #ffffff;
+  --results-units: #d8b4fe;
+}
+
+.theme-solar {
+  --background: #7c2d12;
+  --foreground: #ffffff;
+  --sidebar-bg: #9a3412;
+  --sidebar-text: #fed7aa;
+  --sidebar-border: #ea580c;
+  --button-bg: #f97316;
+  --button-hover: #ea580c;
+  --button-text: #ffffff;
+  --results-header-bg: #9a3412;
+  --results-header-text: #fed7aa;
+  --results-bg1: #7c2d12;
+  --results-bg2: #9a3412;
+  --results-hover: #c2410c;
+  --results-border: #ea580c;
+  --results-text: #ffffff;
+  --results-units: #fdba74;
+}
+
 .theme-clear {
   /* Overall page */
   --background: #cfe0f1;       /* A soft off-white background */
@@ -324,6 +420,68 @@
       height: 50vh;
     }
   }
+  /* Gradient Utilities */
+  .gradient-dark {
+    @apply bg-gradient-to-r from-slate-900 to-slate-800;
+  }
+
+  .gradient-cyber {
+    @apply bg-gradient-to-r from-[#09091b] to-[#1a1b4b];
+  }
+
+  .gradient-aurora {
+    @apply bg-gradient-to-r from-[#042f2e] to-[#064e3b];
+  }
+
+  .gradient-quantum {
+    @apply bg-gradient-to-r from-[#18005c] to-[#310091];
+  }
+
+  .gradient-solar {
+    @apply bg-gradient-to-r from-[#7c2d12] to-[#9a3412];
+  }
+
+  /* Sidebar Gradients */
+  .sidebar-gradient-dark {
+    @apply bg-gradient-to-b from-slate-800 to-slate-900;
+  }
+
+  .sidebar-gradient-cyber {
+    @apply bg-gradient-to-b from-[#1a1b4b] to-[#09091b];
+  }
+
+  .sidebar-gradient-aurora {
+    @apply bg-gradient-to-b from-[#064e3b] to-[#042f2e];
+  }
+
+  .sidebar-gradient-quantum {
+    @apply bg-gradient-to-b from-[#310091] to-[#18005c];
+  }
+
+  .sidebar-gradient-solar {
+    @apply bg-gradient-to-b from-[#9a3412] to-[#7c2d12];
+  }
+
+  /* Button Gradients */
+  .button-gradient-dark {
+    @apply bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800;
+  }
+
+  .button-gradient-cyber {
+    @apply bg-gradient-to-r from-[#00fff2] to-[#00ccff] hover:from-[#00ccff] hover:to-[#0099ff];
+  }
+
+  .button-gradient-aurora {
+    @apply bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-600 hover:to-emerald-700;
+  }
+
+  .button-gradient-quantum {
+    @apply bg-gradient-to-r from-violet-500 to-violet-600 hover:from-violet-600 hover:to-violet-700;
+  }
+
+  .button-gradient-solar {
+    @apply bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700;
+  }
 }
 
 /* These inline variables help if you use them in your components */
@@ -389,7 +547,7 @@ body {
   }
 }
 
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
   .custom-scrollbar {
     overflow-x: auto;
   }
@@ -397,7 +555,7 @@ body {
   .custom-scrollbar table {
     min-width: 800px;
   }
-}
+} */
 
 /* Add these print styles */
 @media print {
