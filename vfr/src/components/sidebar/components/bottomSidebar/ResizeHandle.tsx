@@ -20,7 +20,7 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = ({
       `}
       onMouseDown={handleMouseDown}
     >
-      <div className="absolute flex gap-1">
+      <div className="absolute flex gap-1 mt-4">
         <div className={`w-20 h-1.5 rounded-full ${`button-gradient-${theme}`}`} />
       </div>
     </div>
