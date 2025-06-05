@@ -7,20 +7,12 @@ import {
   useMapEvents,
 } from "react-leaflet";
 import { Waypoint } from "../../utils/types";
-import L, { LeafletMouseEvent } from "leaflet";
+import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useMapHandlers } from "../../hooks/useMapHandlers";
+import { useMapHandlers } from "../../hooks/index/useMapHandlers";
+import { createWaypointIcon } from "../../components/map/createWaypointIcon";
+import { useTheme } from "@/src/utils/ThemeContext";
 
-const DefaultIcon = L.icon({
-  iconUrl:
-    "https://img.icons8.com/?size=100&id=txB98GsUmhgP&format=png&color=000000",
-  iconSize: [30, 30], // Size of the icon
-  iconAnchor: [15, 30], // Anchor point of the icon
-});
-
-
-// Set the default icon globally
-L.Marker.prototype.options.icon = DefaultIcon;
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -35,11 +27,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
   mapType,
   onWaypointUpdate,
 }) => {
+  const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   return (
-    <div className="relative w-full h-full">
+    <div className="absolute w-full h-full">
       <MapContainer
         center={[40.4167, -3.7033]}
         zoom={10}
@@ -71,6 +64,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 key={absoluteIndex}
                 position={waypoint.position}
                 draggable={true}
+                icon={createWaypointIcon(waypoint.type, theme)}
                 eventHandlers={{
                   dragend: (e) => {
                     const newPosition: [number, number] = [
