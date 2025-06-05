@@ -64,7 +64,7 @@ export default function Home() {
         <div
           className="absolute inset-0 z-10"
           style={{
-            height: `calc(100vh - ${uiState.bottomHeight}vh)`,
+            height: `100vh`,
           }}
         >
           <MapComponent
