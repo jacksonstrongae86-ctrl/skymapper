@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { SidebarProps } from "../../utils/types";
-import { Header } from "./components/Header";
-import { MinimizedSidebar } from "./components/MinimizeSidebar";
-import { FlightSettings } from "./components/FlightSettings";
-import { ScrollableContent } from "./components/ScrollableContent";
-import { useSidebarResize } from "../../hooks/useSidebarResize";
-import { useSidebarVisibility } from "../../hooks/useSidebarVisibility";
-import { useInputHandlers } from "../../hooks/useInputHandlers";
-import { ResizeHandle } from "./components/ResizeHandle";
+import { Header } from "./components/sidebar/Header";
+import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
+import { FlightSettings } from "./components/sidebar/FlightSettings";
+import { ScrollableContent } from "./components/sidebar/ScrollableContent";
+import { useSidebarResize } from "../../hooks/sidebar/useSidebarResize";
+import { useSidebarVisibility } from "../../hooks/sidebar/useSidebarVisibility";
+import { useInputHandlers } from "../../hooks/sidebar/useInputHandlers";
+import { ResizeHandle } from "./components/sidebar/ResizeHandle";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
