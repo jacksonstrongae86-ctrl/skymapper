@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useWaypoints } from "../hooks/useWaypoints";
-import { useFlightCalculations } from "../hooks/useFlightCalculations";
-import { useUIState } from "../hooks/useUIState";
-import { useWindData } from "../hooks/useWindData";
+import { useWaypoints } from "../hooks/index/useWaypoints";
+import { useFlightCalculations } from "../hooks/index/useFlightCalculations";
+import { useUIState } from "../hooks/index/useUIState";
+import { useWindData } from "../hooks/index/useWindData";
 import Sidebar from "../components/sidebar/Sidebar";
 import MapControls from "../components/map/MapControls";
 import BottomSidebar from "../components/sidebar/BottomSidebar";
