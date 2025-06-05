@@ -1,7 +1,7 @@
 import { useState, useCallback } from "react";
 import { LeafletMouseEvent } from "leaflet";
-import { Waypoint } from "../utils/types";
-import { calculateTransitionWaypoint } from "../utils/logic";
+import { Waypoint } from "@/src/utils/types";
+import { calculateTransitionWaypoint } from "@/src/utils/logic";
 
 export function useWaypoints(defaultTAS: number = 100) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);

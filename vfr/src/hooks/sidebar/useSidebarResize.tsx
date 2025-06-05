@@ -1,5 +1,5 @@
 import { useState, useEffect, TouchEvent } from "react";
-import { UseSidebarResizeProps } from "../utils/types";
+import { UseSidebarResizeProps } from "@/src/utils/types";
 
 export const useSidebarResize = ({
   setSidebarWidth,

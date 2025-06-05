@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { Waypoint, WindDataArray } from '../utils/types';
-import { fetchECMWFWindData } from '../services/windService';
+import { Waypoint, WindDataArray } from '@/src/utils/types';
+import { fetchECMWFWindData } from '@/src/services/windService';
 
 export const useWindData = () => {
   const [storedWindData, setStoredWindData] = useState<WindDataArray | null>(null);

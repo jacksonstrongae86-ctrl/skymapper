@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { Waypoint, WindDataArray, LegCalculation } from '../utils/types';
-import { IAStoTAS, getDistance, getBearing, getHeading, getGroundSpeed } from '../utils/logic';
+import { Waypoint, WindDataArray, LegCalculation } from '@/src/utils/types';
+import { IAStoTAS, getDistance, getBearing, getHeading, getGroundSpeed } from '@/src/utils/logic';
 
 export function useFlightCalculations() {
   const [legCalculations, setLegCalculations] = useState<LegCalculation[]>([]);

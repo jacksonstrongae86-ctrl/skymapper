@@ -1,5 +1,17 @@
-import React from 'react';
-import { useTheme } from '@/src/utils/ThemeContext';
+import React from "react";
+import { useTheme } from "@/src/utils/ThemeContext";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import {
+  Settings,
+  ChevronDown,
+  ChevronUp,
+  Fuel,
+  Clock,
+  Wind,
+  RefreshCw,
+} from "lucide-react";
+
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
   setIsSettingsVisible: (visible: boolean) => void;
@@ -38,10 +50,14 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
           `}
         >
           <span className="flex items-center gap-2">
-            <span>⚙️</span>
+            <Settings size={18} className="text-[var(--button-text)]" />
             <span>Flight Settings</span>
           </span>
-          <span>{isSettingsVisible ? "−" : "+"}</span>
+          {isSettingsVisible ? (
+            <ChevronUp size={18} className="text-[var(--button-text)]" />
+          ) : (
+            <ChevronDown size={18} className="text-[var(--button-text)]" />
+          )}
         </button>
 
         <div
@@ -56,6 +72,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
             <div className="space-y-4">
               <label className="block">
                 <span className="text-sm font-medium text-[var(--sidebar-text)]">
+                  <Fuel size={16} className="text-[var(--sidebar-text)]" />
                   Fuel Consumption (Gal/hr):
                 </span>
                 <input
@@ -76,16 +93,22 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
 
               <label className="block">
                 <span className="text-sm font-medium text-[var(--sidebar-text)]">
+                  <Clock size={16} className="text-[var(--sidebar-text)]" />
                   Select Date and Time:
                 </span>
-                <input
-                  type="datetime-local"
+                <DatePicker
+                  selected={
+                    selectedDateTime ? new Date(selectedDateTime) : null
+                  }
+                  onChange={(date) =>
+                    setSelectedDateTime(date?.toISOString() || "")
+                  }
+                  showTimeSelect
+                  dateFormat="Pp"
                   className="w-full mt-1 p-2 rounded-lg border border-[var(--sidebar-border)]
                     bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
                     focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                     transition-all duration-200"
-                  value={selectedDateTime}
-                  onChange={(e) => setSelectedDateTime(e.target.value)}
                 />
               </label>
             </div>
@@ -104,7 +127,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                 `}
                 onClick={fetchWindData}
               >
-                <span>💨</span>
+                <Wind size={18} className="text-[var(--button-text)]" />
                 <span>Fetch Wind Data</span>
               </button>
 
@@ -120,7 +143,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                 `}
                 onClick={updateCalculations}
               >
-                <span>🔄</span>
+                <RefreshCw size={18} className="text-[var(--button-text)]" />
                 <span>Update Info</span>
               </button>
             </div>

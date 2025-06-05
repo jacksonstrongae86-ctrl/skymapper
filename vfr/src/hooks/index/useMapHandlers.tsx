@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { Waypoint } from '../utils/types';
+import { Waypoint } from '@/src/utils/types';
 
 interface MapHandlers {
   onWaypointDrag: (index: number, newPosition: [number, number]) => void;

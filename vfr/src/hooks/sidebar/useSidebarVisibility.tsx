@@ -1,5 +1,5 @@
 
-import { UseSidebarVisibilityProps } from "../utils/types";
+import { UseSidebarVisibilityProps } from "@/src/utils/types";
 
 export const useSidebarVisibility = ({
   setSidebarWidth,
