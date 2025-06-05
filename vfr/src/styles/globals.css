@@ -1,5 +1,7 @@
 @import "tailwindcss";
 
+
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -9,7 +11,7 @@
 .theme-dark {
   --background: #0c0e27;
   --foreground: #ededed;
-  
+
   --sidebar-bg: #1e293b;
   --sidebar-text: #e2e8f0;
   --sidebar-border: rgba(148, 163, 184, 0.2);
@@ -33,17 +35,17 @@
   /* Overall page */
   --background: #cfe0f1;       /* A soft off-white background */
   --foreground: #343a40;       /* Darker, elegant text */
-  
+
   /* Sidebar styling */
   --sidebar-bg: #c8d7db;       /* Pure white sidebar */
-  --sidebar-text: #24282c;     
+  --sidebar-text: #24282c;
   --sidebar-border: #b8cde2;   /* Light, subtle border */
-  
+
   /* Button styling */
   --button-bg: #a0cbf3;        /* Clean white background for buttons */
   --button-hover: #8cc5da;      /* A soft hover state */
   --button-text: #343a40;
-  
+
   /* Input styling */
   --input-bg: #ffffff;
   --input-border: #ced4da;
@@ -63,15 +65,15 @@
 .theme-rose {
   --background: #fce4ec;       /* Soft pink background */
   --foreground: #880e4f;       /* Deep rose text */
-  
+
   --sidebar-bg: #f8bbd0;       /* Gentle pink sidebar */
   --sidebar-text: #880e4f;
   --sidebar-border: rgba(136, 14, 79, 0.2);
-  
+
   --button-bg: #ffccde;        /* Rose-tinted buttons */
   --button-hover: #dd94ae;
   --button-text: #8b5353;
-  
+
   --input-bg: #fce4ec;
   --input-border: #f48fb1;
   --input-text: #880e4f;
@@ -89,15 +91,15 @@
 .theme-amber {
   --background: #fff8e1;       /* Warm off-white background */
   --foreground: #5d4037;       /* Dark brown text */
-  
+
   --sidebar-bg: #ffecb3;       /* Soft amber sidebar */
   --sidebar-text: #5d4037;
   --sidebar-border: #ffe082;   /* Light amber border */
-  
+
   --button-bg: #f8d093;        /* Amber-tinted buttons */
   --button-hover: #e2ba7e;
   --button-text: #726967;
-  
+
   --input-bg: #fff8e1;
   --input-border: #ffe082;
   --input-text: #5d4037;
@@ -114,7 +116,7 @@
 .theme-darkblue {
   --background: #010440;
   --foreground: #d4d6e2;
-  
+
   --sidebar-bg: #142377;
   --sidebar-text: #7ea5d9;
   --sidebar-border: rgba(12, 23, 173, 0.2);
@@ -304,6 +306,26 @@
   --results-text: #004d40; /* Dark teal text */
 }
 
+
+@layer utilities {
+  @media (max-width: 768px) {
+    .mobile-layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .mobile-sidebar {
+      order: 1;
+      height: 50vh;
+    }
+
+    .mobile-bottom-sidebar {
+      order: 2;
+      height: 50vh;
+    }
+  }
+}
+
 /* These inline variables help if you use them in your components */
 @theme inline {
   --color-background: var(--background);
@@ -371,7 +393,7 @@ body {
   .custom-scrollbar {
     overflow-x: auto;
   }
-  
+
   .custom-scrollbar table {
     min-width: 800px;
   }
