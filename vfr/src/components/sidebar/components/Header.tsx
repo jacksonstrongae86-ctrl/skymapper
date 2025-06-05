@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import logo from '../skymapperlogo-removebg-preview.png';
 import { Prompt } from "next/font/google";
+import { useTheme } from '@/src/utils/ThemeContext';
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -19,17 +20,42 @@ export const Header: React.FC<HeaderProps> = ({
   handleMinimizeMaximize,
   isFullScreen,
 }) => {
+  const { theme } = useTheme();
+
   return (
-    <div className="px-4 py-2 flex items-center justify-between border-b border-[var(--sidebar-border)]">
-      <div className="flex items-center space-x-2">
-        <Image src={logo} alt="Logo" width={48} height={48} className="rounded-xl shadow-md" />
-        <span className={`${prompt.className} text-xl font-semibold text-[var(--sidebar-text)]`}>
+    <div className={`
+      px-4 py-3 mb-4
+      ${`gradient-${theme}`}
+      border-b border-[var(--sidebar-border)]
+      flex items-center justify-between
+    `}>
+      <div className="flex items-center gap-3">
+        <Image
+          src={logo}
+          alt="Logo"
+          width={40}
+          height={40}
+          className="rounded-xl shadow-lg"
+        />
+        <span className={`
+          ${prompt.className}
+          text-xl
+          font-bold
+          text-[var(--sidebar-text)]
+        `}>
           SkyMapper
         </span>
       </div>
       <div className="flex gap-2">
         <button
-          className="w-7 h-7 rounded-xl bg-green-500 hover:bg-green-400 text-white text-sm flex items-center justify-center"
+          className={`
+            w-8 h-8 rounded-lg
+            ${`button-gradient-${theme}`}
+            text-[var(--button-text)]
+            hover:opacity-90
+            transition-all duration-200
+            flex items-center justify-center
+          `}
           onClick={handleFullScreen}
           title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
         >
@@ -37,7 +63,14 @@ export const Header: React.FC<HeaderProps> = ({
         </button>
         {!isFullScreen && (
           <button
-            className="w-7 h-7 rounded-xl bg-yellow-500 hover:bg-yellow-400 text-white text-sm flex items-center justify-center"
+            className={`
+              w-8 h-8 rounded-lg
+              ${`button-gradient-${theme}`}
+              text-[var(--button-text)]
+              hover:opacity-90
+              transition-all duration-200
+              flex items-center justify-center
+            `}
             onClick={handleMinimizeMaximize}
             title="Minimize"
           >

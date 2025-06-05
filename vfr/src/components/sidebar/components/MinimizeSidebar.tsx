@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTheme } from '@/src/utils/ThemeContext';
 
 interface MinimizedSidebarProps {
   handleMinimizeMaximize: () => void;
@@ -9,11 +10,28 @@ export const MinimizedSidebar: React.FC<MinimizedSidebarProps> = ({
   handleMinimizeMaximize,
   fetchWindData,
 }) => {
+  const { theme } = useTheme();
+
   return (
-    <div className="flex flex-col h-full w-12 bg-[var(--background)] border-r border-[var(--sidebar-border)]">
-      <div className="p-2 mb-2 border-b border-[var(--sidebar-border)]">
+    <div className={`
+      flex flex-col h-full w-12
+      ${`sidebar-gradient-${theme}`}
+      border-r border-[var(--sidebar-border)]
+    `}>
+      <div className={`
+        p-2 mb-2
+        ${`gradient-${theme}`}
+        border-b border-[var(--sidebar-border)]
+      `}>
         <button
-          className="w-8 h-8 rounded-full bg-yellow-500 hover:bg-yellow-400 flex items-center justify-center text-gray-800 text-xs"
+          className={`
+            w-8 h-8 rounded-lg
+            ${`button-gradient-${theme}`}
+            text-[var(--button-text)]
+            hover:opacity-90
+            transition-all duration-200
+            flex items-center justify-center
+          `}
           onClick={handleMinimizeMaximize}
           title="Maximize"
         >
@@ -22,7 +40,14 @@ export const MinimizedSidebar: React.FC<MinimizedSidebarProps> = ({
       </div>
       <div className="flex flex-col items-center gap-4 p-2">
         <button
-          className="w-8 h-8 rounded-lg bg-[var(--button-bg)] hover:bg-[var(--button-hover)] flex items-center justify-center text-white"
+          className={`
+            w-8 h-8 rounded-lg
+            ${`button-gradient-${theme}`}
+            text-[var(--button-text)]
+            hover:opacity-90
+            transition-all duration-200
+            flex items-center justify-center
+          `}
           title="Wind Data"
           onClick={fetchWindData}
         >

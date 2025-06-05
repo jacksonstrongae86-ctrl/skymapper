@@ -1,5 +1,6 @@
 import React from 'react';
 import { Waypoint, WaypointCardProps } from '@/src/utils/types';
+import { useTheme } from '@/src/utils/ThemeContext';
 
 export const WaypointCard: React.FC<WaypointCardProps> = ({
   waypoint,
@@ -8,34 +9,62 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
   onWaypointUpdate,
   handleNumericInput,
 }) => {
+  const { theme } = useTheme();
   const isSpecial = waypoint.type !== "waypoint";
 
+  const inputClassName = `
+    w-full mt-1 p-2
+    border border-[var(--sidebar-border)]
+    rounded-lg
+    bg-[var(--sidebar-bg)]
+    text-[var(--sidebar-text)]
+    focus:ring-2 focus:ring-[var(--button-bg)]
+    focus:outline-none
+    transition-all duration-200
+  `;
+
+  const labelClassName = "block mb-3 text-sm font-medium text-[var(--sidebar-text)]";
+
   return (
-    <div className="bg-gray-100 p-4 rounded-xl shadow-md">
-      <h3 className="text-base font-semibold text-gray-700 mb-2">
-        Waypoint {visibleIndex + 1}
+    <div className={`
+      ${`gradient-${theme}`}
+      p-4 rounded-xl
+      shadow-lg
+      border border-[var(--sidebar-border)]
+      transition-all duration-200
+    `}>
+      <h3 className="text-base font-bold text-[var(--sidebar-text)] mb-4 flex items-center justify-between">
+        <span>Waypoint {visibleIndex + 1}</span>
+        <span className={`
+          text-xs px-2 py-1 rounded-full
+          ${`button-gradient-${theme}`}
+          text-[var(--button-text)]
+        `}>
+          {waypoint.type === "waypoint" ? "Normal" : waypoint.type}
+        </span>
       </h3>
 
       {/* Altitude Input */}
-      <label className="block mb-2 text-sm font-medium text-gray-600">
-        Altitude (ft) (Optional):
+      <label className={labelClassName}>
+        🎯 Altitude (ft):
         <input
           type="number"
-          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          className={inputClassName}
           value={waypoint.altitude}
           onChange={(e) =>
             handleNumericInput(e.target.value, (num) =>
               onWaypointUpdate(absoluteIndex, "altitude", num)
             )
           }
+          placeholder="Enter altitude..."
         />
       </label>
 
       {/* Type Select */}
-      <label className="block mb-2 text-sm font-medium text-gray-600">
+      <label className={labelClassName}>
         ✈️ Type:
         <select
-          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          className={inputClassName}
           value={waypoint.type}
           onChange={(e) =>
             onWaypointUpdate(
@@ -54,68 +83,76 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
       </label>
 
       {/* IAS Input */}
-      <label className="block mb-2 text-sm font-medium text-gray-600">
+      <label className={labelClassName}>
         💨 IAS (kt):
         <input
           type="number"
-          className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+          className={inputClassName}
           value={waypoint.ias}
           onChange={(e) =>
             handleNumericInput(e.target.value, (num) =>
               onWaypointUpdate(absoluteIndex, "ias", num)
             )
           }
+          placeholder="Enter IAS..."
         />
       </label>
 
       {/* Special Fields */}
       {isSpecial && (
-        <>
+        <div className={`
+          mt-4 pt-4
+          border-t border-[var(--sidebar-border)]
+          space-y-3
+        `}>
           {/* Altitude Change */}
-          <label className="block mb-2 text-sm font-medium text-gray-600">
+          <label className={labelClassName}>
             🗻 Altitude Change (ft):
             <input
               type="number"
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+              className={inputClassName}
               value={waypoint.altitudeChange}
               onChange={(e) =>
                 handleNumericInput(e.target.value, (num) =>
                   onWaypointUpdate(absoluteIndex, "altitudeChange", num)
                 )
               }
+              placeholder="Enter altitude change..."
             />
           </label>
 
           {/* ROC/ROD Input */}
-          <label className="block mb-2 text-sm font-medium text-gray-600">
+          <label className={labelClassName}>
             📉 ROC/ROD (ft/min):
             <input
               type="number"
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+              className={inputClassName}
               value={waypoint.rocRod}
               onChange={(e) =>
                 handleNumericInput(e.target.value, (num) =>
                   onWaypointUpdate(absoluteIndex, "rocRod", num)
                 )
               }
+              placeholder="Enter rate..."
             />
           </label>
 
           {/* IAS in Climb/Descent */}
-          <label className="block mb-2 text-sm font-medium text-gray-600">
+          <label className={labelClassName}>
             ⚡ IAS in Climb/Descent:
             <input
               type="number"
-              className="w-full mt-1 p-2 border border-gray-300 rounded-md focus:ring focus:ring-blue-300 focus:outline-none"
+              className={inputClassName}
               value={waypoint.iasClimbDescent}
               onChange={(e) =>
                 handleNumericInput(e.target.value, (num) =>
                   onWaypointUpdate(absoluteIndex, "iasClimbDescent", num)
                 )
               }
+              placeholder="Enter IAS..."
             />
           </label>
-        </>
+        </div>
       )}
     </div>
   );
