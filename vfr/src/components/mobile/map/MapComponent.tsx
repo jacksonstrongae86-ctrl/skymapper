@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
+import { Map } from "leaflet";
 import {
   MapContainer,
   TileLayer,
@@ -12,13 +13,18 @@ import "leaflet/dist/leaflet.css";
 import { useMapHandlers } from "../../../hooksMobile/index/useMapHandlers";
 import { createWaypointIcon } from "../../../components/mobile/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
-
+import { useState } from "react";
+import { X } from "lucide-react";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
   waypoints: Waypoint[];
   mapType: string;
-  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  onWaypointUpdate: (
+    index: number,
+    field: keyof Waypoint,
+    value: Waypoint[keyof Waypoint]
+  ) => void;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -27,16 +33,41 @@ const MapComponent: React.FC<MapComponentProps> = ({
   mapType,
   onWaypointUpdate,
 }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
+  const mapRef = useRef<Map | null>(null);
+  useEffect(() => {
+    if (mapRef.current) {
+      setTimeout(() => {
+        mapRef.current?.invalidateSize(); // seguro
+      }, 300);
+    }
+  }, [isExpanded]);
+
   return (
-    <div className="absolute w-full h-full">
+    <div
+      className={`
+    ${
+      isExpanded
+        ? "fixed top-0 left-0 w-full h-full z-50"
+        : "relative h-[200px]"
+    }
+    transition-all duration-300 ease-in-out
+  `}
+      onClick={() => {
+        if (!isExpanded) setIsExpanded(true);
+      }}
+    >
       <MapContainer
+        ref={mapRef}
         center={[40.4167, -3.7033]}
         zoom={10}
         style={{ height: "100%", width: "100%" }}
+        zoomControl={isExpanded}
+        className="z[9999]"
       >
         <MapEvents onMapClick={onMapClick} />
 
@@ -87,6 +118,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
           />
         )}
       </MapContainer>
+      {isExpanded && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsExpanded(false);
+          }}
+          className="fixed top-4 right-4 z-[1000] bg-black/60 text-white px-1 py-1 rounded-full"
+        >
+          <X size={20} />
+        </button>
+      )}
     </div>
   );
 };
