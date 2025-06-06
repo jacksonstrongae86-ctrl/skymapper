@@ -405,21 +405,23 @@
 
 @layer utilities {
   @media (max-width: 768px) {
-    .mobile-layout {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .mobile-sidebar {
-      order: 1;
-      height: 50vh;
-    }
-
-    .mobile-bottom-sidebar {
-      order: 2;
-      height: 50vh;
-    }
+  .mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    transition: all 0.3s ease-in-out;
   }
+
+  .mobile-sidebar-minimized {
+    height: 48px;
+  }
+
+  .mobile-map-adjusted {
+    margin-top: var(--sidebar-height);
+  }
+}
   /* Gradient Utilities */
   .gradient-dark {
     @apply bg-gradient-to-r from-slate-900 to-slate-800;
