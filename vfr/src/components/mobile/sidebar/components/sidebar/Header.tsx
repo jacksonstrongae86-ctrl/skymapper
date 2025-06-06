@@ -3,9 +3,7 @@ import Image from "next/image";
 import logo from "@/src/components/mobile/sidebar/skymapperlogo-removebg-preview.png";
 import { Prompt } from "next/font/google";
 import { useTheme } from "@/src/utils/ThemeContext";
-import MobileMapControls from "../../../map/MapControls";
-import { useUIState } from "../../../../../hooks/index/useUIState";
-import { useWaypoints } from "../../../../../hooks/index/useWaypoints";
+
 
 const prompt = Prompt({
   subsets: ["latin"],
@@ -20,10 +18,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({}) => {
   const { theme } = useTheme();
-  const uiState = useUIState();
-  const defaultTAS = 100;
-  const { handleDeleteLastWaypoint, handleClearWaypoints } =
-    useWaypoints(defaultTAS);
+
   return (
     <div
       className={`
@@ -52,16 +47,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           SkyMapper
         </span>
       </div>
-      <div className="flex gap-2">
-        <div className="absolute top-6.5 right-6.5 z-30">
-          <MobileMapControls
-            mapType={uiState.mapType}
-            setMapType={uiState.setMapType}
-            onDeleteLastWaypoint={handleDeleteLastWaypoint}
-            onClearWaypoints={handleClearWaypoints}
-          />
-        </div>
-      </div>
+
     </div>
   );
 };

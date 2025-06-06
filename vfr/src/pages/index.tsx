@@ -11,6 +11,7 @@ import MapControls from "../components/desktop/map/MapControls";
 
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
+import MobileMapControls from "../components/mobile/map/MapControls";
 
 const MapComponent = dynamic(
   () => import("../components/desktop/map/MapComponent"),
@@ -57,7 +58,6 @@ export default function Home() {
       updateCalculations(waypoints, storedWindData, fuelConsumption);
     }
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
-
   return (
     <div className="relative h-screen flex flex-col">
       {isMobile ? (
@@ -78,7 +78,14 @@ export default function Home() {
               onWaypointUpdate={handleWaypointUpdate}
             />
           </div>
-
+          <div className="absolute top-4.5 right-4.5 z-60">
+            <MobileMapControls
+              mapType={uiState.mapType}
+              setMapType={uiState.setMapType}
+              onDeleteLastWaypoint={handleDeleteLastWaypoint}
+              onClearWaypoints={handleClearWaypoints}
+            />
+          </div>
           <div className="flex-1 relative mt-18">
             <MobileMapComponent
               onMapClick={handleMapClick}
