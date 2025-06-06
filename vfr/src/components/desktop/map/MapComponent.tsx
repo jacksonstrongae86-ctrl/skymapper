@@ -6,6 +6,8 @@ import {
   Polyline,
   useMapEvents,
 } from "react-leaflet";
+import { useRef } from "react";
+import { Map } from "leaflet";
 import { Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
@@ -31,12 +33,15 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
+  const mapRef = useRef<Map | null>(null);
   return (
     <div className="absolute w-full h-full">
       <MapContainer
+        ref={mapRef}
         center={[40.4167, -3.7033]}
         zoom={10}
-        style={{ height: "100%", width: "100%" }}
+        className="w-full h-full"
+        zoomControl={true}
       >
         <MapEvents onMapClick={onMapClick} />
 

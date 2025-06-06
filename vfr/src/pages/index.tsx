@@ -12,13 +12,19 @@ import MapControls from "../components/desktop/map/MapControls";
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
 
-const MapComponent = dynamic(() => import("../components/desktop/map/MapComponent"), {
-  ssr: false,
-});
+const MapComponent = dynamic(
+  () => import("../components/desktop/map/MapComponent"),
+  {
+    ssr: false,
+  }
+);
 
-const MobileMapComponent = dynamic(() => import("../components/mobile/map/MapComponent"), {
-  ssr: false,
-});
+const MobileMapComponent = dynamic(
+  () => import("../components/mobile/map/MapComponent"),
+  {
+    ssr: false,
+  }
+);
 
 export default function Home() {
   const defaultTAS = 100;
@@ -53,11 +59,48 @@ export default function Home() {
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
 
   return (
-  <div className="relative h-screen flex flex-col">
-    {isMobile ? (
-      <div className="flex flex-col h-full">
-        <div className="flex-none">
-          <MobileSidebar
+    <div className="relative h-screen flex flex-col">
+      {isMobile ? (
+        <div className="flex flex-col h-full">
+          <div className="flex-none">
+            <MobileSidebar
+              results={undefined}
+              {...uiState}
+              fuelConsumption={fuelConsumption}
+              setFuelConsumption={setFuelConsumption}
+              selectedDateTime={selectedDateTime}
+              setSelectedDateTime={setSelectedDateTime}
+              fetchWindData={() => fetchWindData(waypoints)}
+              updateCalculations={() =>
+                updateCalculations(waypoints, storedWindData, fuelConsumption)
+              }
+              waypoints={waypoints}
+              onWaypointUpdate={handleWaypointUpdate}
+            />
+          </div>
+
+          <div className="flex-1 relative mt-18">
+            <MobileMapComponent
+              onMapClick={handleMapClick}
+              waypoints={waypoints}
+              mapType={uiState.mapType}
+              onWaypointUpdate={handleWaypointUpdate}
+            />
+          </div>
+
+          <div className="flex-none">
+            <MobileBottomSidebar
+              waypoints={waypoints}
+              storedWindData={storedWindData}
+              fuelConsumption={fuelConsumption}
+              legCalculations={legCalculations}
+              {...uiState}
+            />
+          </div>
+        </div>
+      ) : (
+        <>
+          <Sidebar
             results={undefined}
             {...uiState}
             fuelConsumption={fuelConsumption}
@@ -71,72 +114,35 @@ export default function Home() {
             waypoints={waypoints}
             onWaypointUpdate={handleWaypointUpdate}
           />
-        </div>
 
-        <div className="flex-1 relative mt-18">
-          <MobileMapComponent
-            onMapClick={handleMapClick}
-            waypoints={waypoints}
-            mapType={uiState.mapType}
-            onWaypointUpdate={handleWaypointUpdate}
-          />
-        </div>
+          <div className="relative flex-1 h-full">
+            <div className="absolute inset-0 z-20">
+              <MapComponent
+                onMapClick={handleMapClick}
+                waypoints={waypoints}
+                mapType={uiState.mapType}
+                onWaypointUpdate={handleWaypointUpdate}
+              />
+            </div>
+            <div className="absolute top-4 right-4 z-30">
+              <MapControls
+                mapType={uiState.mapType}
+                setMapType={uiState.setMapType}
+                onDeleteLastWaypoint={handleDeleteLastWaypoint}
+                onClearWaypoints={handleClearWaypoints}
+              />
+            </div>
+          </div>
 
-        <div className="flex-none">
-          <MobileBottomSidebar
+          <BottomSidebar
             waypoints={waypoints}
             storedWindData={storedWindData}
             fuelConsumption={fuelConsumption}
             legCalculations={legCalculations}
             {...uiState}
           />
-        </div>
-      </div>
-    ) : (
-      <>
-        <Sidebar
-          results={undefined}
-          {...uiState}
-          fuelConsumption={fuelConsumption}
-          setFuelConsumption={setFuelConsumption}
-          selectedDateTime={selectedDateTime}
-          setSelectedDateTime={setSelectedDateTime}
-          fetchWindData={() => fetchWindData(waypoints)}
-          updateCalculations={() =>
-            updateCalculations(waypoints, storedWindData, fuelConsumption)
-          }
-          waypoints={waypoints}
-          onWaypointUpdate={handleWaypointUpdate}
-        />
-
-        <div className="relative flex-1">
-          <div className="absolute inset-0 z-10">
-            <MapComponent
-              onMapClick={handleMapClick}
-              waypoints={waypoints}
-              mapType={uiState.mapType}
-              onWaypointUpdate={handleWaypointUpdate}
-            />
-          </div>
-          <div className="absolute top-4 right-4 z-30">
-            <MapControls
-              mapType={uiState.mapType}
-              setMapType={uiState.setMapType}
-              onDeleteLastWaypoint={handleDeleteLastWaypoint}
-              onClearWaypoints={handleClearWaypoints}
-            />
-          </div>
-        </div>
-
-        <BottomSidebar
-          waypoints={waypoints}
-          storedWindData={storedWindData}
-          fuelConsumption={fuelConsumption}
-          legCalculations={legCalculations}
-          {...uiState}
-        />
-      </>
-    )}
-  </div>
-);
+        </>
+      )}
+    </div>
+  );
 }
