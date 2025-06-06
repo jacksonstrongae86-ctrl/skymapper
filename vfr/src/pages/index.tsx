@@ -78,7 +78,7 @@ export default function Home() {
               onWaypointUpdate={handleWaypointUpdate}
             />
           </div>
-          <div className="absolute top-4.5 right-4.5 z-60">
+          <div className="absolute top-4.5 right-4.5 z-50">
             <MobileMapControls
               mapType={uiState.mapType}
               setMapType={uiState.setMapType}
