@@ -49,6 +49,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         fixed bottom-0 left-0
         text-[var(--results-text)]
         shadow-lg
+        rounded-t-xl
         transition-all duration-300 ease-in-out
         border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
