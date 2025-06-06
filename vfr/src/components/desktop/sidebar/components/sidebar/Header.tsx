@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import logo from '@/src/components/sidebar/skymapperlogo-removebg-preview.png';
+import logo from '@/src/components/desktop/sidebar/skymapperlogo-removebg-preview.png';
 import { Prompt } from "next/font/google";
 import { useTheme } from '@/src/utils/ThemeContext';
 
