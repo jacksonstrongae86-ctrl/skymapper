@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTheme } from '@/src/utils/ThemeContext';
 import { Waypoint } from '@/src/utils/types';
-import { Maximize2, Minimize2, Printer } from 'lucide-react';
+import { Printer } from 'lucide-react';
 
 interface HeaderProps {
   waypoints: Waypoint[];
@@ -15,9 +15,6 @@ interface HeaderProps {
 export const Header: React.FC<HeaderProps> = ({
   waypoints,
   isBottomMinimized,
-  isFullScreen,
-  handleFullScreen,
-  handleMinimizeMaximize,
   handlePrint,
 }) => {
   const { theme } = useTheme();
@@ -33,7 +30,7 @@ export const Header: React.FC<HeaderProps> = ({
   `;
 
   return (
-    <div className="px-4 pt-4">
+    <div className="px-2 pt-4">
       <div className={`
         ${`gradient-${theme}`}
         border border-[var(--sidebar-border)]
@@ -56,22 +53,6 @@ export const Header: React.FC<HeaderProps> = ({
         </div>
 
         <div className="flex items-center gap-2">
-            {!isBottomMinimized && (
-              <button
-                className={ButtonClass}
-                onClick={handleFullScreen}
-                title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
-              >
-                <Maximize2 size={16} />
-              </button>
-            )}
-            <button
-              className={ButtonClass}
-              onClick={handleMinimizeMaximize}
-              title={isBottomMinimized ? "Maximize" : "Minimize"}
-            >
-              <Minimize2 size={16} />
-            </button>
             {!isBottomMinimized && (
               <button
                 className={ButtonClass}
