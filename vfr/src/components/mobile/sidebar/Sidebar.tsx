@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { SidebarProps } from "../../../utils/types";
 import { Header } from "./components/sidebar/Header";
-import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
-import { useSidebarResize } from "../../../hooksMobile/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooksMobile/sidebar/useInputHandlers";
-import { ResizeHandle } from "./components/sidebar/ResizeHandle";
+import { useTheme } from "@/src/utils/ThemeContext";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
@@ -18,22 +16,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   updateCalculations,
   waypoints,
   onWaypointUpdate,
-  sidebarWidth,
   setSidebarWidth,
   isMinimized,
   setIsMinimized,
   isFullScreen,
   setIsFullScreen,
 }) => {
-  const [isSettingsVisible, setIsSettingsVisible] = useState(true);
-  const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-
-  const { handleMouseDown, handleTouchStart } = useSidebarResize({
-    setSidebarWidth,
-    minWidth: 256,
-    maxWidth: typeof window !== "undefined" ? window.innerWidth * 0.8 : 800,
-  });
-
   const { handleMinimizeMaximize, handleFullScreen } = useSidebarVisibility({
     setSidebarWidth,
     setIsMinimized,
@@ -43,60 +31,109 @@ const Sidebar: React.FC<SidebarProps> = ({
   });
 
   const { handleNumericInput } = useInputHandlers();
-
+  const [activeTab, setActiveTab] = useState<"settings" | "waypoints">(
+    "settings"
+  );
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const { theme } = useTheme();
   return (
     <div
-      className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] transition-all duration-300 md:translate-x-0 md:block fixed ${
-        isFullScreen ? "inset-0" : "top-0 left-0 h-full"
-      } z-50 flex`}
+      className={`
+        fixed left-0 top-0
+        w-full
+        z-50
+        bg-[var(--button-bg)]
+        text-[var(--sidebar-text)]
+        transition-all duration-300
+        flex flex-col
+        touch-none
+        rounded-b-xl
+        shadow-lg
+        ${isCollapsed ? "h-[80px]" : "h-[75vh]"}
+      `}
       style={{
         backgroundColor: "var(--background)",
         color: "var(--foreground)",
-        width: `${sidebarWidth}px`,
-        minWidth: isMinimized ? "48px" : "256px",
       }}
     >
-      {isMinimized ? (
-        <MinimizedSidebar
-          handleMinimizeMaximize={handleMinimizeMaximize}
-          fetchWindData={fetchWindData}
-        />
-      ) : (
-        <div className="flex flex-col h-full">
-          <Header
-            handleFullScreen={handleFullScreen}
-            handleMinimizeMaximize={handleMinimizeMaximize}
-            isFullScreen={isFullScreen}
-          />
-
-          <FlightSettings
-            isSettingsVisible={isSettingsVisible}
-            setIsSettingsVisible={setIsSettingsVisible}
-            fuelConsumption={fuelConsumption}
-            setFuelConsumption={setFuelConsumption}
-            selectedDateTime={selectedDateTime}
-            setSelectedDateTime={setSelectedDateTime}
-            fetchWindData={fetchWindData}
-            updateCalculations={updateCalculations}
-          />
-
-          <ScrollableContent
-            isWaypointsVisible={isWaypointsVisible}
-            setIsWaypointsVisible={setIsWaypointsVisible}
-            waypoints={waypoints}
-            onWaypointUpdate={onWaypointUpdate}
-            isFullScreen={isFullScreen}
-            handleNumericInput={handleNumericInput}
+      {/* Collapse/Expand Handle styled like ResizeHandle */}
+      <div
+        className={`
+          absolute -bottom-1.5 left-0 right-0
+          h-6 z-40
+          group cursor-ns-resize
+          flex items-center justify-center
+        `}
+        onClick={() => setIsCollapsed(!isCollapsed)}
+      >
+        <div className="absolute flex gap-1">
+          <div
+            className={`w-20 h-1.5 rounded-full ${`button-gradient-${theme}`}`}
           />
         </div>
-      )}
-
-      {/* Resize Handle */}
-      <ResizeHandle
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-        isVisible={!isMinimized && !isFullScreen}
+      </div>
+      {/* Header Section */}
+      <Header
+        handleFullScreen={handleFullScreen}
+        handleMinimizeMaximize={handleMinimizeMaximize}
+        isFullScreen={isFullScreen}
       />
+      {/* Tabs and Content - Only show when expanded */}
+      <div
+        className={`
+        flex-1 flex flex-col
+        transition-all duration-300
+        ${isCollapsed ? "opacity-0 pointer-events-none" : "opacity-100"}
+      `}
+      >
+        {/* Tab Buttons */}
+        <div className="flex border-b border-[var(--sidebar-border)]">
+          <button
+            onClick={() => setActiveTab("settings")}
+            className={`flex-1 text-sm py-2 transition-all ${
+              activeTab === "settings"
+                ? "bg-[var(--sidebar-bg)] font-semibold"
+                : "bg-transparent text-[var(--text-muted)]"
+            }`}
+          >
+            Flight Settings
+          </button>
+          <button
+            onClick={() => setActiveTab("waypoints")}
+            className={`flex-1 text-sm py-2 transition-all ${
+              activeTab === "waypoints"
+                ? "bg-[var(--sidebar-bg)] font-semibold"
+                : "bg-transparent text-[var(--text-muted)]"
+            }`}
+          >
+            Waypoints
+          </button>
+        </div>
+
+        <div className="flex-1 overflow-y-auto">
+          {activeTab === "settings" ? (
+            <FlightSettings
+              isSettingsVisible={true}
+              setIsSettingsVisible={() => {}}
+              fuelConsumption={fuelConsumption}
+              setFuelConsumption={setFuelConsumption}
+              selectedDateTime={selectedDateTime}
+              setSelectedDateTime={setSelectedDateTime}
+              fetchWindData={fetchWindData}
+              updateCalculations={updateCalculations}
+            />
+          ) : (
+            <ScrollableContent
+              isWaypointsVisible={true}
+              setIsWaypointsVisible={() => {}}
+              waypoints={waypoints}
+              onWaypointUpdate={onWaypointUpdate}
+              isFullScreen={isFullScreen}
+              handleNumericInput={handleNumericInput}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
