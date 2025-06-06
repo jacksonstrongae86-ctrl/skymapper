@@ -1,6 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { useMap } from 'react-leaflet';
-import { MapEventHandlerProps } from '../../utils/types';
+import { MapEventHandlerProps } from '../../../utils/types';
 
 const MapEventHandlerComponent = ({ onMapClick }: MapEventHandlerProps) => {
   const map = useMap();

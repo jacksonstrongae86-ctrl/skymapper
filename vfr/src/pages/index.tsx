@@ -4,11 +4,11 @@ import { useWaypoints } from "../hooks/index/useWaypoints";
 import { useFlightCalculations } from "../hooks/index/useFlightCalculations";
 import { useUIState } from "../hooks/index/useUIState";
 import { useWindData } from "../hooks/index/useWindData";
-import Sidebar from "../components/sidebar/Sidebar";
-import MapControls from "../components/map/MapControls";
-import BottomSidebar from "../components/sidebar/BottomSidebar";
+import Sidebar from "../components/desktop/sidebar/Sidebar";
+import MapControls from "../components/desktop/map/MapControls";
+import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 
-const MapComponent = dynamic(() => import("../components/map/MapComponent"), {
+const MapComponent = dynamic(() => import("../components/desktop/map/MapComponent"), {
   ssr: false,
 });
 

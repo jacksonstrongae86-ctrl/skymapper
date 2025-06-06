@@ -6,11 +6,11 @@ import {
   Polyline,
   useMapEvents,
 } from "react-leaflet";
-import { Waypoint } from "../../utils/types";
+import { Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useMapHandlers } from "../../hooks/index/useMapHandlers";
-import { createWaypointIcon } from "../../components/map/createWaypointIcon";
+import { useMapHandlers } from "../../../hooksMobile/index/useMapHandlers";
+import { createWaypointIcon } from "../../../components/mobile/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
 
 

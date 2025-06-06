@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { SidebarProps } from "../../utils/types";
+import { SidebarProps } from "../../../utils/types";
 import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
-import { useSidebarResize } from "../../hooks/sidebar/useSidebarResize";
-import { useSidebarVisibility } from "../../hooks/sidebar/useSidebarVisibility";
-import { useInputHandlers } from "../../hooks/sidebar/useInputHandlers";
+import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
+import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
+import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { ResizeHandle } from "./components/sidebar/ResizeHandle";
 
 const Sidebar: React.FC<SidebarProps> = ({

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { MapControlsProps } from '../../utils/types';
-import { useTheme, Theme, themeColours} from '../../utils/ThemeContext';
+import { MapControlsProps } from '../../../utils/types';
+import { useTheme, Theme, themeColours} from '../../../utils/ThemeContext';
 import {
   Palette,
   Layers,
@@ -90,7 +90,7 @@ const MapControls: React.FC<MapControlsProps> = ({
               border border-[var(--sidebar-border)]
               grid grid-cols-3 gap-2
               min-w-[120px]
-              z-50  
+              z-50
             `}>
               {(Object.keys(themeColours) as Theme[]).map((t) => (
                 <button
