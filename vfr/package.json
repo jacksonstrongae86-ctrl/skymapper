@@ -6,12 +6,14 @@
     "dev": "next dev -p 3001",
     "build": "next build",
     "start": "next start -p 3001",
-    "lint": "next lint"
+    "lint": "next lint",
+    "sitemap": "next-sitemap"
   },
   "dependencies": {
     "leaflet": "^1.9.4",
     "lucide-react": "^0.511.0",
     "next": "^15.2.3",
+    "next-sitemap": "^4.2.3",
     "react": "^19.0.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",

@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://skymapper.es
+
+# Sitemaps
+Sitemap: https://skymapper.es/sitemap.xml
