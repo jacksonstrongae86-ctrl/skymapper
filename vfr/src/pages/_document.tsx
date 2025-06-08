@@ -9,7 +9,7 @@ export default function Document() {
         {/* Google Analytics */}
         <script
           async
-          src={`https://www.googletagmanager.com/gtag/js?id=G-J22C85TW7T`}
+          src={`https://www.googletagmanager.com/gtag/js?id=G-2GBJG8M351`}
         />
         <script
           dangerouslySetInnerHTML={{
