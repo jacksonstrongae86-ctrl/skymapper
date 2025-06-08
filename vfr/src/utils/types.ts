@@ -67,6 +67,7 @@ export interface Waypoint {
   type: 'waypoint' | 'BOC' | 'TOC' | 'TOD' | 'BOD';
   altitude: number;
   ias: number;
+  originalAltitude?: number;
   altitudeChange: number;
   rocRod: number;
   iasClimbDescent: number;

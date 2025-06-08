@@ -17,76 +17,132 @@ export function useWaypoints(defaultTAS: number = 100) {
     (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
       setWaypoints((prev) => {
         const updated = [...prev];
-        // Actualizamos waypoint seleccionado
+        // Update selected waypoint
         updated[index] = { ...updated[index], [field]: value };
 
-        // Función para eliminar waypoint transición invisible justo después de índice dado
+        // Remove transition waypoint after given index
         const clean = removeTransitionWaypointAfterIndex(updated, index);
 
-        // Cuando cambiamos el tipo a normal, eliminar waypoint transición invisible justo después
+        // When changing type to normal, remove invisible transition waypoint
         if (field === "type") {
           if (value === "waypoint") {
+            // Reset to original altitude if it was a BOC/TOD
+            if (clean[index].originalAltitude !== undefined) {
+              clean[index] = {
+                ...clean[index],
+                altitude: clean[index].originalAltitude,
+                originalAltitude: undefined
+              };
+            }
             return clean;
           }
+
           if (["BOC", "TOC", "TOD", "BOD"].includes(value as string)) {
-            // Insertar nuevo waypoint de transición
             const currentWaypoint = clean[index];
             const nextWaypoint = clean[index + 1];
             if (!nextWaypoint) return clean;
 
+            // Store original altitude before any modifications
+            const originalAltitude = currentWaypoint.originalAltitude || currentWaypoint.altitude!;
+
+            // Calculate transition waypoint
             const transitionWaypoint = calculateTransitionWaypoint(
-              currentWaypoint,
+              { ...currentWaypoint, originalAltitude },
               nextWaypoint,
               value as "BOC" | "TOC" | "TOD" | "BOD"
             );
 
             if (!transitionWaypoint) return clean;
 
-            // Insertamos waypoint transición después del índice correcto
+            // Update current waypoint based on type
+            const updatedClean = [...clean];
+            if (value === "BOC" || value === "TOD") {
+              // For BOC/TOD: current waypoint shows final altitude after climb/descent
+              updatedClean[index] = {
+                ...updatedClean[index],
+                altitude: originalAltitude + updatedClean[index].altitudeChange!,
+                originalAltitude: originalAltitude
+              };
+            } else {
+              // For BOD/TOC: current waypoint keeps original altitude
+              updatedClean[index] = {
+                ...updatedClean[index],
+                altitude: originalAltitude,
+                originalAltitude: originalAltitude
+              };
+            }
+
+            // Insert transition waypoint
             const newWaypoints = [
-              ...clean.slice(0, index + 1),
+              ...updatedClean.slice(0, index + 1),
               transitionWaypoint,
-              ...clean.slice(index + 1),
+              ...updatedClean.slice(index + 1),
             ];
             return newWaypoints;
           }
         }
 
-        // Para cambios en parámetros que afectan la transición
+        // Handle parameter changes that affect transition calculations
         if (
           ["altitudeChange", "rocRod", "iasClimbDescent"].includes(field) &&
           ["BOC", "TOC", "TOD", "BOD"].includes(updated[index].type)
         ) {
-          // Waypoint origen con los datos para el cálculo
           const originWaypoint = updated[index];
-
-          // Waypoint siguiente (el destino)
           const nextWaypoint = updated[index + 1];
           if (!nextWaypoint) return updated;
 
-          // Eliminar waypoint transición anterior justo después del index
+          // Remove existing transition waypoint
           const cleaned = removeTransitionWaypointAfterIndex(updated, index);
 
-          // Recalcular el waypoint de transición con las variables del originWaypoint y nextWaypoint
+          // Use original altitude for calculations
+          const originalAltitude = originWaypoint.originalAltitude || originWaypoint.altitude!;
+          const updatedAltitudeChange = field === "altitudeChange" ? (value as number) : originWaypoint.altitudeChange!;
+
+          // Create waypoint with updated parameters for calculation
+          const waypointForCalculation = {
+            ...originWaypoint,
+            altitudeChange: updatedAltitudeChange,
+            originalAltitude: originalAltitude
+          };
+
+          // Recalculate transition waypoint
           const newTransitionWaypoint = calculateTransitionWaypoint(
-            originWaypoint,
+            waypointForCalculation,
             nextWaypoint,
             originWaypoint.type as "BOC" | "TOC" | "TOD" | "BOD"
           );
 
           if (!newTransitionWaypoint) return cleaned;
 
-          // Insertar waypoint transición justo después del origin waypoint
+          // Update current waypoint altitude based on type
+          const finalCleaned = [...cleaned];
+          if (originWaypoint.type === "BOC" || originWaypoint.type === "TOD") {
+            // For BOC/TOD: show final altitude after climb/descent
+            finalCleaned[index] = {
+              ...finalCleaned[index],
+              altitude: originalAltitude + updatedAltitudeChange,
+              originalAltitude: originalAltitude
+            };
+          } else {
+            // For BOD/TOC: keep original altitude in current waypoint
+            finalCleaned[index] = {
+              ...finalCleaned[index],
+              altitude: originalAltitude,
+              originalAltitude: originalAltitude
+            };
+          }
+
+          // Insert new transition waypoint
           const finalWaypoints = [
-            ...cleaned.slice(0, index + 1),
+            ...finalCleaned.slice(0, index + 1),
             newTransitionWaypoint,
-            ...cleaned.slice(index + 1),
+            ...finalCleaned.slice(index + 1),
           ];
 
           return finalWaypoints;
         }
 
-        // Para todos los demás casos devolvemos actualizado
+        // For all other cases return updated array
         return updated;
       });
     },
