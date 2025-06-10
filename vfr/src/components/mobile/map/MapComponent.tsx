@@ -53,7 +53,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     ${
       isExpanded
         ? "fixed top-0 left-0 w-full h-full z-50"
-        : "relative h-[550px] z-30"
+        : "relative h-full z-30"
     }
     transition-all duration-300 ease-in-out
   `}
