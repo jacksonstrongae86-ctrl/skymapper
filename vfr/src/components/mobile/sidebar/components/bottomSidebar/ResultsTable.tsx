@@ -32,6 +32,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
         border-t-0
         w-full
         overflow-x-auto
+      
       `}>
         <table className="w-full">
           <thead className={`
