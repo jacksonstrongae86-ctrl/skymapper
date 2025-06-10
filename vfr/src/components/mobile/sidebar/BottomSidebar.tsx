@@ -68,7 +68,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       <div
         className={`
         h-full
-        overflow-y-auto
+        overflow-auto
         custom-scrollbar
         transition-all duration-300
       `}
