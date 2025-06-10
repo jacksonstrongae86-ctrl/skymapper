@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MapControlsProps } from '../../../utils/types';
-import { useTheme, Theme, themeColours} from '../../../utils/ThemeContext';
+import React, { useState, useEffect, useRef } from "react";
+import { MapControlsProps } from "../../../utils/types";
+import { useTheme } from "../../../utils/ThemeContext";
 import {
-  Palette,
+  // Palette,
   Layers,
   Trash2,
   XCircle,
-  Check,
+  // Check,
   Map,
   Satellite,
   Globe,
   Mountain,
-} from 'lucide-react';
+} from "lucide-react";
 
 const MapControls: React.FC<MapControlsProps> = ({
   mapType,
@@ -19,7 +19,7 @@ const MapControls: React.FC<MapControlsProps> = ({
   onDeleteLastWaypoint,
   onClearWaypoints,
 }) => {
-  const { theme, setTheme } = useTheme();
+  const { theme } = useTheme();
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false);
   const [isMapSelectorOpen, setIsMapSelectorOpen] = useState(false);
   const themeSelectorRef = useRef<HTMLDivElement>(null);
@@ -28,8 +28,10 @@ const MapControls: React.FC<MapControlsProps> = ({
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        (!themeSelectorRef.current?.contains(event.target as Node) && isThemeSelectorOpen) ||
-        (!mapSelectorRef.current?.contains(event.target as Node) && isMapSelectorOpen)
+        (!themeSelectorRef.current?.contains(event.target as Node) &&
+          isThemeSelectorOpen) ||
+        (!mapSelectorRef.current?.contains(event.target as Node) &&
+          isMapSelectorOpen)
       ) {
         setIsThemeSelectorOpen(false);
         setIsMapSelectorOpen(false);
@@ -59,17 +61,17 @@ const MapControls: React.FC<MapControlsProps> = ({
   `;
 
   const MAP_TYPES = [
-    { value: 'street', label: 'Street', icon: Map },
-    { value: 'sat', label: 'Satellite', icon: Satellite },
-    { value: 'hybrid', label: 'Hybrid', icon: Globe },
-    { value: 'terrain', label: 'Terrain', icon: Mountain },
+    { value: "street", label: "Street", icon: Map },
+    { value: "sat", label: "Satellite", icon: Satellite },
+    { value: "hybrid", label: "Hybrid", icon: Globe },
+    { value: "terrain", label: "Terrain", icon: Mountain },
   ] as const;
 
   return (
-    <div className="fixed right-4 top-4 z-50">
+    <div className="fixed right-4 top-4 z-50 grid grid-rows-2 gap-3">
       <div className="grid grid-cols-2 gap-3">
         {/* Theme Selector */}
-        <div className="relative" ref={themeSelectorRef}>
+        {/* <div className="relative" ref={themeSelectorRef}>
           <button
             onClick={() => {
               setIsThemeSelectorOpen(prev => !prev);
@@ -114,23 +116,26 @@ const MapControls: React.FC<MapControlsProps> = ({
               ))}
             </div>
           )}
-        </div>
+        </div> */}
 
         {/* Map Type Selector */}
         <div className="relative" ref={mapSelectorRef}>
           <button
             onClick={() => {
-              setIsMapSelectorOpen(prev => !prev);
+              setIsMapSelectorOpen((prev) => !prev);
               setIsThemeSelectorOpen(false);
             }}
-            className={`${ButtonClass} ${isMapSelectorOpen ? 'opacity-75' : ''}`}
+            className={`${ButtonClass} ${
+              isMapSelectorOpen ? "opacity-75" : ""
+            }`}
             title="Map Type"
           >
             <Layers size={18} className="text-[var(--button-text)]" />
           </button>
 
           {isMapSelectorOpen && (
-            <div className={`
+            <div
+              className={`
               absolute top-12 right-0
               ${`gradient-${theme}`}
               backdrop-blur-md p-2
@@ -138,7 +143,8 @@ const MapControls: React.FC<MapControlsProps> = ({
               border border-[var(--sidebar-border)]
               min-w-[140px]
               z-50
-            `}>
+            `}
+            >
               {MAP_TYPES.map(({ value, label, icon: Icon }) => (
                 <button
                   key={value}
@@ -151,9 +157,10 @@ const MapControls: React.FC<MapControlsProps> = ({
                     flex items-center gap-2
                     rounded-lg
                     transition-all duration-200
-                    ${mapType === value
-                      ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                      : 'hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]'
+                    ${
+                      mapType === value
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
                   title={label}
@@ -174,7 +181,9 @@ const MapControls: React.FC<MapControlsProps> = ({
         >
           <Trash2 size={18} className="text-[var(--button-text)]" />
         </button>
-
+      </div>
+      <div className="grid grid-cols-2 gap-3 justify-end">
+        <div></div>
         {/* Clear All Waypoints Button */}
         <button
           className={ButtonClass}
