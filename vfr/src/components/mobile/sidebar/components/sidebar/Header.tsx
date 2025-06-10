@@ -44,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           text-[var(--sidebar-text)]
         `}
         >
-          SkyMapper
+          Skymapper
         </span>
       </div>
 

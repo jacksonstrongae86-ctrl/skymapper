@@ -43,7 +43,7 @@ export const Header: React.FC<HeaderProps> = ({
           font-bold
           text-[var(--sidebar-text)]
         `}>
-          SkyMapper
+          Skymapper
         </span>
       </div>
       <div className="flex gap-2">
