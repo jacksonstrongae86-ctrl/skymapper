@@ -64,7 +64,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       <div
         className={`
           absolute -top-3 left-0 right-0
-          h-6 z-50
+          h-10 z-50
           group cursor-ns-resize
           flex items-center justify-center
         `}
