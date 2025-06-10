@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { Header } from "./components/bottomSidebar/Header";
 import { ResultsTable } from "./components/bottomSidebar/ResultsTable";
-import { useBottomSidebarResize } from "@/src/hooksMobile/bottomSidebar/useBottomSidebarResize";
-import { useBottomSidebarVisibility } from "@/src/hooksMobile/bottomSidebar/useBottomSidebarVisibility";
+import { ResizeHandle } from "./components/bottomSidebar/ResizeHandle";
+import { useBottomSidebarResize } from "@/src/hooks/bottomSidebar/useBottomSidebarResize";
+import { useBottomSidebarVisibility } from "@/src/hooks/bottomSidebar/useBottomSidebarVisibility";
 import { useResultsCalculation } from "@/src/hooksMobile/bottomSidebar/useResultCalculation";
 import { usePrintHandler } from "@/src/hooksMobile/bottomSidebar/usePrintHandler";
 import { BottomSidebarProps } from "@/src/utils/types";
@@ -14,21 +15,19 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   fuelConsumption,
   onHeightChange,
 }) => {
-  const [isCollapsed, setIsCollapsed] = useState(true);
   const { theme } = useTheme();
-  const { height } = useBottomSidebarResize({
-    onHeightChange,
+
+  const { height, handleMouseDown } = useBottomSidebarResize({
+    onHeightChange: onHeightChange || (() => {}),
     minHeight: 7, // Reduced minimum height
     maxHeight: 90,
   });
 
-  const {
-    isFullScreen,
-    handleFullScreen,
-  } = useBottomSidebarVisibility({
-    onHeightChange,
-    defaultHeight: height,
-  });
+  const { isBottomMinimized, isFullScreen, handleFullScreen } =
+    useBottomSidebarVisibility({
+      onHeightChange,
+      defaultHeight: height,
+    });
 
   // Custom hooksMobile for data and actions
   const results = useResultsCalculation({
@@ -43,7 +42,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
     fuelConsumption,
   });
 
-    return (
+  return (
     <div
       className={`
         fixed bottom-0 left-0
@@ -54,50 +53,38 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
         w-full
-        ${isCollapsed ? 'h-[80px]' : 'h-[50vh]'}
       `}
       style={{
+        height: `${isBottomMinimized ? 7 : isFullScreen ? 90 : height}%`,
         zIndex: 40,
       }}
     >
-      {/* Collapse/Expand Handle */}
-      <div
-        className={`
-          absolute -top-3 left-0 right-0
-          h-10 z-50
-          group cursor-ns-resize
-          flex items-center justify-center
-        `}
-        onClick={() => setIsCollapsed(!isCollapsed)}
-      >
-        <div className="absolute flex gap-1">
-          <div className={`w-20 h-1.5 rounded-full ${`button-gradient-${theme}`}`} />
-        </div>
-      </div>
+      {/* Resize Handle */}
+      <ResizeHandle handleMouseDown={handleMouseDown} />
 
       {/* Main Content Container */}
-      <div className={`
+      <div
+        className={`
         h-full
         overflow-y-auto
         custom-scrollbar
         transition-all duration-300
-        ${isCollapsed ? 'opacity-50' : 'opacity-100'}
-      `}>
+      `}
+      >
         {/* Header Component */}
         <Header
           waypoints={waypoints}
-          isBottomMinimized={isCollapsed}
           isFullScreen={isFullScreen}
           handleFullScreen={handleFullScreen}
-          handleMinimizeMaximize={() => setIsCollapsed(!isCollapsed)}
           handlePrint={handlePrint}
         />
 
         {/* Results Table Component */}
-        <div className={`
+        <div
+          className={`
           transition-all duration-300
-          ${isCollapsed ? 'opacity-0 pointer-events-none' : 'opacity-100'}
-        `}>
+        `}
+        >
           <ResultsTable results={results} />
         </div>
       </div>

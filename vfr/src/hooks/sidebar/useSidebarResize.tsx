@@ -3,7 +3,7 @@ import { UseSidebarResizeProps } from "@/src/utils/types";
 
 export const useSidebarResize = ({
   setSidebarWidth,
-  minWidth = 300,
+  minWidth = 256,
   maxWidth,
 }: UseSidebarResizeProps) => {
   const [isResizing, setIsResizing] = useState(false);

@@ -1,72 +1,59 @@
-import { useState, useEffect, TouchEvent } from "react";
-import { UseSidebarResizeProps } from "@/src/utils/types";
+import { useState, useEffect } from "react";
+
+interface UseBottomSidebarResizeProps {
+  onHeightChange?: (height: number) => void;
+  minHeight?: number;
+  maxHeight?: number;
+}
 
 export const useSidebarResize = ({
-  setSidebarWidth,
-  minWidth = 300,
-  maxWidth,
-}: UseSidebarResizeProps) => {
+  onHeightChange,
+  minHeight = 10,
+  maxHeight = 75,
+}: UseBottomSidebarResizeProps) => {
   const [isResizing, setIsResizing] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startWidth, setStartWidth] = useState(0);
-  const effectiveMaxWidth = typeof window !== "undefined" ? maxWidth ?? window.innerWidth * 0.8 : 800;
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const [height, setHeight] = useState(25);
+
+  const handleMouseDown = () => {
     setIsResizing(true);
-    setStartX(e.clientX);
-    setStartWidth(e.currentTarget.parentElement?.offsetWidth || 0);
   };
 
-  const handleTouchStart = (e: TouchEvent) => {
-    setIsResizing(true);
-    setStartX(e.touches[0].clientX);
-    setStartWidth(e.currentTarget.parentElement?.offsetWidth || 0);
+  const handleMouseUp = () => {
+    setIsResizing(false);
   };
 
   useEffect(() => {
-    const handleResize = (clientX: number) => {
-      if (!isResizing) return;
+    if (typeof window === "undefined") return;
 
-      const diff = clientX - startX;
-      const newWidth = Math.min(
-        effectiveMaxWidth,
-        Math.max(minWidth, startWidth + diff)
-      );
-      setSidebarWidth(newWidth);
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isResizing) {
+
+        // Calculate height percentage from TOP of screen (inverted from bottom sidebar)
+        const windowHeight = window.innerHeight;
+        const fromTop = e.clientY; // Distance from top of screen
+        const percentage = Math.max(
+          0,
+          Math.min(100, (fromTop / windowHeight) * 100)
+        );
+
+        // Clamp between min and max heights
+        const newHeight = Math.min(maxHeight, Math.max(minHeight, percentage));
+
+        setHeight(newHeight);
+        onHeightChange?.(newHeight);
+      }
     };
-    const handleMouseMove = (e: MouseEvent) => handleResize(e.clientX);
-    const handleTouchMove = (e: TouchEvent) =>
-      handleResize(e.touches[0].clientX);
-
-    const handleEnd = () => setIsResizing(false);
 
     if (isResizing) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleEnd);
-      document.addEventListener(
-        "touchmove",
-        handleTouchMove as unknown as EventListener
-      );
-      document.addEventListener("touchend", handleEnd);
-      document.body.style.cursor = "ew-resize";
-      document.body.style.userSelect = "none";
+      window.addEventListener("mousemove", handleMouseMove);
+      window.addEventListener("mouseup", handleMouseUp);
     }
 
     return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleEnd);
-      document.removeEventListener(
-        "touchmove",
-        handleTouchMove as unknown as EventListener
-      );
-      document.removeEventListener("touchend", handleEnd);
-      document.body.style.cursor = "";
-      document.body.style.userSelect = "";
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [isResizing, startX, startWidth, setSidebarWidth, effectiveMaxWidth, minWidth]);
+  }, [isResizing, onHeightChange, minHeight, maxHeight]);
 
-  return {
-    handleMouseDown,
-    handleTouchStart,
-    isResizing,
-  };
+  return { height, setHeight, handleMouseDown, isResizing };
 };

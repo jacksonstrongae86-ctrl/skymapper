@@ -125,6 +125,7 @@ export interface SidebarProps {
   setIsMinimized: (minimized: boolean) => void;
   isFullScreen: boolean;
   setIsFullScreen: (fullScreen: boolean) => void;
+  onHeightChange?: (height: number) => void;
 }
 
 export interface MapControlsProps {

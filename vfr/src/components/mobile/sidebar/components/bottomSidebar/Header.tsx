@@ -1,22 +1,16 @@
-import React from 'react';
-import { useTheme } from '@/src/utils/ThemeContext';
-import { Waypoint } from '@/src/utils/types';
-import { Printer } from 'lucide-react';
+import React from "react";
+import { useTheme } from "@/src/utils/ThemeContext";
+import { Waypoint } from "@/src/utils/types";
+import { Printer } from "lucide-react";
 
 interface HeaderProps {
   waypoints: Waypoint[];
-  isBottomMinimized: boolean;
   isFullScreen: boolean;
   handleFullScreen: () => void;
-  handleMinimizeMaximize: () => void;
   handlePrint: () => void;
 }
 
-export const Header: React.FC<HeaderProps> = ({
-  waypoints,
-  isBottomMinimized,
-  handlePrint,
-}) => {
+export const Header: React.FC<HeaderProps> = ({ waypoints, handlePrint }) => {
   const { theme } = useTheme();
 
   const ButtonClass = `
@@ -31,37 +25,39 @@ export const Header: React.FC<HeaderProps> = ({
 
   return (
     <div className="px-2 pt-4">
-      <div className={`
+      <div
+        className={`
         ${`gradient-${theme}`}
         border border-[var(--sidebar-border)]
         rounded-t-xl
         p-4
         w-full
-      `}>
+      `}
+      >
         <div className="flex justify-between items-center">
-        <div className="flex items-center gap-3">
-          <h2 className="text-xl font-bold text-[var(--sidebar-text)]">
-            Flight Results
-          </h2>
-          <span className={`
+          <div className="flex items-center gap-3">
+            <h2 className="text-xl font-bold text-[var(--sidebar-text)]">
+              Flight Results
+            </h2>
+            <span
+              className={`
             px-3 py-1 rounded-full text-sm font-medium
             ${`button-gradient-${theme}`}
             text-[var(--button-text)]
-          `}>
-            {waypoints.length > 1 ? waypoints.length - 1 : 0} legs
-          </span>
-        </div>
+          `}
+            >
+              {waypoints.length > 1 ? waypoints.length - 1 : 0} legs
+            </span>
+          </div>
 
-        <div className="flex items-center gap-2">
-            {!isBottomMinimized && (
-              <button
-                className={ButtonClass}
-                onClick={handlePrint}
-                title="Print Results"
-              >
-                <Printer size={16} />
-              </button>
-            )}
+          <div className="flex items-center gap-2">
+            <button
+              className={ButtonClass}
+              onClick={handlePrint}
+              title="Print Results"
+            >
+              <Printer size={16} />
+            </button>
           </div>
         </div>
       </div>
