@@ -32,7 +32,6 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   const {
     isBottomMinimized,
     isFullScreen,
-    handleMinimizeMaximize,
     handleFullScreen,
   } = useBottomSidebarVisibility({
     onHeightChange,
@@ -97,7 +96,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           isBottomMinimized={isBottomMinimized}
           isFullScreen={isFullScreen}
           handleFullScreen={handleFullScreen}
-          handleMinimizeMaximize={handleMinimizeMaximize}
+
           handlePrint={handlePrint}
         />
 

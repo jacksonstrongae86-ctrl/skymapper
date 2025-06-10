@@ -8,7 +8,7 @@ interface HeaderProps {
   isBottomMinimized: boolean;
   isFullScreen: boolean;
   handleFullScreen: () => void;
-  handleMinimizeMaximize: () => void;
+
   handlePrint: () => void;
 }
 
@@ -17,7 +17,6 @@ export const Header: React.FC<HeaderProps> = ({
   isBottomMinimized,
   isFullScreen,
   handleFullScreen,
-  handleMinimizeMaximize,
   handlePrint,
 }) => {
   const { theme } = useTheme();
@@ -62,16 +61,13 @@ export const Header: React.FC<HeaderProps> = ({
                 onClick={handleFullScreen}
                 title={isFullScreen ? "Exit Full Screen" : "Full Screen"}
               >
-                <Maximize2 size={16} />
+                {isFullScreen ? (
+                  <Minimize2 size={16} />
+                ) : (
+                  <Maximize2 size={16} />
+                )}
               </button>
             )}
-            <button
-              className={ButtonClass}
-              onClick={handleMinimizeMaximize}
-              title={isBottomMinimized ? "Maximize" : "Minimize"}
-            >
-              <Minimize2 size={16} />
-            </button>
             {!isBottomMinimized && (
               <button
                 className={ButtonClass}
