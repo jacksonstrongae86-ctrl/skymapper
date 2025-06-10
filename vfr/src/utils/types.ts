@@ -64,14 +64,18 @@ export interface FlightResultsTableProps {
 // Index
 export interface Waypoint {
   position: [number, number];
-  type: 'waypoint' | 'BOC' | 'TOC' | 'TOD' | 'BOD';
+  type: "waypoint" | "BOC" | "TOC" | "TOD" | "BOD";
   altitude: number;
   ias: number;
-  originalAltitude?: number;
-  altitudeChange: number;
-  rocRod: number;
-  iasClimbDescent: number;
   visible: boolean;
+  altitudeChange?: number;
+  rocRod?: number;
+  iasClimbDescent?: number;
+  originalAltitude?: number;
+  normalDistance?: number;
+  specialDistance?: number;
+  isTransition?: boolean;
+  transitionWaypointIndex?: number;
 }
 export interface LegCalculation {
   distance: number;
