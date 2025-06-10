@@ -71,7 +71,7 @@ const formatResultRow = ({
 
   return (
     <tr key={i} className={rowClass}>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         <div className="flex flex-col">
           <span className={legName.isSpecialFormat ? "font-bold text-[var(--results-text)]" : ""}>
             {legName.mainText}
@@ -83,28 +83,28 @@ const formatResultRow = ({
           )}
         </div>
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {distance.toFixed(1)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {track.toFixed(0)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {heading.toFixed(0)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {gs.toFixed(0)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {time.toFixed(1)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {tas.toFixed(0)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {fuelBurn.toFixed(1)}
       </td>
-      <td className="py-3 px-4 border-b border-slate-700/50">
+      <td className="py-1 px-4 border-b border-slate-700/50">
         {`${windInfo.speed.toFixed(1)} kt @ ${windInfo.direction.toFixed(0)}°`}
       </td>
     </tr>
