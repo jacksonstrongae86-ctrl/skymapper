@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export function useUIState() {
-  const [sidebarWidth, setSidebarWidth] = useState(256);
+  const [sidebarWidth, setSidebarWidth] = useState(300);
   const [sidebarHeight, setSidebarHeight] = useState(25);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);
