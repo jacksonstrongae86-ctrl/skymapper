@@ -25,6 +25,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   isFullScreen,
   setIsFullScreen,
   onHeightChange, // Assuming this prop exists or add it to SidebarProps
+  bottomSidebarHeight = 0, // Default to 0 if not provided
 }) => {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<"settings" | "waypoints">(
@@ -36,6 +37,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     onHeightChange: onHeightChange || (() => {}),
     minHeight: 7,
     maxHeight: 90,
+    bottomSidebarHeight, // Pass the bottom sidebar height
   });
 
   const {

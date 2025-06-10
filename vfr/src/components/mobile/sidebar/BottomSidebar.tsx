@@ -14,13 +14,15 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   storedWindData,
   fuelConsumption,
   onHeightChange,
+  topSidebarHeight = 0, // Default to 0 if not provided
 }) => {
   const { theme } = useTheme();
 
   const { height, handleMouseDown } = useBottomSidebarResize({
     onHeightChange: onHeightChange || (() => {}),
-    minHeight: 7, // Reduced minimum height
+    minHeight: 7,
     maxHeight: 90,
+    topSidebarHeight, // Pass the top sidebar height
   });
 
   const { isBottomMinimized, isFullScreen, handleFullScreen } =

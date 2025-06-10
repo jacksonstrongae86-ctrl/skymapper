@@ -12,7 +12,6 @@ import MapControls from "../components/desktop/map/MapControls";
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
 
-
 const MapComponent = dynamic(
   () => import("../components/desktop/map/MapComponent"),
   {
@@ -47,6 +46,19 @@ export default function Home() {
   } = useWindData();
   const [fuelConsumption, setFuelConsumption] = useState<number>(8);
   const isMobile = useIsMobile();
+  // Shared state for both sidebar heights
+  const [topSidebarHeight, setTopSidebarHeight] = useState(25);
+  const [bottomSidebarHeight, setBottomSidebarHeight] = useState(25);
+
+  // Handler for top sidebar height changes
+  const handleTopSidebarHeightChange = (height: number) => {
+    setTopSidebarHeight(height);
+  };
+
+  // Handler for bottom sidebar height changes
+  const handleBottomSidebarHeightChange = (height: number) => {
+    setBottomSidebarHeight(height);
+  };
   useEffect(() => {
     if (waypoints.length > 0) {
       fetchWindData(waypoints);
@@ -76,6 +88,8 @@ export default function Home() {
               }
               waypoints={waypoints}
               onWaypointUpdate={handleWaypointUpdate}
+              onHeightChange={handleTopSidebarHeightChange}
+              bottomSidebarHeight={bottomSidebarHeight}
             />
           </div>
           <div className="flex-1 relative mt-0">
@@ -97,6 +111,8 @@ export default function Home() {
               fuelConsumption={fuelConsumption}
               legCalculations={legCalculations}
               {...uiState}
+              onHeightChange={handleBottomSidebarHeightChange}
+              topSidebarHeight={topSidebarHeight}
             />
           </div>
         </div>

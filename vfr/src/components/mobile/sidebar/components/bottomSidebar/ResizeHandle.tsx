@@ -2,7 +2,7 @@ import React from 'react';
 import { useTheme } from '@/src/utils/ThemeContext';
 
 interface ResizeHandleProps {
-  handleMouseDown: () => void;
+  handleMouseDown: (e: React.MouseEvent | React.TouchEvent) => void;
 }
 
 export const ResizeHandle: React.FC<ResizeHandleProps> = ({

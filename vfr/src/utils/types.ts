@@ -56,6 +56,7 @@ export interface BottomSidebarProps {
     time: number;
     fuelBurn: number;
   }>;
+  topSidebarHeight?: number;
 }
 export interface FlightResultsTableProps {
   results: JSX.Element[];
@@ -126,6 +127,7 @@ export interface SidebarProps {
   isFullScreen: boolean;
   setIsFullScreen: (fullScreen: boolean) => void;
   onHeightChange?: (height: number) => void;
+  bottomSidebarHeight?: number;
 }
 
 export interface MapControlsProps {
