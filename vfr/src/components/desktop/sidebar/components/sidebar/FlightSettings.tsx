@@ -91,7 +91,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                 />
               </label>
 
-              <label className="block">
+              <label className="block grid grid-cols-1 gap-2">
                 <span className="text-sm font-medium text-[var(--sidebar-text)]">
                   <Clock size={16} className="text-[var(--sidebar-text)]" />
                   Select Date and Time:
