@@ -86,7 +86,7 @@ export default function Home() {
               onClearWaypoints={handleClearWaypoints}
             />
           </div>
-          <div className="flex-1 relative mt-18">
+          <div className="flex-1 relative mt-0">
             <MobileMapComponent
               onMapClick={handleMapClick}
               waypoints={waypoints}

@@ -69,7 +69,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         zoomControl={isExpanded}
         className="z[9999]"
       >
-        <MapEvents onMapClick={onMapClick} />
+        <MapEvents onMapClick={onMapClick} isExpanded={isExpanded} />
 
         <TileLayer
           url={
@@ -136,9 +136,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
 // Component to handle map click events
 const MapEvents: React.FC<{
   onMapClick: (e: LeafletMouseEvent) => void;
-}> = ({ onMapClick }) => {
+  isExpanded: boolean;
+}> = ({ onMapClick, isExpanded }) => {
   useMapEvents({
-    click: onMapClick,
+    click: (e) => {
+      if (isExpanded) {
+        onMapClick(e);
+      }
+    },
   });
 
   return null;
