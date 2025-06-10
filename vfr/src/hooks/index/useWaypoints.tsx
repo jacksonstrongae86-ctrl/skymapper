@@ -49,10 +49,24 @@ export function useWaypoints(defaultTAS: number = 100) {
       setWaypoints((prev) => {
         const updated = [...prev];
         updated[index] = { ...updated[index], [field]: value };
+        const currentWp = updated[index];
 
         // Handle type changes
         if (field === "type") {
-          const currentWp = updated[index];
+          // First, remove any existing transition waypoint
+        if (currentWp.transitionWaypointIndex !== undefined) {
+          updated.splice(currentWp.transitionWaypointIndex, 1);
+          // Update indices for waypoints after the removed transition
+          updated.forEach((wp) => {
+            if (wp.transitionWaypointIndex && wp.transitionWaypointIndex > currentWp.transitionWaypointIndex!) {
+              wp.transitionWaypointIndex--;
+            }
+          });
+          delete currentWp.transitionWaypointIndex;
+        }
+
+        // Update the type
+        currentWp[field] = value as typeof currentWp[typeof field];
           const nextWp = updated[index + 1];
           if (!nextWp) return updated;
 
