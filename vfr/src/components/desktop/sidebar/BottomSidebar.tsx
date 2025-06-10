@@ -24,7 +24,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
     height,
     handleMouseDown,
   } = useBottomSidebarResize({
-    onHeightChange,
+    onHeightChange: onHeightChange || (() => {}),
     minHeight: 7, // Reduced minimum height
     maxHeight: 90,
   });
