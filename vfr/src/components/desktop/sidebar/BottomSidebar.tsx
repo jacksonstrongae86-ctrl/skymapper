@@ -55,7 +55,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   return (
     <div
       className={`
-        fixed bottom-0 left-0
+        fixed bottom-0
         text-[var(--results-text)]
         shadow-lg
         transition-all duration-300 ease-in-out
@@ -64,8 +64,12 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       `}
       style={{
         height: `${isBottomMinimized ? 7 : isFullScreen ? 90 : height}%`,
-        left: isParentFullScreen ? "0" : isMinimized ? "48px" : `${sidebarWidth}px`,
-        width: isParentFullScreen ? "100%" : `calc(100% - ${isMinimized ? '48px' : sidebarWidth}px)`,
+        left: isParentFullScreen ? 0 : isMinimized ? "48px" : `${sidebarWidth}px`,
+        width: isParentFullScreen
+          ? "100%"
+          : isMinimized
+            ? "calc(100vw - 48px)"
+            : `calc(100vw - ${sidebarWidth}px)`,
         zIndex: 40,
       }}
     >

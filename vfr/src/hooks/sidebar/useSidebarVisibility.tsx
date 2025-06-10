@@ -10,7 +10,7 @@ export const useSidebarVisibility = ({
 }: UseSidebarVisibilityProps) => {
   const handleMinimizeMaximize = () => {
     if (isMinimized) {
-      setSidebarWidth(256);
+      setSidebarWidth(300);
     } else {
       setSidebarWidth(48);
     }
@@ -19,7 +19,7 @@ export const useSidebarVisibility = ({
 
   const handleFullScreen = () => {
     if (isFullScreen) {
-      setSidebarWidth(256);
+      setSidebarWidth(300);
     } else {
       setSidebarWidth(window.innerWidth);
     }
