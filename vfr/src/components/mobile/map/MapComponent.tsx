@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef } from "react";
 import { Map } from "leaflet";
 import {
   MapContainer,
@@ -15,6 +15,7 @@ import { createWaypointIcon } from "../../../components/mobile/map/createWaypoin
 import { useTheme } from "@/src/utils/ThemeContext";
 import { useState } from "react";
 import { X } from "lucide-react";
+import MobileMapControls from "@/src/components/mobile/map/MapControls";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -25,6 +26,9 @@ type MapComponentProps = {
     field: keyof Waypoint,
     value: Waypoint[keyof Waypoint]
   ) => void;
+  onDeleteLastWaypoint: () => void;
+  onClearWaypoints: () => void;
+  setMapType: (type: string) => void;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -32,6 +36,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
   waypoints,
   mapType,
   onWaypointUpdate,
+  onDeleteLastWaypoint,
+  onClearWaypoints,
+  setMapType,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
@@ -39,13 +46,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
-  useEffect(() => {
-    if (mapRef.current) {
-      setTimeout(() => {
-        mapRef.current?.invalidateSize(); // seguro
-      }, 300);
-    }
-  }, [isExpanded]);
 
   return (
     <div
@@ -119,15 +119,28 @@ const MapComponent: React.FC<MapComponentProps> = ({
         )}
       </MapContainer>
       {isExpanded && (
-        <button
-          onClick={(e) => {
-            e.stopPropagation();
-            setIsExpanded(false);
-          }}
-          className="fixed top-4 right-4 z-[1000] bg-black/60 text-white px-1 py-1 rounded-full"
+        <div
+          className="absolute top-0 left-0 w-full h-full bg-black/50 z-[999]"
+          onClick={(e) => e.stopPropagation()}
         >
-          <X size={20} />
-        </button>
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              setIsExpanded(false);
+            }}
+            className={`fixed top-4 right-4 z-[1000] ${`button-gradient-${theme}`} text-white px-1 py-1 rounded-full`}
+          >
+            <X size={20} />
+          </button>
+          <div className="fixed top-4 left-4 z-[1000] text-white">
+            <MobileMapControls
+              mapType={mapType}
+              setMapType={setMapType}
+              onDeleteLastWaypoint={onDeleteLastWaypoint}
+              onClearWaypoints={onClearWaypoints}
+            />
+          </div>
+        </div>
       )}
     </div>
   );

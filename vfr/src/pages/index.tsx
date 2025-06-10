@@ -11,7 +11,7 @@ import MapControls from "../components/desktop/map/MapControls";
 
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
-import MobileMapControls from "../components/mobile/map/MapControls";
+
 
 const MapComponent = dynamic(
   () => import("../components/desktop/map/MapComponent"),
@@ -78,20 +78,15 @@ export default function Home() {
               onWaypointUpdate={handleWaypointUpdate}
             />
           </div>
-          <div className="absolute top-4.5 right-4.5 z-50">
-            <MobileMapControls
-              mapType={uiState.mapType}
-              setMapType={uiState.setMapType}
-              onDeleteLastWaypoint={handleDeleteLastWaypoint}
-              onClearWaypoints={handleClearWaypoints}
-            />
-          </div>
           <div className="flex-1 relative mt-0">
             <MobileMapComponent
               onMapClick={handleMapClick}
               waypoints={waypoints}
               mapType={uiState.mapType}
               onWaypointUpdate={handleWaypointUpdate}
+              onDeleteLastWaypoint={handleDeleteLastWaypoint}
+              onClearWaypoints={handleClearWaypoints}
+              setMapType={uiState.setMapType}
             />
           </div>
 

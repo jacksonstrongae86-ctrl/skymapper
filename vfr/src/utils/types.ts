@@ -135,6 +135,21 @@ export interface MapControlsProps {
   onClearWaypoints: () => void;
 }
 
+export interface MobileMapComponentProps {
+  onMapClick: (e: LeafletMouseEvent) => void;
+  waypoints: Waypoint[];
+  mapType: string;
+  onWaypointUpdate: (
+    index: number,
+    field: keyof Waypoint,
+    value: Waypoint[keyof Waypoint]
+  ) => void;
+  // Add these new props
+  onDeleteLastWaypoint: () => void;
+  onClearWaypoints: () => void;
+  setMapType: (type: string) => void;
+};
+
 export interface WaypointInputProps {
   index: number;
   type: Waypoint['type'];

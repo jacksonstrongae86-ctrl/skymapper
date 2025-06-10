@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { MapControlsProps } from '../../../utils/types';
 import { useTheme } from '../../../utils/ThemeContext';
 import {
-  Settings,
+  Menu,
   Map,
   Satellite,
   Globe,
@@ -57,12 +57,12 @@ const MapControls: React.FC<MapControlsProps> = ({
           flex items-center justify-center
         `}
       >
-        <Settings size={14} />
+        <Menu size={14} />
       </button>
 
       {isOpen && (
         <div className={`
-          absolute top-full right-0 mt-2
+          absolute top-full left-0 mt-2
           ${`gradient-${theme}`}
           backdrop-blur-md
           rounded-lg shadow-lg
