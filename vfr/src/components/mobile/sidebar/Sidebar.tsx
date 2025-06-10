@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { SidebarProps } from "../../../utils/types";
 import { Header } from "./components/sidebar/Header";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
-import { ResizeHandle } from "./components/bottomSidebar/ResizeHandle";
+import { ResizeHandle } from "./components/sidebar/ResizeHandle";
 import { useSidebarResize } from "@/src/hooksMobile/sidebar/useSidebarResize";
 import { useBottomSidebarVisibility } from "@/src/hooks/bottomSidebar/useBottomSidebarVisibility";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
@@ -80,16 +80,7 @@ const Sidebar: React.FC<SidebarProps> = ({
       }}
     >
       {/* Resize Handle */}
-      <div
-        className={`
-          absolute -bottom-1.5 left-0 right-0
-          h-6 z-40
-          group cursor-ns-resize
-          flex items-center justify-center
-        `}
-      >
-        <ResizeHandle handleMouseDown={handleMouseDown} />
-      </div>
+       <ResizeHandle handleMouseDown={handleMouseDown} />
       {/* Header Section */}
       <Header
         handleFullScreen={handleFullScreen}
