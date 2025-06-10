@@ -120,7 +120,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       </MapContainer>
       {isExpanded && (
         <div
-          className="absolute top-0 left-0 w-full h-full bg-black/50 z-[999]"
+          className="absolute top-0 left-0 w-full h-ful z-[999]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
