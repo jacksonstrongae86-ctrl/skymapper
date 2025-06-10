@@ -8,7 +8,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   handleNumericInput,
 }) => {
   return (
-    <div className="flex flex-col h-full w-full">
+    <div className="flex flex-col">
       {/* Header opcional si necesitas título */}
       <div className="flex-shrink-0 px-4 pt-4 pb-2">
         <h3 className="text-sm font-medium text-[var(--foreground)] opacity-70">
@@ -17,11 +17,11 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
       </div>
 
       {/* Contenedor scrolleable */}
-      <div
 
-      >
         <div className={`
-          flex flex-col gap-4 scrollable-content overflow-y-hidden
+          flex flex-col gap-4
+          overflow-y-auto
+          custom-scrollbar
         `}>
           {waypoints.map((waypoint, absoluteIndex) => {
             if (!waypoint.visible) return null;
@@ -45,6 +45,5 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
           })}
         </div>
       </div>
-    </div>
   );
 };

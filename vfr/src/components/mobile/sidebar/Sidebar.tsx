@@ -63,37 +63,40 @@ const Sidebar: React.FC<SidebarProps> = ({
     <div
       className={`
         fixed left-0 top-0
-        w-full
-        z-50
-        bg-[var(--button-bg)]
-        text-[var(--sidebar-text)]
-        transition-all duration-300
-        flex flex-col
-        touch-none
-        rounded-b-xl
+        text-[var(--results-text)]
         shadow-lg
+        rounded-b-xl
+        transition-all duration-300 ease-in-out
+        border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
-        overflow-hidden
+        w-full
       `}
       style={{
         height: `${isBottomMinimized ? 7 : sidebarFullScreen ? 90 : height}%`,
+        zIndex: 40,
       }}
     >
       {/* Resize Handle */}
        <ResizeHandle handleMouseDown={handleMouseDown} />
+       <div
+        className={`
+        h-full
+        overflow-y-auto
+        custom-scrollbar
+        transition-all duration-300
+      `}
+      >
       {/* Header Section */}
       <Header
         handleFullScreen={handleFullScreen}
         handleMinimizeMaximize={handleMinimizeMaximize}
         isFullScreen={sidebarFullScreen}
       />
-
       {/* Tabs and Content - Only show when expanded */}
       <div
         className={`
           flex-1 flex flex-col
           transition-all duration-300
-          ${isBottomMinimized ? "opacity-0 pointer-events-none" : "opacity-100"}
         `}
       >
         {/* Tab Buttons */}
@@ -120,7 +123,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col min-h-0">
+        <div className="flex-1 flex flex-col">
           {activeTab === "settings" ? (
             <FlightSettings
               isSettingsVisible={true}
@@ -143,6 +146,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             />
           )}
         </div>
+      </div>
       </div>
     </div>
   );

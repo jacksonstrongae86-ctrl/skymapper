@@ -14,7 +14,7 @@ export const ResizeHandle: React.FC<ResizeHandleProps> = ({
     <div
       className={`
           absolute bottom-1.5 left-0 right-0
-          h-6 z-40
+          h-6
           group cursor-ns-resize
           flex items-center justify-center
         `}
