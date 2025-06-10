@@ -1,10 +1,13 @@
 import { Waypoint } from '@/src/utils/types';
 import { useCallback, JSX } from 'react';
+import React from 'react';
 
 interface UsePrintHandlerProps {
   results: JSX.Element[];
   waypoints: Waypoint[];
   fuelConsumption: number;
+  selectedDate?: string;
+  selectedTime?: string;
 }
 
 interface FlightData {
@@ -15,32 +18,68 @@ interface FlightData {
   time: number;
   fuelBurn: number;
   waypoint: string;
+  tas?: number;
+  wind?: string;
 }
 
-// Helper function to safely extract numeric values from JSX elements
-const extractNumericValue = (element: number | string | { props?: { children: number | string } } | null | undefined): number => {
-  if (typeof element === 'number') return element;
-  if (typeof element === 'string') return parseFloat(element) || 0;
-  if (element?.props?.children) {
-    if (typeof element.props.children === 'number') return element.props.children;
-    if (typeof element.props.children === 'string') return parseFloat(element.props.children) || 0;
+// Helper function to safely extract text content from JSX elements
+const extractTextContent = (element: React.ReactNode): string => {
+  if (typeof element === 'string' || typeof element === 'number') {
+    return String(element);
   }
-  return 0;
+  if (typeof element === 'bigint') {
+    return String(element);
+  }
+  if (typeof element === 'boolean' || element === null || element === undefined) {
+    return '';
+  }
+  if (React.isValidElement(element)) {
+    const props = element.props as { children?: React.ReactNode };
+    if (props.children) {
+      if (Array.isArray(props.children)) {
+        return props.children.map(extractTextContent).join('');
+      }
+      return extractTextContent(props.children);
+    }
+  }
+  if (Array.isArray(element)) {
+    return element.map(extractTextContent).join('');
+  }
+  return '';
+};
+// Helper function to safely extract numeric values from JSX elements
+const extractNumericValue = (element: React.ReactNode): number => {
+  const textContent = extractTextContent(element);
+  const numericValue = parseFloat(textContent);
+  return isNaN(numericValue) ? 0 : numericValue;
 };
 
 // Helper function to extract flight data from results
 const extractFlightData = (results: JSX.Element[]): FlightData[] => {
   return results.map((result, index) => {
-    const children = result.props?.children || [];
+    // The structure is <tr><td>...</td><td>...</td>...</tr>
+    const tableData = result.props?.children || [];
+
+    // Extract waypoint name from first cell
+    const waypointCell = tableData[0];
+    let waypointName = `WP${index + 1}`;
+    if (waypointCell?.props?.children?.props?.children) {
+      const mainText = waypointCell.props.children.props.children[0];
+      if (typeof mainText === 'string') {
+        waypointName = mainText;
+      }
+    }
 
     return {
-      waypoint: `WP${index + 1}`,
-      distance: extractNumericValue(children[1]),
-      track: extractNumericValue(children[2]),
-      heading: extractNumericValue(children[3]),
-      groundSpeed: extractNumericValue(children[4]),
-      time: extractNumericValue(children[5]),
-      fuelBurn: extractNumericValue(children[6])
+      waypoint: waypointName,
+      distance: extractNumericValue(tableData[1]),      // Distance column
+      track: extractNumericValue(tableData[2]),         // Track column
+      heading: extractNumericValue(tableData[3]),       // Heading column
+      groundSpeed: extractNumericValue(tableData[4]),   // Ground Speed column
+      time: extractNumericValue(tableData[5]),          // Time column
+      tas: extractNumericValue(tableData[6]),           // TAS column
+      fuelBurn: extractNumericValue(tableData[7]),      // Fuel Burn column
+      wind: extractTextContent(tableData[8])            // Wind column
     };
   });
 };
@@ -51,7 +90,9 @@ export const generatePrintContent = (
   totalDistance: number,
   totalTime: number,
   totalFuel: number,
-  fuelConsumption: number
+  fuelConsumption: number,
+  selectedDate?: string,
+  selectedTime?: string
 ) => {
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
@@ -79,7 +120,7 @@ export const generatePrintContent = (
         }
         .print-summary {
           display: grid;
-          grid-template-columns: repeat(2, 1fr);
+          grid-template-columns: repeat(3, 1fr);
           gap: 10px;
           margin-bottom: 20px;
         }
@@ -144,6 +185,8 @@ export const generatePrintContent = (
           <p><strong>Total Time:</strong> ${formatTime(totalTime)}</p>
           <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(2)} Gal</p>
           <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(2)} Gal/hr</p>
+          ${selectedDate ? `<p><strong>Date:</strong> ${selectedDate}</p>` : ''}
+          ${selectedTime ? `<p><strong>Time:</strong> ${selectedTime}</p>` : ''}
         </div>
       </div>
 
@@ -168,9 +211,11 @@ export const generatePrintContent = (
               <th>Distance (NM)</th>
               <th>Track (°)</th>
               <th>Heading (°)</th>
-              <th>Ground Speed (KT)</th>
+              <th>GS (knots)</th>
               <th>Time (min)</th>
-              <th>Fuel Burn (Gal)</th>
+              <th>TAS (knots)</th>
+              <th>Fuel (gal)</th>
+              <th>Wind</th>
             </tr>
           </thead>
           <tbody>
@@ -182,7 +227,9 @@ export const generatePrintContent = (
                 <td>${data.heading.toFixed(1)}</td>
                 <td>${data.groundSpeed.toFixed(1)}</td>
                 <td>${data.time.toFixed(1)}</td>
+                <td>${data.tas ? data.tas.toFixed(1) : 'N/A'}</td>
                 <td>${data.fuelBurn.toFixed(2)}</td>
+                <td>${data.wind || 'N/A'}</td>
               </tr>
             `).join('')}
           </tbody>
@@ -196,6 +243,8 @@ export const usePrintHandler = ({
   results,
   waypoints,
   fuelConsumption,
+  selectedDate,
+  selectedTime,
 }: UsePrintHandlerProps) => {
   const handlePrint = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -224,7 +273,9 @@ export const usePrintHandler = ({
           totalDistance,
           totalTime,
           totalFuel,
-          fuelConsumption
+          fuelConsumption,
+          selectedDate,
+          selectedTime
         );
 
         // Add print styles
@@ -272,7 +323,9 @@ export const usePrintHandler = ({
                 totalDistance,
                 totalTime,
                 totalFuel,
-                fuelConsumption
+                fuelConsumption,
+                selectedDate,
+                selectedTime
               )}
             </body>
           </html>
@@ -291,7 +344,7 @@ export const usePrintHandler = ({
       console.error('Print failed:', error);
       alert('Failed to generate print content. Please try again.');
     }
-  }, [results, waypoints, fuelConsumption]);
+  }, [results, waypoints, fuelConsumption, selectedDate, selectedTime]);
 
   return handlePrint;
 };
