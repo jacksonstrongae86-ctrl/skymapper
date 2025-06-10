@@ -6,48 +6,191 @@ interface UsePrintHandlerProps {
   waypoints: Waypoint[];
   fuelConsumption: number;
 }
+
+interface FlightData {
+  distance: number;
+  track: number;
+  heading: number;
+  groundSpeed: number;
+  time: number;
+  fuelBurn: number;
+  waypoint: string;
+}
+
+// Helper function to safely extract numeric values from JSX elements
+const extractNumericValue = (element: number | string | { props?: { children: number | string } } | null | undefined): number => {
+  if (typeof element === 'number') return element;
+  if (typeof element === 'string') return parseFloat(element) || 0;
+  if (element?.props?.children) {
+    if (typeof element.props.children === 'number') return element.props.children;
+    if (typeof element.props.children === 'string') return parseFloat(element.props.children) || 0;
+  }
+  return 0;
+};
+
+// Helper function to extract flight data from results
+const extractFlightData = (results: JSX.Element[]): FlightData[] => {
+  return results.map((result, index) => {
+    const children = result.props?.children || [];
+
+    return {
+      waypoint: `WP${index + 1}`,
+      distance: extractNumericValue(children[1]),
+      track: extractNumericValue(children[2]),
+      heading: extractNumericValue(children[3]),
+      groundSpeed: extractNumericValue(children[4]),
+      time: extractNumericValue(children[5]),
+      fuelBurn: extractNumericValue(children[6])
+    };
+  });
+};
+
 export const generatePrintContent = (
-    waypoints: Waypoint[],
-    results: JSX.Element[],
-    totalDistance: number,
-    totalTime: number,
-    totalFuel: number,
-    fuelConsumption: number
+  waypoints: Waypoint[],
+  flightData: FlightData[],
+  totalDistance: number,
+  totalTime: number,
+  totalFuel: number,
+  fuelConsumption: number
 ) => {
-    return `
-        <div class="print-header">
-        <h1>Flight Plan Summary</h1>
-        <p>Total Distance: ${totalDistance.toFixed(2)} NM</p>
-        <p>Total Time: ${Math.floor(totalTime / 60)}h ${Math.round(totalTime % 60)}m</p>
-        <p>Total Fuel Burn: ${totalFuel.toFixed(2)} L</p>
-        <p>Fuel Consumption: ${fuelConsumption.toFixed(2)} L/h</p>
+  const formatTime = (minutes: number) => {
+    const hours = Math.floor(minutes / 60);
+    const mins = Math.round(minutes % 60);
+    return `${hours}h ${mins}m`;
+  };
+
+  return `
+    <div class="print-container">
+      <style>
+        .print-container {
+          font-family: Arial, sans-serif;
+          max-width: 800px;
+          margin: 0 auto;
+          padding: 20px;
+        }
+        .print-header {
+          border-bottom: 2px solid #333;
+          padding-bottom: 15px;
+          margin-bottom: 20px;
+        }
+        .print-header h1 {
+          margin: 0 0 10px 0;
+          color: #333;
+        }
+        .print-summary {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 10px;
+          margin-bottom: 20px;
+        }
+        .print-summary p {
+          margin: 5px 0;
+          padding: 8px;
+          background-color: #f5f5f5;
+          border-radius: 4px;
+        }
+        .print-waypoints {
+          margin-bottom: 20px;
+        }
+        .print-waypoints h2 {
+          color: #333;
+          border-bottom: 1px solid #ccc;
+          padding-bottom: 5px;
+        }
+        .waypoint-list {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+          gap: 10px;
+          list-style: none;
+          padding: 0;
+        }
+        .waypoint-list li {
+          background-color: #f9f9f9;
+          padding: 8px;
+          border-radius: 4px;
+          border-left: 4px solid #007bff;
+        }
+        .print-results table {
+          width: 100%;
+          border-collapse: collapse;
+          margin-top: 10px;
+        }
+        .print-results th,
+        .print-results td {
+          padding: 8px;
+          text-align: center;
+          border: 1px solid #ddd;
+        }
+        .print-results th {
+          background-color: #f2f2f2;
+          font-weight: bold;
+        }
+        .print-results tr:nth-child(even) {
+          background-color: #f9f9f9;
+        }
+        @media print {
+          .print-container {
+            max-width: none;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      </style>
+
+      <div class="print-header">
+        <h1>✈️ Flight Plan Summary</h1>
+        <div class="print-summary">
+          <p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} NM</p>
+          <p><strong>Total Time:</strong> ${formatTime(totalTime)}</p>
+          <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(2)} Gal</p>
+          <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(2)} Gal/hr</p>
         </div>
-        <div class="print-waypoints">
-        <h2>Waypoints</h2>
-        <ul>
-            ${waypoints.map((wp, index) => `<li>WP${index + 1} (${wp.position.join(', ')})</li>`).join('')}
+      </div>
+
+      <div class="print-waypoints">
+        <h2>📍 Waypoints</h2>
+        <ul class="waypoint-list">
+          ${waypoints.map((wp, index) => `
+            <li>
+              <strong>WP${index + 1}</strong><br>
+              ${Array.isArray(wp.position) ? wp.position.join(', ') : wp.position}
+            </li>
+          `).join('')}
         </ul>
-        </div>
-        <div class="print-results">
-        <h2>Results</h2>
+      </div>
+
+      <div class="print-results">
+        <h2>📊 Flight Data</h2>
         <table>
-            <thead>
+          <thead>
             <tr>
-                <th>Waypoint</th>
-                <th>Distance (NM)</th>
-                <th>Track (°)</th>
-                <th>Heading (°)</th>
-                <th>Ground Speed (KT)</th>
-                <th>Time (min)</th>
-                <th>Fuel Burn (L)</th>
+              <th>Waypoint</th>
+              <th>Distance (NM)</th>
+              <th>Track (°)</th>
+              <th>Heading (°)</th>
+              <th>Ground Speed (KT)</th>
+              <th>Time (min)</th>
+              <th>Fuel Burn (Gal)</th>
             </tr>
-            </thead>
-            <tbody>
-            ${results.map(result => result.props.children).join('')}
-            </tbody>
+          </thead>
+          <tbody>
+            ${flightData.map(data => `
+              <tr>
+                <td><strong>${data.waypoint}</strong></td>
+                <td>${data.distance.toFixed(2)}</td>
+                <td>${data.track.toFixed(1)}</td>
+                <td>${data.heading.toFixed(1)}</td>
+                <td>${data.groundSpeed.toFixed(1)}</td>
+                <td>${data.time.toFixed(1)}</td>
+                <td>${data.fuelBurn.toFixed(2)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
         </table>
-        </div>`;
-    }
+      </div>
+    </div>
+  `;
+};
 
 export const usePrintHandler = ({
   results,
@@ -59,57 +202,95 @@ export const usePrintHandler = ({
 
     const scrollPos = window.scrollY;
 
-    // Calculate totals
-    const totalDistance = results.reduce(
-      (acc, result) => acc + parseFloat(result.props.children[1].props.children),
-      0
-    );
-    const totalTime = results.reduce(
-      (acc, result) => acc + parseFloat(result.props.children[5].props.children),
-      0
-    );
-    const totalFuel = results.reduce(
-      (acc, result) => acc + parseFloat(result.props.children[7].props.children),
-      0
-    );
+    try {
+      // Extract flight data from results
+      const flightData = extractFlightData(results);
 
-    // Create print content
-    const printContent = document.createElement("div");
-    printContent.className = "print-content";
+      // Calculate totals
+      const totalDistance = flightData.reduce((acc, data) => acc + data.distance, 0);
+      const totalTime = flightData.reduce((acc, data) => acc + data.time, 0);
+      const totalFuel = flightData.reduce((acc, data) => acc + data.fuelBurn, 0);
 
-    // Add map if available
-    const mapElement = document.querySelector(".leaflet-container");
-    if (mapElement) {
-      const mapContainer = document.createElement("div");
-      mapContainer.className = "print-map";
-      mapContainer.innerHTML = `
-        <div class="print-header">Flight Plan Map</div>
-        <div class="print-map-container">
-          ${mapElement.outerHTML}
-        </div>
-      `;
-      printContent.appendChild(mapContainer);
+      // Create print window
+      const printWindow = window.open('', '_blank', 'width=800,height=600');
+
+      if (!printWindow) {
+        // Fallback: create print content in current window
+        const printContent = document.createElement("div");
+        printContent.className = "print-content";
+        printContent.innerHTML = generatePrintContent(
+          waypoints,
+          flightData,
+          totalDistance,
+          totalTime,
+          totalFuel,
+          fuelConsumption
+        );
+
+        // Add print styles
+        const printStyles = document.createElement("style");
+        printStyles.textContent = `
+          @media print {
+            body * {
+              visibility: hidden;
+            }
+            .print-content, .print-content * {
+              visibility: visible;
+            }
+            .print-content {
+              position: absolute;
+              left: 0;
+              top: 0;
+              width: 100%;
+            }
+          }
+        `;
+
+        document.head.appendChild(printStyles);
+        document.body.appendChild(printContent);
+
+        // Print and cleanup
+        setTimeout(() => {
+          window.print();
+          document.body.removeChild(printContent);
+          document.head.removeChild(printStyles);
+          window.scrollTo(0, scrollPos);
+        }, 100);
+      } else {
+        // Use print window
+        printWindow.document.write(`
+          <!DOCTYPE html>
+          <html>
+            <head>
+              <title>Flight Plan - ${new Date().toLocaleDateString()}</title>
+              <meta charset="utf-8">
+            </head>
+            <body>
+              ${generatePrintContent(
+                waypoints,
+                flightData,
+                totalDistance,
+                totalTime,
+                totalFuel,
+                fuelConsumption
+              )}
+            </body>
+          </html>
+        `);
+
+        printWindow.document.close();
+        printWindow.focus();
+
+        // Wait for content to load then print
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 250);
+      }
+    } catch (error) {
+      console.error('Print failed:', error);
+      alert('Failed to generate print content. Please try again.');
     }
-
-    // Add results
-    const resultsSection = document.createElement("div");
-    resultsSection.className = "print-results";
-    resultsSection.innerHTML = generatePrintContent(
-      waypoints,
-      results,
-      totalDistance,
-      totalTime,
-      totalFuel,
-      fuelConsumption
-    );
-
-    printContent.appendChild(resultsSection);
-    document.body.appendChild(printContent);
-
-    window.print();
-
-    document.body.removeChild(printContent);
-    window.scrollTo(0, scrollPos);
   }, [results, waypoints, fuelConsumption]);
 
   return handlePrint;
