@@ -45,11 +45,12 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
                     py-3 px-4
                     text-left font-semibold
                     whitespace-nowrap
+                    bg-[var(--sidebar-bg)]
                     text-[var(--results-text)]
                   `}
                 >
                   <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-lg bg-[var(--button-bg)] bg-opacity-20 flex items-center justify-center">
+                    <div className="w-6 h-6 rounded-lg bg-[var(--button-bg)] flex items-center justify-center">
                       <Icon size={14} className="text-[var(--sidebar-text)]" />
                     </div>
                     <div className="flex flex-col">
