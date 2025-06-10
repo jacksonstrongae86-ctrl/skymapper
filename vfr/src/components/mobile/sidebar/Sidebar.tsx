@@ -33,7 +33,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   );
 
   // Use the same resize logic as BottomSidebar
-  const { height, handleMouseDown } = useSidebarResize({
+  const {
+    height,
+    getResizeHandlers,
+    isResizing } = useSidebarResize({
     onHeightChange: onHeightChange || (() => {}),
     minHeight: 7,
     maxHeight: 90,
@@ -77,7 +80,10 @@ const Sidebar: React.FC<SidebarProps> = ({
       }}
     >
       {/* Resize Handle */}
-       <ResizeHandle handleMouseDown={handleMouseDown} />
+       <ResizeHandle
+        resizeHandlers={getResizeHandlers()}
+        isResizing={isResizing}
+       />
        <div
         className={`
         h-full

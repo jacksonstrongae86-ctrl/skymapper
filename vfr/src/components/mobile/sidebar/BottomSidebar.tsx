@@ -3,7 +3,7 @@ import { useTheme } from "@/src/utils/ThemeContext";
 import { Header } from "./components/bottomSidebar/Header";
 import { ResultsTable } from "./components/bottomSidebar/ResultsTable";
 import { ResizeHandle } from "./components/bottomSidebar/ResizeHandle";
-import { useBottomSidebarResize } from "@/src/hooks/bottomSidebar/useBottomSidebarResize";
+import { useBottomSidebarResize } from "@/src/hooksMobile/bottomSidebar/useBottomSidebarResize";
 import { useBottomSidebarVisibility } from "@/src/hooks/bottomSidebar/useBottomSidebarVisibility";
 import { useResultsCalculation } from "@/src/hooksMobile/bottomSidebar/useResultCalculation";
 import { usePrintHandler } from "@/src/hooksMobile/bottomSidebar/usePrintHandler";
@@ -18,7 +18,11 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  const { height, handleMouseDown } = useBottomSidebarResize({
+  const {
+    height,
+    getResizeHandlers,
+    isResizing
+  } = useBottomSidebarResize({
     onHeightChange: onHeightChange || (() => {}),
     minHeight: 7,
     maxHeight: 90,
@@ -55,6 +59,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
         w-full
+        ${isResizing ? 'select-none' : ''}
       `}
       style={{
         height: `${isBottomMinimized ? 7 : isFullScreen ? 90 : height}%`,
@@ -62,7 +67,10 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       }}
     >
       {/* Resize Handle */}
-      <ResizeHandle handleMouseDown={handleMouseDown} />
+      <ResizeHandle
+        resizeHandlers={getResizeHandlers()}
+        isResizing={isResizing}
+      />
 
       {/* Main Content Container */}
       <div

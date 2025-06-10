@@ -4,38 +4,56 @@ interface UseBottomSidebarResizeProps {
   onHeightChange?: (height: number) => void;
   minHeight?: number;
   maxHeight?: number;
+  topSidebarHeight?: number; // Height of top sidebar to avoid overlap
 }
 
 export const useBottomSidebarResize = ({
   onHeightChange,
   minHeight = 10,
   maxHeight = 75,
+  topSidebarHeight = 0, // Default to 0 if not provided
 }: UseBottomSidebarResizeProps) => {
   const [height, setHeight] = useState(25);
   const isResizingRef = useRef(false);
+  const startYRef = useRef(0);
+  const startHeightRef = useRef(25);
 
-  const startResize = useCallback((e: React.MouseEvent | React.TouchEvent) => {
+  const calculateNewHeight = useCallback((clientY: number) => {
+    const windowHeight = window.innerHeight;
+    const fromBottom = windowHeight - clientY;
+    const percentage = Math.max(0, Math.min(100, (fromBottom / windowHeight) * 100));
+
+    // Calculate effective max height considering top sidebar
+    // Leave some space (5%) between sidebars to prevent overlap
+    const effectiveMaxHeight = Math.min(maxHeight, 100 - topSidebarHeight - 5);
+
+    // Clamp between min and effective max heights
+    return Math.min(effectiveMaxHeight, Math.max(minHeight, percentage));
+  }, [minHeight, maxHeight, topSidebarHeight]);
+
+  const handleStart = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     isResizingRef.current = true;
 
+    // Get initial Y position from either mouse or touch event
+    const clientY = 'touches' in e
+      ? e.touches[0].clientY
+      : e.clientY;
+
+    startYRef.current = clientY;
+    startHeightRef.current = height;
+
     const handleMove = (event: MouseEvent | TouchEvent) => {
       if (!isResizingRef.current) return;
 
       // Get clientY from either mouse or touch event
-      const clientY = 'touches' in event
+      const currentClientY = 'touches' in event
         ? event.touches[0].clientY
         : event.clientY;
 
-      // Calculate height percentage from bottom of screen
-      const windowHeight = window.innerHeight;
-      const fromBottom = windowHeight - clientY;
-      const percentage = Math.max(0, Math.min(100, (fromBottom / windowHeight) * 100));
-
-      // Clamp between min and max heights
-      const newHeight = Math.min(maxHeight, Math.max(minHeight, percentage));
-
+      const newHeight = calculateNewHeight(currentClientY);
       setHeight(newHeight);
       onHeightChange?.(newHeight);
     };
@@ -48,6 +66,7 @@ export const useBottomSidebarResize = ({
       document.removeEventListener('mouseup', handleEnd);
       document.removeEventListener('touchmove', handleMove);
       document.removeEventListener('touchend', handleEnd);
+      document.removeEventListener('touchcancel', handleEnd);
     };
 
     // Add event listeners for both mouse and touch
@@ -55,10 +74,84 @@ export const useBottomSidebarResize = ({
     document.addEventListener('mouseup', handleEnd);
     document.addEventListener('touchmove', handleMove, { passive: false });
     document.addEventListener('touchend', handleEnd);
-  }, [onHeightChange, minHeight, maxHeight]);
+    document.addEventListener('touchcancel', handleEnd);
+  }, [height, calculateNewHeight, onHeightChange]);
+
+  // Handle touch-specific events
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    handleStart(e);
+  }, [handleStart]);
+
+  // Handle mouse-specific events
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    handleStart(e);
+  }, [handleStart]);
+
+  // Enhanced drag handler for mobile compatibility
+  const handleDragStart = useCallback((e: React.DragEvent) => {
+    // Prevent default drag behavior
+    e.preventDefault();
+    e.stopPropagation();
+
+    // For mobile browsers that support drag events
+    const img = new Image();
+    img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
+    e.dataTransfer.setDragImage(img, 0, 0);
+
+    isResizingRef.current = true;
+    startYRef.current = e.clientY;
+    startHeightRef.current = height;
+  }, [height]);
+
+  const handleDragOver = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!isResizingRef.current) return;
+
+    const newHeight = calculateNewHeight(e.clientY);
+    setHeight(newHeight);
+    onHeightChange?.(newHeight);
+  }, [calculateNewHeight, onHeightChange]);
+
+  const handleDragEnd = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    isResizingRef.current = false;
+  }, []);
+
+  // Unified handler that works for all interaction types
+  const getResizeHandlers = useCallback(() => ({
+    // Mouse events
+    onMouseDown: handleMouseDown,
+
+    // Touch events
+    onTouchStart: handleTouchStart,
+
+    // Drag events (for additional mobile support)
+    draggable: true,
+    onDragStart: handleDragStart,
+    onDragOver: handleDragOver,
+    onDragEnd: handleDragEnd,
+
+    // Additional mobile-friendly properties
+    style: {
+      touchAction: 'none', // Prevent default touch behaviors
+      userSelect: 'none',  // Prevent text selection
+      WebkitUserSelect: 'none',
+      MozUserSelect: 'none',
+      msUserSelect: 'none',
+    } as React.CSSProperties,
+  }), [handleMouseDown, handleTouchStart, handleDragStart, handleDragOver, handleDragEnd]);
 
   return {
     height,
-    startResize,
+    handleMouseDown,
+    handleTouchStart,
+    handleDragStart,
+    handleDragOver,
+    handleDragEnd,
+    getResizeHandlers, // Convenience method to get all handlers at once
+    isResizing: isResizingRef.current,
   };
 };
