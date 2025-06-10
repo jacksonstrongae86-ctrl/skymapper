@@ -38,24 +38,25 @@ const Sidebar: React.FC<SidebarProps> = ({
   const { theme } = useTheme();
   return (
     <div
-      className={`
-        fixed left-0 top-0
-        w-full
-        z-50
-        bg-[var(--button-bg)]
-        text-[var(--sidebar-text)]
-        transition-all duration-300
-        flex flex-col
-        touch-none
-        rounded-b-xl
-        shadow-lg
-        ${isCollapsed ? "h-[80px]" : "h-[75vh]"}
-      `}
-      style={{
-        backgroundColor: "var(--background)",
-        color: "var(--foreground)",
-      }}
-    >
+    className={`
+      fixed left-0 top-0
+      w-full
+      z-50
+      bg-[var(--button-bg)]
+      text-[var(--sidebar-text)]
+      transition-all duration-300
+      flex flex-col
+      touch-none
+      rounded-b-xl
+      shadow-lg
+      ${isCollapsed ? "h-[80px]" : "h-[75vh]"}
+      overflow-hidden
+    `}
+    style={{
+      backgroundColor: "var(--background)",
+      color: "var(--foreground)",
+    }}
+  >
       {/* Collapse/Expand Handle styled like ResizeHandle */}
       <div
         className={`
@@ -110,7 +111,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto">
+        <div className="flex-1 flex flex-col min-h-0">
           {activeTab === "settings" ? (
             <FlightSettings
               isSettingsVisible={true}
