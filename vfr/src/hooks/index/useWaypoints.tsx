@@ -7,7 +7,7 @@ import {
   getGroundSpeed,
   calculateTransitionWaypoint
 } from "@/src/utils/logic";
-
+ 
 export function useWaypoints(defaultTAS: number = 100) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
@@ -105,7 +105,7 @@ export function useWaypoints(defaultTAS: number = 100) {
                 ...transitionWp,
                 type: "waypoint", // Transition waypoint is a normal waypoint
                 visible: false, // Transition waypoint is not visible
-                ias: currentWp.ias, // Inherit IAS from current waypoint
+                ias: currentWp.iasClimbDescent ?? defaultTAS, // Use specific IAS for BOC
                 isTransition: true, // Mark as transition waypoint
               });
 
@@ -153,24 +153,10 @@ export function useWaypoints(defaultTAS: number = 100) {
                   ...updated[currentWp.transitionWaypointIndex],
                   position: newTransitionWp.position,
                   altitude: newTransitionWp.altitude,
+                  ias: currentWp.iasClimbDescent ?? defaultTAS, // Update IAS for the transition waypoint
+                  normalDistance: newTransitionWp.normalDistance,
+                  specialDistance: newTransitionWp.specialDistance,
                 };
-
-                // Recalculate segments
-                const segmentBefore = calculateSpecialSegment(
-                  currentWp,
-                  updated[currentWp.transitionWaypointIndex],
-                  "before"
-                );
-
-                const segmentAfter = calculateSpecialSegment(
-                  updated[currentWp.transitionWaypointIndex],
-                  nextWp,
-                  "after"
-                );
-
-                // Update distances
-                currentWp.normalDistance = segmentBefore.distance;
-                currentWp.specialDistance = segmentAfter.distance;
               }
             }
           }
@@ -192,7 +178,7 @@ export function useWaypoints(defaultTAS: number = 100) {
           type: "waypoint",
           altitude: 5000,
           ias: defaultTAS,
-          altitudeChange: 100,
+          altitudeChange: 1500,
           rocRod: 500,
           iasClimbDescent: defaultTAS,
           visible: true,

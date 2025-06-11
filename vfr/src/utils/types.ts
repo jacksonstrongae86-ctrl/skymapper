@@ -77,6 +77,7 @@ export interface Waypoint {
   specialDistance?: number;
   isTransition?: boolean;
   transitionWaypointIndex?: number;
+  time?: number; // Optional time for the waypoint
 }
 export interface LegCalculation {
   distance: number;

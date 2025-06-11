@@ -12,7 +12,7 @@ export const IAStoTAS = (ias: number, fl: number): number => {
   if (tempAtAltitude <= 0) tempAtAltitude = 1;
   return ias * Math.sqrt(seaLevelTemp / tempAtAltitude);
 };
-
+ 
 export const getDistance = (wp1: LatLng, wp2: LatLng): number => {
   const R = 3440;
   const dLat = toRad(wp2.lat - wp1.lat);
@@ -79,8 +79,9 @@ export const calculateTransitionWaypoint = (
   const timeInMinutes = Math.abs(currentWaypoint.altitudeChange) / currentWaypoint.rocRod;
   const timeInHours = timeInMinutes / 60;
 
-  // 2. Calculate distance in nautical miles
-  const distanceNM = currentWaypoint.iasClimbDescent * timeInHours;
+  // 2. Use the fixed time to calculate distance dynamically based on the current speed
+  const speed = currentWaypoint.iasClimbDescent || 100; // Default to 100 if speed is not provided
+  const distanceNM = speed * timeInHours;
 
   // 3. Define direction and positions based on type
   // BOC/TOD: transition happens BEFORE the waypoint (like your JS code)
@@ -88,11 +89,11 @@ export const calculateTransitionWaypoint = (
   let from: LatLng, to: LatLng;
 
   if (type === "BOC" || type === "TOD") {
-    // For BOC/TOD: calculate backwards from the current waypoint
+// For BOC/TOD: calculate backwards from the current waypoint
     from = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
     to = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
   } else {
-    // For TOC/BOD: calculate forwards from the current waypoint
+// For TOC/BOD: calculate forwards from the current waypoint
     from = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
     to = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
   }
@@ -104,7 +105,7 @@ export const calculateTransitionWaypoint = (
   const newPosition = getPointAtDistanceAndBearing(from, bearing, distanceNM);
 
   // 6. Calculate altitude for the transition waypoint
-  // Use the original altitude as the base
+// Use the original altitude as the base
   const baseAltitude = currentWaypoint.originalAltitude || currentWaypoint.altitude!;
 
   let newAltitude: number;
@@ -126,10 +127,12 @@ export const calculateTransitionWaypoint = (
     position: [newPosition.lat, newPosition.lng],
     type,
     altitude: newAltitude,
-    ias: currentWaypoint.iasClimbDescent,
+    ias: speed, // Use the current speed for the waypoint
     visible: false,
     altitudeChange: 0,
     rocRod: currentWaypoint.rocRod,
     iasClimbDescent: currentWaypoint.iasClimbDescent,
+    normalDistance: distanceNM, // Store the dynamically calculated distance
+    specialDistance: distanceNM, // Store the dynamically calculated distance
   };
 };
