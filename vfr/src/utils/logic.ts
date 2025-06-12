@@ -66,6 +66,7 @@ function getPointAtDistanceAndBearing(from: LatLng, bearing: number, distanceNM:
 }
 
 export const calculateTransitionWaypoint = (
+  lastWaypoint: Waypoint,
   currentWaypoint: Waypoint,
   nextWaypoint: Waypoint,
   type: "BOC" | "TOC" | "TOD" | "BOD"
@@ -84,18 +85,16 @@ export const calculateTransitionWaypoint = (
   const distanceNM = speed * timeInHours;
 
   // 3. Define direction and positions based on type
-  // BOC/TOD: transition happens BEFORE the waypoint (like your JS code)
-  // TOC/BOD: transition happens AFTER the waypoint (like your JS code)
   let from: LatLng, to: LatLng;
 
-  if (type === "BOC" || type === "TOD") {
-// For BOC/TOD: calculate backwards from the current waypoint
+  if (type === "TOC" || type === "BOD") {
+    // For TOC/BOD: calculate from current waypoint to last waypoint (reversed direction)
+    from = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
+    to = { lat: lastWaypoint.position[0], lng: lastWaypoint.position[1] };
+  } else {
+    // For BOC/TOD: calculate from next waypoint to current
     from = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
     to = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
-  } else {
-// For TOC/BOD: calculate forwards from the current waypoint
-    from = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
-    to = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
   }
 
   // 4. Calculate bearing
@@ -105,21 +104,12 @@ export const calculateTransitionWaypoint = (
   const newPosition = getPointAtDistanceAndBearing(from, bearing, distanceNM);
 
   // 6. Calculate altitude for the transition waypoint
-// Use the original altitude as the base
   const baseAltitude = currentWaypoint.originalAltitude || currentWaypoint.altitude!;
 
-  let newAltitude: number;
-  if (type === "BOC") {
-    // BOC: transition waypoint is at original altitude (start of climb)
+  let newAltitude: number = baseAltitude;
+  if (type === "BOC" || type === "TOD") {
     newAltitude = baseAltitude;
-  } else if (type === "TOD") {
-    // TOD: transition waypoint is at original altitude (start of descent)
-    newAltitude = baseAltitude;
-  } else if (type === "TOC") {
-    // TOC: transition waypoint is at final altitude (end of climb)
-    newAltitude = baseAltitude + currentWaypoint.altitudeChange;
-  } else { // BOD
-    // BOD: transition waypoint is at final altitude (end of descent)
+  } else if (type === "TOC" || type === "BOD") {
     newAltitude = baseAltitude + currentWaypoint.altitudeChange;
   }
 
@@ -127,12 +117,12 @@ export const calculateTransitionWaypoint = (
     position: [newPosition.lat, newPosition.lng],
     type,
     altitude: newAltitude,
-    ias: speed, // Use the current speed for the waypoint
+    ias: speed,
     visible: false,
     altitudeChange: 0,
     rocRod: currentWaypoint.rocRod,
     iasClimbDescent: currentWaypoint.iasClimbDescent,
-    normalDistance: distanceNM, // Store the dynamically calculated distance
-    specialDistance: distanceNM, // Store the dynamically calculated distance
+    normalDistance: distanceNM,
+    specialDistance: distanceNM,
   };
 };
