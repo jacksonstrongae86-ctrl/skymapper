@@ -1,6 +1,6 @@
 import { useState, useCallback } from "react";
 import { LeafletMouseEvent } from "leaflet";
-import { Waypoint } from "@/src/utils/types";
+import { Waypoint, WindDataArray } from "@/src/utils/types";
 import {
   IAStoTAS,
   getBearing,
@@ -8,7 +8,7 @@ import {
   calculateTransitionWaypoint
 } from "@/src/utils/logic";
 
-export function useWaypoints(defaultTAS: number = 100) {
+export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataArray = []) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
   const calculateSpecialSegment = (
@@ -22,19 +22,25 @@ export function useWaypoints(defaultTAS: number = 100) {
     const ias = waypoint.iasClimbDescent || waypoint.ias;
     const altitude = waypoint.altitude || 5000;
 
-    // Calculate time and distance
+    // Calculate time
     const time = Math.abs(altChange) / rocRod; // minutes
     const tas = IAStoTAS(ias, altitude);
-    const distance = (tas * time) / 60; // Convert to hours for distance
 
-    // Calculate track and ground speed
+    // Calculate track and ground speed with wind
     const from = type === "before" ? nextWaypoint : waypoint;
     const to = type === "before" ? waypoint : nextWaypoint;
     const track = getBearing(
       { lat: from.position[0], lng: from.position[1] },
       { lat: to.position[0], lng: to.position[1] }
     );
+
+    // Use actual wind data if available
     const gs = getGroundSpeed(track, tas, windInfo.direction, windInfo.speed);
+    console.log(
+      `Calculating ${type} segment: wind:${windInfo.direction}/${windInfo.speed} TAS: ${tas}, GS: ${gs}`
+    );
+    // Calculate distance using ground speed instead of TAS
+    const distance = (gs * time) / 60; // Convert to hours for distance
 
     return {
       distance,
