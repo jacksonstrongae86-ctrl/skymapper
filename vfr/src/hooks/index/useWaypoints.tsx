@@ -11,44 +11,55 @@ import {
 export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataArray = []) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
-  const calculateSpecialSegment = (
-    waypoint: Waypoint,
-    nextWaypoint: Waypoint,
-    type: "before" | "after",
-    windInfo = { speed: 0, direction: 0 }
-  ) => {
-    const altChange = waypoint.altitudeChange || 0;
-    const rocRod = waypoint.rocRod || 500;
-    const ias = waypoint.iasClimbDescent || waypoint.ias;
-    const altitude = waypoint.altitude || 5000;
+  const calculateSpecialSegment = useCallback(
+    (
+      waypoint: Waypoint,
+      nextWaypoint: Waypoint,
+      type: "before" | "after",
+      index: number // New parameter to receive the index of the waypoint
+    ) => {
+      const altChange = waypoint.altitudeChange || 0;
+      const rocRod = waypoint.rocRod || 500;
+      const ias = waypoint.iasClimbDescent || waypoint.ias;
+      const altitude = waypoint.altitude || 5000;
 
-    // Calculate time
-    const time = Math.abs(altChange) / rocRod; // minutes
-    const tas = IAStoTAS(ias, altitude);
+      // Calculate time
+      const time = Math.abs(altChange) / rocRod; // minutes
+      const tas = IAStoTAS(ias, altitude);
 
-    // Calculate track and ground speed with wind
-    const from = type === "before" ? nextWaypoint : waypoint;
-    const to = type === "before" ? waypoint : nextWaypoint;
-    const track = getBearing(
-      { lat: from.position[0], lng: from.position[1] },
-      { lat: to.position[0], lng: to.position[1] }
-    );
+      // Correctly assign 'from' and 'to' based on the segment type
+      const from = type === "before" ? nextWaypoint : waypoint;
+      const to = type === "before" ? waypoint : nextWaypoint;
 
-    // Use actual wind data if available
-    const gs = getGroundSpeed(track, tas, windInfo.direction, windInfo.speed);
-    console.log(
-      `Calculating ${type} segment: wind:${windInfo.direction}/${windInfo.speed} TAS: ${tas}, GS: ${gs}`
-    );
-    // Calculate distance using ground speed instead of TAS
-    const distance = (gs * time) / 60; // Convert to hours for distance
+      const track = getBearing(
+        { lat: from.position[0], lng: from.position[1] },
+        { lat: to.position[0], lng: to.position[1] }
+      );
 
-    return {
-      distance,
-      time,
-      groundSpeed: gs,
-      tas,
-    };
-  };
+      // Use wind data based on the index, fallback to default values if unavailable
+      const windDirection = storedWindData[index]?.direction || 0; // Default to 0° if no wind data
+      const windSpeed = storedWindData[index]?.speed || 0; // Default to 0 knots if no wind data
+      const gs = getGroundSpeed(track, tas, windDirection, windSpeed);
+
+      console.log(
+        `Calculating ${type} segment: wind:${windDirection}/${windSpeed} TAS: ${tas}, GS: ${gs}, time: ${time} min`
+      );
+
+      // Calculate distance using ground speed instead of TAS
+      const distance = (gs * time) / 60; // Convert to hours for distance
+      console.log(
+        `Distance for ${type} segment: ${distance} NM, Time: ${time} min, Ground Speed: ${gs}, TAS: ${tas}`
+      );
+
+      return {
+        distance,
+        time,
+        groundSpeed: gs,
+        tas,
+      };
+    },
+    [storedWindData]
+  );
 
   const handleWaypointUpdate = useCallback(
     (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
@@ -94,7 +105,6 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
           // Handle special waypoint types
           if (["BOC", "TOC", "TOD", "BOD"].includes(value as string)) {
             // Ensure required waypoints are defined
-            const lastWaypoint = updated[index - 1];
             const nextWp = updated[index + 1];
 
             // Check requirements based on waypoint type
@@ -147,13 +157,15 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
               const segmentBefore = calculateSpecialSegment(
                 updated[insertIndex - 1], // Previous waypoint
                 updated[insertIndex],
-                "before"
+                "before",
+                insertIndex - 1 // Pass the index of the previous waypoint
               );
 
               const segmentAfter = calculateSpecialSegment(
                 updated[insertIndex],
                 updated[insertIndex + 1],
-                "after"
+                "after",
+                insertIndex // Pass the index of the current waypoint
               );
 
               // Update distances
@@ -230,7 +242,7 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
         return updated;
       });
     },
-    []
+    [defaultTAS, calculateSpecialSegment] // Dependencies for the callback
   );
 
   const handleMapClick = useCallback(
