@@ -17,12 +17,12 @@ export async function fetchECMWFWindData(
   altitudesFt: number[],
   timestamp: Date
 ): Promise<WindAPIResponse> {
-  console.log("🌍 Fetching wind data for:", {
-    lat,
-    lon,
-    altitudesFt,
-    timestamp,
-  });
+  // console.log("🌍 Fetching wind data for:", {
+  //   lat,
+  //   lon,
+  //   altitudesFt,
+  //   timestamp,
+  // });
 
   // Map altitudes to closest pressure levels
   const closestPressureLevels = altitudesFt.map((ft) => {
@@ -67,7 +67,7 @@ export async function fetchECMWFWindData(
     if (closestTimeIndex === -1) {
       console.warn("⚠️ No matching time found in API response.");
     } else {
-      console.log("📅 Closest Time Index:", closestTimeIndex);
+      // console.log("📅 Closest Time Index:", closestTimeIndex);
     }
 
     const results = altitudesFt.map((altitude, i) => {
@@ -83,12 +83,12 @@ export async function fetchECMWFWindData(
 
       const direction = data.hourly[directionKey]?.[closestTimeIndex] || 0;
 
-      console.log(`🛰️ Altitude: ${altitude} ft, Pressure: ${pressure} hPa`);
-      console.log(
-        `   ➡️ Raw Speed: ${rawSpeed} km/h, Speed: ${speedInKnots.toFixed(
-          2
-        )} kts, Direction: ${direction}°`
-      );
+      // console.log(`🛰️ Altitude: ${altitude} ft, Pressure: ${pressure} hPa`);
+      // console.log(
+      //   `   ➡️ Raw Speed: ${rawSpeed} km/h, Speed: ${speedInKnots.toFixed(
+      //     2
+      //   )} kts, Direction: ${direction}°`
+      // );
 
       return {
         altitude,

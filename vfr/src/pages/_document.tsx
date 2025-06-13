@@ -6,18 +6,18 @@ export default function Document() {
       <Head>
         <meta
           name="description"
-          content="SkyMapper simplifies VFR flight planning with weather, fuel, and navigation tools in one intuitive web app."
+          content="Skymapper simplifies VFR flight planning with weather, fuel, and navigation tools in one intuitive web app."
         />
         <meta
           name="keywords"
-          content="flight planning, VFR, pilot tools, aviation maps, SkyMapper"
+          content="flight planning, VFR, pilot tools, aviation maps, Skymapper"
         />
-        <meta name="author" content="SkyMapper Team" />
+        <meta name="author" content="Skymapper Team" />
 
         {/* Open Graph */}
         <meta
           property="og:title"
-          content="SkyMapper - Visual Flight Planning Made Simple"
+          content="Skymapper - Visual Flight Planning Made Simple"
         />
         <meta
           property="og:description"
@@ -31,7 +31,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta
           name="twitter:title"
-          content="SkyMapper - Visual Flight Planning Made Simple"
+          content="Skymapper - Visual Flight Planning Made Simple"
         />
         <meta
           name="twitter:description"
@@ -55,7 +55,7 @@ export default function Document() {
             {
               "@context": "https://schema.org",
               "@type": "Organization",
-              "name": "SkyMapper",
+              "name": "Skymapper",
               "url": "https://skymapper.es",
               "logo": "https://skymapper.es/logo.png"
             }

@@ -73,6 +73,9 @@ export default function Home() {
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
   return (
     <div className="relative h-screen flex flex-col">
+      <title>Skymapper - Plan your VFR flight routes with ease</title>
+      <meta>
+      </meta>
       {isMobile ? (
         <div className="flex flex-col h-full">
           <div className="flex-none">

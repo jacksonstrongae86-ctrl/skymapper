@@ -41,15 +41,15 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
       const windSpeed = storedWindData[index]?.speed || 0; // Default to 0 knots if no wind data
       const gs = getGroundSpeed(track, tas, windDirection, windSpeed);
 
-      console.log(
-        `Calculating ${type} segment: wind:${windDirection}/${windSpeed} TAS: ${tas}, GS: ${gs}, time: ${time} min`
-      );
+      // console.log(
+      //   `Calculating ${type} segment: wind:${windDirection}/${windSpeed} TAS: ${tas}, GS: ${gs}, time: ${time} min`
+      // );
 
       // Calculate distance using ground speed instead of TAS
       const distance = (gs * time) / 60; // Convert to hours for distance
-      console.log(
-        `Distance for ${type} segment: ${distance} NM, Time: ${time} min, Ground Speed: ${gs}, TAS: ${tas}`
-      );
+      // console.log(
+      //   `Distance for ${type} segment: ${distance} NM, Time: ${time} min, Ground Speed: ${gs}, TAS: ${tas}`
+      // );
 
       return {
         distance,

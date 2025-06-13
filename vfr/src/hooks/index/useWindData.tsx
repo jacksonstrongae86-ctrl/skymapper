@@ -25,7 +25,7 @@ export const useWindData = () => {
         );
 
         const windInfo = windData.windData[0];
-        console.log(`🌬️ Wind Data for Waypoint ${index + 1}:`, windInfo);
+        // console.log(`🌬️ Wind Data for Waypoint ${index + 1}:`, windInfo);
 
         return {
           speed: windInfo.speed || 0,
@@ -34,7 +34,7 @@ export const useWindData = () => {
       })
     );
 
-    console.log("✅ Updated Wind Data:", updatedWindData);
+    // console.log("✅ Updated Wind Data:", updatedWindData);
     setStoredWindData(updatedWindData);
   }, [selectedDateTime]);
 
