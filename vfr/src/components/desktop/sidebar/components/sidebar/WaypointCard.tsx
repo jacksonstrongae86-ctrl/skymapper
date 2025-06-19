@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Waypoint, WaypointCardProps } from "@/src/utils/types";
 import { useTheme } from "@/src/utils/ThemeContext";
 import {
@@ -20,10 +20,61 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
   absoluteIndex,
   visibleIndex,
   onWaypointUpdate,
-  handleNumericInput,
 }) => {
   const { theme } = useTheme();
   const isSpecial = waypoint.type !== "waypoint";
+
+  // Local state for input display values
+  const [displayValues, setDisplayValues] = useState({
+    altitude: waypoint.altitude === 0 ? "" : waypoint.altitude.toString(),
+    ias: waypoint.ias === 0 ? "" : waypoint.ias.toString(),
+    altitudeChange:
+      waypoint.altitudeChange === 0
+        ? ""
+        : waypoint.altitudeChange?.toString() || "",
+    rocRod: waypoint.rocRod === 0 ? "" : waypoint.rocRod?.toString() || "",
+    iasClimbDescent:
+      waypoint.iasClimbDescent === 0
+        ? ""
+        : waypoint.iasClimbDescent?.toString() || "",
+  });
+
+  // Update display values when waypoint changes from external source
+  useEffect(() => {
+    setDisplayValues({
+      altitude: waypoint.altitude === 0 ? "" : waypoint.altitude.toString(),
+      ias: waypoint.ias === 0 ? "" : waypoint.ias.toString(),
+      altitudeChange:
+        waypoint.altitudeChange === 0
+          ? ""
+          : waypoint.altitudeChange?.toString() || "",
+      rocRod: waypoint.rocRod === 0 ? "" : waypoint.rocRod?.toString() || "",
+      iasClimbDescent:
+        waypoint.iasClimbDescent === 0
+          ? ""
+          : waypoint.iasClimbDescent?.toString() || "",
+    });
+  }, [waypoint]);
+
+  // Enhanced input handler that manages display state
+  const handleInputChange = (
+    field: keyof typeof displayValues,
+    value: string,
+    waypointField: keyof Waypoint
+  ) => {
+    // Update display value immediately
+    setDisplayValues((prev) => ({ ...prev, [field]: value }));
+
+    // Handle the actual waypoint update
+    if (value === "") {
+      onWaypointUpdate(absoluteIndex, waypointField, 0);
+    } else {
+      const num = parseFloat(value);
+      if (!isNaN(num)) {
+        onWaypointUpdate(absoluteIndex, waypointField, num);
+      }
+    }
+  };
 
   const inputClassName = `
     w-full mt-1 p-2
@@ -84,11 +135,9 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
         <input
           type="number"
           className={inputClassName}
-          value={waypoint.altitude}
+          value={displayValues.altitude}
           onChange={(e) =>
-            handleNumericInput(e.target.value, (num) =>
-              onWaypointUpdate(absoluteIndex, "altitude", num)
-            )
+            handleInputChange("altitude", e.target.value, "altitude")
           }
           placeholder="Enter altitude..."
         />
@@ -132,12 +181,8 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
         <input
           type="number"
           className={inputClassName}
-          value={waypoint.ias}
-          onChange={(e) =>
-            handleNumericInput(e.target.value, (num) =>
-              onWaypointUpdate(absoluteIndex, "ias", num)
-            )
-          }
+          value={displayValues.ias}
+          onChange={(e) => handleInputChange("ias", e.target.value, "ias")}
           placeholder="Enter IAS..."
         />
       </label>
@@ -160,10 +205,12 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
             <input
               type="number"
               className={inputClassName}
-              value={waypoint.altitudeChange}
+              value={displayValues.altitudeChange}
               onChange={(e) =>
-                handleNumericInput(e.target.value, (num) =>
-                  onWaypointUpdate(absoluteIndex, "altitudeChange", num)
+                handleInputChange(
+                  "altitudeChange",
+                  e.target.value,
+                  "altitudeChange"
                 )
               }
               placeholder="Enter altitude change..."
@@ -179,11 +226,9 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
             <input
               type="number"
               className={inputClassName}
-              value={waypoint.rocRod}
+              value={displayValues.rocRod}
               onChange={(e) =>
-                handleNumericInput(e.target.value, (num) =>
-                  onWaypointUpdate(absoluteIndex, "rocRod", num)
-                )
+                handleInputChange("rocRod", e.target.value, "rocRod")
               }
               placeholder="Enter rate..."
             />
@@ -198,10 +243,12 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
             <input
               type="number"
               className={inputClassName}
-              value={waypoint.iasClimbDescent}
+              value={displayValues.iasClimbDescent}
               onChange={(e) =>
-                handleNumericInput(e.target.value, (num) =>
-                  onWaypointUpdate(absoluteIndex, "iasClimbDescent", num)
+                handleInputChange(
+                  "iasClimbDescent",
+                  e.target.value,
+                  "iasClimbDescent"
                 )
               }
               placeholder="Enter IAS..."

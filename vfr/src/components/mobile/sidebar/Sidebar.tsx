@@ -7,7 +7,7 @@ import { useSidebarResize } from "@/src/hooksMobile/sidebar/useSidebarResize";
 import { useBottomSidebarVisibility } from "@/src/hooks/bottomSidebar/useBottomSidebarVisibility";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVisibility";
-import { useInputHandlers } from "../../../hooksMobile/sidebar/useInputHandlers";
+import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
 
 const Sidebar: React.FC<SidebarProps> = ({
