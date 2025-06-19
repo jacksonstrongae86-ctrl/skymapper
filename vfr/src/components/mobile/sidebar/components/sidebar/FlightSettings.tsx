@@ -7,8 +7,6 @@ import {
   ChevronUp,
   Fuel,
   Clock,
-  Wind,
-  RefreshCw,
 } from "lucide-react";
 
 interface FlightSettingsProps {
@@ -29,8 +27,6 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
 }) => {
   const { theme } = useTheme();
 
@@ -63,13 +59,12 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   };
 
   return (
-    <div className="px-4 mb-4">
+    <div className="px-4 mb-4 mt-4">
       <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden shadow-lg">
         <button
           onClick={() => setIsSettingsVisible(!isSettingsVisible)}
           className={`
             w-full px-4 py-3
-            ${`button-gradient-${theme}`}
             text-[var(--button-text)]
             hover:opacity-90
             transition-all duration-200
@@ -133,41 +128,6 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   placeholder="Select flight date and time"
                 />
               </label>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="space-y-2 pt-2">
-              <button
-                type="button"
-                className={`
-                  w-full py-2 px-4 rounded-lg
-                  ${`button-gradient-${theme}`}
-                  text-[var(--button-text)]
-                  transition-all duration-200
-                  flex items-center justify-center gap-2
-                  hover:opacity-90
-                `}
-                onClick={fetchWindData}
-              >
-                <Wind size={18} className="text-[var(--button-text)]" />
-                <span>Fetch Wind Data</span>
-              </button>
-
-              <button
-                type="button"
-                className={`
-                  w-full py-2 px-4 rounded-lg
-                  ${`button-gradient-${theme}`}
-                  text-[var(--button-text)]
-                  transition-all duration-200
-                  flex items-center justify-center gap-2
-                  hover:opacity-90
-                `}
-                onClick={updateCalculations}
-              >
-                <RefreshCw size={18} className="text-[var(--button-text)]" />
-                <span>Update Info</span>
-              </button>
             </div>
           </div>
         </div>

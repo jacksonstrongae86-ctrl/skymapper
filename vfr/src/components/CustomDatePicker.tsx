@@ -33,19 +33,34 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     hours: selected ? selected.getHours() : 12,
     minutes: selected ? selected.getMinutes() : 0,
   });
-  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0, maxWidth: 0 });
 
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
-  // Calculate dropdown position
+  // Calculate dropdown position with sidebar width constraint
   const updateDropdownPosition = () => {
     if (buttonRef.current) {
       const rect = buttonRef.current.getBoundingClientRect();
+
+      // Find the sidebar element (assuming it has a specific class or data attribute)
+      // You may need to adjust this selector based on your actual sidebar implementation
+      const sidebar = buttonRef.current.closest('[class*="sidebar"]') ||
+                    buttonRef.current.closest('[data-sidebar]') ||
+                    buttonRef.current.closest('.sidebar');
+
+      let maxWidth = window.innerWidth - rect.left - 20; // Default fallback with some padding
+
+      if (sidebar) {
+        const sidebarRect = sidebar.getBoundingClientRect();
+        maxWidth = sidebarRect.right - rect.left - 20; // 20px padding from sidebar edge
+      }
+
       setDropdownPosition({
         top: rect.bottom + window.scrollY + 8,
         left: rect.left + window.scrollX,
         width: rect.width,
+        maxWidth: Math.max(maxWidth, 320), // Ensure minimum width of 320px
       });
     }
   };
@@ -115,9 +130,8 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       selectedTime.minutes
     );
     onChange(newDate);
-    if (!showTimeSelect) {
-      setIsOpen(false);
-    }
+    // Always close the picker when a date is selected
+    setIsOpen(false);
   };
 
   const handleTimeChange = (hours: number, minutes: number) => {
@@ -260,12 +274,14 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           border border-[var(--sidebar-border)]
           rounded-xl shadow-2xl
           min-w-[320px]
+          max-w-[600px]
           transform transition-all duration-200
         `}
         style={{
           top: `${dropdownPosition.top}px`,
           left: `${dropdownPosition.left}px`,
-          minWidth: `${Math.max(dropdownPosition.width, 320)}px`,
+          minWidth: `320px`,
+          maxWidth: `600px`
         }}
       >
         {/* Header */}
