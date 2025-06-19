@@ -43,7 +43,7 @@ export default function Document() {
         />
 
         {/* Favicon y Apple Touch Icon */}
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link rel="icon" type="image/png" href="/favicon.ico" />
         <link
           rel="apple-touch-icon"
           href="/apple-touch-icon.png"
