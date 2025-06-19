@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { CustomDatePicker } from "../../../../CustomDatePicker";
 import {
   Settings,
   ChevronDown,
@@ -37,13 +36,13 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
 
   // Local state for fuel consumption display value
   const [fuelDisplayValue, setFuelDisplayValue] = useState(
-    fuelConsumption === 0 ? '' : fuelConsumption.toString()
+    fuelConsumption === 0 ? "" : fuelConsumption.toString()
   );
 
   // Update display value when fuelConsumption changes from external source
   useEffect(() => {
     setFuelDisplayValue(
-      fuelConsumption === 0 ? '' : fuelConsumption.toString()
+      fuelConsumption === 0 ? "" : fuelConsumption.toString()
     );
   }, [fuelConsumption]);
 
@@ -53,7 +52,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
     setFuelDisplayValue(value);
 
     // Handle the actual fuel consumption update
-    if (value === '') {
+    if (value === "") {
       setFuelConsumption(0);
     } else {
       const num = parseFloat(value);
@@ -123,19 +122,15 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   <Clock size={16} className="text-[var(--sidebar-text)]" />
                   Select Date and Time:
                 </span>
-                <DatePicker
+                <CustomDatePicker
                   selected={
                     selectedDateTime ? new Date(selectedDateTime) : null
                   }
                   onChange={(date) =>
                     setSelectedDateTime(date?.toISOString() || "")
                   }
-                  showTimeSelect
-                  dateFormat="Pp"
-                  className="w-full mt-1 p-2 rounded-lg border border-[var(--sidebar-border)]
-                    bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
-                    focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
-                    transition-all duration-200"
+                  showTimeSelect={true}
+                  placeholder="Select flight date and time"
                 />
               </label>
             </div>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import { CustomDatePicker } from "../../../../CustomDatePicker";
 import {
   Settings,
   ChevronDown,
@@ -123,19 +122,11 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   <Clock size={16} className="text-[var(--sidebar-text)]" />
                   Select Date and Time:
                 </span>
-                <DatePicker
-                  selected={
-                    selectedDateTime ? new Date(selectedDateTime) : null
-                  }
-                  onChange={(date) =>
-                    setSelectedDateTime(date?.toISOString() || "")
-                  }
-                  showTimeSelect
-                  dateFormat="Pp"
-                  className="w-full mt-1 p-2 rounded-lg border border-[var(--sidebar-border)]
-                    bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
-                    focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
-                    transition-all duration-200"
+                <CustomDatePicker
+                  selected={selectedDateTime ? new Date(selectedDateTime) : null}
+                  onChange={(date) => setSelectedDateTime(date?.toISOString() || "")}
+                  showTimeSelect={true}
+                  placeholder="Select flight date and time"
                 />
               </label>
             </div>
