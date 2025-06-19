@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -34,6 +34,35 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   updateCalculations,
 }) => {
   const { theme } = useTheme();
+
+  // Local state for fuel consumption display value
+  const [fuelDisplayValue, setFuelDisplayValue] = useState(
+    fuelConsumption === 0 ? '' : fuelConsumption.toString()
+  );
+
+  // Update display value when fuelConsumption changes from external source
+  useEffect(() => {
+    setFuelDisplayValue(
+      fuelConsumption === 0 ? '' : fuelConsumption.toString()
+    );
+  }, [fuelConsumption]);
+
+  // Enhanced input handler for fuel consumption
+  const handleFuelInputChange = (value: string) => {
+    // Update display value immediately
+    setFuelDisplayValue(value);
+
+    // Handle the actual fuel consumption update
+    if (value === '') {
+      setFuelConsumption(0);
+    } else {
+      const num = parseFloat(value);
+      if (!isNaN(num) && num >= 0) {
+        setFuelConsumption(num);
+      }
+    }
+  };
+
   return (
     <div className="px-4 mb-4">
       <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden shadow-lg">
@@ -71,7 +100,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
             {/* Inputs with consistent styling */}
             <div className="space-y-4">
               <label className="block">
-                <span className="text-sm font-medium text-[var(--sidebar-text)]">
+                <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-1">
                   <Fuel size={16} className="text-[var(--sidebar-text)]" />
                   Fuel Consumption (Gal/hr):
                 </span>
@@ -81,18 +110,16 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                     bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
                     focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                     transition-all duration-200"
-                  value={fuelConsumption}
-                  onChange={(e) => {
-                    const value = parseFloat(e.target.value);
-                    if (!isNaN(value)) setFuelConsumption(value);
-                  }}
+                  value={fuelDisplayValue}
+                  onChange={(e) => handleFuelInputChange(e.target.value)}
                   min="0"
                   step="0.1"
+                  placeholder="Enter fuel consumption..."
                 />
               </label>
 
-              <label className="block grid grid-cols-1 gap-2">
-                <span className="text-sm font-medium text-[var(--sidebar-text)]">
+              <label className="grid grid-cols-1 gap-2">
+                <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)]">
                   <Clock size={16} className="text-[var(--sidebar-text)]" />
                   Select Date and Time:
                 </span>
