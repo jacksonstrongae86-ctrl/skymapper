@@ -75,6 +75,7 @@ export interface Waypoint {
   originalAltitude?: number;
   normalDistance?: number;
   specialDistance?: number;
+  specialFuel?: number;
   isTransition?: boolean;
   transitionWaypointIndex?: number;
   time?: number; // Optional time for the waypoint

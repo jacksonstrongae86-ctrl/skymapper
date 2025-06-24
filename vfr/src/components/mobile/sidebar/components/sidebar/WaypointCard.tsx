@@ -26,21 +26,39 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
 
   // Local state for input display values
   const [displayValues, setDisplayValues] = useState({
-    altitude: waypoint.altitude === 0 ? '' : waypoint.altitude.toString(),
-    ias: waypoint.ias === 0 ? '' : waypoint.ias.toString(),
-    altitudeChange: waypoint.altitudeChange === 0 ? '' : waypoint.altitudeChange?.toString() || '',
-    rocRod: waypoint.rocRod === 0 ? '' : waypoint.rocRod?.toString() || '',
-    iasClimbDescent: waypoint.iasClimbDescent === 0 ? '' : waypoint.iasClimbDescent?.toString() || '',
+    altitude: waypoint.altitude === 0 ? "" : waypoint.altitude.toString(),
+    ias: waypoint.ias === 0 ? "" : waypoint.ias.toString(),
+    altitudeChange:
+      waypoint.altitudeChange === 0
+        ? ""
+        : waypoint.altitudeChange?.toString() || "",
+    rocRod: waypoint.rocRod === 0 ? "" : waypoint.rocRod?.toString() || "",
+    iasClimbDescent:
+      waypoint.iasClimbDescent === 0
+        ? ""
+        : waypoint.iasClimbDescent?.toString() || "",
+    specialFuel:
+      waypoint.specialFuel === 0 ? "" : waypoint.specialFuel?.toString() || "",
   });
 
   // Update display values when waypoint changes from external source
   useEffect(() => {
     setDisplayValues({
-      altitude: waypoint.altitude === 0 ? '' : waypoint.altitude.toString(),
-      ias: waypoint.ias === 0 ? '' : waypoint.ias.toString(),
-      altitudeChange: waypoint.altitudeChange === 0 ? '' : waypoint.altitudeChange?.toString() || '',
-      rocRod: waypoint.rocRod === 0 ? '' : waypoint.rocRod?.toString() || '',
-      iasClimbDescent: waypoint.iasClimbDescent === 0 ? '' : waypoint.iasClimbDescent?.toString() || '',
+      altitude: waypoint.altitude === 0 ? "" : waypoint.altitude.toString(),
+      ias: waypoint.ias === 0 ? "" : waypoint.ias.toString(),
+      altitudeChange:
+        waypoint.altitudeChange === 0
+          ? ""
+          : waypoint.altitudeChange?.toString() || "",
+      rocRod: waypoint.rocRod === 0 ? "" : waypoint.rocRod?.toString() || "",
+      iasClimbDescent:
+        waypoint.iasClimbDescent === 0
+          ? ""
+          : waypoint.iasClimbDescent?.toString() || "",
+      specialFuel:
+        waypoint.specialFuel === 0
+          ? ""
+          : waypoint.specialFuel?.toString() || "",
     });
   }, [waypoint]);
 
@@ -51,10 +69,10 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
     waypointField: keyof Waypoint
   ) => {
     // Update display value immediately
-    setDisplayValues(prev => ({ ...prev, [field]: value }));
+    setDisplayValues((prev) => ({ ...prev, [field]: value }));
 
     // Handle the actual waypoint update
-    if (value === '') {
+    if (value === "") {
       onWaypointUpdate(absoluteIndex, waypointField, 0);
     } else {
       const num = parseFloat(value);
@@ -125,7 +143,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           className={inputClassName}
           value={displayValues.altitude}
           onChange={(e) =>
-            handleInputChange('altitude', e.target.value, 'altitude')
+            handleInputChange("altitude", e.target.value, "altitude")
           }
           placeholder="Enter altitude..."
         />
@@ -170,9 +188,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           type="number"
           className={inputClassName}
           value={displayValues.ias}
-          onChange={(e) =>
-            handleInputChange('ias', e.target.value, 'ias')
-          }
+          onChange={(e) => handleInputChange("ias", e.target.value, "ias")}
           placeholder="Enter IAS..."
         />
       </label>
@@ -186,6 +202,22 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           space-y-3
         `}
         >
+          {/* Special Fuel Consumption */}
+          <label className={labelClassName}>
+            <div className="flex items-center gap-2 mb-1">
+              <TrendingDown size={16} className={iconClassName} />
+              <span>Fuel Consumption (Gal/hr):</span>
+            </div>
+            <input
+              type="number"
+              className={inputClassName}
+              value={displayValues.specialFuel}
+              onChange={(e) =>
+                handleInputChange("specialFuel", e.target.value, "specialFuel")
+              }
+              placeholder="Enter Fuel Consumption..."
+            />
+          </label>
           {/* Altitude Change */}
           <label className={labelClassName}>
             <div className="flex items-center gap-2 mb-1">
@@ -197,7 +229,11 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
               className={inputClassName}
               value={displayValues.altitudeChange}
               onChange={(e) =>
-                handleInputChange('altitudeChange', e.target.value, 'altitudeChange')
+                handleInputChange(
+                  "altitudeChange",
+                  e.target.value,
+                  "altitudeChange"
+                )
               }
               placeholder="Enter altitude change..."
             />
@@ -214,7 +250,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
               className={inputClassName}
               value={displayValues.rocRod}
               onChange={(e) =>
-                handleInputChange('rocRod', e.target.value, 'rocRod')
+                handleInputChange("rocRod", e.target.value, "rocRod")
               }
               placeholder="Enter rate..."
             />
@@ -231,7 +267,11 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
               className={inputClassName}
               value={displayValues.iasClimbDescent}
               onChange={(e) =>
-                handleInputChange('iasClimbDescent', e.target.value, 'iasClimbDescent')
+                handleInputChange(
+                  "iasClimbDescent",
+                  e.target.value,
+                  "iasClimbDescent"
+                )
               }
               placeholder="Enter IAS..."
             />

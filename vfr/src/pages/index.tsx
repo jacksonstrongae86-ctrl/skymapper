@@ -28,8 +28,7 @@ const MobileMapComponent = dynamic(
 
 export default function Home() {
   const defaultTAS = 100;
-
-
+  const [fuelConsumption, setFuelConsumption] = useState<number>(8);
   const { legCalculations, updateCalculations } = useFlightCalculations();
   const uiState = useUIState();
   const {
@@ -44,8 +43,8 @@ export default function Home() {
     handleMapClick,
     handleDeleteLastWaypoint,
     handleClearWaypoints,
-  } = useWaypoints(defaultTAS, storedWindData ?? []);
-  const [fuelConsumption, setFuelConsumption] = useState<number>(8);
+  } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
+
   const isMobile = useIsMobile();
   // Shared state for both sidebar heights
   const [topSidebarHeight, setTopSidebarHeight] = useState(25);

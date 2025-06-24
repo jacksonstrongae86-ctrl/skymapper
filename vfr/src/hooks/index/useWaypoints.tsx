@@ -8,7 +8,7 @@ import {
   calculateTransitionWaypoint
 } from "@/src/utils/logic";
 
-export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataArray = []) {
+export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number = 8, storedWindData: WindDataArray = []) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
   const calculateSpecialSegment = useCallback(
@@ -177,7 +177,7 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
 
         if (currentWp.type === "BOC" || currentWp.type === "TOD") {
           // Handle parameter changes that affect calculations
-          if (["altitudeChange", "rocRod", "iasClimbDescent"].includes(field)) {
+          if (["altitudeChange", "rocRod", "iasClimbDescent", "specialFuel"].includes(field)) {
             const currentWp = updated[index];
             const lastWaypoint = updated[index - 1]; // Get the last waypoint
             if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
@@ -202,6 +202,7 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
                     ias: currentWp.iasClimbDescent ?? defaultTAS, // Update IAS for the transition waypoint
                     normalDistance: newTransitionWp.normalDistance,
                     specialDistance: newTransitionWp.specialDistance,
+                    specialFuel: newTransitionWp.specialFuel,
                   };
                 }
               }
@@ -210,7 +211,7 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
         }
         else if (currentWp.type === "TOC" || currentWp.type === "BOD") {
           // Handle parameter changes that affect calculations
-          if (["altitudeChange", "rocRod", "iasClimbDescent"].includes(field)) {
+          if (["altitudeChange", "rocRod", "iasClimbDescent", "specialFuel"].includes(field)) {
             const currentWp = updated[index];
             const nextWp = updated[index + 1]; // Get the next waypoint
             if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
@@ -258,11 +259,12 @@ export function useWaypoints(defaultTAS: number = 100, storedWindData: WindDataA
           altitudeChange: 1500,
           rocRod: 500,
           iasClimbDescent: defaultTAS,
+          specialFuel: fuelConsumption,
           visible: true,
         },
       ]);
     },
-    [defaultTAS]
+    [defaultTAS, fuelConsumption]
   );
 
   const handleDeleteLastWaypoint = () => {

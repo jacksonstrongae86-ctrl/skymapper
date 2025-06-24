@@ -37,6 +37,8 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
       waypoint.iasClimbDescent === 0
         ? ""
         : waypoint.iasClimbDescent?.toString() || "",
+    specialFuel:
+      waypoint.specialFuel === 0 ? "" : waypoint.specialFuel?.toString() || "",
   });
 
   // Update display values when waypoint changes from external source
@@ -53,6 +55,10 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
         waypoint.iasClimbDescent === 0
           ? ""
           : waypoint.iasClimbDescent?.toString() || "",
+      specialFuel:
+        waypoint.specialFuel === 0
+          ? ""
+          : waypoint.specialFuel?.toString() || "",
     });
   }, [waypoint]);
 
@@ -196,6 +202,26 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           space-y-3
         `}
         >
+          {/* Special Fuel Consumption */}
+          <label className={labelClassName}>
+            <div className="flex items-center gap-2 mb-1">
+              <TrendingDown size={16} className={iconClassName} />
+              <span>Fuel Consumption (Gal/hr):</span>
+            </div>
+            <input
+              type="number"
+              className={inputClassName}
+              value={displayValues.specialFuel}
+              onChange={(e) =>
+                handleInputChange(
+                  "specialFuel",
+                  e.target.value,
+                  "specialFuel"
+                  )
+              }
+              placeholder="Enter Fuel Consumption..."
+            />
+          </label>
           {/* Altitude Change */}
           <label className={labelClassName}>
             <div className="flex items-center gap-2 mb-1">

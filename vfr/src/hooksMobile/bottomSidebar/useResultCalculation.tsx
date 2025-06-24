@@ -159,7 +159,7 @@ export const useResultsCalculation = ({
         const heading = getHeading(track, tas, windInfo.direction, windInfo.speed);
         const gs = getGroundSpeed(track, tas, windInfo.direction, windInfo.speed);
         const time = (distance / gs) * 60;
-        const fuelBurn = (time / 60) * fuelConsumption;
+        const fuelBurn = (time / 60) * (wp.specialFuel || fuelConsumption);
 
         return formatResultRow({
           wp,
