@@ -192,9 +192,9 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           onClick={() => handleDateClick(day)}
           className={`
             p-2 text-sm rounded-lg transition-all duration-200
-            hover:bg-[var(--button-bg)] hover:text-[var(--button-text)]
+            hover:bg-[var(--button-bg)] hover:text-white
             ${isSelected
-              ? `${`button-gradient-${theme}`} text-[var(--button-text)] shadow-md`
+              ? `${`button-gradient-${theme}`} text-white shadow-md`
               : 'text-[var(--sidebar-text)]'
             }
             ${isToday && !isSelected ? 'ring-2 ring-[var(--button-bg)] ring-opacity-50' : ''}
@@ -289,7 +289,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigateMonth("prev")}
-              className="p-2 rounded-lg hover:bg-[var(--button-bg)] hover:text-[var(--button-text)]
+              className="p-2 rounded-lg hover:bg-[var(--button-bg)] hover:text-white
                 transition-colors duration-200"
             >
               <ChevronLeft size={16} />
@@ -301,7 +301,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
 
             <button
               onClick={() => navigateMonth("next")}
-              className="p-2 rounded-lg hover:bg-[var(--button-bg)] hover:text-[var(--button-text)]
+              className="p-2 rounded-lg hover:bg-[var(--button-bg)] hover:text-white
                 transition-colors duration-200"
             >
               <ChevronRight size={16} />
@@ -327,7 +327,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             className={`
               px-3 py-2 rounded-lg text-sm
               ${`button-gradient-${theme}`}
-              text-[var(--button-text)]
+              text-white
               hover:opacity-90 transition-opacity duration-200
               flex-1
             `}
