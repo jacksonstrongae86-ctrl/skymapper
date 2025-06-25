@@ -13,6 +13,7 @@ import {
   MoveUp,
   MoveDown,
   PlaneLanding,
+  Trash2,
 } from "lucide-react";
 
 export const WaypointCard: React.FC<WaypointCardProps> = ({
@@ -20,6 +21,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
   absoluteIndex,
   visibleIndex,
   onWaypointUpdate,
+  onDeleteWaypoint,
 }) => {
   const { theme } = useTheme();
   const isSpecial = waypoint.type !== "waypoint";
@@ -130,8 +132,16 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
         >
           {waypoint.type === "waypoint" ? "Normal" : waypoint.type}
         </span>
+        {/* Bin Button */}
+        <button
+          type="button"
+          className=" px-2 py-1 rounded hover:bg-red-100 dark:hover:bg-red-900 transition"
+          title="Delete waypoint"
+          onClick={() => onDeleteWaypoint(absoluteIndex, isSpecial)}
+        >
+          <Trash2 size={18} className="text-red-500" />
+        </button>
       </h3>
-
       {/* Altitude Input */}
       <label className={labelClassName}>
         <div className="flex items-center gap-2 mb-1">
@@ -148,7 +158,6 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           placeholder="Enter altitude..."
         />
       </label>
-
       {/* Type Select */}
       <label className={labelClassName}>
         <div className="flex items-center gap-2 mb-1">
@@ -177,7 +186,6 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           ))}
         </select>
       </label>
-
       {/* IAS Input */}
       <label className={labelClassName}>
         <div className="flex items-center gap-2 mb-1">
@@ -192,7 +200,6 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           placeholder="Enter IAS..."
         />
       </label>
-
       {/* Special Fields */}
       {isSpecial && (
         <div
@@ -213,11 +220,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
               className={inputClassName}
               value={displayValues.specialFuel}
               onChange={(e) =>
-                handleInputChange(
-                  "specialFuel",
-                  e.target.value,
-                  "specialFuel"
-                  )
+                handleInputChange("specialFuel", e.target.value, "specialFuel")
               }
               placeholder="Enter Fuel Consumption..."
             />

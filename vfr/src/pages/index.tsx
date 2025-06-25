@@ -40,6 +40,7 @@ export default function Home() {
   const {
     waypoints,
     handleWaypointUpdate,
+    handleDeleteWaypoint,
     handleMapClick,
     handleDeleteLastWaypoint,
     handleClearWaypoints,
@@ -91,6 +92,7 @@ export default function Home() {
               }
               waypoints={waypoints}
               onWaypointUpdate={handleWaypointUpdate}
+              onDeleteWaypoint={handleDeleteWaypoint}
               onHeightChange={handleTopSidebarHeightChange}
               bottomSidebarHeight={bottomSidebarHeight}
             />
@@ -134,6 +136,7 @@ export default function Home() {
             }
             waypoints={waypoints}
             onWaypointUpdate={handleWaypointUpdate}
+            onDeleteWaypoint={handleDeleteWaypoint}
           />
 
           <div className="relative flex-1 h-full">

@@ -19,6 +19,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   updateCalculations,
   waypoints,
   onWaypointUpdate,
+  onDeleteWaypoint,
   setSidebarWidth,
   isMinimized,
   setIsMinimized,
@@ -147,6 +148,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               setIsWaypointsVisible={() => {}}
               waypoints={waypoints}
               onWaypointUpdate={onWaypointUpdate}
+              onDeleteWaypoint={onDeleteWaypoint}
               isFullScreen={sidebarFullScreen}
               handleNumericInput={handleNumericInput}
             />

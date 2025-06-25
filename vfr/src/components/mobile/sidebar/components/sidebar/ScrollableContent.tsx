@@ -5,6 +5,7 @@ import { WaypointCard } from "./WaypointCard";
 export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   waypoints,
   onWaypointUpdate,
+  onDeleteWaypoint,
   handleNumericInput,
 }) => {
   return (
@@ -38,6 +39,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
                   absoluteIndex={absoluteIndex}
                   visibleIndex={visibleIndex}
                   onWaypointUpdate={onWaypointUpdate}
+                  onDeleteWaypoint={onDeleteWaypoint}
                   handleNumericInput={handleNumericInput}
                 />
               </div>

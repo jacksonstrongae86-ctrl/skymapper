@@ -5,10 +5,14 @@ import {
   IAStoTAS,
   getBearing,
   getGroundSpeed,
-  calculateTransitionWaypoint
+  calculateTransitionWaypoint,
 } from "@/src/utils/logic";
 
-export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number = 8, storedWindData: WindDataArray = []) {
+export function useWaypoints(
+  defaultTAS: number = 100,
+  fuelConsumption: number = 8,
+  storedWindData: WindDataArray = []
+) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
   const calculateSpecialSegment = useCallback(
@@ -75,7 +79,10 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
             updated.splice(currentWp.transitionWaypointIndex, 1);
             // Update indices for waypoints after the removed transition
             updated.forEach((wp) => {
-              if (wp.transitionWaypointIndex && wp.transitionWaypointIndex > currentWp.transitionWaypointIndex!) {
+              if (
+                wp.transitionWaypointIndex &&
+                wp.transitionWaypointIndex > currentWp.transitionWaypointIndex!
+              ) {
                 wp.transitionWaypointIndex--;
               }
             });
@@ -83,7 +90,7 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
           }
 
           // Update the type
-          currentWp[field] = value as typeof currentWp[typeof field];
+          currentWp[field] = value as (typeof currentWp)[typeof field];
           const lastWaypoint = updated[index - 1];
           const nextWp = updated[index + 1];
           if (!nextWp) return updated;
@@ -177,7 +184,14 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
 
         if (currentWp.type === "BOC" || currentWp.type === "TOD") {
           // Handle parameter changes that affect calculations
-          if (["altitudeChange", "rocRod", "iasClimbDescent", "specialFuel"].includes(field)) {
+          if (
+            [
+              "altitudeChange",
+              "rocRod",
+              "iasClimbDescent",
+              "specialFuel",
+            ].includes(field)
+          ) {
             const currentWp = updated[index];
             const lastWaypoint = updated[index - 1]; // Get the last waypoint
             if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
@@ -208,16 +222,23 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
               }
             }
           }
-        }
-        else if (currentWp.type === "TOC" || currentWp.type === "BOD") {
+        } else if (currentWp.type === "TOC" || currentWp.type === "BOD") {
           // Handle parameter changes that affect calculations
-          if (["altitudeChange", "rocRod", "iasClimbDescent", "specialFuel"].includes(field)) {
+          if (
+            [
+              "altitudeChange",
+              "rocRod",
+              "iasClimbDescent",
+              "specialFuel",
+            ].includes(field)
+          ) {
             const currentWp = updated[index];
             const nextWp = updated[index + 1]; // Get the next waypoint
             if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
               // Recalculate transition waypoint position
               if (currentWp.transitionWaypointIndex !== undefined) {
-                const lastWaypoint = updated[currentWp.transitionWaypointIndex - 1];
+                const lastWaypoint =
+                  updated[currentWp.transitionWaypointIndex - 1];
                 if (!lastWaypoint) return updated;
                 const newTransitionWp = calculateTransitionWaypoint(
                   lastWaypoint, // Pass the last waypoint for TOC and BOD
@@ -267,6 +288,40 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
     [defaultTAS, fuelConsumption]
   );
 
+  const handleDeleteWaypoint = useCallback(
+    (index: number, isSpecial: boolean) => {
+      setWaypoints((prev) => {
+        const updated = [...prev];
+        if (isSpecial) {
+          // If the special waypoint has a transitionWaypointIndex, remove both
+          const transitionIndex = updated[index].transitionWaypointIndex;
+          if (
+            typeof transitionIndex === "number" &&
+            transitionIndex >= 0 &&
+            transitionIndex < updated.length
+          ) {
+            // Remove the transition waypoint first (higher index first to avoid shifting)
+            if (transitionIndex > index) {
+              updated.splice(transitionIndex, 1);
+              updated.splice(index, 1);
+            } else {
+              updated.splice(index, 1);
+              updated.splice(transitionIndex, 1);
+            }
+          } else {
+            // No transition waypoint, just remove the special waypoint
+            updated.splice(index, 1);
+          }
+        } else {
+          // Not special, just remove the waypoint
+          updated.splice(index, 1);
+        }
+        return updated;
+      });
+    },
+    []
+  );
+
   const handleDeleteLastWaypoint = () => {
     setWaypoints((prev) => prev.slice(0, -1));
   };
@@ -280,6 +335,7 @@ export function useWaypoints(defaultTAS: number = 100, fuelConsumption: number =
     setWaypoints,
     handleWaypointUpdate,
     handleMapClick,
+    handleDeleteWaypoint,
     handleDeleteLastWaypoint,
     handleClearWaypoints,
   };

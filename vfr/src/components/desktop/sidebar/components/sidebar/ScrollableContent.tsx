@@ -11,6 +11,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   onWaypointUpdate,
   isFullScreen,
   handleNumericInput,
+  onDeleteWaypoint,
 }) => {
   const { theme } = useTheme();
   return (
@@ -73,6 +74,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
                     visibleIndex={visibleIndex}
                     onWaypointUpdate={onWaypointUpdate}
                     handleNumericInput={handleNumericInput}
+                    onDeleteWaypoint={onDeleteWaypoint}
                   />
                 );
               })}

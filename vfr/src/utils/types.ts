@@ -1,24 +1,32 @@
-import { JSX, ReactNode, TouchEvent } from 'react';
-import { LeafletMouseEvent } from 'leaflet';
-
-
+import { JSX, ReactNode, TouchEvent } from "react";
+import { LeafletMouseEvent } from "leaflet";
 
 // Sidebar
 export interface ScrollableContentProps {
   isWaypointsVisible: boolean;
   setIsWaypointsVisible: (visible: boolean) => void;
   waypoints: Waypoint[];
-  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  onWaypointUpdate: (
+    index: number,
+    field: keyof Waypoint,
+    value: Waypoint[keyof Waypoint]
+  ) => void;
   isFullScreen: boolean;
   handleNumericInput: (value: string, callback: (num: number) => void) => void;
+  onDeleteWaypoint: (absoluteIndex: number, isSpecial: boolean) => void;
 }
 
 export interface WaypointCardProps {
   waypoint: Waypoint;
   absoluteIndex: number;
   visibleIndex: number;
-  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  onWaypointUpdate: (
+    index: number,
+    field: keyof Waypoint,
+    value: Waypoint[keyof Waypoint]
+  ) => void;
   handleNumericInput: (value: string, callback: (num: number) => void) => void;
+  onDeleteWaypoint: (absoluteIndex: number, isSpecial: boolean) => void;
 }
 export interface UseSidebarVisibilityProps {
   setSidebarWidth: (width: number) => void;
@@ -121,7 +129,12 @@ export interface SidebarProps {
   updateCalculations: () => void;
   waypoints: Waypoint[];
   results: ReactNode;
-  onWaypointUpdate: (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => void;
+  onWaypointUpdate: (
+    index: number,
+    field: keyof Waypoint,
+    value: Waypoint[keyof Waypoint]
+  ) => void;
+  onDeleteWaypoint: (absoluteIndex: number, isSpecial: boolean) => void;
   sidebarWidth: number;
   setSidebarWidth: (width: number) => void;
   isMinimized: boolean;
@@ -152,17 +165,17 @@ export interface MobileMapComponentProps {
   onDeleteLastWaypoint: () => void;
   onClearWaypoints: () => void;
   setMapType: (type: string) => void;
-};
+}
 
 export interface WaypointInputProps {
   index: number;
-  type: Waypoint['type'];
+  type: Waypoint["type"];
   altitude: number;
   ias: number;
   altitudeChange: number;
   rocRod: number;
   iasClimbDescent: number;
-  onTypeChange: (value: Waypoint['type']) => void;
+  onTypeChange: (value: Waypoint["type"]) => void;
   onAltitudeChange: (value: string) => void;
   onIasChange: (value: string) => void;
   onAltitudeChangeChange: (value: string) => void;
@@ -180,4 +193,3 @@ export interface MapComponentProps {
   setWaypoints: (waypoints: Waypoint[]) => void;
   mapType: string;
 }
-
