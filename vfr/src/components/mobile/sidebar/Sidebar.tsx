@@ -27,6 +27,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   setIsFullScreen,
   onHeightChange, // Assuming this prop exists or add it to SidebarProps
   bottomSidebarHeight = 0, // Default to 0 if not provided
+  gal_liter,
+  set_gal_liter,
 }) => {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<"settings" | "waypoints">(
@@ -141,6 +143,8 @@ const Sidebar: React.FC<SidebarProps> = ({
               setSelectedDateTime={setSelectedDateTime}
               fetchWindData={fetchWindData}
               updateCalculations={updateCalculations}
+              gal_liter={gal_liter}
+              set_gal_liter={set_gal_liter}
             />
           ) : (
             <ScrollableContent
@@ -151,6 +155,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               onDeleteWaypoint={onDeleteWaypoint}
               isFullScreen={sidebarFullScreen}
               handleNumericInput={handleNumericInput}
+              gal_liter={gal_liter}
             />
           )}
         </div>

@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { CustomDatePicker } from "../../../../CustomDatePicker";
-import {
-  Settings,
-  ChevronDown,
-  ChevronUp,
-  Fuel,
-  Clock,
-} from "lucide-react";
+import { Settings, ChevronDown, ChevronUp, Fuel, Clock, RefreshCw } from "lucide-react";
 
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
@@ -18,6 +12,8 @@ interface FlightSettingsProps {
   setSelectedDateTime: (value: string) => void;
   fetchWindData: () => void;
   updateCalculations: () => void;
+  gal_liter: string;
+  set_gal_liter: (g_l: string) => void;
 }
 
 export const FlightSettings: React.FC<FlightSettingsProps> = ({
@@ -27,6 +23,8 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
+  gal_liter,
+  set_gal_liter,
 }) => {
   const { theme } = useTheme();
 
@@ -96,7 +94,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
               <label className="block">
                 <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-1">
                   <Fuel size={16} className="text-[var(--sidebar-text)]" />
-                  Fuel Consumption (Gal/hr):
+                  Fuel Consumption ({gal_liter}/hr):
                 </span>
                 <input
                   type="number"
@@ -110,6 +108,23 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   step="0.1"
                   placeholder="Enter fuel consumption..."
                 />
+                <button
+                  type="button"
+                  className="ml-2 p-1 rounded hover:bg-[var(--button-bg)] transition"
+                  onClick={() =>
+                    set_gal_liter(
+                      gal_liter === "Gal" ? "Liter" : "Gal"
+                    )
+                  }
+                  title={`Switch to ${
+                    gal_liter === "Gal/hr" ? "Liter/hr" : "Gal/hr"
+                  }`}
+                >
+                  <RefreshCw
+                    size={16}
+                    className="inline text-[var(--button-text)]"
+                  />
+                </button>
               </label>
 
               <label className="grid grid-cols-1 gap-2">

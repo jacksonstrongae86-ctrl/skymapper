@@ -7,6 +7,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   onWaypointUpdate,
   onDeleteWaypoint,
   handleNumericInput,
+  gal_liter,
 }) => {
   return (
     <div className="flex flex-col">
@@ -41,6 +42,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
                   onWaypointUpdate={onWaypointUpdate}
                   onDeleteWaypoint={onDeleteWaypoint}
                   handleNumericInput={handleNumericInput}
+                  gal_liter={gal_liter}
                 />
               </div>
             );

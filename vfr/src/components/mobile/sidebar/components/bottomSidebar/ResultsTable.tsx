@@ -1,31 +1,42 @@
-import React, {JSX} from 'react';
-import { useTheme } from '@/src/utils/ThemeContext';
-import { Hash, Ruler, Compass, ArrowRight, Zap, Timer, Plane, Fuel, Wind } from 'lucide-react';
+import React, { JSX } from "react";
+import { useTheme } from "@/src/utils/ThemeContext";
+import {
+  Hash,
+  Ruler,
+  Compass,
+  ArrowRight,
+  Zap,
+  Timer,
+  Plane,
+  Fuel,
+  Wind,
+} from "lucide-react";
 
 interface ResultsTableProps {
   results: JSX.Element[];
+  gal_liter: string;
 }
-
-const TABLE_HEADERS = [
-  { label: "#", unit: "", icon: Hash },
-  { label: "Distance", unit: "NM", icon: Ruler },
-  { label: "Track", unit: "°", icon: Compass },
-  { label: "Heading", unit: "°", icon: ArrowRight },
-  { label: "GS", unit: "knots", icon: Zap },
-  { label: "Time", unit: "min", icon: Timer },
-  { label: "TAS", unit: "knots", icon: Plane },
-  { label: "Fuel", unit: "gal", icon: Fuel },
-  { label: "Wind", unit: "", icon: Wind },
-] as const;
 
 export const ResultsTable: React.FC<ResultsTableProps> = ({
   results,
+  gal_liter,
 }) => {
   const { theme } = useTheme();
-
+  const TABLE_HEADERS = [
+    { label: "#", unit: "", icon: Hash },
+    { label: "Distance", unit: "NM", icon: Ruler },
+    { label: "Track", unit: "°", icon: Compass },
+    { label: "Heading", unit: "°", icon: ArrowRight },
+    { label: "GS", unit: "knots", icon: Zap },
+    { label: "Time", unit: "min", icon: Timer },
+    { label: "TAS", unit: "knots", icon: Plane },
+    { label: "Fuel", unit: gal_liter, icon: Fuel },
+    { label: "Wind", unit: "", icon: Wind },
+  ] as const;
   return (
     <div className="px-2 pb-4">
-      <div className={`
+      <div
+        className={`
         border border-[var(--sidebar-border)]
         rounded-xl
         rounded-t-none
@@ -34,13 +45,16 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
         overflow-x-auto
         custom-scrollbar
 
-      `}>
+      `}
+      >
         <table className="w-full">
-          <thead className={`
+          <thead
+            className={`
             sticky top-0 z-10
             ${`gradient-${theme}`}
             border-b border-[var(--sidebar-border)]
-          `}>
+          `}
+          >
             <tr>
               {TABLE_HEADERS.map(({ label, unit, icon: Icon }) => (
                 <th

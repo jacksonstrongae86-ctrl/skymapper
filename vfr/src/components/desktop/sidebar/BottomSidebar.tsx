@@ -17,6 +17,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   isMinimized,
   isFullScreen: isParentFullScreen,
   onHeightChange,
+  gal_liter,
 }) => {
   const { theme } = useTheme();
 
@@ -49,6 +50,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
     results,
     waypoints,
     fuelConsumption,
+    gal_liter,
   });
 
   return (
@@ -104,6 +106,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         {!isBottomMinimized && (
           <ResultsTable
             results={results}
+            gal_liter={gal_liter}
           />
         )}
       </div>

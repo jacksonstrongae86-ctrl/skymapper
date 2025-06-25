@@ -28,6 +28,7 @@ const MobileMapComponent = dynamic(
 
 export default function Home() {
   const defaultTAS = 100;
+  const [gal_liter, set_gal_liter] = useState<string>("Gal");
   const [fuelConsumption, setFuelConsumption] = useState<number>(8);
   const { legCalculations, updateCalculations } = useFlightCalculations();
   const uiState = useUIState();
@@ -74,8 +75,7 @@ export default function Home() {
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
-      <meta>
-      </meta>
+      <meta></meta>
       {isMobile ? (
         <div className="flex flex-col h-full">
           <div className="flex-none">
@@ -95,6 +95,8 @@ export default function Home() {
               onDeleteWaypoint={handleDeleteWaypoint}
               onHeightChange={handleTopSidebarHeightChange}
               bottomSidebarHeight={bottomSidebarHeight}
+              gal_liter={gal_liter}
+              set_gal_liter={set_gal_liter}
             />
           </div>
           <div className="flex-1 relative mt-0">
@@ -118,6 +120,8 @@ export default function Home() {
               {...uiState}
               onHeightChange={handleBottomSidebarHeightChange}
               topSidebarHeight={topSidebarHeight}
+              gal_liter={gal_liter}
+              set_gal_liter={set_gal_liter}
             />
           </div>
         </div>
@@ -137,6 +141,8 @@ export default function Home() {
             waypoints={waypoints}
             onWaypointUpdate={handleWaypointUpdate}
             onDeleteWaypoint={handleDeleteWaypoint}
+            gal_liter={gal_liter}
+            set_gal_liter={set_gal_liter}
           />
 
           <div className="relative flex-1 h-full">
@@ -164,6 +170,8 @@ export default function Home() {
             fuelConsumption={fuelConsumption}
             legCalculations={legCalculations}
             {...uiState}
+            gal_liter={gal_liter}
+            set_gal_liter={set_gal_liter}
           />
         </>
       )}

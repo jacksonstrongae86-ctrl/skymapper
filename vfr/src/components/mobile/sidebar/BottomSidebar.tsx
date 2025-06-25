@@ -15,6 +15,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   fuelConsumption,
   onHeightChange,
   topSidebarHeight = 0, // Default to 0 if not provided
+  gal_liter,
 }) => {
   const { theme } = useTheme();
 
@@ -46,6 +47,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
     results,
     waypoints,
     fuelConsumption,
+    gal_liter,
   });
 
   return (
@@ -95,7 +97,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           transition-all duration-300
         `}
         >
-          <ResultsTable results={results} />
+          <ResultsTable results={results} gal_liter={gal_liter} />
         </div>
       </div>
     </div>

@@ -20,6 +20,8 @@ interface FlightSettingsProps {
   setSelectedDateTime: (value: string) => void;
   fetchWindData: () => void;
   updateCalculations: () => void;
+  gal_liter: string;
+  set_gal_liter: (g_l: string) => void;
 }
 
 export const FlightSettings: React.FC<FlightSettingsProps> = ({
@@ -31,18 +33,20 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setSelectedDateTime,
   fetchWindData,
   updateCalculations,
+  gal_liter,
+  set_gal_liter,
 }) => {
   const { theme } = useTheme();
 
   // Local state for fuel consumption display value
   const [fuelDisplayValue, setFuelDisplayValue] = useState(
-    fuelConsumption === 0 ? '' : fuelConsumption.toString()
+    fuelConsumption === 0 ? "" : fuelConsumption.toString()
   );
 
   // Update display value when fuelConsumption changes from external source
   useEffect(() => {
     setFuelDisplayValue(
-      fuelConsumption === 0 ? '' : fuelConsumption.toString()
+      fuelConsumption === 0 ? "" : fuelConsumption.toString()
     );
   }, [fuelConsumption]);
 
@@ -52,7 +56,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
     setFuelDisplayValue(value);
 
     // Handle the actual fuel consumption update
-    if (value === '') {
+    if (value === "") {
       setFuelConsumption(0);
     } else {
       const num = parseFloat(value);
@@ -101,7 +105,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
               <label className="block">
                 <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-1">
                   <Fuel size={16} className="text-[var(--sidebar-text)]" />
-                  Fuel Consumption (Gal/hr):
+                  Fuel Consumption ({gal_liter}/hr):
                 </span>
                 <input
                   type="number"
@@ -115,6 +119,21 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   step="0.1"
                   placeholder="Enter fuel consumption..."
                 />
+                <button
+                  type="button"
+                  className="ml-2 p-1 rounded hover:bg-[var(--button-bg)] transition"
+                  onClick={() =>
+                    set_gal_liter(gal_liter === "Gal" ? "Liter" : "Gal")
+                  }
+                  title={`Switch to ${
+                    gal_liter === "Gal/hr" ? "Liter/hr" : "Gal/hr"
+                  }`}
+                >
+                  <RefreshCw
+                    size={16}
+                    className="inline text-[var(--button-text)]"
+                  />
+                </button>
               </label>
 
               <label className="grid grid-cols-1 gap-2">
@@ -123,8 +142,12 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   Select Date and Time:
                 </span>
                 <CustomDatePicker
-                  selected={selectedDateTime ? new Date(selectedDateTime) : null}
-                  onChange={(date) => setSelectedDateTime(date?.toISOString() || "")}
+                  selected={
+                    selectedDateTime ? new Date(selectedDateTime) : null
+                  }
+                  onChange={(date) =>
+                    setSelectedDateTime(date?.toISOString() || "")
+                  }
                   showTimeSelect={true}
                   placeholder="Select flight date and time"
                 />

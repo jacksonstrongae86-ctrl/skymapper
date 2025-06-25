@@ -25,6 +25,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   setIsMinimized,
   isFullScreen,
   setIsFullScreen,
+  gal_liter,
+  set_gal_liter,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
@@ -78,6 +80,8 @@ const Sidebar: React.FC<SidebarProps> = ({
             setSelectedDateTime={setSelectedDateTime}
             fetchWindData={fetchWindData}
             updateCalculations={updateCalculations}
+            gal_liter={gal_liter}
+            set_gal_liter={set_gal_liter}
           />
 
           <ScrollableContent
@@ -88,6 +92,7 @@ const Sidebar: React.FC<SidebarProps> = ({
             isFullScreen={isFullScreen}
             handleNumericInput={handleNumericInput}
             onDeleteWaypoint={onDeleteWaypoint}
+            gal_liter={gal_liter}
           />
         </div>
       )}

@@ -14,6 +14,7 @@ export interface ScrollableContentProps {
   isFullScreen: boolean;
   handleNumericInput: (value: string, callback: (num: number) => void) => void;
   onDeleteWaypoint: (absoluteIndex: number, isSpecial: boolean) => void;
+  gal_liter: string;
 }
 
 export interface WaypointCardProps {
@@ -27,6 +28,7 @@ export interface WaypointCardProps {
   ) => void;
   handleNumericInput: (value: string, callback: (num: number) => void) => void;
   onDeleteWaypoint: (absoluteIndex: number, isSpecial: boolean) => void;
+  gal_liter: string;
 }
 export interface UseSidebarVisibilityProps {
   setSidebarWidth: (width: number) => void;
@@ -65,6 +67,8 @@ export interface BottomSidebarProps {
     fuelBurn: number;
   }>;
   topSidebarHeight?: number;
+  gal_liter: string;
+  set_gal_liter: (g_l: string) => void;
 }
 export interface FlightResultsTableProps {
   results: JSX.Element[];
@@ -144,6 +148,8 @@ export interface SidebarProps {
   setIsFullScreen: (fullScreen: boolean) => void;
   onHeightChange?: (height: number) => void;
   bottomSidebarHeight?: number;
+  gal_liter: string;
+  set_gal_liter: (g_l: string) => void;
 }
 
 export interface MapControlsProps {

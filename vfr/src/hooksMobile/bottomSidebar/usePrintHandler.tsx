@@ -8,6 +8,7 @@ interface UsePrintHandlerProps {
   fuelConsumption: number;
   selectedDate?: string;
   selectedTime?: string;
+  gal_liter: string;
 }
 
 interface FlightData {
@@ -91,8 +92,10 @@ export const generatePrintContent = (
   totalTime: number,
   totalFuel: number,
   fuelConsumption: number,
+  gal_liter: string,
   selectedDate?: string,
-  selectedTime?: string
+  selectedTime?: string,
+
 ) => {
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
@@ -183,8 +186,8 @@ export const generatePrintContent = (
         <div class="print-summary">
           <p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} NM</p>
           <p><strong>Total Time:</strong> ${formatTime(totalTime)}</p>
-          <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(2)} Gal</p>
-          <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(2)} Gal/hr</p>
+          <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(2)} ${gal_liter}</p>
+          <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(2)} ${gal_liter}/hr</p>
           ${selectedDate ? `<p><strong>Date:</strong> ${selectedDate}</p>` : ''}
           ${selectedTime ? `<p><strong>Time:</strong> ${selectedTime}</p>` : ''}
         </div>
@@ -214,7 +217,7 @@ export const generatePrintContent = (
               <th>GS (knots)</th>
               <th>Time (min)</th>
               <th>TAS (knots)</th>
-              <th>Fuel (gal)</th>
+              <th>Fuel (${gal_liter})</th>
               <th>Wind</th>
             </tr>
           </thead>
@@ -245,6 +248,7 @@ export const usePrintHandler = ({
   fuelConsumption,
   selectedDate,
   selectedTime,
+  gal_liter,
 }: UsePrintHandlerProps) => {
   const handlePrint = useCallback(() => {
     if (typeof window === "undefined") return;
@@ -274,6 +278,7 @@ export const usePrintHandler = ({
           totalTime,
           totalFuel,
           fuelConsumption,
+          gal_liter,
           selectedDate,
           selectedTime
         );
@@ -324,6 +329,7 @@ export const usePrintHandler = ({
                 totalTime,
                 totalFuel,
                 fuelConsumption,
+                gal_liter,
                 selectedDate,
                 selectedTime
               )}
@@ -344,7 +350,7 @@ export const usePrintHandler = ({
       console.error('Print failed:', error);
       alert('Failed to generate print content. Please try again.');
     }
-  }, [results, waypoints, fuelConsumption, selectedDate, selectedTime]);
+  }, [results, waypoints, fuelConsumption, selectedDate, selectedTime, gal_liter]);
 
   return handlePrint;
 };

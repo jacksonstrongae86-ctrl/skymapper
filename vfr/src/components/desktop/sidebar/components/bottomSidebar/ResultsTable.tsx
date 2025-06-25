@@ -4,9 +4,17 @@ import { Hash, Ruler, Compass, ArrowRight, Zap, Timer, Plane, Fuel, Wind } from 
 
 interface ResultsTableProps {
   results: JSX.Element[];
+  gal_liter: string;
 }
 
-const TABLE_HEADERS = [
+
+
+export const ResultsTable: React.FC<ResultsTableProps> = ({
+  results,
+  gal_liter,
+}) => {
+  const { theme } = useTheme();
+  const TABLE_HEADERS = [
   { label: "#", unit: "", icon: Hash },
   { label: "Distance", unit: "NM", icon: Ruler },
   { label: "Track", unit: "°", icon: Compass },
@@ -14,14 +22,9 @@ const TABLE_HEADERS = [
   { label: "GS", unit: "knots", icon: Zap },
   { label: "Time", unit: "min", icon: Timer },
   { label: "TAS", unit: "knots", icon: Plane },
-  { label: "Fuel", unit: "gal", icon: Fuel },
+  { label: "Fuel", unit: gal_liter, icon: Fuel },
   { label: "Wind", unit: "", icon: Wind },
 ] as const;
-
-export const ResultsTable: React.FC<ResultsTableProps> = ({
-  results,
-}) => {
-  const { theme } = useTheme();
   return (
     <div className="px-4 pb-4">
       <div className={`

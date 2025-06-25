@@ -22,6 +22,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
   visibleIndex,
   onWaypointUpdate,
   onDeleteWaypoint,
+  gal_liter,
 }) => {
   const { theme } = useTheme();
   const isSpecial = waypoint.type !== "waypoint";
@@ -250,7 +251,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
           <label className={labelClassName}>
             <div className="flex items-center gap-2 mb-1">
               <TrendingDown size={16} className={iconClassName} />
-              <span>Fuel Consumption (Gal/hr):</span>
+              <span>Fuel Consumption ({gal_liter}/hr):</span>
             </div>
             <input
               type="number"

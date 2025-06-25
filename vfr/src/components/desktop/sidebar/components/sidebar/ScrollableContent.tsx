@@ -12,6 +12,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   isFullScreen,
   handleNumericInput,
   onDeleteWaypoint,
+  gal_liter,
 }) => {
   const { theme } = useTheme();
   return (
@@ -75,6 +76,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
                     onWaypointUpdate={onWaypointUpdate}
                     handleNumericInput={handleNumericInput}
                     onDeleteWaypoint={onDeleteWaypoint}
+                    gal_liter={gal_liter}
                   />
                 );
               })}
