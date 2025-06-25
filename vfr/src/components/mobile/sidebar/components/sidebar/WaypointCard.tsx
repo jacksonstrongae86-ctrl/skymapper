@@ -43,6 +43,14 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
       waypoint.specialFuel === 0 ? "" : waypoint.specialFuel?.toString() || "",
   });
 
+  // Local state for editing the name
+    const [isEditingName, setIsEditingName] = useState(false);
+    const [nameInput, setNameInput] = useState(waypoint.name || "");
+
+    useEffect(() => {
+      setNameInput(waypoint.name || "");
+    }, [waypoint.name]);
+
   // Update display values when waypoint changes from external source
   useEffect(() => {
     setDisplayValues({
@@ -120,9 +128,38 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
     >
       <h3 className="text-base font-bold text-[var(--sidebar-text)] mb-4 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <MapPin size={16} className={iconClassName} />
-          <span>Waypoint {visibleIndex + 1}</span>
-        </div>
+                  <MapPin size={16} className={iconClassName} />
+                  {isEditingName ? (
+                    <input
+                      type="text"
+                      className="bg-transparent border-b border-[var(--sidebar-border)] focus:outline-none px-1 w-32"
+                      value={nameInput}
+                      autoFocus
+                      onChange={(e) => setNameInput(e.target.value)}
+                      onBlur={() => {
+                        setIsEditingName(false);
+                        onWaypointUpdate(absoluteIndex, "name", nameInput.trim());
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          setIsEditingName(false);
+                          onWaypointUpdate(absoluteIndex, "name", nameInput.trim());
+                        }
+                      }}
+                      placeholder={`Waypoint ${visibleIndex + 1}`}
+                    />
+                  ) : (
+                    <span
+                      className="cursor-pointer underline decoration-dotted"
+                      title="Click to edit name"
+                      onClick={() => setIsEditingName(true)}
+                    >
+                      {waypoint.name?.trim()
+                        ? waypoint.name
+                        : `Waypoint ${visibleIndex + 1}`}
+                    </span>
+                  )}
+                </div>
         <span
           className={`
           text-xs px-2 py-1 rounded-full

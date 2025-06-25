@@ -77,6 +77,7 @@ export interface Waypoint {
   altitude: number;
   ias: number;
   visible: boolean;
+  name?: string;
   altitudeChange?: number;
   rocRod?: number;
   iasClimbDescent?: number;

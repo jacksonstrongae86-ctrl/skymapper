@@ -17,27 +17,50 @@ interface LegName {
 const formatLegName = (
   wp: Waypoint,
   visibleIndex: number,
-  nextVisibleIndex: number
+  nextVisibleIndex: number,
+  waypoints: Waypoint[],
+  i: number
 ): LegName => {
   const isTransition = !wp.visible;
+  const prevWp = waypoints[i];
+  const nextWp = waypoints[i + 1];
+
+  // Get names or fallback to WP index
+  const prevName = prevWp?.name?.trim() ? prevWp.name : `WP${visibleIndex + 1}`;
+  const nextName = nextWp?.name?.trim() ? nextWp.name : `WP${nextVisibleIndex}`;
 
   if (isTransition) {
+    // If previous is transition, show "Transition → name2"
+    if (!prevWp.visible && nextWp) {
+      return {
+        mainText: `Transition → ${nextName}`,
+        isSpecialFormat: true,
+      };
+    }
+    // If next is transition, show "name1 → Transition"
+    if (prevWp && !nextWp?.visible) {
+      return {
+        mainText: `${prevName} → Transition`,
+        isSpecialFormat: true,
+      };
+    }
+    // Default for transition
     return {
-      mainText: `Transition (${wp.type})`,
+      mainText: `Transition`,
       isSpecialFormat: true,
     };
   }
 
   if (["BOC", "TOC", "TOD", "BOD"].includes(wp.type)) {
     return {
-      mainText: `WP${visibleIndex + 1} → WP${nextVisibleIndex}`,
+      mainText: `${prevName} → ${nextName}`,
       subText: wp.type,
       isSpecialFormat: true,
     };
   }
 
   return {
-    mainText: `WP${visibleIndex + 1} → WP${nextVisibleIndex}`,
+    mainText: `${prevName} → ${nextName}`,
     isSpecialFormat: false,
   };
 };
@@ -49,6 +72,7 @@ const formatResultRow = ({
   nextVisibleIndex,
   rowClass,
   calculations,
+  waypoints,
 }: {
   wp: Waypoint;
   i: number;
@@ -65,9 +89,10 @@ const formatResultRow = ({
     fuelBurn: number;
     windInfo: { speed: number; direction: number };
   };
+  waypoints: Waypoint[],
 }) => {
   const { distance, track, heading, gs, time, tas, fuelBurn, windInfo } = calculations;
-  const legName = formatLegName(wp, visibleIndex, nextVisibleIndex);
+  const legName = formatLegName(wp, visibleIndex, nextVisibleIndex, waypoints, i);
 
   return (
     <tr key={i} className={rowClass}>
@@ -177,6 +202,7 @@ export const useResultsCalculation = ({
             fuelBurn,
             windInfo,
           },
+          waypoints,
         });
       })
       .filter(Boolean);
