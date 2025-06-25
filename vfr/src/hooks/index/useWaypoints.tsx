@@ -270,12 +270,15 @@ export function useWaypoints(
   const handleMapClick = useCallback(
     (e: LeafletMouseEvent) => {
       const { lat, lng } = e.latlng;
-      setWaypoints((prev) => [
+      setWaypoints((prev) => {
+      const lastAltitude =
+        prev.length > 0 ? prev[prev.length - 1].altitude : 5000;
+      return [
         ...prev,
         {
           position: [lat, lng],
           type: "waypoint",
-          altitude: 5000,
+          altitude: lastAltitude,
           ias: defaultTAS,
           altitudeChange: 1500,
           rocRod: 500,
@@ -283,7 +286,8 @@ export function useWaypoints(
           specialFuel: fuelConsumption,
           visible: true,
         },
-      ]);
+      ];
+    });
     },
     [defaultTAS, fuelConsumption]
   );
