@@ -217,7 +217,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     if (!showTimeSelect) return null;
 
     return (
-      <div className="border-t border-[var(--sidebar-border)] p-4">
+      <div className="border-t border-white p-4">
         <div className="flex items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             <Clock size={16} className="text-white opacity-70" />
@@ -228,7 +228,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             <select
               value={selectedTime.hours}
               onChange={(e) => handleTimeChange(parseInt(e.target.value), selectedTime.minutes)}
-              className="px-2 py-1 rounded-md border border-[var(--sidebar-border)]
+              className="px-2 py-1 rounded-md border border-white
                 bg-[var(--sidebar-bg)] text-white
                 focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                 text-sm"
@@ -245,7 +245,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             <select
               value={selectedTime.minutes}
               onChange={(e) => handleTimeChange(selectedTime.hours, parseInt(e.target.value))}
-              className="px-2 py-1 rounded-md border border-[var(--sidebar-border)]
+              className="px-2 py-1 rounded-md border border-white
                 bg-[var(--sidebar-bg)] text-white
                 focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                 text-sm"
@@ -290,7 +290,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         className={`
           fixed z-[99999]
           ${`gradient-${theme}`}
-          border border-[var(--sidebar-border)]
+          border border-white
           rounded-xl shadow-2xl
           min-w-[320px]
           max-w-[600px]
@@ -299,7 +299,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         style={mobileStyle}
       >
         {/* Header */}
-        <div className="p-4 border-b border-[var(--sidebar-border)]">
+        <div className="p-4 border-b border-white">
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigateMonth("prev")}
@@ -332,7 +332,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         {renderTimePicker()}
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-[var(--sidebar-border)] flex gap-2">
+        <div className="p-4 border-t border-white flex gap-2">
           <button
             onClick={() => {
               onChange(new Date());
@@ -355,7 +355,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               setIsOpen(false);
             }}
             className="px-3 py-2 rounded-lg text-sm
-              border border-[var(--sidebar-border)]
+              border border-white
               text-white
               hover:bg-[var(--sidebar-border)] transition-colors duration-200
               flex-1"
@@ -375,7 +375,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full p-2 rounded-lg border border-[var(--sidebar-border)]
+          w-full p-2 rounded-lg border border-white
           bg-[var(--sidebar-bg)] text-white
           focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
           transition-all duration-200
