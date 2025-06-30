@@ -261,9 +261,28 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       </div>
     );
   };
-
+  const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
   const renderDropdown = () => {
     if (!isOpen) return null;
+
+    // Center on mobile
+    const mobileStyle = isMobile
+    ? {
+        top: `50%`,
+        left: `50%`,
+        transform: `translate(-50%, -50%)`,
+        minWidth: `320px`,
+        maxWidth: `95vw`,
+        width: `90vw`,
+        position: "fixed" as const,
+        zIndex: 99999,
+      }
+    : {
+        top: `${dropdownPosition.top}px`,
+        left: `${dropdownPosition.left}px`,
+        minWidth: `320px`,
+        maxWidth: `600px`,
+      };
 
     return createPortal(
       <div
@@ -277,12 +296,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           max-w-[600px]
           transform transition-all duration-200
         `}
-        style={{
-          top: `${dropdownPosition.top}px`,
-          left: `${dropdownPosition.left}px`,
-          minWidth: `320px`,
-          maxWidth: `600px`
-        }}
+        style={mobileStyle}
       >
         {/* Header */}
         <div className="p-4 border-b border-[var(--sidebar-border)]">
