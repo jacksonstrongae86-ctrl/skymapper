@@ -204,9 +204,23 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   // Close picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+      const target = event.target as Node;
+
+      // Check if click is inside the main container
+      if (containerRef.current && containerRef.current.contains(target)) {
+        return;
       }
+
+      // Check if click is inside any CustomSelect dropdown (they use portals)
+      const selectDropdowns = document.querySelectorAll('[class*="fixed z-[99999]"]');
+      for (const dropdown of selectDropdowns) {
+        if (dropdown.contains(target)) {
+          return; // Don't close if clicking inside a select dropdown
+        }
+      }
+
+      // If we get here, the click was truly outside
+      setIsOpen(false);
     };
 
     const handleScroll = () => {
@@ -266,12 +280,17 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       selectedTime.minutes
     );
     onChange(newDate);
-    // Always close the picker when a date is selected
-    setIsOpen(false);
+    // Only close if time selection is not enabled, or if it is enabled but user clicked "Done"
+    if (!showTimeSelect) {
+      setIsOpen(false);
+    }
   };
 
+  // Updated to only update internal state, not call onChange immediately
   const handleTimeChange = (hours: number, minutes: number) => {
     setSelectedTime({ hours, minutes });
+
+    // Only update the date if we already have a selected date
     if (selected) {
       const newDate = new Date(selected);
       newDate.setHours(hours, minutes);
@@ -457,7 +476,11 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         <div className="p-4 border-t border-white flex gap-2">
           <button
             onClick={() => {
-              onChange(new Date());
+              const todayDate = new Date();
+              if (showTimeSelect) {
+                todayDate.setHours(selectedTime.hours, selectedTime.minutes);
+              }
+              onChange(todayDate);
               setIsOpen(false);
             }}
             className={`
@@ -484,6 +507,21 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           >
             Clear
           </button>
+
+          {showTimeSelect && (
+            <button
+              onClick={() => setIsOpen(false)}
+              className={`
+                px-3 py-2 rounded-lg text-sm
+                ${`button-gradient-${theme}`}
+                text-white
+                hover:opacity-90 transition-opacity duration-200
+                flex-1
+              `}
+            >
+              Done
+            </button>
+          )}
         </div>
       </div>,
       document.body
