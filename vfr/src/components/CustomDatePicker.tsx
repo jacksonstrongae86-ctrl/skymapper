@@ -362,7 +362,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`
           w-full p-2 rounded-lg border border-[var(--sidebar-border)]
-          bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+          bg-[var(--sidebar-bg)] text-white
           focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
           transition-all duration-200
           flex items-center justify-between
@@ -371,14 +371,14 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         `}
       >
         <div className="flex items-center gap-2">
-          <Calendar size={16} className="text-[var(--sidebar-text)] opacity-70" />
-          <span className={selected ? 'text-[var(--sidebar-text)]' : 'text-[var(--sidebar-text)] opacity-50'}>
+          <Calendar size={16} className="text-white opacity-70" />
+          <span className={selected ? 'text-white' : 'text-white opacity-50'}>
             {selected ? formatDisplayDate(selected) : placeholder}
           </span>
         </div>
         <ChevronDown
           size={16}
-          className={`text-[var(--sidebar-text)] opacity-70 transition-transform duration-200 ${
+          className={`text-white opacity-70 transition-transform duration-200 ${
             isOpen ? 'rotate-180' : ''
           }`}
         />
