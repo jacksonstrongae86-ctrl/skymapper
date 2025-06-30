@@ -17,6 +17,131 @@ interface CustomDatePickerProps {
   className?: string;
 }
 
+interface CustomSelectProps {
+  value: number;
+  onChange: (value: number) => void;
+  options: { value: number; label: string }[];
+  theme: string;
+}
+
+const CustomSelect: React.FC<CustomSelectProps> = ({ value, onChange, options, theme }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
+  const selectRef = useRef<HTMLButtonElement>(null);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const updateDropdownPosition = () => {
+    if (selectRef.current) {
+      const rect = selectRef.current.getBoundingClientRect();
+      setDropdownPosition({
+        top: rect.bottom + window.scrollY + 4,
+        left: rect.left + window.scrollX,
+        width: rect.width,
+      });
+    }
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node) &&
+        selectRef.current &&
+        !selectRef.current.contains(event.target as Node)
+      ) {
+        setIsOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      if (isOpen) {
+        updateDropdownPosition();
+      }
+    };
+
+    if (isOpen) {
+      updateDropdownPosition();
+      document.addEventListener("mousedown", handleClickOutside);
+      window.addEventListener("scroll", handleScroll, true);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      window.removeEventListener("scroll", handleScroll, true);
+    };
+  }, [isOpen]);
+
+  const selectedOption = options.find(opt => opt.value === value);
+
+  return (
+    <>
+      <button
+        ref={selectRef}
+        onClick={() => setIsOpen(!isOpen)}
+        className={`
+          px-3 py-2 rounded-lg border border-white
+          bg-[var(--sidebar-bg)] text-white
+          focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
+          hover:border-[var(--button-bg)]
+          transition-all duration-200
+          text-sm font-medium
+          cursor-pointer
+          min-w-[60px]
+          flex items-center justify-between
+          ${isOpen ? 'ring-2 ring-[var(--button-bg)]' : ''}
+        `}
+      >
+        <span>{selectedOption?.label || value.toString().padStart(2, '0')}</span>
+        <ChevronDown
+          size={12}
+          className={`ml-1 text-white opacity-70 transition-transform duration-200 ${
+            isOpen ? 'rotate-180' : ''
+          }`}
+        />
+      </button>
+
+      {isOpen && createPortal(
+        <div
+          ref={dropdownRef}
+          className={`
+            fixed z-[99999]
+            ${`gradient-${theme}`}
+            border border-white
+            rounded-lg shadow-2xl
+            max-h-48 overflow-y-auto
+            custom-scrollbar
+          `}
+          style={{
+            top: `${dropdownPosition.top}px`,
+            left: `${dropdownPosition.left}px`,
+            width: `${dropdownPosition.width}px`,
+          }}
+        >
+          {options.map((option) => (
+            <button
+              key={option.value}
+              onClick={() => {
+                onChange(option.value);
+                setIsOpen(false);
+              }}
+              className={`
+                w-full px-3 py-2 text-left text-sm
+                text-white hover:bg-[var(--button-bg)]
+                transition-colors duration-200
+                first:rounded-t-lg last:rounded-b-lg
+                ${option.value === value ? 'bg-[var(--button-bg)]' : ''}
+              `}
+            >
+              {option.label}
+            </button>
+          ))}
+        </div>,
+        document.body
+      )}
+    </>
+  );
+};
+
 export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
   selected,
   onChange,
@@ -37,6 +162,17 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
 
   const containerRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+
+  // Generate options for hours and minutes
+  const hourOptions = Array.from({ length: 24 }, (_, i) => ({
+    value: i,
+    label: i.toString().padStart(2, '0')
+  }));
+
+  const minuteOptions = Array.from({ length: 60 }, (_, i) => ({
+    value: i,
+    label: i.toString().padStart(2, '0')
+  }));
 
   // Calculate dropdown position with sidebar width constraint
   const updateDropdownPosition = () => {
@@ -225,43 +361,29 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           </div>
 
           <div className="flex items-center gap-2">
-            <select
+            <CustomSelect
               value={selectedTime.hours}
-              onChange={(e) => handleTimeChange(parseInt(e.target.value), selectedTime.minutes)}
-              className="px-2 py-1 rounded-md border border-white
-                bg-[var(--sidebar-bg)] text-white
-                focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
-                text-sm"
-            >
-              {Array.from({ length: 24 }, (_, i) => (
-                <option key={i} value={i}>
-                  {i.toString().padStart(2, '0')}
-                </option>
-              ))}
-            </select>
+              onChange={(hours) => handleTimeChange(hours, selectedTime.minutes)}
+              options={hourOptions}
+              theme={theme}
+            />
 
-            <span className="text-white">:</span>
+            <span className="text-white font-medium">:</span>
 
-            <select
+            <CustomSelect
               value={selectedTime.minutes}
-              onChange={(e) => handleTimeChange(selectedTime.hours, parseInt(e.target.value))}
-              className="px-2 py-1 rounded-md border border-white
-                bg-[var(--sidebar-bg)] text-white
-                focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
-                text-sm"
-            >
-              {Array.from({ length: 60 }, (_, i) => (
-                <option key={i} value={i}>
-                  {i.toString().padStart(2, '0')}
-                </option>
-              ))}
-            </select>
+              onChange={(minutes) => handleTimeChange(selectedTime.hours, minutes)}
+              options={minuteOptions}
+              theme={theme}
+            />
           </div>
         </div>
       </div>
     );
   };
+
   const isMobile = typeof window !== "undefined" && window.innerWidth <= 768;
+
   const renderDropdown = () => {
     if (!isOpen) return null;
 
