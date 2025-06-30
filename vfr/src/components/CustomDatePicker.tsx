@@ -165,7 +165,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
     const dayHeaders = dayNames.map(day => (
       <div
         key={day}
-        className="p-2 text-xs font-medium text-[var(--sidebar-text)] opacity-70 text-center"
+        className="p-2 text-xs font-medium text-white opacity-70 text-center"
       >
         {day}
       </div>
@@ -195,7 +195,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             hover:bg-[var(--button-bg)] hover:text-white
             ${isSelected
               ? `${`button-gradient-${theme}`} text-white shadow-md`
-              : 'text-[var(--sidebar-text)]'
+              : 'text-white'
             }
             ${isToday && !isSelected ? 'ring-2 ring-[var(--button-bg)] ring-opacity-50' : ''}
           `}
@@ -220,8 +220,8 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       <div className="border-t border-[var(--sidebar-border)] p-4">
         <div className="flex items-center justify-center gap-4">
           <div className="flex items-center gap-2">
-            <Clock size={16} className="text-[var(--sidebar-text)] opacity-70" />
-            <span className="text-sm font-medium text-[var(--sidebar-text)]">Time:</span>
+            <Clock size={16} className="text-white opacity-70" />
+            <span className="text-sm font-medium text-white">Time:</span>
           </div>
 
           <div className="flex items-center gap-2">
@@ -229,7 +229,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               value={selectedTime.hours}
               onChange={(e) => handleTimeChange(parseInt(e.target.value), selectedTime.minutes)}
               className="px-2 py-1 rounded-md border border-[var(--sidebar-border)]
-                bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                bg-[var(--sidebar-bg)] text-white
                 focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                 text-sm"
             >
@@ -240,13 +240,13 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               ))}
             </select>
 
-            <span className="text-[var(--sidebar-text)]">:</span>
+            <span className="text-white">:</span>
 
             <select
               value={selectedTime.minutes}
               onChange={(e) => handleTimeChange(selectedTime.hours, parseInt(e.target.value))}
               className="px-2 py-1 rounded-md border border-[var(--sidebar-border)]
-                bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                bg-[var(--sidebar-bg)] text-white
                 focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
                 text-sm"
             >
@@ -309,7 +309,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               <ChevronLeft size={16} />
             </button>
 
-            <h3 className="font-semibold text-[var(--sidebar-text)]">
+            <h3 className="font-semibold text-white">
               {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
             </h3>
 
@@ -356,7 +356,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             }}
             className="px-3 py-2 rounded-lg text-sm
               border border-[var(--sidebar-border)]
-              text-[var(--sidebar-text)]
+              text-white
               hover:bg-[var(--sidebar-border)] transition-colors duration-200
               flex-1"
           >
