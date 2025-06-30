@@ -278,7 +278,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         zIndex: 99999,
       }
     : {
-        top: `${dropdownPosition.top}px`,
+        top: `${dropdownPosition.top - 200}px`,
         left: `${dropdownPosition.left}px`,
         minWidth: `320px`,
         maxWidth: `600px`,
