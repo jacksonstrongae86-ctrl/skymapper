@@ -326,6 +326,31 @@ export function useWaypoints(
     []
   );
 
+  const onAddSearchWaypoint = useCallback(
+    (lat: number, lon: number, name: string) => {
+      setWaypoints((prev) => {
+        const lastAltitude =
+          prev.length > 0 ? prev[prev.length - 1].altitude : 5000;
+        return [
+          ...prev,
+          {
+            position: [lat, lon],
+            type: "waypoint",
+            altitude: lastAltitude,
+            ias: defaultTAS,
+            altitudeChange: 1500,
+            rocRod: 500,
+            iasClimbDescent: defaultTAS,
+            specialFuel: fuelConsumption,
+            visible: true,
+            name,
+          },
+        ];
+      });
+    },
+    [defaultTAS, fuelConsumption]
+  );
+
   const handleDeleteLastWaypoint = () => {
     setWaypoints((prev) => prev.slice(0, -1));
   };
@@ -340,6 +365,7 @@ export function useWaypoints(
     handleWaypointUpdate,
     handleMapClick,
     handleDeleteWaypoint,
+    onAddSearchWaypoint,
     handleDeleteLastWaypoint,
     handleClearWaypoints,
   };

@@ -157,6 +157,7 @@ export interface MapControlsProps {
   setMapType: (type: string) => void;
   onDeleteLastWaypoint: () => void;
   onClearWaypoints: () => void;
+  onAddSearchWaypoint: (lat: number, lon: number, name: string) => void;
 }
 
 export interface MobileMapComponentProps {

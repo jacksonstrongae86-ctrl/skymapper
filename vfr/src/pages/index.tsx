@@ -44,6 +44,7 @@ export default function Home() {
     handleDeleteWaypoint,
     handleMapClick,
     handleDeleteLastWaypoint,
+    onAddSearchWaypoint,
     handleClearWaypoints,
   } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
 
@@ -108,6 +109,7 @@ export default function Home() {
               onDeleteLastWaypoint={handleDeleteLastWaypoint}
               onClearWaypoints={handleClearWaypoints}
               setMapType={uiState.setMapType}
+              onAddSearchWaypoint={onAddSearchWaypoint}
             />
           </div>
 
@@ -160,6 +162,7 @@ export default function Home() {
                 setMapType={uiState.setMapType}
                 onDeleteLastWaypoint={handleDeleteLastWaypoint}
                 onClearWaypoints={handleClearWaypoints}
+                onAddSearchWaypoint={onAddSearchWaypoint}
               />
             </div>
           </div>

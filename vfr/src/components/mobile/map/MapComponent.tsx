@@ -29,6 +29,7 @@ type MapComponentProps = {
   onDeleteLastWaypoint: () => void;
   onClearWaypoints: () => void;
   setMapType: (type: string) => void;
+  onAddSearchWaypoint: (lat: number, lon: number, name: string) => void;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -39,6 +40,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   onDeleteLastWaypoint,
   onClearWaypoints,
   setMapType,
+  onAddSearchWaypoint,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
@@ -138,6 +140,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               setMapType={setMapType}
               onDeleteLastWaypoint={onDeleteLastWaypoint}
               onClearWaypoints={onClearWaypoints}
+              onAddSearchWaypoint={onAddSearchWaypoint}
             />
           </div>
         </div>
