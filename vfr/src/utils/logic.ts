@@ -16,9 +16,17 @@ export const IAStoTAS = (ias: number, fl: number): number => {
   // Convert FL (hundreds of feet) → altitude in metres
   const h = fl * 100 * 0.3048;
 
+  // Clamp altitude to troposphere limit (11 km)
+  const hClamped = Math.min(h, 11000);
+
   // Temperature at altitude (ISA troposphere)
-  const T = T0 - L * h;
-  if (T <= 0) throw new RangeError("Altitude beyond ISA troposphere");
+  const T = T0 - L * hClamped;
+
+  // Safety check (should not trigger with clamping, but kept for robustness)
+  if (T <= 0) {
+    console.warn(`Altitude FL${fl} beyond ISA troposphere, using FL360 equivalent`);
+    return ias * 2.4; // Approximate TAS ratio at FL360
+  }
 
   // Pressure at altitude:  p = P0 · (T/T0)^(g/(R·L))
   const p = P0 * Math.pow(T / T0, g / (R * L));
@@ -29,6 +37,7 @@ export const IAStoTAS = (ias: number, fl: number): number => {
   // TAS = IAS · √(ρ0 / ρ)
   return ias * Math.sqrt(ρ0 / ρ);
 };
+
 
 export const getDistance = (wp1: LatLng, wp2: LatLng): number => {
   const R = 3440;

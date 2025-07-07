@@ -15,6 +15,19 @@ export function useWaypoints(
 ) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
 
+  const exitAltitude = useCallback((wp: Waypoint): number => {
+    if (wp.isTransition) return wp.altitude;
+    if ((wp.type === "BOC" || wp.type === "TOD") && wp.altitudeChange)
+      return wp.altitude + wp.altitudeChange;
+    return wp.altitude;
+  }, []);
+
+  const lastRouteAltitude = useCallback(
+    (wps: Waypoint[]): number =>
+      wps.length ? exitAltitude(wps[wps.length - 1]) : 5000,
+    [exitAltitude]
+  );
+
   const calculateSpecialSegment = useCallback(
     (
       waypoint: Waypoint,
@@ -69,15 +82,35 @@ export function useWaypoints(
     (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
       setWaypoints((prev) => {
         const updated = [...prev];
-        updated[index] = { ...updated[index], [field]: value };
+
+        /* ───────────────────────────────────────────────────────────────
+         1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route
+      ──────────────────────────────────────────────────────────────── */
+        if (field === "altitude" || field === "altitudeChange") {
+          // update the edited waypoint first …
+          updated[index] = { ...updated[index], [field]: value };
+
+          // … then copy its exit altitude into every following waypoint
+          for (let i = index + 1; i < updated.length; i++) {
+            updated[i] = {
+              ...updated[i],
+              altitude: exitAltitude(updated[i - 1]),
+            };
+          }
+        } else {
+          // any other field: simple patch
+          updated[index] = { ...updated[index], [field]: value };
+        }
+
         const currentWp = updated[index];
 
-        // Handle type changes
+        /* ───────────────────────────────────────────────────────────────
+         2.  TYPE CHANGES  (BOC / TOC / TOD / BOD logic)
+      ──────────────────────────────────────────────────────────────── */
         if (field === "type") {
-          // First, remove any existing transition waypoint
+          /* ---- 2 · 1  remove obsolete transition waypoint ------------ */
           if (currentWp.transitionWaypointIndex !== undefined) {
             updated.splice(currentWp.transitionWaypointIndex, 1);
-            // Update indices for waypoints after the removed transition
             updated.forEach((wp) => {
               if (
                 wp.transitionWaypointIndex &&
@@ -89,207 +122,174 @@ export function useWaypoints(
             delete currentWp.transitionWaypointIndex;
           }
 
-          // Update the type
-          currentWp[field] = value as (typeof currentWp)[typeof field];
-          const lastWaypoint = updated[index - 1];
-          const nextWp = updated[index + 1];
-          if (!nextWp) return updated;
-
-          // Reset special segments when changing to normal waypoint
+          /* ---- 2 · 2  normal waypoint → restore & cascade ------------ */
           if (value === "waypoint") {
             if (currentWp.originalAltitude !== undefined) {
               currentWp.altitude = currentWp.originalAltitude;
               delete currentWp.originalAltitude;
-            }
-            // Remove transition waypoint if exists
-            if (currentWp.transitionWaypointIndex !== undefined) {
-              updated.splice(currentWp.transitionWaypointIndex, 1);
-              delete currentWp.transitionWaypointIndex;
+
+              // CASCADE: propagate the restored altitude to following waypoints
+              for (let i = index + 1; i < updated.length; i++) {
+                updated[i] = {
+                  ...updated[i],
+                  altitude: exitAltitude(updated[i - 1]),
+                };
+              }
             }
             return updated;
           }
 
-          // Handle special waypoint types
+          /* ---- 2 · 3  special waypoint handling ---------------------- */
           if (["BOC", "TOC", "TOD", "BOD"].includes(value as string)) {
-            // Ensure required waypoints are defined
+            const lastWp = updated[index - 1];
             const nextWp = updated[index + 1];
+            if ((value === "TOC" || value === "BOD") && !lastWp) return updated;
+            if ((value === "BOC" || value === "TOD") && !nextWp) return updated;
 
-            // Check requirements based on waypoint type
-            if ((value === "TOC" || value === "BOD") && !lastWaypoint) {
-              console.warn("Missing lastWaypoint for TOC/BOD calculation");
-              return updated;
-            }
-
-            if ((value === "BOC" || value === "TOD") && !nextWp) {
-              console.warn("Missing nextWp for BOC/TOD calculation");
-              return updated;
-            }
-
-            // Store original altitude
             if (currentWp.originalAltitude === undefined) {
               currentWp.originalAltitude = currentWp.altitude;
             }
 
-            // Calculate transition waypoint
             const transitionWp = calculateTransitionWaypoint(
-              lastWaypoint,
+              lastWp,
               currentWp,
               nextWp,
               value as "BOC" | "TOC" | "TOD" | "BOD"
             );
+            if (!transitionWp) return updated;
 
-            if (transitionWp) {
-              let insertIndex;
+            const insertIndex =
+              value === "TOC" || value === "BOD" ? index : index + 1;
 
-              // For TOC and BOD, insert the transition waypoint **before** the current waypoint
-              if (value === "TOC" || value === "BOD") {
-                insertIndex = index;
-              } else {
-                // For BOC and TOD, insert the transition waypoint **after** the current waypoint
-                insertIndex = index + 1;
-              }
+            updated.splice(insertIndex, 0, {
+              ...transitionWp,
+              type: "waypoint",
+              visible: false,
+              ias: currentWp.iasClimbDescent ?? defaultTAS,
+              isTransition: true,
+            });
+            currentWp.transitionWaypointIndex = insertIndex;
 
-              updated.splice(insertIndex, 0, {
-                ...transitionWp,
-                type: "waypoint", // Transition waypoint is a normal waypoint
-                visible: false, // Transition waypoint is not visible
-                ias: currentWp.iasClimbDescent ?? defaultTAS, // Use specific IAS for BOC
-                isTransition: true, // Mark as transition waypoint
-              });
+            const segBefore = calculateSpecialSegment(
+              updated[insertIndex - 1],
+              updated[insertIndex],
+              "before",
+              insertIndex - 1
+            );
+            const segAfter = calculateSpecialSegment(
+              updated[insertIndex],
+              updated[insertIndex + 1],
+              "after",
+              insertIndex
+            );
 
-              // Store transition waypoint index for future reference
-              currentWp.transitionWaypointIndex = insertIndex;
+            currentWp.normalDistance = segBefore.distance;
+            currentWp.specialDistance = segAfter.distance;
 
-              // Recalculate segments with transition waypoint
-              const segmentBefore = calculateSpecialSegment(
-                updated[insertIndex - 1], // Previous waypoint
-                updated[insertIndex],
-                "before",
-                insertIndex - 1 // Pass the index of the previous waypoint
-              );
-
-              const segmentAfter = calculateSpecialSegment(
-                updated[insertIndex],
-                updated[insertIndex + 1],
-                "after",
-                insertIndex // Pass the index of the current waypoint
-              );
-
-              // Update distances
-              currentWp.normalDistance = segmentBefore.distance;
-              currentWp.specialDistance = segmentAfter.distance;
-            }
-          }
-        }
-
-        if (currentWp.type === "BOC" || currentWp.type === "TOD") {
-          // Handle parameter changes that affect calculations
-          if (
-            [
-              "altitudeChange",
-              "rocRod",
-              "iasClimbDescent",
-              "specialFuel",
-            ].includes(field)
-          ) {
-            const currentWp = updated[index];
-            const lastWaypoint = updated[index - 1]; // Get the last waypoint
-            if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
-              // Recalculate transition waypoint position
-              if (currentWp.transitionWaypointIndex !== undefined) {
-                const nextWp = updated[currentWp.transitionWaypointIndex + 1];
-                if (!nextWp) return updated;
-
-                const newTransitionWp = calculateTransitionWaypoint(
-                  lastWaypoint, // Pass the last waypoint for TOC and BOD
-                  currentWp,
-                  nextWp,
-                  currentWp.type as "BOC" | "TOC" | "TOD" | "BOD"
-                );
-
-                if (newTransitionWp) {
-                  // Update transition waypoint position
-                  updated[currentWp.transitionWaypointIndex] = {
-                    ...updated[currentWp.transitionWaypointIndex],
-                    position: newTransitionWp.position,
-                    altitude: newTransitionWp.altitude,
-                    ias: currentWp.iasClimbDescent ?? defaultTAS, // Update IAS for the transition waypoint
-                    normalDistance: newTransitionWp.normalDistance,
-                    specialDistance: newTransitionWp.specialDistance,
-                    specialFuel: newTransitionWp.specialFuel,
-                  };
-                }
-              }
-            }
-          }
-        } else if (currentWp.type === "TOC" || currentWp.type === "BOD") {
-          // Handle parameter changes that affect calculations
-          if (
-            [
-              "altitudeChange",
-              "rocRod",
-              "iasClimbDescent",
-              "specialFuel",
-            ].includes(field)
-          ) {
-            const currentWp = updated[index];
-            const nextWp = updated[index + 1]; // Get the next waypoint
-            if (["BOC", "TOC", "TOD", "BOD"].includes(currentWp.type)) {
-              // Recalculate transition waypoint position
-              if (currentWp.transitionWaypointIndex !== undefined) {
-                const lastWaypoint =
-                  updated[currentWp.transitionWaypointIndex - 1];
-                if (!lastWaypoint) return updated;
-                const newTransitionWp = calculateTransitionWaypoint(
-                  lastWaypoint, // Pass the last waypoint for TOC and BOD
-                  currentWp,
-                  nextWp,
-                  currentWp.type as "BOC" | "TOC" | "TOD" | "BOD"
-                );
-                if (newTransitionWp) {
-                  // Update transition waypoint position
-                  updated[currentWp.transitionWaypointIndex] = {
-                    ...updated[currentWp.transitionWaypointIndex],
-                    position: newTransitionWp.position,
-                    altitude: newTransitionWp.altitude,
-                    ias: currentWp.iasClimbDescent ?? defaultTAS, // Update IAS for the transition waypoint
-                    normalDistance: newTransitionWp.normalDistance,
-                    specialDistance: newTransitionWp.specialDistance,
-                  };
-                }
+            // ✅ ADD THIS: CASCADE the new exit altitude to following waypoints
+            if (value === "BOC" || value === "TOD") {
+              for (let i = index + 1; i < updated.length; i++) {
+                updated[i] = {
+                  ...updated[i],
+                  altitude: exitAltitude(updated[i - 1]),
+                };
               }
             }
           }
         }
+
+        /* ───────────────────────────────────────────────────────────────
+         3.  PARAMETER CHANGES THAT AFFECT A SPECIAL WAYPOINT
+      ──────────────────────────────────────────────────────────────── */
+        const mustRecalc = [
+          "altitudeChange",
+          "rocRod",
+          "iasClimbDescent",
+          "specialFuel",
+        ].includes(field);
+
+        if (mustRecalc && ["BOC", "TOD"].includes(currentWp.type)) {
+          const lastWp = updated[index - 1];
+          if (
+            currentWp.transitionWaypointIndex !== undefined &&
+            lastWp &&
+            updated[currentWp.transitionWaypointIndex + 1]
+          ) {
+            const nextWp = updated[currentWp.transitionWaypointIndex + 1];
+            const newTransition = calculateTransitionWaypoint(
+              lastWp,
+              currentWp,
+              nextWp,
+              currentWp.type as "BOC" | "TOD"
+            );
+            if (newTransition) {
+              updated[currentWp.transitionWaypointIndex] = {
+                ...updated[currentWp.transitionWaypointIndex],
+                position: newTransition.position,
+                altitude: newTransition.altitude,
+                ias: currentWp.iasClimbDescent ?? defaultTAS,
+                normalDistance: newTransition.normalDistance,
+                specialDistance: newTransition.specialDistance,
+                specialFuel: newTransition.specialFuel,
+              };
+            }
+          }
+        }
+
+        if (mustRecalc && ["TOC", "BOD"].includes(currentWp.type)) {
+          const nextWp = updated[index + 1];
+          if (
+            currentWp.transitionWaypointIndex !== undefined &&
+            nextWp &&
+            updated[currentWp.transitionWaypointIndex - 1]
+          ) {
+            const lastWp = updated[currentWp.transitionWaypointIndex - 1];
+            const newTransition = calculateTransitionWaypoint(
+              lastWp,
+              currentWp,
+              nextWp,
+              currentWp.type as "TOC" | "BOD"
+            );
+            if (newTransition) {
+              updated[currentWp.transitionWaypointIndex] = {
+                ...updated[currentWp.transitionWaypointIndex],
+                position: newTransition.position,
+                altitude: newTransition.altitude,
+                ias: currentWp.iasClimbDescent ?? defaultTAS,
+                normalDistance: newTransition.normalDistance,
+                specialDistance: newTransition.specialDistance,
+              };
+            }
+          }
+        }
+
         return updated;
       });
     },
-    [defaultTAS, calculateSpecialSegment] // Dependencies for the callback
+    [defaultTAS, calculateSpecialSegment, exitAltitude]
   );
 
   const handleMapClick = useCallback(
     (e: LeafletMouseEvent) => {
       const { lat, lng } = e.latlng;
       setWaypoints((prev) => {
-      const lastAltitude =
-        prev.length > 0 ? prev[prev.length - 1].altitude : 5000;
-      return [
-        ...prev,
-        {
-          position: [lat, lng],
-          type: "waypoint",
-          altitude: lastAltitude,
-          ias: defaultTAS,
-          altitudeChange: 1500,
-          rocRod: 500,
-          iasClimbDescent: defaultTAS,
-          specialFuel: fuelConsumption,
-          visible: true,
-        },
-      ];
-    });
+        return [
+          ...prev,
+          {
+            position: [lat, lng],
+            type: "waypoint",
+            altitude: lastRouteAltitude(prev),
+            ias: defaultTAS,
+            altitudeChange: 1500,
+            rocRod: 500,
+            iasClimbDescent: defaultTAS,
+            specialFuel: fuelConsumption,
+            visible: true,
+          },
+        ];
+      });
     },
-    [defaultTAS, fuelConsumption]
+    [defaultTAS, fuelConsumption, lastRouteAltitude]
   );
 
   const handleDeleteWaypoint = useCallback(
@@ -329,14 +329,12 @@ export function useWaypoints(
   const onAddSearchWaypoint = useCallback(
     (lat: number, lon: number, name: string) => {
       setWaypoints((prev) => {
-        const lastAltitude =
-          prev.length > 0 ? prev[prev.length - 1].altitude : 5000;
         return [
           ...prev,
           {
             position: [lat, lon],
             type: "waypoint",
-            altitude: lastAltitude,
+            altitude: lastRouteAltitude(prev),
             ias: defaultTAS,
             altitudeChange: 1500,
             rocRod: 500,
@@ -348,7 +346,7 @@ export function useWaypoints(
         ];
       });
     },
-    [defaultTAS, fuelConsumption]
+    [defaultTAS, fuelConsumption, lastRouteAltitude]
   );
 
   const handleDeleteLastWaypoint = () => {
