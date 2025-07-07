@@ -5,14 +5,31 @@ export const toRad = (deg: number): number => deg * (Math.PI / 180);
 export const toDeg = (rad: number): number => rad * (180 / Math.PI);
 
 export const IAStoTAS = (ias: number, fl: number): number => {
-  const altitude = fl * 100;
-  const temperatureLapseRate = 0.0019812;
-  const seaLevelTemp = 288.15;
-  let tempAtAltitude = seaLevelTemp - temperatureLapseRate * altitude;
-  if (tempAtAltitude <= 0) tempAtAltitude = 1;
-  return ias * Math.sqrt(seaLevelTemp / tempAtAltitude);
+  // Physical & ISA constants
+  const g   = 9.80665;   // m·s-2
+  const R   = 287.05;    // J·kg-1·K-1
+  const L   = 0.0065;    // K·m-1   (lapse rate)
+  const T0  = 288.15;    // K       (15 °C)
+  const P0  = 101325;    // Pa
+  const ρ0  = 1.225;     // kg·m-3   (sea-level density)
+
+  // Convert FL (hundreds of feet) → altitude in metres
+  const h = fl * 100 * 0.3048;
+
+  // Temperature at altitude (ISA troposphere)
+  const T = T0 - L * h;
+  if (T <= 0) throw new RangeError("Altitude beyond ISA troposphere");
+
+  // Pressure at altitude:  p = P0 · (T/T0)^(g/(R·L))
+  const p = P0 * Math.pow(T / T0, g / (R * L));
+
+  // Density at altitude:   ρ = p / (R·T)
+  const ρ = p / (R * T);
+
+  // TAS = IAS · √(ρ0 / ρ)
+  return ias * Math.sqrt(ρ0 / ρ);
 };
- 
+
 export const getDistance = (wp1: LatLng, wp2: LatLng): number => {
   const R = 3440;
   const dLat = toRad(wp2.lat - wp1.lat);
