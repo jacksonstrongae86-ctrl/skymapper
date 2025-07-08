@@ -17,8 +17,10 @@ export function useWaypoints(
 
   const exitAltitude = useCallback((wp: Waypoint): number => {
     if (wp.isTransition) return wp.altitude;
-    if ((wp.type === "BOC" || wp.type === "TOD") && wp.altitudeChange)
+    if ((wp.type === "BOC" || wp.type === "TOC") && wp.altitudeChange)
       return wp.altitude + wp.altitudeChange;
+    if ((wp.type === "BOD" || wp.type === "TOD") && wp.altitudeChange)
+      return wp.altitude - wp.altitudeChange;
     return wp.altitude;
   }, []);
 
