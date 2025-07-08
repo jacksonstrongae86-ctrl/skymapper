@@ -1,6 +1,6 @@
-import { Waypoint } from '@/src/utils/types';
-import { useCallback, JSX } from 'react';
-import React from 'react';
+import { Waypoint } from "@/src/utils/types";
+import { useCallback, JSX } from "react";
+import React from "react";
 
 interface UsePrintHandlerProps {
   results: JSX.Element[];
@@ -25,28 +25,32 @@ interface FlightData {
 
 // Helper function to safely extract text content from JSX elements
 const extractTextContent = (element: React.ReactNode): string => {
-  if (typeof element === 'string' || typeof element === 'number') {
+  if (typeof element === "string" || typeof element === "number") {
     return String(element);
   }
-  if (typeof element === 'bigint') {
+  if (typeof element === "bigint") {
     return String(element);
   }
-  if (typeof element === 'boolean' || element === null || element === undefined) {
-    return '';
+  if (
+    typeof element === "boolean" ||
+    element === null ||
+    element === undefined
+  ) {
+    return "";
   }
   if (React.isValidElement(element)) {
     const props = element.props as { children?: React.ReactNode };
     if (props.children) {
       if (Array.isArray(props.children)) {
-        return props.children.map(extractTextContent).join('');
+        return props.children.map(extractTextContent).join("");
       }
       return extractTextContent(props.children);
     }
   }
   if (Array.isArray(element)) {
-    return element.map(extractTextContent).join('');
+    return element.map(extractTextContent).join("");
   }
-  return '';
+  return "";
 };
 // Helper function to safely extract numeric values from JSX elements
 const extractNumericValue = (element: React.ReactNode): number => {
@@ -56,31 +60,50 @@ const extractNumericValue = (element: React.ReactNode): number => {
 };
 
 // Helper function to extract flight data from results
-const extractFlightData = (results: JSX.Element[]): FlightData[] => {
+// Enhanced flight data extraction
+const extractFlightData = (
+  results: JSX.Element[],
+  waypoints: Waypoint[]
+): FlightData[] => {
   return results.map((result, index) => {
-    // The structure is <tr><td>...</td><td>...</td>...</tr>
     const tableData = result.props?.children || [];
+    const waypoint = waypoints[index];
 
     // Extract waypoint name from first cell
     const waypointCell = tableData[0];
     let waypointName = `WP${index + 1}`;
     if (waypointCell?.props?.children?.props?.children) {
       const mainText = waypointCell.props.children.props.children[0];
-      if (typeof mainText === 'string') {
+      if (typeof mainText === "string") {
         waypointName = mainText;
       }
     }
 
+    // Add indicators for transition and named waypoints
+    const indicators = [];
+    if (waypoint?.isTransition) {
+      indicators.push("🔄");
+    }
+    if (waypoint?.name) {
+      indicators.push("📍");
+      waypointName = waypoint.name; // Use the actual name
+    }
+
+    const finalWaypointName =
+      indicators.length > 0
+        ? `${waypointName} ${indicators.join(" ")}`
+        : waypointName;
+
     return {
-      waypoint: waypointName,
-      distance: extractNumericValue(tableData[1]),      // Distance column
-      track: extractNumericValue(tableData[2]),         // Track column
-      heading: extractNumericValue(tableData[3]),       // Heading column
-      groundSpeed: extractNumericValue(tableData[4]),   // Ground Speed column
-      time: extractNumericValue(tableData[5]),          // Time column
-      tas: extractNumericValue(tableData[6]),           // TAS column
-      fuelBurn: extractNumericValue(tableData[7]),      // Fuel Burn column
-      wind: extractTextContent(tableData[8])            // Wind column
+      waypoint: finalWaypointName,
+      distance: extractNumericValue(tableData[1]),
+      track: extractNumericValue(tableData[2]),
+      heading: extractNumericValue(tableData[3]),
+      groundSpeed: extractNumericValue(tableData[4]),
+      time: extractNumericValue(tableData[5]),
+      tas: extractNumericValue(tableData[6]),
+      fuelBurn: extractNumericValue(tableData[7]),
+      wind: extractTextContent(tableData[8]),
     };
   });
 };
@@ -94,8 +117,7 @@ export const generatePrintContent = (
   fuelConsumption: number,
   gal_liter: string,
   selectedDate?: string,
-  selectedTime?: string,
-
+  selectedTime?: string
 ) => {
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
@@ -141,37 +163,43 @@ export const generatePrintContent = (
           border-bottom: 1px solid #ccc;
           padding-bottom: 5px;
         }
-        .waypoint-list {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-          gap: 10px;
-          list-style: none;
-          padding: 0;
+        .waypoint-list li.transition-waypoint {
+          border-left: 4px solid #ffc107;
+          background-color: #fff9c4;
         }
-        .waypoint-list li {
-          background-color: #f9f9f9;
-          padding: 8px;
-          border-radius: 4px;
-          border-left: 4px solid #007bff;
+
+        .waypoint-list li.named-waypoint {
+          border-left: 4px solid #28a745;
+          background-color: #d4edda;
         }
-        .print-results table {
-          width: 100%;
-          border-collapse: collapse;
-          margin-top: 10px;
+
+        .waypoint-list li.transition-waypoint.named-waypoint {
+          border-left: 4px solid #6f42c1;
+          background-color: #e2d9f3;
         }
-        .print-results th,
-        .print-results td {
-          padding: 8px;
-          text-align: center;
-          border: 1px solid #ddd;
-        }
-        .print-results th {
-          background-color: #f2f2f2;
+
+        .transition-indicator {
+          color: #856404;
+          font-size: 0.85em;
           font-weight: bold;
         }
-        .print-results tr:nth-child(even) {
-          background-color: #f9f9f9;
+
+        .named-indicator {
+          color: #155724;
+          font-size: 0.85em;
+          font-weight: bold;
         }
+
+        .coordinates {
+          color: #666;
+          font-size: 0.9em;
+        }
+
+        .print-results td:first-child {
+          text-align: left;
+          font-weight: bold;
+}
+
         @media print {
           .print-container {
             max-width: none;
@@ -186,24 +214,60 @@ export const generatePrintContent = (
         <div class="print-summary">
           <p><strong>Total Distance:</strong> ${totalDistance.toFixed(2)} NM</p>
           <p><strong>Total Time:</strong> ${formatTime(totalTime)}</p>
-          <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(2)} ${gal_liter}</p>
-          <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(2)} ${gal_liter}/hr</p>
-          ${selectedDate ? `<p><strong>Date:</strong> ${selectedDate}</p>` : ''}
-          ${selectedTime ? `<p><strong>Time:</strong> ${selectedTime}</p>` : ''}
+          <p><strong>Total Fuel Burn:</strong> ${totalFuel.toFixed(
+            2
+          )} ${gal_liter}</p>
+          <p><strong>Fuel Consumption:</strong> ${fuelConsumption.toFixed(
+            2
+          )} ${gal_liter}/hr</p>
+          ${selectedDate ? `<p><strong>Date:</strong> ${selectedDate}</p>` : ""}
+          ${selectedTime ? `<p><strong>Time:</strong> ${selectedTime}</p>` : ""}
         </div>
       </div>
 
       <div class="print-waypoints">
         <h2>📍 Waypoints</h2>
         <ul class="waypoint-list">
-          ${waypoints.map((wp, index) => `
-            <li>
-              <strong>WP${index + 1}</strong><br>
-              ${Array.isArray(wp.position) ? wp.position.join(', ') : wp.position}
-            </li>
-          `).join('')}
+          ${waypoints
+            .map((wp, index) => {
+              let waypointLabel = `WP${index + 1}`;
+              const indicators = [];
+
+              // Add transition indicator
+              if (wp.isTransition) {
+                indicators.push(
+                  '<span class="transition-indicator">🔄 TRANSITION</span>'
+                );
+              }
+
+              // Add named waypoint indicator
+              if (wp.name) {
+                indicators.push(
+                  `<span class="named-indicator">📍 ${wp.name}</span>`
+                );
+                waypointLabel = wp.name; // Use the name as the primary label
+              }
+
+              const indicatorText =
+                indicators.length > 0 ? `<br>${indicators.join(" ")}` : "";
+
+              return `
+              <li class="${wp.isTransition ? "transition-waypoint" : ""} ${
+                wp.name ? "named-waypoint" : ""
+              }">
+                <strong>${waypointLabel}</strong>${indicatorText}<br>
+                <span class="coordinates">${
+                  Array.isArray(wp.position)
+                    ? wp.position.join(", ")
+                    : wp.position
+                }</span>
+              </li>
+            `;
+            })
+            .join("")}
         </ul>
       </div>
+
 
       <div class="print-results">
         <h2>📊 Flight Data</h2>
@@ -222,7 +286,9 @@ export const generatePrintContent = (
             </tr>
           </thead>
           <tbody>
-            ${flightData.map(data => `
+            ${flightData
+              .map(
+                (data) => `
               <tr>
                 <td><strong>${data.waypoint}</strong></td>
                 <td>${data.distance.toFixed(2)}</td>
@@ -230,11 +296,13 @@ export const generatePrintContent = (
                 <td>${data.heading.toFixed(1)}</td>
                 <td>${data.groundSpeed.toFixed(1)}</td>
                 <td>${data.time.toFixed(1)}</td>
-                <td>${data.tas ? data.tas.toFixed(1) : 'N/A'}</td>
+                <td>${data.tas ? data.tas.toFixed(1) : "N/A"}</td>
                 <td>${data.fuelBurn.toFixed(2)}</td>
-                <td>${data.wind || 'N/A'}</td>
+                <td>${data.wind || "N/A"}</td>
               </tr>
-            `).join('')}
+            `
+              )
+              .join("")}
           </tbody>
         </table>
       </div>
@@ -257,15 +325,21 @@ export const usePrintHandler = ({
 
     try {
       // Extract flight data from results
-      const flightData = extractFlightData(results);
+      const flightData = extractFlightData(results, waypoints);
 
       // Calculate totals
-      const totalDistance = flightData.reduce((acc, data) => acc + data.distance, 0);
+      const totalDistance = flightData.reduce(
+        (acc, data) => acc + data.distance,
+        0
+      );
       const totalTime = flightData.reduce((acc, data) => acc + data.time, 0);
-      const totalFuel = flightData.reduce((acc, data) => acc + data.fuelBurn, 0);
+      const totalFuel = flightData.reduce(
+        (acc, data) => acc + data.fuelBurn,
+        0
+      );
 
       // Create print window
-      const printWindow = window.open('', '_blank', 'width=800,height=600');
+      const printWindow = window.open("", "_blank", "width=800,height=600");
 
       if (!printWindow) {
         // Fallback: create print content in current window
@@ -347,10 +421,17 @@ export const usePrintHandler = ({
         }, 250);
       }
     } catch (error) {
-      console.error('Print failed:', error);
-      alert('Failed to generate print content. Please try again.');
+      console.error("Print failed:", error);
+      alert("Failed to generate print content. Please try again.");
     }
-  }, [results, waypoints, fuelConsumption, selectedDate, selectedTime, gal_liter]);
+  }, [
+    results,
+    waypoints,
+    fuelConsumption,
+    selectedDate,
+    selectedTime,
+    gal_liter,
+  ]);
 
   return handlePrint;
 };
