@@ -92,6 +92,7 @@ export interface Waypoint {
   isTransition?: boolean;
   transitionWaypointIndex?: number;
   time?: number; // Optional time for the waypoint
+  isManualName?: boolean;
 }
 export interface LegCalculation {
   distance: number;

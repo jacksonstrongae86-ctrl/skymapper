@@ -151,8 +151,16 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
             />
           ) : (
             <span
-              className="cursor-pointer underline decoration-dotted"
-              title="Click to edit name"
+              className={`cursor-pointer underline decoration-dotted ${
+                waypoint.isManualName
+                  ? "text-white font-bold"
+                  : "text-gray-300"
+              }`}
+              title={
+                waypoint.isManualName
+                  ? "Manual name - click to edit"
+                  : "Auto-generated name - click to edit"
+              }
               onClick={() => setIsEditingName(true)}
             >
               {waypoint.name?.trim()

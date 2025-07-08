@@ -8,12 +8,57 @@ import {
   calculateTransitionWaypoint,
 } from "@/src/utils/logic";
 
+import { getLocationNameWithRateLimit } from "@/src/utils/geocoding";
+
 export function useWaypoints(
   defaultTAS: number = 100,
   fuelConsumption: number = 8,
   storedWindData: WindDataArray = []
 ) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+  const [geocodingErrors, setGeocodingErrors] = useState<Map<number, string>>(
+    new Map()
+  );
+  const updateWaypointName = useCallback(
+    async (index: number, lat: number, lng: number) => {
+      try {
+        // Clear any previous error for this waypoint
+        setGeocodingErrors((prev) => {
+          const newMap = new Map(prev);
+          newMap.delete(index);
+          return newMap;
+        });
+
+        const locationName = await getLocationNameWithRateLimit(lat, lng);
+
+        setWaypoints((current) => {
+          const updated = [...current];
+          if (updated[index] && !updated[index].name?.includes("(Manual)")) {
+            updated[index] = { ...updated[index], name: locationName };
+          }
+          return updated;
+        });
+      } catch (error) {
+        const errorMessage =
+          error instanceof Error ? error.message : "Geocoding failed";
+
+        setGeocodingErrors((prev) => new Map(prev).set(index, errorMessage));
+
+        // Set fallback name
+        setWaypoints((current) => {
+          const updated = [...current];
+          if (updated[index]) {
+            updated[index] = {
+              ...updated[index],
+              name: `${lat.toFixed(3)},${lng.toFixed(3)}`,
+            };
+          }
+          return updated;
+        });
+      }
+    },
+    []
+  );
 
   const exitAltitude = useCallback((wp: Waypoint): number => {
     if (wp.isTransition) return wp.altitude;
@@ -84,6 +129,35 @@ export function useWaypoints(
     (index: number, field: keyof Waypoint, value: Waypoint[keyof Waypoint]) => {
       setWaypoints((prev) => {
         const updated = [...prev];
+
+        /* ───────────────────────────────────────────────────────────────
+           0.  POSITION CHANGE  →  update location name
+        ──────────────────────────────────────────────────────────────── */
+        if (field === "name") {
+          const trimmedName = (value as string).trim();
+          updated[index] = {
+            ...updated[index],
+            name: trimmedName,
+            isManualName: true, // Mark as manually set
+          };
+          return updated;
+        }
+        if (field === "position") {
+          const newPosition = value as [number, number];
+          if (
+            newPosition &&
+            Array.isArray(newPosition) &&
+            newPosition.length === 2
+          ) {
+            updated[index] = { ...updated[index], position: newPosition };
+
+            // Only auto-update if name wasn't manually set
+            if (!updated[index].isManualName) {
+              updateWaypointName(index, newPosition[0], newPosition[1]);
+            }
+          }
+          return updated;
+        }
 
         /* ───────────────────────────────────────────────────────────────
          1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route
@@ -268,30 +342,34 @@ export function useWaypoints(
         return updated;
       });
     },
-    [defaultTAS, calculateSpecialSegment, exitAltitude]
+    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName]
   );
 
   const handleMapClick = useCallback(
     (e: LeafletMouseEvent) => {
       const { lat, lng } = e.latlng;
+
       setWaypoints((prev) => {
-        return [
-          ...prev,
-          {
-            position: [lat, lng],
-            type: "waypoint",
-            altitude: lastRouteAltitude(prev),
-            ias: defaultTAS,
-            altitudeChange: 1500,
-            rocRod: 500,
-            iasClimbDescent: defaultTAS,
-            specialFuel: fuelConsumption,
-            visible: true,
-          },
-        ];
+        const newIndex = prev.length;
+        const newWaypoint = {
+          position: [lat, lng] as [number, number],
+          type: "waypoint" as const,
+          altitude: lastRouteAltitude(prev),
+          ias: defaultTAS,
+          altitudeChange: 1500,
+          rocRod: 500,
+          iasClimbDescent: defaultTAS,
+          specialFuel: fuelConsumption,
+          visible: true,
+          name: "Loading...",
+        };
+
+        updateWaypointName(newIndex, lat, lng);
+
+        return [...prev, newWaypoint];
       });
     },
-    [defaultTAS, fuelConsumption, lastRouteAltitude]
+    [defaultTAS, fuelConsumption, lastRouteAltitude, updateWaypointName]
   );
 
   const handleDeleteWaypoint = useCallback(
@@ -359,6 +437,19 @@ export function useWaypoints(
     setWaypoints([]);
   };
 
+  const setManualWaypointName = useCallback((index: number, name: string) => {
+    setWaypoints((prev) => {
+      const updated = [...prev];
+      if (updated[index]) {
+        updated[index] = {
+          ...updated[index],
+          name: `${name} (Manual)`, // Mark as manually set
+        };
+      }
+      return updated;
+    });
+  }, []);
+
   return {
     waypoints,
     setWaypoints,
@@ -368,5 +459,7 @@ export function useWaypoints(
     onAddSearchWaypoint,
     handleDeleteLastWaypoint,
     handleClearWaypoints,
+    setManualWaypointName,
+    geocodingErrors,
   };
 }
