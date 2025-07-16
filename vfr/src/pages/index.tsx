@@ -73,6 +73,28 @@ export default function Home() {
       updateCalculations(waypoints, storedWindData, fuelConsumption);
     }
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
+
+  // OpenAIP
+  const [showAviationData, setShowAviationData] = useState(true);
+  const [aviationLayers, setAviationLayers] = useState({
+    airports: false,
+    airspaces: false,
+    navigation: false,
+    obstacles: false,
+    hotspots: false,
+  });
+
+  const handleLayerToggle = (
+    layer: keyof typeof aviationLayers,
+    enabled: boolean
+  ) => {
+    setAviationLayers((prev) => ({
+      ...prev,
+      [layer]: enabled,
+    }));
+  };
+
+  const [selectedCountry, setSelectedCountry] = useState("es");
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
@@ -110,6 +132,12 @@ export default function Home() {
               onClearWaypoints={handleClearWaypoints}
               setMapType={uiState.setMapType}
               onAddSearchWaypoint={onAddSearchWaypoint}
+              showAviationData={showAviationData}
+              onToggleAviationData={setShowAviationData}
+              aviationLayers={aviationLayers}
+              onLayerToggle={handleLayerToggle}
+              selectedCountry={selectedCountry}
+              onCountryChange={setSelectedCountry}
             />
           </div>
 
@@ -154,6 +182,10 @@ export default function Home() {
                 waypoints={waypoints}
                 mapType={uiState.mapType}
                 onWaypointUpdate={handleWaypointUpdate}
+                showAviationData={showAviationData}
+                aviationLayers={aviationLayers}
+                selectedCountry={selectedCountry}
+                onCountryChange={setSelectedCountry}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">
@@ -163,6 +195,12 @@ export default function Home() {
                 onDeleteLastWaypoint={handleDeleteLastWaypoint}
                 onClearWaypoints={handleClearWaypoints}
                 onAddSearchWaypoint={onAddSearchWaypoint}
+                showAviationData={showAviationData}
+                onToggleAviationData={setShowAviationData}
+                aviationLayers={aviationLayers}
+                onLayerToggle={handleLayerToggle}
+                selectedCountry={selectedCountry}
+                onCountryChange={setSelectedCountry}
               />
             </div>
           </div>

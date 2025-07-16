@@ -1,5 +1,6 @@
 @import "tailwindcss";
-
+@import "leaflet.markercluster/dist/MarkerCluster.css";
+@import "leaflet.markercluster/dist/MarkerCluster.Default.css";
 
 
 :root {
@@ -522,6 +523,7 @@ body {
 
 
 
+
 /* Add these print styles */
 @media print {
   @page {
@@ -629,3 +631,34 @@ body {
     margin-top: 1cm;
   }
 }
+
+
+/* Openaip */
+/* Add this to your CSS file */
+.aviation-layer-control {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  z-index: 1000;
+  font-size: 14px;
+}
+
+.aviation-layer-control label {
+  display: block;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+.aviation-layer-control input[type="checkbox"] {
+  margin-right: 8px;
+}
+
+.layer-control-options {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+

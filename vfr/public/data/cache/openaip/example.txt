@@ -1,0 +1,272 @@
+// Common types used across all aviation data
+interface Geometry {
+  type: "Point" | "Polygon";
+  coordinates: number[] | number[][][];
+}
+
+interface Elevation {
+  value: number;
+  unit: number;
+  referenceDatum: number;
+}
+
+interface ElevationGeoid {
+  geoidHeight: number;
+  hae: number;
+}
+
+interface Frequency {
+  value: string;
+  unit: number;
+  type?: number;
+  name: string;
+  primary: boolean;
+  publicUse?: boolean;
+  _id: string;
+}
+
+interface HoursOfOperation {
+  operatingHours: OperatingHour[];
+}
+
+interface OperatingHour {
+  dayOfWeek: number;
+  startTime: string;
+  endTime: string;
+  byNotam: boolean;
+  sunrise: boolean;
+  sunset: boolean;
+  publicHolidaysExcluded: boolean;
+}
+
+// Airport Types
+interface Airport {
+  _id: string;
+  name: string;
+  icaoCode: string;
+  iataCode?: string;
+  type: number;
+  trafficType: number[];
+  magneticDeclination: number;
+  country: string;
+  geometry: Geometry;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  ppr: boolean;
+  private: boolean;
+  skydiveActivity: boolean;
+  winchOnly: boolean;
+  frequencies: Frequency[];
+  runways: Runway[];
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  __v: number;
+}
+
+interface Runway {
+  designator: string;
+  trueHeading: number;
+  alignedTrueNorth: boolean;
+  operations: number;
+  mainRunway: boolean;
+  turnDirection: number;
+  takeOffOnly: boolean;
+  landingOnly: boolean;
+  surface: RunwaySurface;
+  dimension: RunwayDimension;
+  declaredDistance: DeclaredDistance;
+  pilotCtrlLighting: boolean;
+  visualApproachAids: number[];
+  _id: string;
+}
+
+interface RunwaySurface {
+  composition: number[];
+  mainComposite: number;
+  condition: number;
+  pcn: string;
+}
+
+interface RunwayDimension {
+  length: {
+    value: number;
+    unit: number;
+  };
+  width: {
+    value: number;
+    unit: number;
+  };
+}
+
+interface DeclaredDistance {
+  tora: {
+    value: number;
+    unit: number;
+  };
+  lda: {
+    value: number;
+    unit: number;
+  };
+}
+
+interface AirportData {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    page: number;
+    items: Airport[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: "apt";
+}
+
+// Airspace Types
+interface Airspace {
+  _id: string;
+  createdBy: string;
+  createdAt: string;
+  updatedBy: string;
+  updatedAt: string;
+  name: string;
+  dataIngestion: boolean;
+  type: number;
+  icaoClass: number;
+  activity: number;
+  onDemand: boolean;
+  onRequest: boolean;
+  byNotam: boolean;
+  specialAgreement: boolean;
+  requestCompliance: boolean;
+  geometry: Geometry;
+  country: string;
+  upperLimit: Elevation;
+  lowerLimit: Elevation;
+  frequencies: AirspaceFrequency[];
+  hoursOfOperation: HoursOfOperation;
+  __v: number;
+  deletable: boolean;
+}
+
+interface AirspaceFrequency {
+  value: string;
+  primary: boolean;
+  unit: number;
+  name: string;
+  _id: string;
+}
+
+interface AirspaceData {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    page: number;
+    items: Airspace[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: "asp";
+}
+
+// Hotspot Types
+interface Hotspot {
+  _id: string;
+  // Add properties as needed when hotspot data is available
+}
+
+interface HotspotData {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    page: number;
+    items: Hotspot[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: "hot";
+}
+
+// Navigation Point Types
+interface NavigationPoint {
+  _id: string;
+  name: string;
+  identifier: string;
+  type: number;
+  country: string;
+  channel: string;
+  frequency: {
+    value: string;
+    unit: number;
+  };
+  geometry: Geometry;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  magneticDeclination: number;
+  alignedTrueNorth: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  __v: number;
+  hoursOfOperation: HoursOfOperation;
+}
+
+interface NavigationData {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    page: number;
+    items: NavigationPoint[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: "nav";
+}
+
+// Obstacle Types
+interface Obstacle {
+  _id: string;
+  osmId: string;
+  __v: number;
+  country: string;
+  createdAt: string;
+  createdBy: string;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  geometry: Geometry;
+  name: string;
+  osmTags: {
+    key: string;
+    value: string;
+    name: string;
+    power: string;
+    ref: string;
+  };
+  osmUpdatedAt: string;
+  type: number;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+interface ObstacleData {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    nextPage?: number;
+    page: number;
+    items: Obstacle[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: "obs";
+}
+
+// Union type for all aviation data types
+type AviationData = AirportData | AirspaceData | HotspotData | NavigationData | ObstacleData;

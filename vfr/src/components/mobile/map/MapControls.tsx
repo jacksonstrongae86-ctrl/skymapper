@@ -9,17 +9,50 @@ import {
   Mountain,
   Trash2,
   XCircle,
-  // Search,
   Loader2,
   AlertCircle,
+  Plane,
+  Shield,
+  Radio,
+  AlertTriangle,
+  Flame,
 } from "lucide-react";
 
-const MapControls: React.FC<MapControlsProps> = ({
+type AviationLayerKey = "airports" | "airspaces" | "navigation" | "obstacles" | "hotspots";
+
+interface ExtendedMapControlProps extends MapControlsProps {
+  showAviationData?: boolean;
+  onToggleAviationData?: (enabled: boolean) => void;
+  aviationLayers?: {
+    airports: boolean;
+    airspaces: boolean;
+    navigation: boolean;
+    obstacles: boolean;
+    hotspots: boolean;
+  };
+  onLayerToggle?: (layer: AviationLayerKey, enabled: boolean) => void;
+  selectedCountry?: string;
+  onCountryChange?: (country: string) => void;
+}
+
+const MapControls: React.FC<ExtendedMapControlProps> = ({
   mapType,
   setMapType,
   onDeleteLastWaypoint,
   onClearWaypoints,
   onAddSearchWaypoint,
+  showAviationData = false,
+  onToggleAviationData,
+  aviationLayers = {
+    airports: true,
+    airspaces: true,
+    navigation: true,
+    obstacles: true,
+    hotspots: true,
+  },
+  onLayerToggle,
+  selectedCountry = 'es',
+  onCountryChange,
 }) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -30,7 +63,7 @@ const MapControls: React.FC<MapControlsProps> = ({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+    const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   type SearchResult = {
     place_id: number;
@@ -41,40 +74,31 @@ const MapControls: React.FC<MapControlsProps> = ({
     class?: string;
   };
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (!dropdownRef.current?.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
+  // Available countries
+  const AVAILABLE_COUNTRIES = [
+    { code: "es", name: "Spain", flag: "🇪🇸" },
+    { code: "us", name: "United States", flag: "🇺🇸" },
+    { code: "uk", name: "United Kingdom", flag: "🇬🇧" },
+    { code: "de", name: "Germany", flag: "🇩🇪" },
+    { code: "fr", name: "France", flag: "🇫🇷" },
+    { code: "ca", name: "Canada", flag: "🇨🇦" },
+  ];
 
-    if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isOpen]);
-
-  // Search function using fetch directly
+  // Fix: Use the same Nominatim approach as desktop
   const searchWithFetch = React.useCallback(
     async (query: string): Promise<SearchResult[]> => {
       const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
         query
       )}&limit=5&addressdetails=1`;
-
       const response = await fetch(url, {
         method: "GET",
         headers: {
-          "User-Agent": "Skymapper/1.0", // Replace with your app name
+          "User-Agent": "Skymapper/1.0",
         },
       });
-
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
-
       const data = await response.json();
       return data.map((item: SearchResult) => ({
         place_id: item.place_id,
@@ -91,17 +115,13 @@ const MapControls: React.FC<MapControlsProps> = ({
   const performSearch = React.useCallback(
     async (query: string) => {
       if (!query.trim()) return;
-
       setIsSearching(true);
       setSearchError(null);
-
       try {
         let results: SearchResult[] = [];
-
         try {
           // eslint-disable-next-line @typescript-eslint/no-require-imports
           const Nominatim = require("nominatim-browser");
-
           results = await Nominatim.geocode({
             q: query,
             addressdetails: true,
@@ -109,10 +129,9 @@ const MapControls: React.FC<MapControlsProps> = ({
             format: "json",
           });
         } catch {
-          // Fallback to direct fetch
+          // Fallback to direct fetch (like desktop)
           results = await searchWithFetch(query);
         }
-
         if (results && results.length > 0) {
           setSearchResults(results);
         } else {
@@ -130,21 +149,19 @@ const MapControls: React.FC<MapControlsProps> = ({
     [searchWithFetch]
   );
 
-  // **Live search useEffect with debounce**
+  // Fix: Use the same debounced search pattern as desktop
   useEffect(() => {
     if (searchTimeoutRef.current) {
       clearTimeout(searchTimeoutRef.current);
     }
-
     if (searchQuery.trim() && searchQuery.length >= 2) {
       searchTimeoutRef.current = setTimeout(() => {
         performSearch(searchQuery.trim());
-      }, 300); // 300ms debounce
+      }, 300);
     } else {
       setSearchResults([]);
       setSearchError(null);
     }
-
     return () => {
       if (searchTimeoutRef.current) {
         clearTimeout(searchTimeoutRef.current);
@@ -152,36 +169,27 @@ const MapControls: React.FC<MapControlsProps> = ({
     };
   }, [searchQuery, performSearch]);
 
+  // Fix: Use the same result handling as desktop
   const handleResultClick = (result: SearchResult) => {
     setIsOpen(false);
     setSearchQuery("");
     setSearchResults([]);
     setSearchError(null);
-
     const lat = parseFloat(result.lat);
     const lon = parseFloat(result.lon);
-
     if (isNaN(lat) || isNaN(lon)) {
       return;
     }
-
-    // **Shorten the waypoint name**
     const nameParts = result.display_name.split(",");
     let shortenedName;
-
     if (nameParts.length >= 2) {
-      // Use first two parts (e.g., "London, England" instead of full address)
       shortenedName = nameParts.slice(0, 2).join(",").trim();
     } else {
-      // Use first part only
       shortenedName = nameParts[0].trim();
     }
-
-    // Limit to 50 characters max
     if (shortenedName.length > 50) {
       shortenedName = shortenedName.substring(0, 47) + "...";
     }
-
     onAddSearchWaypoint(lat, lon, shortenedName);
   };
 
@@ -193,7 +201,7 @@ const MapControls: React.FC<MapControlsProps> = ({
   ] as const;
 
   return (
-    <div className="relative" ref={dropdownRef}>
+    <div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
@@ -205,186 +213,300 @@ const MapControls: React.FC<MapControlsProps> = ({
           flex items-center justify-center
         `}
       >
-        <Menu size={14} />
+        <Menu size={16} />
       </button>
 
       {isOpen && (
         <div
-          className={`
-          absolute top-full left-0 mt-2
-          ${`gradient-${theme}`}
-          backdrop-blur-md
-          rounded-lg shadow-lg
-          border border-[var(--sidebar-border)]
-          min-w-[280px]
-          z-50
-          overflow-hidden
-        `}
+          ref={dropdownRef}
+          className="space-y-4 bg-[var(--sidebar-bg)] rounded-lg p-4 border border-[var(--sidebar-border)]"
         >
-          {/* **Search Section with Responsive Sizing** */}
-          <div className="p-3 border-b border-[var(--sidebar-border)]">
-            {/* **Search Section with Horizontal Overflow Protection** */}
-            <div className="p-3 border-b border-[var(--sidebar-border)]">
-              <div className="text-xs text-[var(--text-muted)] px-2 pb-2">
-                Search Location
-              </div>
-              <div className="flex gap-2 mb-2">
-                <input
-                  ref={searchInputRef}
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search..."
-                  className={`
-        flex-1 px-3 py-2 rounded-lg text-sm
-        bg-[var(--input-bg)]
-        border border-[var(--sidebar-border)]
-        text-[var(--sidebar-text)]
-        placeholder:text-[var(--sidebar-text-muted)]
-        focus:outline-none
-        focus:ring-2
-        focus:ring-[var(--accent-color)]
-        transition-all duration-200
-        min-w-0
-      `}
-                />
-                {isSearching && (
-                  <div className="flex items-center justify-center w-8 h-8 flex-shrink-0">
-                    <Loader2
-                      size={14}
-                      className="animate-spin text-[var(--sidebar-text)]"
-                    />
-                  </div>
-                )}
-              </div>
+          {/* Search Section - Fixed to match desktop */}
+          <div>
+            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+              Search Location
+            </h3>
+            <div className="flex items-center gap-2 mb-2">
+              <input
+                ref={searchInputRef}
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search location..."
+                className={`
+                  flex-1 px-3 py-2 rounded-lg text-sm
+                  bg-[var(--input-bg)]
+                  border border-[var(--sidebar-border)]
+                  text-[var(--sidebar-text)]
+                  placeholder:text-[var(--sidebar-text-muted)]
+                  focus:outline-none
+                  focus:ring-2
+                  focus:ring-[var(--accent-color)]
+                  transition-all duration-200
+                  min-w-0
+                `}
+              />
+              {isSearching && (
+                <Loader2 className="w-4 h-4 animate-spin text-[var(--sidebar-text-muted)]" />
+              )}
+            </div>
 
-              {/* **Search results with text truncation** */}
-              <div className="max-h-[20vh] min-h-[80px] overflow-y-auto custom-scrollbar">
-                {searchError && (
-                  <div className="text-red-400 text-xs py-2 px-2 text-center flex items-center justify-center gap-2">
-                    <AlertCircle size={12} className="flex-shrink-0" />
-                    <span className="truncate">{searchError}</span>
-                  </div>
-                )}
+            {/* Search results - Fixed to match desktop */}
+            <div className="max-h-40 overflow-y-auto">
+              {searchError && (
+                <div className="flex items-center gap-2 p-2 text-red-400 text-sm">
+                  <AlertCircle className="w-4 h-4" />
+                  <span className="truncate">{searchError}</span>
+                </div>
+              )}
 
-                {searchResults.length > 0 && (
-                  <div className="space-y-1">
-                    {searchResults.map((result) => (
-                      <button
-                        key={result.place_id}
-                        className={`
-              block w-full text-left px-2 py-2 rounded-lg
-              text-[var(--sidebar-text)]
-              hover:bg-[var(--button-hover)]
-              transition-all duration-200
-              text-xs
-              border border-transparent
-              hover:border-[var(--accent-color)]
-              min-w-0
-            `}
-                        onClick={() => handleResultClick(result)}
-                      >
-                        <div className="truncate font-medium">
-                          {result.display_name.split(",")[0]}
-                        </div>
-                        <div className="truncate text-xs opacity-70">
-                          {result.display_name
-                            .split(",")
-                            .slice(1, 3)
-                            .join(",")
-                            .trim()}
-                        </div>
-                      </button>
-                    ))}
-                  </div>
-                )}
+              {searchResults.length > 0 && (
+                <div className="space-y-1">
+                  {searchResults.map((result) => (
+                    <button
+                      key={result.place_id}
+                      onClick={() => handleResultClick(result)}
+                      className="w-full text-left p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
+                    >
+                      <div className="font-medium text-[var(--sidebar-text)] truncate">
+                        {result.display_name.split(",")[0]}
+                      </div>
+                      <div className="text-sm text-[var(--sidebar-text-muted)] truncate">
+                        {result.display_name.split(",").slice(1).join(",").trim()}
+                      </div>
+                      <div className="text-xs text-[var(--sidebar-text-muted)]">
+                        {result.lat}, {result.lon}
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
 
-                {/* Status messages with truncation */}
-                {!isSearching &&
-                  searchResults.length === 0 &&
-                  !searchError &&
-                  searchQuery.length >= 2 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-xs py-3 text-center truncate px-2">
-                      No locations found
-                    </div>
-                  )}
+              {/* Status messages - Fixed to match desktop */}
+              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length >= 2 && (
+                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                  No locations found
+                </div>
+              )}
 
-                {!isSearching &&
-                  searchResults.length === 0 &&
-                  !searchError &&
-                  searchQuery.length < 2 &&
-                  searchQuery.length > 0 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-xs py-3 text-center truncate px-2">
-                      Type 2+ characters
-                    </div>
-                  )}
+              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length < 2 && searchQuery.length > 0 && (
+                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                  Type at least 2 characters to search
+                </div>
+              )}
 
-                {!isSearching &&
-                  searchResults.length === 0 &&
-                  !searchError &&
-                  searchQuery.length === 0 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-xs py-3 text-center truncate px-2">
-                      Start typing to search
-                    </div>
-                  )}
-              </div>
+              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length === 0 && (
+                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                  Start typing to search for locations
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Map Types Section */}
-          <div className="p-2 space-y-1">
-            <div className="text-xs text-[var(--text-muted)] px-2 pb-1">
-              Map Type
+          {/* Rest of the component remains the same */}
+          {/* Country Selection */}
+          {onCountryChange && (
+            <div>
+              <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                Country
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                {AVAILABLE_COUNTRIES.map((country) => (
+                  <button
+                    key={country.code}
+                    onClick={() => {
+                      onCountryChange(country.code);
+                    }}
+                    className={`
+                      px-3 py-2 rounded-lg text-sm
+                      flex items-center gap-2
+                      transition-all duration-200
+                      ${
+                        selectedCountry === country.code
+                          ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                          : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                      }
+                    `}
+                  >
+                    <span className="text-xs">{country.flag}</span>
+                    <span className="truncate">{country.name}</span>
+                  </button>
+                ))}
+              </div>
             </div>
-            {MAP_TYPES.map(({ value, label, icon: Icon }) => (
+          )}
+
+          {/* Aviation Data */}
+          {onToggleAviationData && onLayerToggle && (
+            <div>
+              <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                Aviation Data
+              </h3>
+
               <button
-                key={value}
-                onClick={() => {
-                  setMapType(value);
-                }}
+                onClick={() => onToggleAviationData(!showAviationData)}
                 className={`
-                  w-full px-3 py-2
+                  w-full px-3 py-2 rounded-lg text-sm mb-2
                   flex items-center gap-2
-                  rounded-lg text-left
                   transition-all duration-200
                   ${
-                    mapType === value
+                    showAviationData
                       ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
                       : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                   }
                 `}
               >
-                <Icon size={14} />
-                <span className="text-sm">{label}</span>
+                <Plane size={16} />
+                Show Aviation Data
               </button>
-            ))}
+
+              <div className="grid grid-cols-2 gap-2">
+                <button
+                  onClick={() => onLayerToggle("airports", !aviationLayers.airports)}
+                  className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.airports
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <Plane size={14} />
+                  <span className="truncate">Airports</span>
+                </button>
+
+                <button
+                  onClick={() => onLayerToggle("airspaces", !aviationLayers.airspaces)}
+                  className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.airspaces
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <Shield size={14} />
+                  <span className="truncate">Airspaces</span>
+                </button>
+
+                <button
+                  onClick={() => onLayerToggle("navigation", !aviationLayers.navigation)}
+                  className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.navigation
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <Radio size={14} />
+                  <span className="truncate">Navigation</span>
+                </button>
+
+                <button
+                  onClick={() => onLayerToggle("obstacles", !aviationLayers.obstacles)}
+                  className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.obstacles
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <AlertTriangle size={14} />
+                  <span className="truncate">Obstacles</span>
+                </button>
+
+                <button
+                  onClick={() => onLayerToggle("hotspots", !aviationLayers.hotspots)}
+                  className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.hotspots
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <Flame size={14} />
+                  <span className="truncate">Hotspots</span>
+                </button>
+              </div>
+            </div>
+          )}
+
+          {/* Map Types Section */}
+          <div>
+            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+              Map Type
+            </h3>
+            <div className="space-y-1">
+              {MAP_TYPES.map(({ value, label, icon: Icon }) => (
+                <button
+                  key={value}
+                  onClick={() => {
+                    setMapType(value);
+                  }}
+                  className={`
+                    w-full px-3 py-2
+                    flex items-center gap-2
+                    rounded-lg text-left
+                    transition-all duration-200
+                    ${
+                      mapType === value
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                >
+                  <Icon size={16} />
+                  <span className="text-sm">{label}</span>
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Actions Section */}
-          <div className="border-t border-[var(--sidebar-border)] p-2 space-y-1">
-            <div className="text-xs text-[var(--text-muted)] px-2 pb-1">
+          <div>
+            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
               Actions
+            </h3>
+            <div className="space-y-1">
+              <button
+                onClick={() => {
+                  onDeleteLastWaypoint();
+                  setIsOpen(false);
+                }}
+                className="w-full px-3 py- flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+              >
+                <XCircle size={16} />
+                <span className="text-sm">Delete Last Waypoint</span>
+              </button>
+              <button
+                onClick={() => {
+                  onClearWaypoints();
+                  setIsOpen(false);
+                }}
+                className="w-full px-3 py-2 flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+              >
+                <Trash2 size={16} />
+                <span className="text-sm">Clear All Waypoints</span>
+              </button>
             </div>
-            <button
-              onClick={() => {
-                onDeleteLastWaypoint();
-                setIsOpen(false);
-              }}
-              className="w-full px-3 py-2 flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
-            >
-              <Trash2 size={14} />
-              <span className="text-sm">Delete Last Waypoint</span>
-            </button>
-            <button
-              onClick={() => {
-                onClearWaypoints();
-                setIsOpen(false);
-              }}
-              className="w-full px-3 py-2 flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
-            >
-              <XCircle size={14} />
-              <span className="text-sm">Clear All Waypoints</span>
-            </button>
           </div>
         </div>
       )}

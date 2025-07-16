@@ -202,3 +202,240 @@ export interface MapComponentProps {
   setWaypoints: (waypoints: Waypoint[]) => void;
   mapType: string;
 }
+
+
+// OpenAIP
+
+// types/aviation.ts
+export interface AviationGeometry {
+  type: "Point" | "Polygon" | "MultiPolygon";
+  coordinates: number[] | number[][][] | number[][][][];
+}
+
+export interface Elevation {
+  value: number;
+  unit: number;
+  referenceDatum: number;
+}
+
+export interface ElevationGeoid {
+  geoidHeight: number;
+  hae: number;
+}
+
+export interface Frequency {
+  value: string;
+  unit: number;
+  type?: number;
+  name: string;
+  primary: boolean;
+  publicUse?: boolean;
+  _id: string;
+}
+
+export interface OperatingHour {
+  dayOfWeek: number;
+  startTime: string;
+  endTime: string;
+  byNotam: boolean;
+  sunrise: boolean;
+  sunset: boolean;
+  publicHolidaysExcluded: boolean;
+}
+
+export interface HoursOfOperation {
+  operatingHours: OperatingHour[];
+}
+
+// Airport Types
+export interface RunwaySurface {
+  composition: number[];
+  mainComposite: number;
+  condition: number;
+  pcn: string;
+}
+
+export interface RunwayDimension {
+  length: { value: number; unit: number };
+  width: { value: number; unit: number };
+}
+
+export interface DeclaredDistance {
+  tora: { value: number; unit: number };
+  lda: { value: number; unit: number };
+}
+
+export interface Runway {
+  designator: string;
+  trueHeading: number;
+  alignedTrueNorth: boolean;
+  operations: number;
+  mainRunway: boolean;
+  turnDirection: number;
+  takeOffOnly: boolean;
+  landingOnly: boolean;
+  surface: RunwaySurface;
+  dimension: RunwayDimension;
+  declaredDistance: DeclaredDistance;
+  pilotCtrlLighting: boolean;
+  visualApproachAids: number[];
+  _id: string;
+}
+
+export interface Airport {
+  _id: string;
+  name: string;
+  icaoCode: string;
+  iataCode?: string;
+  type: number;
+  trafficType: number[];
+  magneticDeclination: number;
+  country: string;
+  geometry: AviationGeometry;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  ppr: boolean;
+  private: boolean;
+  skydiveActivity: boolean;
+  winchOnly: boolean;
+  frequencies: Frequency[];
+  runways: Runway[];
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  __v: number;
+}
+
+// Airspace Types
+export interface AirspaceFrequency {
+  value: string;
+  primary: boolean;
+  unit: number;
+  name: string;
+  _id: string;
+}
+
+export interface Airspace {
+  _id: string;
+  createdBy: string;
+  createdAt: string;
+  updatedBy: string;
+  updatedAt: string;
+  name: string;
+  dataIngestion: boolean;
+  type: number;
+  icaoClass: number;
+  activity: number;
+  onDemand: boolean;
+  onRequest: boolean;
+  byNotam: boolean;
+  specialAgreement: boolean;
+  requestCompliance: boolean;
+  geometry: AviationGeometry;
+  country: string;
+  upperLimit: Elevation;
+  lowerLimit: Elevation;
+  frequencies: AirspaceFrequency[];
+  hoursOfOperation: HoursOfOperation;
+  __v: number;
+  deletable: boolean;
+}
+
+// Navigation Point Types
+export interface NavigationPoint {
+  _id: string;
+  name: string;
+  identifier: string;
+  type: number;
+  country: string;
+  channel: string;
+  frequency: {
+    value: string;
+    unit: number;
+  };
+  geometry: AviationGeometry;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  magneticDeclination: number;
+  alignedTrueNorth: boolean;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  __v: number;
+  hoursOfOperation: HoursOfOperation;
+}
+
+// Obstacle Types
+export interface Obstacle {
+  _id: string;
+  osmId: string;
+  __v: number;
+  country: string;
+  createdAt: string;
+  createdBy: string;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  geometry: AviationGeometry;
+  name: string;
+  osmTags: {
+    key: string;
+    value: string;
+    name: string;
+    power: string;
+    ref: string;
+  };
+  osmUpdatedAt: string;
+  type: number;
+  updatedAt: string;
+  updatedBy: string;
+}
+
+// Hotspot Types
+export interface Hotspot {
+  _id: string;
+  name: string;
+  type: number;
+  country: string;
+  geometry: AviationGeometry;
+  // Add other properties as they become available
+}
+
+// Data wrapper interfaces
+export interface AviationDataWrapper<T> {
+  data: {
+    limit: number;
+    totalCount: number;
+    totalPages: number;
+    page: number;
+    items: T[];
+  };
+  lastUpdated: string;
+  country: string;
+  dataType: string;
+}
+
+export type AirportData = AviationDataWrapper<Airport>;
+export type AirspaceData = AviationDataWrapper<Airspace>;
+export type NavigationData = AviationDataWrapper<NavigationPoint>;
+export type ObstacleData = AviationDataWrapper<Obstacle>;
+export type HotspotData = AviationDataWrapper<Hotspot>;
+
+export type AviationData = AirportData | AirspaceData | NavigationData | ObstacleData | HotspotData;
+
+
+// Country Centers
+
+export const COUNTRY_CENTERS: Record<string, [number, number]> = {
+  es: [40.0, -4.0],    // Spain
+  us: [39.8, -98.5],   // United States
+  uk: [54.0, -2.0],    // United Kingdom
+  de: [51.0, 9.0],     // Germany
+  fr: [46.0, 2.0],     // France
+  ca: [60.0, -95.0],   // Canada
+};
+
+export const getCountryCenter = (countryCode: string): [number, number] => {
+  return COUNTRY_CENTERS[countryCode] || COUNTRY_CENTERS.es;
+};

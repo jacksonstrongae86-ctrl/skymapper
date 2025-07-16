@@ -12,29 +12,65 @@ import {
   Mountain,
   Loader2,
   AlertCircle,
+  Plane,
+  Shield,
+  Radio,
+  AlertTriangle,
+  Flame,
 } from "lucide-react";
 
-const MapControls: React.FC<MapControlsProps> = ({
+type AviationLayerKey =
+  | "airports"
+  | "airspaces"
+  | "navigation"
+  | "obstacles"
+  | "hotspots";
+interface ExtendedMapControlsProps extends MapControlsProps {
+  showAviationData: boolean;
+  onToggleAviationData: (enabled: boolean) => void;
+  aviationLayers: {
+    airports: boolean;
+    airspaces: boolean;
+    navigation: boolean;
+    obstacles: boolean;
+    hotspots: boolean;
+  };
+  onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
+  selectedCountry: string;
+  onCountryChange: (country: string) => void;
+}
+
+const MapControls: React.FC<ExtendedMapControlsProps> = ({
   mapType,
   setMapType,
   onDeleteLastWaypoint,
   onClearWaypoints,
   onAddSearchWaypoint,
+  showAviationData,
+  onToggleAviationData,
+  aviationLayers,
+  onLayerToggle,
+  selectedCountry,
+  onCountryChange,
 }) => {
   const { theme } = useTheme();
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false);
   const [isMapSelectorOpen, setIsMapSelectorOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isAviationOpen, setIsAviationOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [isCountryOpen, setIsCountryOpen] = useState(false);
 
   const themeSelectorRef = useRef<HTMLDivElement>(null);
   const mapSelectorRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
+  const aviationRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const countryRef = useRef<HTMLDivElement>(null);
 
   type SearchResult = {
     place_id: number;
@@ -52,22 +88,29 @@ const MapControls: React.FC<MapControlsProps> = ({
           isThemeSelectorOpen) ||
         (!mapSelectorRef.current?.contains(event.target as Node) &&
           isMapSelectorOpen) ||
-        (!searchRef.current?.contains(event.target as Node) && isSearchOpen)
+        (!searchRef.current?.contains(event.target as Node) && isSearchOpen) ||
+        (!aviationRef.current?.contains(event.target as Node) && isAviationOpen)
       ) {
         setIsThemeSelectorOpen(false);
         setIsMapSelectorOpen(false);
         setIsSearchOpen(false);
+        setIsAviationOpen(false);
       }
     };
 
-    if (isThemeSelectorOpen || isMapSelectorOpen || isSearchOpen) {
+    if (
+      isThemeSelectorOpen ||
+      isMapSelectorOpen ||
+      isSearchOpen ||
+      isAviationOpen
+    ) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isThemeSelectorOpen, isMapSelectorOpen, isSearchOpen]);
+  }, [isThemeSelectorOpen, isMapSelectorOpen, isSearchOpen, isAviationOpen]);
 
   // Search function using fetch directly
   const searchWithFetch = React.useCallback(
@@ -228,6 +271,45 @@ const MapControls: React.FC<MapControlsProps> = ({
     { value: "hybrid", label: "Hybrid", icon: Globe },
     { value: "terrain", label: "Terrain", icon: Mountain },
   ] as const;
+
+  // Available countries (same as in CountrySelector)
+  const AVAILABLE_COUNTRIES = [
+    { code: 'es', name: 'Spain', flag: '🇪🇸' },
+    { code: 'us', name: 'United States', flag: '🇺🇸' },
+    { code: 'uk', name: 'United Kingdom', flag: '🇬🇧' },
+    { code: 'de', name: 'Germany', flag: '🇩🇪' },
+    { code: 'fr', name: 'France', flag: '🇫🇷' },
+    { code: 'ca', name: 'Canada', flag: '🇨🇦' },
+  ];
+
+  // Update click outside handler to include country selector
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        (!themeSelectorRef.current?.contains(event.target as Node) &&
+          isThemeSelectorOpen) ||
+        (!mapSelectorRef.current?.contains(event.target as Node) &&
+          isMapSelectorOpen) ||
+        (!searchRef.current?.contains(event.target as Node) && isSearchOpen) ||
+        (!aviationRef.current?.contains(event.target as Node) && isAviationOpen) ||
+        (!countryRef.current?.contains(event.target as Node) && isCountryOpen)
+      ) {
+        setIsThemeSelectorOpen(false);
+        setIsMapSelectorOpen(false);
+        setIsSearchOpen(false);
+        setIsAviationOpen(false);
+        setIsCountryOpen(false);
+      }
+    };
+
+    if (isThemeSelectorOpen || isMapSelectorOpen || isSearchOpen || isAviationOpen || isCountryOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isThemeSelectorOpen, isMapSelectorOpen, isSearchOpen, isAviationOpen, isCountryOpen]);
 
   return (
     <div className="fixed right-4 top-4 z-50 grid grid-rows-2 gap-3">
@@ -414,6 +496,220 @@ const MapControls: React.FC<MapControlsProps> = ({
           )}
         </div>
 
+        {/* Country Selector */}
+      <div className="relative" ref={countryRef}>
+        <button
+          onClick={() => {
+            setIsCountryOpen((prev) => !prev);
+            setIsMapSelectorOpen(false);
+            setIsThemeSelectorOpen(false);
+            setIsSearchOpen(false);
+            setIsAviationOpen(false);
+          }}
+          className={`${ButtonClass} ${isCountryOpen ? "opacity-75" : ""}`}
+          title="Select Country"
+        >
+          <Globe size={18} className="text-[var(--button-text)]" />
+        </button>
+
+        {isCountryOpen && (
+          <div
+            className={`
+              absolute top-12 right-0
+              ${`gradient-${theme}`}
+              backdrop-blur-md p-2
+              rounded-xl shadow-lg
+              border border-[var(--sidebar-border)]
+              min-w-[200px]
+              z-50
+            `}
+          >
+            {AVAILABLE_COUNTRIES.map((country) => (
+              <button
+                key={country.code}
+                onClick={() => {
+                  onCountryChange(country.code);
+                  setIsCountryOpen(false);
+                }}
+                className={`
+                  w-full px-3 py-2
+                  flex items-center gap-2
+                  rounded-lg
+                  transition-all duration-200
+                  ${
+                    selectedCountry === country.code
+                      ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                      : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                  }
+                `}
+                title={country.name}
+              >
+                <span className="text-sm">{country.flag}</span>
+                <span className="text-sm font-medium">{country.name}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+        {/* Aviation Layer Control */}
+        <div className="relative" ref={aviationRef}>
+          <button
+            onClick={() => {
+              setIsAviationOpen((prev) => !prev);
+              setIsMapSelectorOpen(false);
+              setIsThemeSelectorOpen(false);
+              setIsSearchOpen(false);
+            }}
+            className={`${ButtonClass} ${isAviationOpen ? "opacity-75" : ""}`}
+            title="Aviation Data"
+          >
+            <Plane size={18} className="text-[var(--button-text)]" />
+          </button>
+
+          {isAviationOpen && (
+            <div
+              className={`
+        absolute top-12 right-0
+        ${`gradient-${theme}`}
+        backdrop-blur-md p-2
+        rounded-xl shadow-lg
+        border border-[var(--sidebar-border)]
+        min-w-[200px]
+        z-50
+      `}
+            >
+              {/* Main Aviation Data Toggle */}
+              <button
+                onClick={() => onToggleAviationData(!showAviationData)}
+                className={`
+          w-full px-3 py-2
+          flex items-center gap-2
+          rounded-lg
+          transition-all duration-200
+          ${
+            showAviationData
+              ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+              : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+          }
+        `}
+                title="Toggle Aviation Data"
+              >
+                <Plane size={16} />
+                <span className="text-sm font-medium">Show Aviation Data</span>
+              </button>
+
+              {/* Layer Options - Always show when dropdown is open */}
+              <div className="mt-2 pt-2 border-t border-[var(--sidebar-border)]">
+                <button
+                  onClick={() =>
+                    onLayerToggle("airports", !aviationLayers.airports)
+                  }
+                  className={`
+            w-full px-3 py-2
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              aviationLayers.airports
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+            }
+          `}
+                  title="Toggle Airports"
+                >
+                  <Plane size={16} />
+                  <span className="text-sm font-medium">Airports</span>
+                </button>
+
+                <button
+                  onClick={() =>
+                    onLayerToggle("airspaces", !aviationLayers.airspaces)
+                  }
+                  className={`
+            w-full px-3 py-2
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              aviationLayers.airspaces
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+            }
+          `}
+                  title="Toggle Airspaces"
+                >
+                  <Shield size={16} />
+                  <span className="text-sm font-medium">Airspaces</span>
+                </button>
+
+                <button
+                  onClick={() =>
+                    onLayerToggle("navigation", !aviationLayers.navigation)
+                  }
+                  className={`
+            w-full px-3 py-2
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              aviationLayers.navigation
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+            }
+          `}
+                  title="Toggle Navigation"
+                >
+                  <Radio size={16} />
+                  <span className="text-sm font-medium">Navigation</span>
+                </button>
+
+                <button
+                  onClick={() =>
+                    onLayerToggle("obstacles", !aviationLayers.obstacles)
+                  }
+                  className={`
+            w-full px-3 py-2
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              aviationLayers.obstacles
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+            }
+          `}
+                  title="Toggle Obstacles"
+                >
+                  <AlertTriangle size={16} />
+                  <span className="text-sm font-medium">Obstacles</span>
+                </button>
+
+                <button
+                  onClick={() =>
+                    onLayerToggle("hotspots", !aviationLayers.hotspots)
+                  }
+                  className={`
+            w-full px-3 py-2
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              aviationLayers.hotspots
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-text)]"
+            }
+          `}
+                  title="Toggle Hotspots"
+                >
+                  <Flame size={16} />
+                  <span className="text-sm font-medium">Hotspots</span>
+                </button>
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Delete Last Waypoint Button */}
         <button
           className={ButtonClass}
@@ -435,7 +731,6 @@ const MapControls: React.FC<MapControlsProps> = ({
       <div className="grid grid-cols-2 gap-3 justify-end">
         <div></div>
         {/* Clear All Waypoint Button */}
-
       </div>
     </div>
   );
