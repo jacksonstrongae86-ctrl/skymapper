@@ -83,7 +83,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState('de');
+  const [selectedCountry, setSelectedCountry] = useState('es');
   const [countryDetected, setCountryDetected] = useState(false);
   useEffect(() => {
     const detectAndSetCountry = async () => {

@@ -136,7 +136,6 @@ export default function Home() {
               onToggleAviationData={setShowAviationData}
               aviationLayers={aviationLayers}
               onLayerToggle={handleLayerToggle}
-              selectedCountry={selectedCountry}
               onCountryChange={setSelectedCountry}
             />
           </div>
@@ -184,7 +183,6 @@ export default function Home() {
                 onWaypointUpdate={handleWaypointUpdate}
                 showAviationData={showAviationData}
                 aviationLayers={aviationLayers}
-                selectedCountry={selectedCountry}
                 onCountryChange={setSelectedCountry}
               />
             </div>
