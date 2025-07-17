@@ -1,5 +1,5 @@
 // components/MapComponent.tsx
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import {
   MapContainer,
   TileLayer,
@@ -27,6 +27,7 @@ import {
 
 } from "../../../utils/types";
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
+import { detectUserCountry } from '../../../utils/countryDetection';
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -45,7 +46,6 @@ type MapComponentProps = {
     obstacles: boolean;
     hotspots: boolean;
   };
-  selectedCountry?: string;
   onCountryChange: (country: string) => void;
 };
 
@@ -62,15 +62,40 @@ const MapComponent: React.FC<MapComponentProps> = ({
     obstacles: true,
     hotspots: true,
   },
-  selectedCountry = 'es',
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
-  const mapCenter = getCountryCenter(selectedCountry);
+  const [selectedCountry, setSelectedCountry] = useState('de');
+  const [countryDetected, setCountryDetected] = useState(false);
+  useEffect(() => {
+    const detectAndSetCountry = async () => {
+      if (!countryDetected) {
+        try {
+          const detectedCountry = await detectUserCountry();
+          setSelectedCountry(detectedCountry);
+          setCountryDetected(true);
+          console.log('Auto-detected country:', detectedCountry);
+        } catch (error) {
+          console.error('Failed to detect country:', error);
+          setCountryDetected(true);
+        }
+      }
+    };
 
+    detectAndSetCountry();
+  }, [countryDetected]);
+
+  const mapCenter = getCountryCenter(selectedCountry);
+  useEffect(() => {
+    if (mapRef.current) {
+      const newCenter = getCountryCenter(selectedCountry);
+      mapRef.current.setView(newCenter, 6);
+      console.log('Desktop map center updated to:', newCenter, 'for country:', selectedCountry);
+    }
+  }, [selectedCountry]);
   // Load aviation data
   const {
     airports,

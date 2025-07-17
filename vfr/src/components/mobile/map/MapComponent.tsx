@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useEffect, useMemo, useRef } from "react";
 import { Map } from "leaflet";
 import {
   MapContainer,
@@ -25,6 +25,7 @@ import {
 } from "@/src/utils/aviationUtils";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
+import { detectUserCountry } from '../../../utils/countryDetection';
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -58,7 +59,6 @@ interface ExtendedMapComponentProps extends MapComponentProps {
     hotspots: boolean;
   };
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
-  selectedCountry: string;
   onCountryChange: (country: string) => void;
 }
 
@@ -75,7 +75,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   onToggleAviationData,
   aviationLayers,
   onLayerToggle,
-  selectedCountry,
   onCountryChange,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -84,7 +83,33 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
+  const [selectedCountry, setSelectedCountry] = useState('de');
+  const [countryDetected, setCountryDetected] = useState(false);
+  useEffect(() => {
+    const detectAndSetCountry = async () => {
+      if (!countryDetected) {
+        try {
+          const detectedCountry = await detectUserCountry();
+          setSelectedCountry(detectedCountry);
+          setCountryDetected(true);
+          console.log('Auto-detected country:', detectedCountry);
+        } catch (error) {
+          console.error('Failed to detect country:', error);
+          setCountryDetected(true);
+        }
+      }
+    };
+
+    detectAndSetCountry();
+  }, [countryDetected]);
   const mapCenter = getCountryCenter(selectedCountry);
+  useEffect(() => {
+      if (mapRef.current) {
+        const newCenter = getCountryCenter(selectedCountry);
+        mapRef.current.setView(newCenter, 6);
+        console.log('Desktop map center updated to:', newCenter, 'for country:', selectedCountry);
+      }
+    }, [selectedCountry]);
 
   // Load aviation data
   const {
