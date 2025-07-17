@@ -359,9 +359,9 @@ export interface Airport {
   trafficType: number[];
   magneticDeclination: number;
   country: string;
-  // Remove geometry from here - it's now in the GeoJSON feature structure
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
+  geometry: AviationGeometry;
   ppr: boolean;
   private: boolean;
   skydiveActivity: boolean;
@@ -383,6 +383,7 @@ export interface Airspace {
   updatedAt: string;
   name: string;
   dataIngestion: boolean;
+  geometry: AviationGeometry;
   type: number;
   icaoClass: number;
   activity: number;
@@ -412,7 +413,7 @@ export interface NavigationPoint {
     value: string;
     unit: number;
   };
-  // Remove geometry from here - it's now in the GeoJSON feature structure
+  geometry: AviationGeometry;
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
   magneticDeclination: number;
@@ -434,7 +435,7 @@ export interface Obstacle {
   createdBy: string;
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
-  // Remove geometry from here - it's now in the GeoJSON feature structure
+  geometry: AviationGeometry;
   name: string;
   osmTags: {
     key: string;
@@ -454,7 +455,7 @@ export interface Hotspot {
   name: string;
   type: number;
   country: string;
-  // Remove geometry from here - it's now in the GeoJSON feature structure
+  geometry: AviationGeometry;
 }
 
 // Data wrapper interfaces

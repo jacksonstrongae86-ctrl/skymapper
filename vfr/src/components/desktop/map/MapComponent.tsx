@@ -216,7 +216,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           />
         ))}
 
-        
+
 
       {/* Aviation data with clustering */}
       {showAviationData && (
