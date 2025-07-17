@@ -6,8 +6,6 @@ import {
   NavigationPoint,
   Obstacle,
   Hotspot,
-  GeoJsonFeature,
-  AviationProperties
 } from "../../utils/types";
 
 export interface AviationDataState {
@@ -48,26 +46,19 @@ export const useAviationData = (country: string = "es") => {
       const dataTypes = ["apt", "asp", "nav", "obs", "hot"];
 
       const promises = dataTypes.map((type) =>
-        fetch(`/data/cache/openaip/${selectedCountry}_${type}.json`)
+        // Use your API instead of direct file access
+        fetch(`/api/aviation-data?country=${selectedCountry}&type=${type}`)
           .then((res) => {
             if (!res.ok) {
-              throw new Error(`Failed to load ${selectedCountry}_${type}.json`);
+              throw new Error(`Failed to load ${selectedCountry}_${type}`);
             }
             return res.json();
           })
-          .then((cachedData) => {
-            // Extract features from GeoJSON structure
-            const features = cachedData.data?.features || [];
-
-            // Transform GeoJSON features to your expected format
-          const items = features.map((feature: GeoJsonFeature<AviationProperties>) => ({
-            ...feature.properties,
-            geometry: feature.geometry,
-          }));
-
+          .then((apiResponse) => {
+            // Your API should return the data in the expected format
             return {
-              data: { items },
-              lastUpdated: cachedData.lastUpdated,
+              data: { items: apiResponse.data?.items || [] },
+              lastUpdated: apiResponse.lastUpdated,
             };
           })
           .catch((err) => {

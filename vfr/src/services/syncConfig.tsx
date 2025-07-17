@@ -3,16 +3,9 @@ import { OpenAIPConfig } from './openAIPSync';
 import path from 'path';
 
 export const createSyncConfig = (): OpenAIPConfig => {
-  const apiKey = process.env.OPENAIP_API_KEY;
-
-  if (!apiKey) {
-    throw new Error('OPENAIP_API_KEY environment variable is required');
-  }
-
   return {
     countries: ['es', 'us', 'uk', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'],
     dataTypes: ['apt', 'asp', 'hot', 'nav', 'obs'],
-    apiKey,
     cachePath: path.join(process.cwd(), 'public', 'data', 'cache', 'openaip')
   };
 };

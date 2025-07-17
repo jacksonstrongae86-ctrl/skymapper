@@ -1,99 +1,16 @@
+// pages/api/aviation-data.tsx
 import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import fs from "fs/promises";
+import { AviationGeometry, AviationProperties, GeoJsonFeature, GeoJsonFeatureCollection  } from "@/src/utils/types";
 
-// Base interface for common properties
-interface BaseOpenAIPItem {
-  id: string;
-  name: string;
-  type: string;
-  country: string;
-}
-
-// Point geometry interface for items with single coordinates
-interface PointGeometry {
-  type: "Point";
-  coordinates: [number, number];
-}
-
-// Polygon geometry interface for airspaces
-interface PolygonGeometry {
-  type: "Polygon" | "MultiPolygon";
-  coordinates: number[][][] | number[][][][];
-}
-
-// Airport-specific interface (extends base + adds point geometry)
-interface AirportItem extends BaseOpenAIPItem {
-  geometry: PointGeometry;
-  icao?: string;
-  iata?: string;
-  elevation?: number;
-  runways?: Array<{
-    designator: string;
-    length: number;
-    width: number;
-    surface: string;
-  }>;
-  frequencies?: Array<{
-    type: string;
-    frequency: number;
-    description?: string;
-  }>;
-}
-
-// Airspace-specific interface (extends base + adds polygon geometry)
-interface AirspaceItem extends BaseOpenAIPItem {
-  geometry: PolygonGeometry;
-  category: string;
-  class?: string;
-  floor?: string;
-  ceiling?: string;
-}
-
-// Navaid-specific interface (extends base + adds point geometry)
-interface NavaidItem extends BaseOpenAIPItem {
-  geometry: PointGeometry;
-  frequency?: number;
-  range?: number;
-  declination?: number;
-  elevation?: number;
-}
-
-// Hotspot-specific interface (extends base + adds point geometry)
-interface HotspotItem extends BaseOpenAIPItem {
-  geometry: PointGeometry;
-  reliability?: number;
-  occurrence?: number;
-  description?: string;
-}
-
-// Obstacle-specific interface (extends base + adds point geometry)
-interface ObstacleItem extends BaseOpenAIPItem {
-  geometry: PointGeometry;
-  elevation: number;
-  height?: number;
-  lighting?: boolean;
-  marking?: boolean;
-}
-
-// Union type for all possible OpenAIP items
-type OpenAIPItem =
-  | AirportItem
-  | AirspaceItem
-  | NavaidItem
-  | HotspotItem
-  | ObstacleItem;
-
-interface OpenAIPResponse {
-  items: OpenAIPItem[];
-  totalCount: number;
-}
 
 interface CachedData {
-  data: OpenAIPResponse;
+  data: GeoJsonFeatureCollection<AviationProperties>; // Add the type parameter
   lastUpdated: string;
   country: string;
   dataType: string;
+  version: string;
 }
 
 interface Bounds {
@@ -103,46 +20,33 @@ interface Bounds {
   west: number;
 }
 
-// Updated coordinate extraction function
-export function extractCoordinates(
-  item: OpenAIPItem
-): { lat: number; lng: number } | null {
-  // Handle different geometry types
-  if (item.geometry?.coordinates) {
-    if (item.geometry.type === "Point") {
-      const [lng, lat] = item.geometry.coordinates as [number, number];
-      return { lat, lng };
-    } else if (item.geometry.type === "Polygon") {
-      // For polygons, use the centroid of the first ring
-      const coordinates = item.geometry.coordinates as number[][][];
-      if (coordinates.length > 0 && coordinates[0].length > 0) {
-        const ring = coordinates[0];
-        const centroid = calculatePolygonCentroid(ring);
-        return centroid;
-      }
-    } else if (item.geometry.type === "MultiPolygon") {
-      // For multipolygons, use the centroid of the first polygon's first ring
-      const coordinates = item.geometry.coordinates as number[][][][];
-      if (
-        coordinates.length > 0 &&
-        coordinates[0].length > 0 &&
-        coordinates[0][0].length > 0
-      ) {
-        const ring = coordinates[0][0];
-        const centroid = calculatePolygonCentroid(ring);
-        return centroid;
-      }
-    }
-  }
+// Updated coordinate extraction function for GeoJSON
+function extractCoordinates(geometry: AviationGeometry): { lat: number; lng: number } | null {
+  if (!geometry?.coordinates) return null;
 
+  switch (geometry.type) {
+    case "Point":
+      const [lng, lat] = geometry.coordinates;
+      return { lat, lng };
+    case "Polygon":
+      const polygonCoords = geometry.coordinates[0];
+      if (polygonCoords.length > 0) {
+        const centroid = calculatePolygonCentroid(polygonCoords);
+        return centroid;
+      }
+      break;
+    case "MultiPolygon":
+      const multiPolygonCoords = geometry.coordinates[0][0];
+      if (multiPolygonCoords.length > 0) {
+        const centroid = calculatePolygonCentroid(multiPolygonCoords);
+        return centroid;
+      }
+      break;
+  }
   return null;
 }
 
-// Helper function to calculate polygon centroid
-function calculatePolygonCentroid(ring: number[][]): {
-  lat: number;
-  lng: number;
-} {
+function calculatePolygonCentroid(ring: number[][]): { lat: number; lng: number } {
   let totalLat = 0;
   let totalLng = 0;
   const pointCount = ring.length;
@@ -158,14 +62,9 @@ function calculatePolygonCentroid(ring: number[][]): {
   };
 }
 
-function filterByBounds(
-  data: OpenAIPResponse,
-  bounds: Bounds
-): OpenAIPResponse {
-  if (!data?.items) return data;
-
-  const filteredItems = data.items.filter((item: OpenAIPItem) => {
-    const coords = extractCoordinates(item);
+function filterByBounds(features: GeoJsonFeature<AviationProperties>[], bounds: Bounds): GeoJsonFeature<AviationProperties>[] {
+  return features.filter((feature) => {
+    const coords = extractCoordinates(feature.geometry);
     if (!coords) return false;
 
     const { lat, lng } = coords;
@@ -176,75 +75,33 @@ function filterByBounds(
       lat <= bounds.north
     );
   });
-
-  return {
-    ...data,
-    items: filteredItems,
-    totalCount: filteredItems.length,
-  };
 }
 
 async function fetchAndCacheOpenAIPData(
   country: string,
   type: string,
-  filepath: string,
-  bounds?: string
+  filepath: string
 ): Promise<void> {
   // Ensure cache directory exists
   const cacheDir = path.dirname(filepath);
   await fs.mkdir(cacheDir, { recursive: true });
 
-  // Map your type to OpenAIP endpoint
-  const endpointMap: { [key: string]: string } = {
-    apt: "airports",
-    asp: "airspaces",
-    nav: "navaids",
-    hot: "hotspots",
-    obs: "obstacles",
-  };
+  // Use the same URL pattern as your sync service
+  const url = `https://storage.googleapis.com/29f98e10-a489-4c82-ae5e-489dbcd4912f/${country}_${type}.geojson`;
 
-  const endpoint = endpointMap[type];
-  if (!endpoint) {
-    throw new Error(`Unknown data type: ${type}`);
-  }
+  const headers: Record<string, string> = {};
 
-  // Build OpenAIP API URL
-  const baseUrl = "https://api.core.openaip.net/api";
-  const url = new URL(`${baseUrl}/${endpoint}`);
-
-  // Add country filter
-  url.searchParams.append("country", country.toUpperCase());
-
-  // Add bounds if provided
-  if (bounds) {
-    const parsedBounds = JSON.parse(bounds) as Bounds;
-    url.searchParams.append(
-      "bbox",
-      `${parsedBounds.west},${parsedBounds.south},${parsedBounds.east},${parsedBounds.north}`
-    );
-  }
-
-  // Add pagination parameters
-  url.searchParams.append("limit", "1000");
-  url.searchParams.append("offset", "0");
-
-  const headers: Record<string, string> = {
-    Accept: "application/json",
-    "Content-Type": "application/json",
-  };
-
-  // Add API key if available
-  if (process.env.OPENAIP_API_KEY) {
-    headers["x-openaip-api-key"] = process.env.OPENAIP_API_KEY;
-  }
-
-  const response = await fetch(url.toString(), { headers });
+  const response = await fetch(url, { headers });
 
   if (!response.ok) {
+    if (response.status === 404) {
+      console.warn(`File not found: ${country}_${type}.geojson - may not be available for this country`);
+      return;
+    }
     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
   }
 
-  const data: OpenAIPResponse = await response.json();
+  const data: GeoJsonFeatureCollection<AviationProperties> = await response.json();
 
   // Create cached data structure
   const cachedData: CachedData = {
@@ -252,6 +109,7 @@ async function fetchAndCacheOpenAIPData(
     lastUpdated: new Date().toISOString(),
     country,
     dataType: type,
+    version: '1.0'
   };
 
   // Write to cache file
@@ -268,7 +126,6 @@ export default async function handler(
     bounds?: string;
   };
 
-  // Validate required parameters
   if (!country || !type) {
     return res.status(400).json({
       error: "Missing required parameters",
@@ -278,7 +135,13 @@ export default async function handler(
 
   try {
     const filename = `${country}_${type}.json`;
-    const filepath = path.join(process.cwd(), "/public/data/cache/openaip", filename);
+
+    // Use different cache path based on environment
+    const cachePath = process.env.NODE_ENV === 'production'
+      ? '/tmp/aviation-cache'
+      : path.join(process.cwd(), 'public', 'data', 'cache', 'openaip');
+
+    const filepath = path.join(cachePath, filename);
 
     // Check if file exists
     let fileExists = true;
@@ -290,18 +153,16 @@ export default async function handler(
 
     // If file doesn't exist, fetch and cache it
     if (!fileExists) {
-      console.log(
-        `Cache file not found: ${filename}. Fetching from OpenAIP API...`
-      );
+      console.log(`Cache file not found: ${filename}. Fetching from OpenAIP...`);
 
       try {
-        await fetchAndCacheOpenAIPData(country, type, filepath, bounds);
+        await fetchAndCacheOpenAIPData(country, type, filepath);
         console.log(`Successfully cached ${filename}`);
       } catch (fetchError) {
         console.error(`Failed to fetch ${filename}:`, fetchError);
         return res.status(503).json({
           error: "Failed to fetch aviation data",
-          message: "Unable to retrieve data from OpenAIP API",
+          message: "Unable to retrieve data from OpenAIP",
           country,
           type,
         });
@@ -312,29 +173,36 @@ export default async function handler(
     const fileContent = await fs.readFile(filepath, "utf-8");
     const cachedData: CachedData = JSON.parse(fileContent);
 
+    // Transform GeoJSON features to your expected format
+    let features = cachedData.data.features || [];
+
     // Apply bounds filtering if provided
-    let filteredData = cachedData.data;
     if (bounds) {
       try {
         const parsedBounds = JSON.parse(bounds) as Bounds;
-        filteredData = filterByBounds(cachedData.data, parsedBounds);
+        features = filterByBounds(features, parsedBounds);
       } catch {
         console.warn("Invalid bounds parameter:", bounds);
       }
     }
 
+    // Transform features to the format expected by your hook
+    const items = features.map((feature: GeoJsonFeature<AviationProperties>) => ({
+      ...feature.properties,
+      geometry: feature.geometry,
+    }));
+
     res.status(200).json({
-      data: filteredData,
+      data: { items },
       lastUpdated: cachedData.lastUpdated,
       cached: true,
-      itemsCount: filteredData.items?.length || 0,
+      itemsCount: items.length,
       freshlyFetched: !fileExists,
     });
   } catch (error) {
     console.error("Error serving cached data:", error);
 
-    const errorMessage =
-      error instanceof Error ? error.message : "Unknown error";
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
 
     res.status(500).json({
       error: "Failed to load aviation data",
