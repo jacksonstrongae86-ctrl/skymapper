@@ -24,7 +24,7 @@ export const startDailySync = async () => {
   }
 
   // Schedule daily sync at 14:10 Spanish time
-  cron.schedule('10 14 * * *', async () => {
+  cron.schedule('10 18 * * *', async () => {
     console.log('Starting scheduled aviation data sync at 14:10 Spanish time...');
 
     try {
