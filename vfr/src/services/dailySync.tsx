@@ -1,26 +1,53 @@
-// services/dailySync.tsx - Update to use your service
+// services/dailySync.tsx
 import { OpenAIPSyncService } from './openAIPSync';
 import { createSyncConfig } from './syncConfig';
 import cron from 'node-cron';
 
-export const startDailySync = () => {
-  // Schedule sync at 2 AM daily
-  cron.schedule('0 2 * * *', async () => {
-    console.log('Starting scheduled aviation data sync...');
+let syncService: OpenAIPSyncService | null = null;
+
+export const startDailySync = async () => {
+  if (syncService) {
+    console.log('Sync service already initialized');
+    return;
+  }
+
+  console.log('Initializing aviation data sync service...');
+
+  const config = createSyncConfig();
+  syncService = new OpenAIPSyncService(config);
+
+  // Check for missing files and download immediately
+  try {
+    await syncService.checkAndDownloadMissingFiles();
+  } catch (error) {
+    console.error('Failed to check/download missing files:', error);
+  }
+
+  // Schedule daily sync at 14:10 Spanish time
+  cron.schedule('10 14 * * *', async () => {
+    console.log('Starting scheduled aviation data sync at 14:10 Spanish time...');
 
     try {
-      const config = createSyncConfig();
-      const syncService = new OpenAIPSyncService(config);
-      await syncService.syncAllData();
-      console.log('Scheduled sync completed successfully');
+      if (syncService) {
+        await syncService.syncAllData();
+        console.log('Scheduled sync completed successfully');
+      }
     } catch (error) {
       console.error('Scheduled sync failed:', error);
     }
+  }, {
+    timezone: 'Europe/Madrid'
   });
 
-  // Run initial sync on startup
-  console.log('Running initial aviation data sync...');
-  const config = createSyncConfig();
-  const syncService = new OpenAIPSyncService(config);
-  syncService.syncAllData().catch(console.error);
+  console.log('Aviation data sync service started successfully');
+};
+
+export const triggerManualSync = async () => {
+  if (!syncService) {
+    throw new Error('Sync service not initialized');
+  }
+
+  console.log('Manual sync triggered...');
+  await syncService.syncAllData();
+  console.log('Manual sync completed');
 };

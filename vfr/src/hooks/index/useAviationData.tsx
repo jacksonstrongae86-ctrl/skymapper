@@ -1,6 +1,14 @@
 // hooks/index/useAviationData.tsx
-import { useState, useEffect } from 'react';
-import { Airport, Airspace, NavigationPoint, Obstacle, Hotspot } from '../../utils/types';
+import { useState, useEffect } from "react";
+import {
+  Airport,
+  Airspace,
+  NavigationPoint,
+  Obstacle,
+  Hotspot,
+  GeoJsonFeature,
+  AviationProperties
+} from "../../utils/types";
 
 export interface AviationDataState {
   airports: Airport[];
@@ -14,7 +22,8 @@ export interface AviationDataState {
   country: string;
 }
 
-export const useAviationData = (country: string = 'es') => {
+// hooks/index/useAviationData.tsx
+export const useAviationData = (country: string = "es") => {
   const [state, setState] = useState<AviationDataState>({
     airports: [],
     airspaces: [],
@@ -28,50 +37,80 @@ export const useAviationData = (country: string = 'es') => {
   });
 
   const loadAviationData = async (selectedCountry: string) => {
-    setState(prev => ({ ...prev, loading: true, error: null, country: selectedCountry }));
+    setState((prev) => ({
+      ...prev,
+      loading: true,
+      error: null,
+      country: selectedCountry,
+    }));
 
     try {
-      const dataTypes = ['apt', 'asp', 'nav', 'obs', 'hot'];
-      const promises = dataTypes.map(type =>
+      const dataTypes = ["apt", "asp", "nav", "obs", "hot"];
+
+      const promises = dataTypes.map((type) =>
         fetch(`/data/cache/openaip/${selectedCountry}_${type}.json`)
-          .then(res => {
+          .then((res) => {
             if (!res.ok) {
-              throw new Error(`Cached file ${selectedCountry}_${type}.json not found`);
+              throw new Error(`Failed to load ${selectedCountry}_${type}.json`);
             }
             return res.json();
           })
-          .catch(err => {
-            console.warn(`Failed to load cached ${selectedCountry}_${type}.json:`, err);
+          .then((cachedData) => {
+            // Extract features from GeoJSON structure
+            const features = cachedData.data?.features || [];
+
+            // Transform GeoJSON features to your expected format
+          const items = features.map((feature: GeoJsonFeature<AviationProperties>) => ({
+            ...feature.properties,
+            geometry: feature.geometry,
+          }));
+
+            return {
+              data: { items },
+              lastUpdated: cachedData.lastUpdated,
+            };
+          })
+          .catch((err) => {
+            console.warn(`Failed to load ${selectedCountry}_${type}:`, err);
             return null;
           })
       );
 
-      const [airportData, airspaceData, navigationData, obstacleData, hotspotData] = await Promise.all(promises);
+      const [
+        airportData,
+        airspaceData,
+        navigationData,
+        obstacleData,
+        hotspotData,
+      ] = await Promise.all(promises);
 
-      const updateTimes = [airportData, airspaceData, navigationData, obstacleData, hotspotData]
-        .filter(data => data?.lastUpdated)
-        .map(data => data.lastUpdated);
-
-      const lastUpdated = updateTimes.length > 0 ?
-        updateTimes.reduce((latest, current) =>
-          new Date(current) > new Date(latest) ? current : latest
-        ) : null;
-
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         airports: airportData?.data?.items || [],
         airspaces: airspaceData?.data?.items || [],
         navigation: navigationData?.data?.items || [],
         obstacles: obstacleData?.data?.items || [],
         hotspots: hotspotData?.data?.items || [],
-        lastUpdated,
+        lastUpdated: airportData?.lastUpdated || new Date().toISOString(),
         loading: false,
       }));
+
+      console.log("Aviation data loaded successfully:", {
+        airports: airportData?.data?.items?.length || 0,
+        airspaces: airspaceData?.data?.items?.length || 0,
+        navigation: navigationData?.data?.items?.length || 0,
+        obstacles: obstacleData?.data?.items?.length || 0,
+        hotspots: hotspotData?.data?.items?.length || 0,
+      });
     } catch (error) {
-      setState(prev => ({
+      console.error("Aviation data loading error:", error);
+      setState((prev) => ({
         ...prev,
         loading: false,
-        error: error instanceof Error ? error.message : 'Failed to load aviation data',
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to load aviation data",
       }));
     }
   };

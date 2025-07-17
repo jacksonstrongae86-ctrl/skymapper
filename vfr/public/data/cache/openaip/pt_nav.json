@@ -1,0 +1,3590 @@
+{
+  "data": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "properties": {
+          "_id": "62616bf5abdcc7f0ccbbcdde",
+          "name": "ARRABIDA",
+          "identifier": "ARR",
+          "type": 0,
+          "country": "PT",
+          "channel": "20X",
+          "frequency": {
+            "value": "108.300",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 350,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.5716538420631951,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:36:37.023Z",
+          "updatedAt": "2022-10-19T18:07:52.544Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 53.65244880000046,
+            "hae": 403.65244880000046
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.9622222222222,
+            38.492777777778
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "properties": {
+          "_id": "62616bf5abdcc7f0ccbbcde9",
+          "name": "ARRUDA",
+          "identifier": "LAR",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "382.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 163,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.611238146339795,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:36:37.310Z",
+          "updatedAt": "2022-10-19T18:07:52.710Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.322003333332475,
+            "hae": 217.32200333333247
+          },
+          "range": {
+            "value": 50,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.0402777777778,
+            38.994444444444
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "properties": {
+          "_id": "62616c16abdcc7f0ccbbd2f3",
+          "name": "BEJA",
+          "identifier": "BEJ",
+          "type": 1,
+          "country": "PT",
+          "channel": "105X",
+          "frequency": {
+            "value": "115.800",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 182,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -0.9551,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:37:10.949Z",
+          "updatedAt": "2023-06-29T11:18:45.314Z",
+          "createdBy": "import-script",
+          "updatedBy": "OPONcQnzWGOLiJSceNaf8pvx1fA2",
+          "elevationGeoid": {
+            "geoidHeight": 55.38938399999981,
+            "hae": 237.3893839999998
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -7.9266666666667,
+            38.128333333333
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "properties": {
+          "_id": "62616c17abdcc7f0ccbbd2fe",
+          "name": "BEJA",
+          "identifier": "BJA",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "376.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 189,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.2326159777828667,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:37:11.223Z",
+          "updatedAt": "2022-10-19T18:08:53.164Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 55.41007800000017,
+            "hae": 244.41007800000017
+          },
+          "range": {
+            "value": 100,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -7.9216666666667,
+            38.159166666667
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 5,
+        "properties": {
+          "_id": "62616c38abdcc7f0ccbbd7d9",
+          "name": "BRAGANCA",
+          "identifier": "BRG",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "358.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 630,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -0.9849886499342047,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:37:44.277Z",
+          "updatedAt": "2022-10-19T18:10:03.287Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 57.385851333334614,
+            "hae": 687.3858513333346
+          },
+          "range": {
+            "value": 25,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -6.7263888888889,
+            41.798055555556
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 6,
+        "properties": {
+          "_id": "62616c5aabdcc7f0ccbbdcca",
+          "name": "CAPARICA",
+          "identifier": "CP",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "389.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 73,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.6597737272100035,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:38:18.955Z",
+          "updatedAt": "2022-10-19T18:10:45.228Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 53.588885466665914,
+            "hae": 126.58888546666591
+          },
+          "range": {
+            "value": 180,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.2213888888889,
+            38.642222222222
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 7,
+        "properties": {
+          "_id": "62616c62abdcc7f0ccbbdde8",
+          "name": "CASCAIS",
+          "identifier": "CA",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "359.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 96,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.7068460006305124,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:38:26.511Z",
+          "updatedAt": "2022-10-19T18:10:53.845Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 53.95642000000092,
+            "hae": 149.95642000000092
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.3583333333333,
+            38.725277777778
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 8,
+        "properties": {
+          "_id": "62616c62abdcc7f0ccbbddf3",
+          "name": "CASCAIS",
+          "identifier": "CAS",
+          "type": 7,
+          "country": "PT",
+          "channel": "90X",
+          "frequency": {
+            "value": "114.300",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 193,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.7087044709354569,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:38:26.815Z",
+          "updatedAt": "2022-10-19T18:10:54.161Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.04924999999869,
+            "hae": 247.0492499999987
+          },
+          "range": {
+            "value": 60,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.3619444444444,
+            38.748333333333
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 9,
+        "properties": {
+          "_id": "62616cdcabdcc7f0ccbbeefb",
+          "name": "ESPICHEL",
+          "identifier": "ESP",
+          "type": 7,
+          "country": "PT",
+          "channel": "72X",
+          "frequency": {
+            "value": "112.500",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 163,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.6422528795103901,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:28.802Z",
+          "updatedAt": "2022-10-19T18:14:32.085Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 53.01478600000084,
+            "hae": 216.01478600000084
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.1855555555556,
+            38.424166666667
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 10,
+        "properties": {
+          "_id": "62616ce3abdcc7f0ccbbf003",
+          "name": "FARO",
+          "identifier": "VFA",
+          "type": 7,
+          "country": "PT",
+          "channel": "75X",
+          "frequency": {
+            "value": "112.800",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 2,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.2329449736366809,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:35.749Z",
+          "updatedAt": "2022-10-19T18:14:46.914Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 52.274700999999,
+            "hae": 54.274700999999
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -7.975,
+            37.013611111111
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 11,
+        "properties": {
+          "_id": "62616ce4abdcc7f0ccbbf019",
+          "name": "FATIMA",
+          "identifier": "FTM",
+          "type": 7,
+          "country": "PT",
+          "channel": "82X",
+          "frequency": {
+            "value": "113.500",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 199,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.4566519104274218,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:36.407Z",
+          "updatedAt": "2022-10-19T18:14:47.971Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 55.1569955333332,
+            "hae": 254.1569955333332
+          },
+          "range": {
+            "value": 60,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.4936111111111,
+            39.666111111111
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 12,
+        "properties": {
+          "_id": "62616cebabdcc7f0ccbbf108",
+          "name": "FLORES",
+          "identifier": "FRS",
+          "type": 7,
+          "country": "PT",
+          "channel": "80X",
+          "frequency": {
+            "value": "113.300",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 842,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -9.719933076420181,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:43.045Z",
+          "updatedAt": "2022-10-19T18:14:55.420Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 57.369764399998814,
+            "hae": 899.3697643999988
+          },
+          "range": {
+            "value": 250,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -31.210555555556,
+            39.453611111111
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 13,
+        "properties": {
+          "_id": "62616cf9abdcc7f0ccbbf31b",
+          "name": "FUNCHAL",
+          "identifier": "FUN",
+          "type": 4,
+          "country": "PT",
+          "channel": "59X",
+          "frequency": {
+            "value": "112.200",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 133,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -4.226813555267522,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:57.586Z",
+          "updatedAt": "2022-10-19T18:15:17.655Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 49.043493333334794,
+            "hae": 182.0434933333348
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -16.705555555556,
+            32.747222222222
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14,
+        "properties": {
+          "_id": "62616cf9abdcc7f0ccbbf326",
+          "name": "FUNCHAL",
+          "identifier": "FUN",
+          "type": 0,
+          "country": "PT",
+          "channel": "59X",
+          "frequency": {
+            "value": "112.200",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 133,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -4.226820138809544,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:57.888Z",
+          "updatedAt": "2022-10-19T18:15:18.133Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 49.04088266666599,
+            "hae": 182.040882666666
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -16.705555555556,
+            32.746944444444
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 15,
+        "properties": {
+          "_id": "62616cfaabdcc7f0ccbbf331",
+          "name": "FUNCHAL",
+          "identifier": "MAD",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "318.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 144,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -4.227098342742411,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:40:58.198Z",
+          "updatedAt": "2022-10-19T18:15:18.691Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 49.05845473333869,
+            "hae": 193.0584547333387
+          },
+          "range": {
+            "value": 50,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -16.706388888889,
+            32.748055555556
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 16,
+        "properties": {
+          "_id": "62616d4babdcc7f0ccbbfe82",
+          "name": "HORTA",
+          "identifier": "FIL",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "380.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 36,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -8.746374852798255,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:42:19.193Z",
+          "updatedAt": "2022-10-19T18:16:58.355Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 58.365284100000935,
+            "hae": 94.36528410000093
+          },
+          "range": {
+            "value": 250,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -28.685833333333,
+            38.5225
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 17,
+        "properties": {
+          "_id": "62616d4babdcc7f0ccbbfe8d",
+          "name": "HORTA",
+          "identifier": "VFL",
+          "type": 8,
+          "country": "PT",
+          "channel": "74X",
+          "frequency": {
+            "value": "112.700",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 135,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -8.723468205452528,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:42:19.479Z",
+          "updatedAt": "2022-10-19T18:16:59.123Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 58.44697666666596,
+            "hae": 193.44697666666596
+          },
+          "range": {
+            "value": 240,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -28.623611111111,
+            38.519444444444
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 18,
+        "properties": {
+          "_id": "62616d9dabdcc7f0ccbc0aaa",
+          "name": "LAJES",
+          "identifier": "LM",
+          "type": 3,
+          "country": "PT",
+          "frequency": {
+            "value": "112.300",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 74,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -8.179474270699526,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:43:41.063Z",
+          "updatedAt": "2022-10-19T18:19:59.588Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 58.91238186666462,
+            "hae": 132.91238186666462
+          },
+          "range": {
+            "value": 100,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -27.104444444444,
+            38.783888888889
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 19,
+        "properties": {
+          "_id": "62616d9dabdcc7f0ccbc0ab6",
+          "name": "LAJES",
+          "identifier": "LAJ",
+          "type": 1,
+          "country": "PT",
+          "channel": "45X",
+          "frequency": {
+            "value": "110.800",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 536,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -7.874,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:43:41.279Z",
+          "updatedAt": "2023-06-29T10:45:17.228Z",
+          "createdBy": "import-script",
+          "updatedBy": "OPONcQnzWGOLiJSceNaf8pvx1fA2",
+          "elevationGeoid": {
+            "geoidHeight": 59.08375040000064,
+            "hae": 595.0837504000007
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -27.115555555556,
+            38.713333333333
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 20,
+        "properties": {
+          "_id": "62616dbfabdcc7f0ccbc0fb2",
+          "name": "LISBOA",
+          "identifier": "LIS",
+          "type": 7,
+          "country": "PT",
+          "channel": "95X",
+          "frequency": {
+            "value": "114.800",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 337,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.6478480159721263,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:44:15.284Z",
+          "updatedAt": "2022-10-19T18:22:10.329Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.2749778666674,
+            "hae": 391.2749778666674
+          },
+          "range": {
+            "value": 80,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.1627777777778,
+            38.887777777778
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 21,
+        "properties": {
+          "_id": "62616e0eabdcc7f0ccbc1af8",
+          "name": "MONTARGIL",
+          "identifier": "DMT",
+          "type": 0,
+          "country": "PT",
+          "channel": "45X",
+          "frequency": {
+            "value": "110.800",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 229,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.339123068163208,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:45:34.570Z",
+          "updatedAt": "2022-10-19T18:24:02.135Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.765905000000146,
+            "hae": 283.76590500000015
+          },
+          "range": {
+            "value": 115,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.1875,
+            39.077222222222
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 22,
+        "properties": {
+          "_id": "62616e0fabdcc7f0ccbc1b19",
+          "name": "MONTE REAL",
+          "identifier": "MTR",
+          "type": 1,
+          "country": "PT",
+          "channel": "33X",
+          "frequency": {
+            "value": "109.600",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 55,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.303,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:45:35.518Z",
+          "updatedAt": "2023-06-29T11:04:19.245Z",
+          "createdBy": "import-script",
+          "updatedBy": "OPONcQnzWGOLiJSceNaf8pvx1fA2",
+          "elevationGeoid": {
+            "geoidHeight": 53.974249999999984,
+            "hae": 108.97424999999998
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.8902777777778,
+            39.8325
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 23,
+        "properties": {
+          "_id": "62616e11abdcc7f0ccbc1b5b",
+          "name": "MONTIJO",
+          "identifier": "MOJ",
+          "type": 1,
+          "country": "PT",
+          "channel": "37X",
+          "frequency": {
+            "value": "110.000",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 5,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.316,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:45:37.321Z",
+          "updatedAt": "2023-06-29T11:04:13.266Z",
+          "createdBy": "import-script",
+          "updatedBy": "OPONcQnzWGOLiJSceNaf8pvx1fA2",
+          "elevationGeoid": {
+            "geoidHeight": 53.65877600000016,
+            "hae": 58.65877600000016
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.0333333333333,
+            38.708888888889
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 24,
+        "properties": {
+          "_id": "62616e3dabdcc7f0ccbc2149",
+          "name": "NISA",
+          "identifier": "NSA",
+          "type": 7,
+          "country": "PT",
+          "channel": "102X",
+          "frequency": {
+            "value": "115.500",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 384,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.2675484060165911,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:46:21.961Z",
+          "updatedAt": "2022-10-19T18:24:55.618Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 55.56744323333285,
+            "hae": 439.5674432333328
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -7.9147222222222,
+            39.564722222222
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 25,
+        "properties": {
+          "_id": "62616e90abdcc7f0ccbc2d04",
+          "name": "PONTA DELGADA",
+          "identifier": "VMG",
+          "type": 7,
+          "country": "PT",
+          "channel": "49X",
+          "frequency": {
+            "value": "111.200",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 842,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -7.633062839535586,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:47:44.849Z",
+          "updatedAt": "2022-10-19T18:26:50.607Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 57.07634653333173,
+            "hae": 899.0763465333317
+          },
+          "range": {
+            "value": 150,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -25.758055555556,
+            37.846111111111
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 26,
+        "properties": {
+          "_id": "62616e94abdcc7f0ccbc2da9",
+          "name": "PORTO",
+          "identifier": "POR",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "327.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 47,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.6028920076422957,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:47:48.710Z",
+          "updatedAt": "2022-10-19T18:26:54.983Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 55.45796263333381,
+            "hae": 102.4579626333338
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.7080555555556,
+            41.348055555556
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 27,
+        "properties": {
+          "_id": "62616e94abdcc7f0ccbc2db2",
+          "name": "PORTO",
+          "identifier": "PRT",
+          "type": 4,
+          "country": "PT",
+          "channel": "88X",
+          "frequency": {
+            "value": "114.100",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 41,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.5921384413412505,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:47:48.995Z",
+          "updatedAt": "2022-10-19T18:26:55.328Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 55.45691733333334,
+            "hae": 96.45691733333334
+          },
+          "range": {
+            "value": 80,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.6877777777778,
+            41.273055555556
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 28,
+        "properties": {
+          "_id": "62616e95abdcc7f0ccbc2dca",
+          "name": "PORTO SANTO",
+          "identifier": "PST",
+          "type": 2,
+          "country": "PT",
+          "frequency": {
+            "value": "338.000",
+            "unit": 1
+          },
+          "elevation": {
+            "value": 139,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -4.093135672736279,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:47:49.644Z",
+          "updatedAt": "2022-10-19T18:26:56.021Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 48.21666999999832,
+            "hae": 187.21666999999832
+          },
+          "range": {
+            "value": 250,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -16.358333333333,
+            33.068611111111
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 29,
+        "properties": {
+          "_id": "62616e95abdcc7f0ccbc2dd5",
+          "name": "PORTO SANTO",
+          "identifier": "SNT",
+          "type": 4,
+          "country": "PT",
+          "channel": "96X",
+          "frequency": {
+            "value": "114.900",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 107,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -4.089869513478031,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:47:49.887Z",
+          "updatedAt": "2022-10-19T18:26:56.252Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 48.2671183333336,
+            "hae": 155.2671183333336
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -16.350555555556,
+            33.090277777778
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 30,
+        "properties": {
+          "_id": "62616ed2abdcc7f0ccbc36e5",
+          "name": "SAGRES",
+          "identifier": "SGR",
+          "type": 7,
+          "country": "PT",
+          "channel": "86X",
+          "frequency": {
+            "value": "113.900",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 146,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.5399588894494338,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:48:50.442Z",
+          "updatedAt": "2022-10-19T18:27:58.890Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 52.96676873333365,
+            "hae": 198.96676873333365
+          },
+          "range": {
+            "value": 250,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -8.9463888888889,
+            37.083888888889
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 31,
+        "properties": {
+          "_id": "62616ee5abdcc7f0ccbc39af",
+          "name": "SANTA MARIA",
+          "identifier": "VSM",
+          "type": 4,
+          "country": "PT",
+          "channel": "57X",
+          "frequency": {
+            "value": "112.000",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 94,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -7.381914805166805,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:49:09.313Z",
+          "updatedAt": "2022-10-19T18:28:20.461Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.31132766666835,
+            "hae": 148.31132766666835
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -25.166388888889,
+            36.962777777778
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 32,
+        "properties": {
+          "_id": "62616f05abdcc7f0ccbc3dd1",
+          "name": "SINTRA",
+          "identifier": "SRA",
+          "type": 5,
+          "country": "PT",
+          "channel": "58X",
+          "frequency": {
+            "value": "112.100",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 132,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.7039418355072948,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:49:41.896Z",
+          "updatedAt": "2022-10-19T18:28:50.418Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 54.25683000000083,
+            "hae": 186.25683000000083
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -9.34,
+            38.829166666667
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 33,
+        "properties": {
+          "_id": "62616f93abdcc7f0ccbc518a",
+          "name": "VISEU",
+          "identifier": "VIS",
+          "type": 7,
+          "country": "PT",
+          "channel": "78X",
+          "frequency": {
+            "value": "113.100",
+            "unit": 2
+          },
+          "elevation": {
+            "value": 633,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "magneticDeclination": -1.3035939361198678,
+          "alignedTrueNorth": false,
+          "createdAt": "2022-04-21T14:52:03.272Z",
+          "updatedAt": "2022-10-19T18:31:39.379Z",
+          "createdBy": "import-script",
+          "updatedBy": "openaip-system",
+          "elevationGeoid": {
+            "geoidHeight": 56.3081267999992,
+            "hae": 689.3081267999992
+          },
+          "range": {
+            "value": 200,
+            "unit": 2
+          },
+          "hoursOfOperation": {
+            "operatingHours": [
+              {
+                "dayOfWeek": 0,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 1,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 2,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 3,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 4,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 5,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              },
+              {
+                "dayOfWeek": 6,
+                "startTime": "00:00",
+                "endTime": "00:00",
+                "byNotam": false,
+                "sunrise": false,
+                "sunset": false,
+                "publicHolidaysExcluded": false
+              }
+            ]
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            -7.8858333333333,
+            40.723333333333
+          ]
+        }
+      }
+    ]
+  },
+  "lastUpdated": "2025-07-17T12:09:23.435Z",
+  "country": "pt",
+  "dataType": "nav",
+  "version": "1.0"
+}

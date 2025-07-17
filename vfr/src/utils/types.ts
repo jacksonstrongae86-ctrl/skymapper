@@ -207,10 +207,70 @@ export interface MapComponentProps {
 // OpenAIP
 
 // types/aviation.ts
-export interface AviationGeometry {
-  type: "Point" | "Polygon" | "MultiPolygon";
-  coordinates: number[] | number[][][] | number[][][][];
+// Updated GeoJSON-compatible geometry types
+export type AviationGeometry =
+  | PointGeometry
+  | PolygonGeometry
+  | MultiPolygonGeometry
+  | LineStringGeometry
+  | MultiLineStringGeometry;
+
+export interface PointGeometry {
+  type: "Point";
+  coordinates: [number, number]; // [longitude, latitude]
 }
+
+export interface PolygonGeometry {
+  type: "Polygon";
+  coordinates: number[][][]; // Array of linear rings
+}
+
+export interface MultiPolygonGeometry {
+  type: "MultiPolygon";
+  coordinates: number[][][][]; // Array of polygons
+}
+
+export interface LineStringGeometry {
+  type: "LineString";
+  coordinates: number[][]; // Array of positions
+}
+
+export interface MultiLineStringGeometry {
+  type: "MultiLineString";
+  coordinates: number[][][]; // Array of line strings
+}
+
+// Updated data wrapper for GeoJSON FeatureCollection
+export interface GeoJsonFeatureCollection<T> {
+  type: "FeatureCollection";
+  features: GeoJsonFeature<T>[];
+}
+
+export interface GeoJsonFeature<T> {
+  type: "Feature";
+  id?: string | number;
+  properties: T;
+  geometry: AviationGeometry;
+}
+
+// Updated data wrapper interfaces for the new structure
+export interface AviationDataWrapper<T> {
+  data: GeoJsonFeatureCollection<T>;
+  lastUpdated: string;
+  country: string;
+  dataType: string;
+  version: string;
+}
+
+export type AirportData = AviationDataWrapper<Airport>;
+export type AirspaceData = AviationDataWrapper<Airspace>;
+export type NavigationData = AviationDataWrapper<NavigationPoint>;
+export type ObstacleData = AviationDataWrapper<Obstacle>;
+export type HotspotData = AviationDataWrapper<Hotspot>;
+
+export type AviationData = AirportData | AirspaceData | NavigationData | ObstacleData | HotspotData;
+
+export type AviationProperties = Airport | Airspace | NavigationPoint | Obstacle
 
 export interface Elevation {
   value: number;
@@ -282,6 +342,14 @@ export interface Runway {
   _id: string;
 }
 
+export interface AirspaceFrequency {
+  value: string;
+  primary: boolean;
+  unit: number;
+  name: string;
+  _id: string;
+}
+// Update your individual type interfaces to remove geometry (it's now in the GeoJSON structure)
 export interface Airport {
   _id: string;
   name: string;
@@ -291,7 +359,7 @@ export interface Airport {
   trafficType: number[];
   magneticDeclination: number;
   country: string;
-  geometry: AviationGeometry;
+  // Remove geometry from here - it's now in the GeoJSON feature structure
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
   ppr: boolean;
@@ -304,16 +372,7 @@ export interface Airport {
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
-  __v: number;
-}
-
-// Airspace Types
-export interface AirspaceFrequency {
-  value: string;
-  primary: boolean;
-  unit: number;
-  name: string;
-  _id: string;
+  __v?: number;
 }
 
 export interface Airspace {
@@ -332,17 +391,16 @@ export interface Airspace {
   byNotam: boolean;
   specialAgreement: boolean;
   requestCompliance: boolean;
-  geometry: AviationGeometry;
+  // Remove geometry from here - it's now in the GeoJSON feature structure
   country: string;
   upperLimit: Elevation;
   lowerLimit: Elevation;
   frequencies: AirspaceFrequency[];
   hoursOfOperation: HoursOfOperation;
-  __v: number;
+  __v?: number;
   deletable: boolean;
 }
 
-// Navigation Point Types
 export interface NavigationPoint {
   _id: string;
   name: string;
@@ -354,7 +412,7 @@ export interface NavigationPoint {
     value: string;
     unit: number;
   };
-  geometry: AviationGeometry;
+  // Remove geometry from here - it's now in the GeoJSON feature structure
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
   magneticDeclination: number;
@@ -363,21 +421,20 @@ export interface NavigationPoint {
   updatedAt: string;
   createdBy: string;
   updatedBy: string;
-  __v: number;
+  __v?: number;
   hoursOfOperation: HoursOfOperation;
 }
 
-// Obstacle Types
 export interface Obstacle {
   _id: string;
   osmId: string;
-  __v: number;
+  __v?: number;
   country: string;
   createdAt: string;
   createdBy: string;
   elevation: Elevation;
   elevationGeoid: ElevationGeoid;
-  geometry: AviationGeometry;
+  // Remove geometry from here - it's now in the GeoJSON feature structure
   name: string;
   osmTags: {
     key: string;
@@ -392,38 +449,22 @@ export interface Obstacle {
   updatedBy: string;
 }
 
-// Hotspot Types
 export interface Hotspot {
   _id: string;
   name: string;
   type: number;
   country: string;
-  geometry: AviationGeometry;
-  // Add other properties as they become available
+  // Remove geometry from here - it's now in the GeoJSON feature structure
 }
 
 // Data wrapper interfaces
 export interface AviationDataWrapper<T> {
-  data: {
-    limit: number;
-    totalCount: number;
-    totalPages: number;
-    page: number;
-    items: T[];
-  };
+  data: GeoJsonFeatureCollection<T>;
   lastUpdated: string;
   country: string;
   dataType: string;
+  version: string;
 }
-
-export type AirportData = AviationDataWrapper<Airport>;
-export type AirspaceData = AviationDataWrapper<Airspace>;
-export type NavigationData = AviationDataWrapper<NavigationPoint>;
-export type ObstacleData = AviationDataWrapper<Obstacle>;
-export type HotspotData = AviationDataWrapper<Hotspot>;
-
-export type AviationData = AirportData | AirspaceData | NavigationData | ObstacleData | HotspotData;
-
 
 // Country Centers
 

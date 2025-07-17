@@ -1,0 +1,4121 @@
+{
+  "data": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "properties": {
+          "_id": "626151b9cb27f42509467942",
+          "name": "AELPETLISPITZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2562,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:41.072Z",
+          "updatedAt": "2022-04-21T12:44:41.103Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.638262061414366,
+            "hae": 2612.6382620614145
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.960000414,
+            46.876387406
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "properties": {
+          "_id": "626151b9cb27f4250946794c",
+          "name": "ALPERSCHAEILHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2576,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:41.195Z",
+          "updatedAt": "2022-04-21T12:44:41.229Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.82812616779958,
+            "hae": 2626.8281261677994
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.304444834,
+            46.591667555
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "properties": {
+          "_id": "626151b95e9ded57104533de",
+          "name": "ARDEZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2278,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:41.477Z",
+          "updatedAt": "2022-04-21T12:44:41.499Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.45700025721672,
+            "hae": 2329.457000257217
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.222499951,
+            46.80666824999999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "properties": {
+          "_id": "626151b95e9ded57104533ec",
+          "name": "BAETTLIHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2700,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:41.779Z",
+          "updatedAt": "2022-04-21T12:44:41.848Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.74690949433938,
+            "hae": 2752.7469094943394
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.099444077,
+            46.33416600799999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 5,
+        "properties": {
+          "_id": "626151b95e9ded57104533f7",
+          "name": "BALFRIN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3059,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:41.957Z",
+          "updatedAt": "2022-04-21T12:44:42.044Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 53.789741657007596,
+            "hae": 3112.7897416570077
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.827500095000001,
+            46.13833424
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 6,
+        "properties": {
+          "_id": "626151b9cb27f42509467962",
+          "name": "ALPTHALKRETE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1587,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2,
+            3
+          ],
+          "remarks": "Reliable starting Point in the morning",
+          "createdAt": "2022-04-21T12:44:41.604Z",
+          "updatedAt": "2022-04-21T12:44:41.787Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 48.74696351293218,
+            "hae": 1635.746963512932
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.7465124129937,
+            47.063474234997
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 7,
+        "properties": {
+          "_id": "626151b9cb27f4250946795b",
+          "name": "ALP MUNTATSCH",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2100,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "remarks": "First thermal after winch departure before 13 hours",
+          "createdAt": "2022-04-21T12:44:41.490Z",
+          "updatedAt": "2022-04-21T12:44:41.591Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.69626444395013,
+            "hae": 2151.69626444395
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8638992308802,
+            46.54136540473
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 8,
+        "properties": {
+          "_id": "626151bacb27f4250946796d",
+          "name": "AROSER ROTHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2805,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.093Z",
+          "updatedAt": "2022-04-21T12:44:42.342Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.23339436900403,
+            "hae": 2855.233394369004
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.593888614,
+            46.708053979
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 9,
+        "properties": {
+          "_id": "626151bacb27f42509467978",
+          "name": "AROSER ROT SUED",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1632,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.355Z",
+          "updatedAt": "2022-04-21T12:44:42.385Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.401823276109496,
+            "hae": 1682.4018232761096
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.62055538,
+            46.68527871300001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 10,
+        "properties": {
+          "_id": "626151ba5e9ded5710453402",
+          "name": "BLINNENHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2531,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.079Z",
+          "updatedAt": "2022-04-21T12:44:42.266Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.71280133358172,
+            "hae": 2583.712801333582
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.28611144,
+            46.444442828
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 11,
+        "properties": {
+          "_id": "626151bacb27f42509467986",
+          "name": "CRASTA MORA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2766,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.492Z",
+          "updatedAt": "2022-04-21T12:44:42.515Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.63328057138952,
+            "hae": 2817.6332805713896
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.880555922,
+            46.569445535
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 12,
+        "properties": {
+          "_id": "626151ba5e9ded5710453410",
+          "name": "CALANDA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2033,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.413Z",
+          "updatedAt": "2022-04-21T12:44:42.550Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.19150116760039,
+            "hae": 2082.1915011676006
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.440000183,
+            46.859445122
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 13,
+        "properties": {
+          "_id": "626151ba5e9ded5710453414",
+          "name": "CHALL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 752,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.526Z",
+          "updatedAt": "2022-04-21T12:44:42.560Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.40761886683083,
+            "hae": 801.4076188668308
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.4587297436552,
+            47.450314489892
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14,
+        "properties": {
+          "_id": "626151bacb27f42509467991",
+          "name": "CRETA BESSE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2700,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.524Z",
+          "updatedAt": "2022-04-21T12:44:42.540Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.41337556803458,
+            "hae": 2752.4133755680346
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.3517208099609,
+            46.301957285804
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 15,
+        "properties": {
+          "_id": "626151ba5e9ded5710453433",
+          "name": "EGGISHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2433,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.722Z",
+          "updatedAt": "2022-04-21T12:44:42.754Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.81252474615346,
+            "hae": 2485.8125247461535
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.103333016,
+            46.420277618
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 16,
+        "properties": {
+          "_id": "626151ba4b027aab592b454b",
+          "name": "CRAP GRISCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2475,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.799Z",
+          "updatedAt": "2022-04-21T12:44:42.816Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.54140381776247,
+            "hae": 2525.5414038177623
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.227500191,
+            46.651387314
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 17,
+        "properties": {
+          "_id": "626151ba5e9ded571045343f",
+          "name": "FUELHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2628,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.851Z",
+          "updatedAt": "2022-04-21T12:44:42.950Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.74491400766712,
+            "hae": 2680.744914007667
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.074444731,
+            46.32555655499999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 18,
+        "properties": {
+          "_id": "626151bacb27f425094679a3",
+          "name": "EBENALP",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1600,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:42.872Z",
+          "updatedAt": "2022-04-21T12:44:42.914Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.8294442106064,
+            "hae": 1647.8294442106064
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.4110565184856,
+            47.284646680139
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 19,
+        "properties": {
+          "_id": "626151bb4b027aab592b4560",
+          "name": "GANDHORE",
+          "type": 0,
+          "reliability": 3,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2,
+            3
+          ],
+          "remarks": "Kiesfeld südlich am Gandhore",
+          "createdAt": "2022-04-21T12:44:43.241Z",
+          "updatedAt": "2022-04-21T12:44:43.308Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.82242836455805,
+            "hae": 2051.822428364558
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.423646926902,
+            46.526334286832
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 20,
+        "properties": {
+          "_id": "626151bb4b027aab592b4568",
+          "name": "GRAND CHAVALARD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2806,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.367Z",
+          "updatedAt": "2022-04-21T12:44:43.408Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.16106940810633,
+            "hae": 2858.1610694081064
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.111944291999999,
+            46.177498544
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 21,
+        "properties": {
+          "_id": "626151bb5e9ded571045344f",
+          "name": "GALMIHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2343,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.339Z",
+          "updatedAt": "2022-04-21T12:44:43.523Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.727398892152166,
+            "hae": 2395.727398892152
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.237777606,
+            46.495276511
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 22,
+        "properties": {
+          "_id": "626151bbcb27f425094679b0",
+          "name": "GABELHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3116,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.195Z",
+          "updatedAt": "2022-04-21T12:44:43.293Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 54.672714779188055,
+            "hae": 3170.672714779188
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.695000402,
+            46.02500091099999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 23,
+        "properties": {
+          "_id": "626151bb5e9ded5710453465",
+          "name": "GÖSGEN NUCLEAR POWER PLANT",
+          "type": 1,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 381,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Sometimes a lot of turbulence. In the period of yearly revision (mostly during june) the hotspot could not be active (even if condensation is visible). For exact dates check the latest press releases on https://www.kkg.ch/de/i/archiv.html.",
+          "createdAt": "2022-04-21T12:44:43.650Z",
+          "updatedAt": "2022-04-21T12:44:43.669Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 48.69005174287662,
+            "hae": 429.6900517428766
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.9686927792232,
+            47.365920233741
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 24,
+        "properties": {
+          "_id": "626151bbcb27f425094679bf",
+          "name": "GRAVATSCHA-MÜSELLA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:44:43.605Z",
+          "updatedAt": "2022-04-21T12:44:43.691Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.73946625229462,
+            "hae": 2051.7394662522947
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.9079303740678,
+            46.54477055805
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 25,
+        "properties": {
+          "_id": "626151bb4b027aab592b4573",
+          "name": "GURSCHUSS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2638,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.461Z",
+          "updatedAt": "2022-04-21T12:44:43.541Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.9202805406274,
+            "hae": 2688.9202805406276
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.484166748,
+            46.559722761
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 26,
+        "properties": {
+          "_id": "626151bb4b027aab592b4580",
+          "name": "GÄBRIS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1300,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.658Z",
+          "updatedAt": "2022-04-21T12:44:43.758Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.38269280859117,
+            "hae": 1347.3826928085912
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.4676997260635,
+            47.381401464679
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 27,
+        "properties": {
+          "_id": "626151bbcb27f425094679cb",
+          "name": "HUNDSRÜGG",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:43.770Z",
+          "updatedAt": "2022-04-21T12:44:43.877Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.56810055252711,
+            "hae": 2051.568100552527
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.3062090873992,
+            46.556885786598
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 28,
+        "properties": {
+          "_id": "626151bc4b027aab592b4596",
+          "name": "MARTEGNAS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2222,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.058Z",
+          "updatedAt": "2022-04-21T12:44:44.074Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.8256422627976,
+            "hae": 2272.8256422627974
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.544722351,
+            46.588611046
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 29,
+        "properties": {
+          "_id": "626151bb5e9ded5710453479",
+          "name": "LANGIS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1750,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:43.847Z",
+          "updatedAt": "2022-04-21T12:44:43.903Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.8050253754233,
+            "hae": 1799.8050253754234
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.1450109481723,
+            46.897382467794
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 30,
+        "properties": {
+          "_id": "626151bc4b027aab592b45a0",
+          "name": "MONTI MOTTI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 756,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:44.160Z",
+          "updatedAt": "2022-04-21T12:44:44.176Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.65468630599008,
+            "hae": 806.65468630599
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.8572769164695,
+            46.190841153239
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 31,
+        "properties": {
+          "_id": "626151bc4b027aab592b45ae",
+          "name": "MONTOZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1240,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:44:44.273Z",
+          "updatedAt": "2022-04-21T12:44:44.290Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.871087363697285,
+            "hae": 1289.8710873636974
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.2092628476116,
+            47.205400435443
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 32,
+        "properties": {
+          "_id": "626151bc5e9ded5710453482",
+          "name": "LAVIN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2566,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.069Z",
+          "updatedAt": "2022-04-21T12:44:44.169Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.383216254972666,
+            "hae": 2617.3832162549725
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.121666723,
+            46.790279211
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 33,
+        "properties": {
+          "_id": "626151bc5e9ded5710453498",
+          "name": "MUCHETA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2640,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.640Z",
+          "updatedAt": "2022-04-21T12:44:44.656Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.91778863811933,
+            "hae": 2690.9177886381194
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.763055324,
+            46.67055624
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 34,
+        "properties": {
+          "_id": "626151bc4b027aab592b45c0",
+          "name": "MORON",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1073,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.553Z",
+          "updatedAt": "2022-04-21T12:44:44.578Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.86257630205799,
+            "hae": 1122.862576302058
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.2453765869406,
+            47.250764132982
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 35,
+        "properties": {
+          "_id": "626151bccb27f425094679de",
+          "name": "MONT RAIMEUX",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1245,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.474Z",
+          "updatedAt": "2022-04-21T12:44:44.575Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.52422577620587,
+            "hae": 1294.5242257762059
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.4227027893297,
+            47.299564428016
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 36,
+        "properties": {
+          "_id": "626151bc5e9ded57104534a1",
+          "name": "MUCHETTA (ALBULA)",
+          "type": 0,
+          "reliability": 3,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2422,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Good thermals",
+          "createdAt": "2022-04-21T12:44:44.676Z",
+          "updatedAt": "2022-04-21T12:44:44.724Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.75660901203793,
+            "hae": 2472.756609012038
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.7229652404111,
+            46.67495956976
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 37,
+        "properties": {
+          "_id": "626151bc4b027aab592b45cd",
+          "name": "MUNT LA SCHERA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2346,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.774Z",
+          "updatedAt": "2022-04-21T12:44:44.811Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.79024351078024,
+            "hae": 2397.7902435107803
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.202500304,
+            46.646387616
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 38,
+        "properties": {
+          "_id": "626151bc5e9ded57104534b9",
+          "name": "MUOTTAS MURAGL",
+          "type": 0,
+          "reliability": 3,
+          "occurrence": 2,
+          "category": [
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2349,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "remarks": "Rettungsanker, bereits ab 2000m/M",
+          "createdAt": "2022-04-21T12:44:44.863Z",
+          "updatedAt": "2022-04-21T12:44:44.895Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.79775443376013,
+            "hae": 2400.79775443376
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8985748290233,
+            46.520915874021
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 39,
+        "properties": {
+          "_id": "626151bccb27f425094679eb",
+          "name": "MUTTLER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2523,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:44.968Z",
+          "updatedAt": "2022-04-21T12:44:45.006Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.45804964236939,
+            "hae": 2574.4580496423696
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.362500046,
+            46.861111688
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 40,
+        "properties": {
+          "_id": "626151bd4b027aab592b45e1",
+          "name": "PIZ ALBRIS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2997,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.270Z",
+          "updatedAt": "2022-04-21T12:44:45.304Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.96037838831697,
+            "hae": 3048.960378388317
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.9567680358026,
+            46.46667246289
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 41,
+        "properties": {
+          "_id": "626151bd5e9ded57104534ca",
+          "name": "OBERROTHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3187,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.073Z",
+          "updatedAt": "2022-04-21T12:44:45.170Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 54.48403428540729,
+            "hae": 3241.4840342854072
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.814722519,
+            46.023610967
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 42,
+        "properties": {
+          "_id": "626151bdcb27f425094679fa",
+          "name": "PIZ ARBLATSCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2924,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.372Z",
+          "updatedAt": "2022-04-21T12:44:45.405Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.209791491894435,
+            "hae": 2975.2097914918945
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.568333461,
+            46.531111098
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 43,
+        "properties": {
+          "_id": "626151bd4b027aab592b45ed",
+          "name": "PIZ ARPIGLIAS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2703,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.477Z",
+          "updatedAt": "2022-04-21T12:44:45.512Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.489742460473906,
+            "hae": 2754.4897424604737
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.115277934,
+            46.739445528
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 44,
+        "properties": {
+          "_id": "626151bd5e9ded57104534d7",
+          "name": "PIZ AJUEZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2654,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.470Z",
+          "updatedAt": "2022-04-21T12:44:45.602Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.54603195900481,
+            "hae": 2705.5460319590047
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.451388982,
+            46.83055683700001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 45,
+        "properties": {
+          "_id": "626151bdcb27f42509467a09",
+          "name": "PIZ ARPIGLIAS SUED",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2951,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.576Z",
+          "updatedAt": "2022-04-21T12:44:45.610Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.52939736570855,
+            "hae": 3002.5293973657085
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.113611368,
+            46.726109584
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 46,
+        "properties": {
+          "_id": "626151bd5e9ded57104534e7",
+          "name": "PIZ BEVERIN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2890,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.683Z",
+          "updatedAt": "2022-04-21T12:44:45.721Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.380778691679694,
+            "hae": 2940.3807786916796
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.357222559,
+            46.65389057900001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 47,
+        "properties": {
+          "_id": "626151bdcb27f42509467a1e",
+          "name": "PIZ CAVEL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2648,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.816Z",
+          "updatedAt": "2022-04-21T12:44:45.850Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.878977736739216,
+            "hae": 2698.878977736739
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.016389289,
+            46.654443824
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 48,
+        "properties": {
+          "_id": "626151bd5e9ded57104534f8",
+          "name": "PIZ CHALCHAGN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3058,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:44:45.875Z",
+          "updatedAt": "2022-04-21T12:44:45.942Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.944024047017166,
+            "hae": 3109.944024047017
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.9033813475373,
+            46.451181303427
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 49,
+        "properties": {
+          "_id": "626151bdcb27f42509467a2d",
+          "name": "PIZ CORVATSCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3311,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:45.977Z",
+          "updatedAt": "2022-04-21T12:44:46.012Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.90694085471549,
+            "hae": 3362.9069408547157
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.8146324156731,
+            46.408587479852
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 50,
+        "properties": {
+          "_id": "626151becb27f42509467a37",
+          "name": "PIZ COTSCHEN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2458,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.084Z",
+          "updatedAt": "2022-04-21T12:44:46.118Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.445605932935734,
+            "hae": 2509.445605932936
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.192222577,
+            46.798332004
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 51,
+        "properties": {
+          "_id": "626151be5e9ded5710453507",
+          "name": "PIZ CURVER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2453,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.250Z",
+          "updatedAt": "2022-04-21T12:44:46.341Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.43633560593196,
+            "hae": 2503.436335605932
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.501389069,
+            46.635834974
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 52,
+        "properties": {
+          "_id": "626151becb27f42509467a4c",
+          "name": "PIZ DAINT",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2755,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.281Z",
+          "updatedAt": "2022-04-21T12:44:46.370Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.8771685995938,
+            "hae": 2806.877168599594
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.298888787,
+            46.605000085
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 53,
+        "properties": {
+          "_id": "626151be5e9ded5710453511",
+          "name": "PIZ DAL RAS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2716,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.579Z",
+          "updatedAt": "2022-04-21T12:44:46.596Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.43275274676398,
+            "hae": 2767.432752746764
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.045833694,
+            46.731665943
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 54,
+        "properties": {
+          "_id": "626151be5e9ded5710453522",
+          "name": "PIZ FORUN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2637,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.789Z",
+          "updatedAt": "2022-04-21T12:44:46.805Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.56579844188201,
+            "hae": 2688.565798441882
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.98527809,
+            46.654723862
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 55,
+        "properties": {
+          "_id": "626151becb27f42509467a56",
+          "name": "PIZ DA LAS BLAIS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2564,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.490Z",
+          "updatedAt": "2022-04-21T12:44:46.612Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.585250956442394,
+            "hae": 2615.5852509564425
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.845277995,
+            46.57055544100001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 56,
+        "properties": {
+          "_id": "626151be5e9ded571045352f",
+          "name": "PIZ GALLINA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2127,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.943Z",
+          "updatedAt": "2022-04-21T12:44:46.958Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.49785609627867,
+            "hae": 2179.4978560962786
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.361944469,
+            46.519165097
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 57,
+        "properties": {
+          "_id": "626151bf4b027aab592b45f9",
+          "name": "PIZ GRISCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2941,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.091Z",
+          "updatedAt": "2022-04-21T12:44:47.129Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.069444312835856,
+            "hae": 2992.069444312836
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.468888468,
+            46.530277815
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 58,
+        "properties": {
+          "_id": "626151becb27f42509467a61",
+          "name": "PIZ DEL THEO",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2700,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:44:46.694Z",
+          "updatedAt": "2022-04-21T12:44:46.887Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.860848339773725,
+            "hae": 2751.860848339774
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.109117507949,
+            46.370935247712
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 59,
+        "properties": {
+          "_id": "626151becb27f42509467a68",
+          "name": "PIZ ERR",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2920,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:46.906Z",
+          "updatedAt": "2022-04-21T12:44:47.000Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.313057418402025,
+            "hae": 2971.313057418402
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.681389314,
+            46.553889779
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 60,
+        "properties": {
+          "_id": "626151bf4b027aab592b4606",
+          "name": "PIZ LA TSCHERA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2505,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.202Z",
+          "updatedAt": "2022-04-21T12:44:47.260Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.734961120440516,
+            "hae": 2555.7349611204404
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.462222203,
+            46.590277612
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 61,
+        "properties": {
+          "_id": "626151bf5e9ded571045353b",
+          "name": "PIZ GREN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2833,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.146Z",
+          "updatedAt": "2022-04-21T12:44:47.240Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.77716945716955,
+            "hae": 2883.7771694571697
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.017777525,
+            46.67694588199999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 62,
+        "properties": {
+          "_id": "626151bfcb27f42509467a7b",
+          "name": "PIZ LISCHANA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2777,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.311Z",
+          "updatedAt": "2022-04-21T12:44:47.404Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.553267000113436,
+            "hae": 2828.5532670001135
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.323055704,
+            46.761667549
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 63,
+        "properties": {
+          "_id": "626151bfcb27f42509467a84",
+          "name": "PIZ MEDEL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2061,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.421Z",
+          "updatedAt": "2022-04-21T12:44:47.469Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.13048747491271,
+            "hae": 2112.1304874749126
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.892499903,
+            46.638611445
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 64,
+        "properties": {
+          "_id": "626151bf4b027aab592b461d",
+          "name": "PIZ MEZDI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2497,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.661Z",
+          "updatedAt": "2022-04-21T12:44:47.679Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.86688666734989,
+            "hae": 2548.8668866673497
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.872138976983,
+            46.478613019706
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 65,
+        "properties": {
+          "_id": "626151bf5e9ded5710453558",
+          "name": "PIZ MITGEL OST",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2650,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.917Z",
+          "updatedAt": "2022-04-21T12:44:47.949Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.91290911562899,
+            "hae": 2700.912909115629
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.650000325,
+            46.60944312300001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 66,
+        "properties": {
+          "_id": "626151c05e9ded5710453562",
+          "name": "PIZ MITGEL SUED",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2817,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.024Z",
+          "updatedAt": "2022-04-21T12:44:48.056Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.02585430007497,
+            "hae": 2868.025854300075
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.666388511,
+            46.597777159
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 67,
+        "properties": {
+          "_id": "626151bfcb27f42509467a9f",
+          "name": "PIZ MINGER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2792,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.714Z",
+          "updatedAt": "2022-04-21T12:44:47.817Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.58746932893422,
+            "hae": 2843.5874693289343
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.263333384,
+            46.729446131
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 68,
+        "properties": {
+          "_id": "626151bfcb27f42509467aa8",
+          "name": "PIZ MEZZAUN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2942,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:47.886Z",
+          "updatedAt": "2022-04-21T12:44:48.115Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.741396920456026,
+            "hae": 2993.741396920456
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.966666678,
+            46.569445535
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 69,
+        "properties": {
+          "_id": "626151c0cb27f42509467aab",
+          "name": "PIZ MITGEL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2509,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.088Z",
+          "updatedAt": "2022-04-21T12:44:48.175Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.76042630766253,
+            "hae": 2559.7604263076623
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.623611036,
+            46.623332312
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 70,
+        "properties": {
+          "_id": "626151c05e9ded5710453570",
+          "name": "PIZ MURAGL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3059,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.169Z",
+          "updatedAt": "2022-04-21T12:44:48.258Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.91381498635167,
+            "hae": 3110.9138149863516
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.941666478,
+            46.495833171
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 71,
+        "properties": {
+          "_id": "626151c04b027aab592b462b",
+          "name": "PIZ NUNA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2247,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.435Z",
+          "updatedAt": "2022-04-21T12:44:48.461Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.617746829085064,
+            "hae": 2298.6177468290853
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.133055209,
+            46.702501035
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 72,
+        "properties": {
+          "_id": "626151c05e9ded5710453579",
+          "name": "PIZ MURAUN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2891,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.349Z",
+          "updatedAt": "2022-04-21T12:44:48.483Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.03009903791602,
+            "hae": 2942.030099037916
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.909722225,
+            46.658333617
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 73,
+        "properties": {
+          "_id": "626151c0cb27f42509467ac3",
+          "name": "PIZOL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2503,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.734Z",
+          "updatedAt": "2022-04-21T12:44:48.792Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.208379424126775,
+            "hae": 2552.2083794241266
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.383610995,
+            46.929720938
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 74,
+        "properties": {
+          "_id": "626151c04b027aab592b4639",
+          "name": "PIZ S-CHALEMBERT  (VAL UINA)",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2934,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.893Z",
+          "updatedAt": "2022-04-21T12:44:48.910Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.546138220452065,
+            "hae": 2985.546138220452
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.412187867215,
+            46.798417519717
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 75,
+        "properties": {
+          "_id": "626151c04b027aab592b4642",
+          "name": "PIZ TERZA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2885,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.944Z",
+          "updatedAt": "2022-04-21T12:44:48.985Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.75170540176717,
+            "hae": 2936.751705401767
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.400000346,
+            46.63750154
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 76,
+        "properties": {
+          "_id": "626151c05e9ded571045358d",
+          "name": "PIZ NADELS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2765,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.840Z",
+          "updatedAt": "2022-04-21T12:44:48.899Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.74674272336014,
+            "hae": 2815.74674272336
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.99972192,
+            46.693054883
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 77,
+        "properties": {
+          "_id": "626151c05e9ded5710453590",
+          "name": "PIZ PARADIS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2574,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.875Z",
+          "updatedAt": "2022-04-21T12:44:48.907Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.495120068660526,
+            "hae": 2625.4951200686605
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.73250016,
+            46.630555237
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 78,
+        "properties": {
+          "_id": "626151c0cb27f42509467ad4",
+          "name": "PIZ TERZA SUED",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2410,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:48.935Z",
+          "updatedAt": "2022-04-21T12:44:48.966Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.79071440814241,
+            "hae": 2461.7907144081423
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.395555601,
+            46.624722256
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 79,
+        "properties": {
+          "_id": "626151c1cb27f42509467ae2",
+          "name": "PIZ TERZA WEST",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2710,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.173Z",
+          "updatedAt": "2022-04-21T12:44:49.277Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.7728055771222,
+            "hae": 2761.772805577122
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.381111458,
+            46.63500169
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 80,
+        "properties": {
+          "_id": "626151c14b027aab592b465a",
+          "name": "PIZ UREZZA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2773,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.531Z",
+          "updatedAt": "2022-04-21T12:44:49.550Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.549132694212034,
+            "hae": 2824.549132694212
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.054999807,
+            46.69805458199999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 81,
+        "properties": {
+          "_id": "626151c15e9ded57104535af",
+          "name": "PIZ UERTSCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3230,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.440Z",
+          "updatedAt": "2022-04-21T12:44:49.572Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.48458456961612,
+            "hae": 3281.4845845696163
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.836111028,
+            46.596110593
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 82,
+        "properties": {
+          "_id": "626151c1cb27f42509467aea",
+          "name": "PIZ TSCHIERVA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3356,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Wave entry also possible",
+          "createdAt": "2022-04-21T12:44:49.374Z",
+          "updatedAt": "2022-04-21T12:44:49.494Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.98245897190219,
+            "hae": 3407.9824589719024
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.883640289229,
+            46.414505279185
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 83,
+        "properties": {
+          "_id": "626151c15e9ded57104535ba",
+          "name": "PIZZO ROTONDO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2016,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.675Z",
+          "updatedAt": "2022-04-21T12:44:49.753Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.38599746938863,
+            "hae": 2068.3859974693887
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.481666586,
+            46.502222813
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 84,
+        "properties": {
+          "_id": "626151c14b027aab592b466b",
+          "name": "QUATTERVALS NORD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2522,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.753Z",
+          "updatedAt": "2022-04-21T12:44:49.771Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.70357568586462,
+            "hae": 2573.7035756858645
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.098333089,
+            46.664443221
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 85,
+        "properties": {
+          "_id": "626151c15e9ded57104535c1",
+          "name": "PIZZO TAMBO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2959,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.756Z",
+          "updatedAt": "2022-04-21T12:44:49.788Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.10216250346227,
+            "hae": 3010.1021625034623
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.278888827,
+            46.495276511
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 86,
+        "properties": {
+          "_id": "626151c14b027aab592b4675",
+          "name": "RISIHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2535,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.863Z",
+          "updatedAt": "2022-04-21T12:44:49.879Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.80868238802023,
+            "hae": 2587.8086823880203
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.16388862,
+            46.453612357
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 87,
+        "properties": {
+          "_id": "626151c15e9ded57104535dc",
+          "name": "SAN BERNADINO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2702,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.958Z",
+          "updatedAt": "2022-04-21T12:44:49.994Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.14147347144845,
+            "hae": 2753.1414734714485
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.206666407,
+            46.50444604
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 88,
+        "properties": {
+          "_id": "626151c1cb27f42509467afa",
+          "name": "QUATTERVALS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2975,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:49.943Z",
+          "updatedAt": "2022-04-21T12:44:49.975Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.73467872239729,
+            "hae": 3026.7346787223973
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.061388596,
+            46.626112199
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 89,
+        "properties": {
+          "_id": "626151c2cb27f42509467b0b",
+          "name": "SCOPI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 3074,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.157Z",
+          "updatedAt": "2022-04-21T12:44:50.187Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.42282891413083,
+            "hae": 3125.422828914131
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            8.827500408,
+            46.570832063
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 90,
+        "properties": {
+          "_id": "626151c25e9ded57104535ed",
+          "name": "SCHAFBERG",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2650,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.086Z",
+          "updatedAt": "2022-04-21T12:44:50.166Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.867929100258834,
+            "hae": 2701.867929100259
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.916401095168,
+            46.503740408445
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 91,
+        "properties": {
+          "_id": "626151c24b027aab592b4688",
+          "name": "SPITZI FLUE",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1658,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:50.271Z",
+          "updatedAt": "2022-04-21T12:44:50.288Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.52751751798013,
+            "hae": 1708.5275175179802
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.7508335113638,
+            46.716741686906
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 92,
+        "properties": {
+          "_id": "626151c2cb27f42509467b1c",
+          "name": "ST. ANTON AR",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1100,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.361Z",
+          "updatedAt": "2022-04-21T12:44:50.393Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.19486258245797,
+            "hae": 1147.194862582458
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.5419853293224,
+            47.410303912419
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 93,
+        "properties": {
+          "_id": "626151c2cb27f42509467b2f",
+          "name": "STALDEFLÜE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2200,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:50.568Z",
+          "updatedAt": "2022-04-21T12:44:50.600Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.04392991154202,
+            "hae": 2252.043929911542
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.2443251610108,
+            46.423173695787
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 94,
+        "properties": {
+          "_id": "626151c25e9ded57104535fd",
+          "name": "ST. IMIER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1009,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.550Z",
+          "updatedAt": "2022-04-21T12:44:50.643Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.30288331512304,
+            "hae": 1059.302883315123
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.0029907226951,
+            47.163183669247
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 95,
+        "properties": {
+          "_id": "626151c25e9ded571045360a",
+          "name": "TEURIHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2842,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.861Z",
+          "updatedAt": "2022-04-21T12:44:50.895Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.890395344744746,
+            "hae": 2892.890395344745
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.317499886,
+            46.574721856
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 96,
+        "properties": {
+          "_id": "626151c25e9ded5710453612",
+          "name": "TSCHLIN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2312,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:44:50.910Z",
+          "updatedAt": "2022-04-21T12:44:50.956Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.43401994963108,
+            "hae": 2363.434019949631
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.402777672,
+            46.888333407
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 97,
+        "properties": {
+          "_id": "626151c2cb27f42509467b39",
+          "name": "STOCKEFLUE",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1950,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:50.800Z",
+          "updatedAt": "2022-04-21T12:44:50.900Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.80080096853217,
+            "hae": 2000.8008009685323
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.5155930519302,
+            46.680745355326
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 98,
+        "properties": {
+          "_id": "626151c35e9ded5710453629",
+          "name": "TURNEN",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2079,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2
+          ],
+          "createdAt": "2022-04-21T12:44:51.111Z",
+          "updatedAt": "2022-04-21T12:44:51.146Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.24731907880792,
+            "hae": 2130.247319078808
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            7.4920754432872,
+            46.627486864846
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 99,
+        "properties": {
+          "_id": "626151c35e9ded5710453633",
+          "name": "VUE-DES-ALPES",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            1,
+            0
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 1254,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Not working on stable days in the flat part of switzerland.",
+          "createdAt": "2022-04-21T12:44:51.205Z",
+          "updatedAt": "2022-04-21T12:44:51.279Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.36325815860707,
+            "hae": 1304.363258158607
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            6.8663692471578,
+            47.074798378819
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 100,
+        "properties": {
+          "_id": "626151c3cb27f42509467b47",
+          "name": "VAL VARUSCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "CH",
+          "elevation": {
+            "value": 2774,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Attention national park\r\nLS-R 11A  Frequency 134.475 (active/not active)",
+          "createdAt": "2022-04-21T12:44:51.307Z",
+          "updatedAt": "2022-04-21T12:44:51.558Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.83739381488664,
+            "hae": 2825.8373938148866
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.071609496972,
+            46.580945897739
+          ]
+        }
+      }
+    ]
+  },
+  "lastUpdated": "2025-07-17T12:09:11.995Z",
+  "country": "ch",
+  "dataType": "hot",
+  "version": "1.0"
+}

@@ -1,0 +1,3767 @@
+{
+  "data": {
+    "type": "FeatureCollection",
+    "features": [
+      {
+        "type": "Feature",
+        "id": 1,
+        "properties": {
+          "_id": "62614cb1cb27f42509453188",
+          "name": "ACHOMITZER BERG",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1697,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:13.958Z",
+          "updatedAt": "2022-04-21T12:23:13.989Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.11494466097463,
+            "hae": 1746.1149446609747
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.521110783,
+            46.54111049499999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 2,
+        "properties": {
+          "_id": "62614cb2cb27f42509453194",
+          "name": "ALPE LA PIAZZA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1193,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:23:14.064Z",
+          "updatedAt": "2022-04-21T12:23:14.098Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.73977072227311,
+            "hae": 1242.739770722273
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.4568901061237,
+            46.170873406316
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 3,
+        "properties": {
+          "_id": "62614cb2cb27f425094531a2",
+          "name": "APRICA NORD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1288,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            1,
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:14.172Z",
+          "updatedAt": "2022-04-21T12:23:14.203Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.02740085121701,
+            "hae": 1339.027400851217
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.178382873234,
+            46.197257817416
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 4,
+        "properties": {
+          "_id": "62614cb2cb27f425094531b0",
+          "name": "BIRKENKOFEL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2250,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:14.277Z",
+          "updatedAt": "2022-04-21T12:23:14.327Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.77122950819023,
+            "hae": 2301.77122950819
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.242500224,
+            46.699167903
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 5,
+        "properties": {
+          "_id": "62614cb2cb27f425094531bf",
+          "name": "CANCANO STAUMAUERSCHLAUCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2870,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:14.517Z",
+          "updatedAt": "2022-04-21T12:23:14.689Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.960022755852634,
+            "hae": 2921.9600227558526
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.29322433463,
+            46.55008329327
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 6,
+        "properties": {
+          "_id": "62614cb2cb27f425094531c2",
+          "name": "CAORAME",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1600,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Caorame",
+          "createdAt": "2022-04-21T12:23:14.590Z",
+          "updatedAt": "2022-04-21T12:23:14.838Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.66232244617464,
+            "hae": 1649.6623224461746
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.907272702052,
+            46.085551335821
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 7,
+        "properties": {
+          "_id": "62614cb2cb27f425094531d2",
+          "name": "CASERA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1100,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "casera",
+          "createdAt": "2022-04-21T12:23:14.874Z",
+          "updatedAt": "2022-04-21T12:23:14.949Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.62533121435058,
+            "hae": 1149.6253312143506
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.092838650527,
+            46.167999253591
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 8,
+        "properties": {
+          "_id": "62614cb2cb27f425094531d5",
+          "name": "CESIO1",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1500,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Cesio1",
+          "createdAt": "2022-04-21T12:23:14.925Z",
+          "updatedAt": "2022-04-21T12:23:14.977Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.503300698931355,
+            "hae": 1549.5033006989313
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.970529919464,
+            46.100491530525
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 9,
+        "properties": {
+          "_id": "62614cb31eacded7b7bbe81d",
+          "name": "CIMA DEL VENTO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2350,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Cima del vento",
+          "createdAt": "2022-04-21T12:23:15.013Z",
+          "updatedAt": "2022-04-21T12:23:15.047Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.23409392105606,
+            "hae": 2401.2340939210562
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.909590130619,
+            46.867699251568
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 10,
+        "properties": {
+          "_id": "62614cb2cb27f425094531df",
+          "name": "CHIAVENNA NORD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1902,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "remarks": "Caution many cables",
+          "createdAt": "2022-04-21T12:23:14.982Z",
+          "updatedAt": "2022-04-21T12:23:15.016Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.65655152643117,
+            "hae": 1952.6565515264313
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            9.3921737670346,
+            46.346885805669
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 11,
+        "properties": {
+          "_id": "62614cb3cb27f425094531f0",
+          "name": "CIMA DELLA CAPRA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2500,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Cima della Capra",
+          "createdAt": "2022-04-21T12:23:15.078Z",
+          "updatedAt": "2022-04-21T12:23:15.129Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.22022883745734,
+            "hae": 2551.2202288374574
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.647549038742,
+            46.861830812851
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 12,
+        "properties": {
+          "_id": "62614cb3cb27f42509453204",
+          "name": "CIMA DEL VENTO GRANDE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2900,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Cima adel vento grande",
+          "createdAt": "2022-04-21T12:23:15.185Z",
+          "updatedAt": "2022-04-21T12:23:15.216Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.490402679135315,
+            "hae": 2951.4904026791355
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.016811370421,
+            46.881197703935
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 13,
+        "properties": {
+          "_id": "62614cb3cb27f42509453212",
+          "name": "COL ROSSON",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2115,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:15.237Z",
+          "updatedAt": "2022-04-21T12:23:15.379Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.45485325220517,
+            "hae": 2166.4548532522053
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.493055468,
+            46.65000078600001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 14,
+        "properties": {
+          "_id": "62614cb31eacded7b7bbe837",
+          "name": "FRANZENSFESTE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2089,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:15.634Z",
+          "updatedAt": "2022-04-21T12:23:15.654Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.119389809711436,
+            "hae": 2140.1193898097113
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.596944041,
+            46.833333308
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 15,
+        "properties": {
+          "_id": "62614cb3cb27f42509453229",
+          "name": "DEILOFF",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "remarks": "Near Bivacco deiloff",
+          "createdAt": "2022-04-21T12:23:15.587Z",
+          "updatedAt": "2022-04-21T12:23:15.848Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.92937358062224,
+            "hae": 1047.9293735806223
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.137835388935,
+            45.995079822209
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 16,
+        "properties": {
+          "_id": "62614cb3cb27f4250945322c",
+          "name": "DREI FINGER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2440,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:15.689Z",
+          "updatedAt": "2022-04-21T12:23:15.851Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.65536662644993,
+            "hae": 2491.65536662645
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.979444026,
+            46.710557243
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 17,
+        "properties": {
+          "_id": "62614cb3cb27f42509453237",
+          "name": "EISATZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2266,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:15.874Z",
+          "updatedAt": "2022-04-21T12:23:15.936Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.762241260091145,
+            "hae": 2317.7622412600913
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.155000378,
+            46.80638821199999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 18,
+        "properties": {
+          "_id": "62614cb3cb27f42509453244",
+          "name": "GARANTITO",
+          "type": 0,
+          "reliability": 3,
+          "occurrence": 2,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "First thermal after Cermis take-off",
+          "createdAt": "2022-04-21T12:23:15.987Z",
+          "updatedAt": "2022-04-21T12:23:16.042Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.02410452970989,
+            "hae": 2051.02410452971
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.481638317881,
+            46.23815512503
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 19,
+        "properties": {
+          "_id": "62614cb31eacded7b7bbe845",
+          "name": "GREPPI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2684,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:15.906Z",
+          "updatedAt": "2022-04-21T12:23:15.980Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.61497706635501,
+            "hae": 2735.614977066355
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.436389033,
+            46.67194276899999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 20,
+        "properties": {
+          "_id": "62614cb4cb27f42509453259",
+          "name": "HIRZER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2630,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.094Z",
+          "updatedAt": "2022-04-21T12:23:16.127Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.035601038527034,
+            "hae": 2681.035601038527
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.27277814,
+            46.730279414
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 21,
+        "properties": {
+          "_id": "62614cb41eacded7b7bbe84d",
+          "name": "GRUBBACH SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2669,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.070Z",
+          "updatedAt": "2022-04-21T12:23:16.186Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.29739000558661,
+            "hae": 2720.2973900055867
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.756388831,
+            46.870001179
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 22,
+        "properties": {
+          "_id": "62614cb41eacded7b7bbe85d",
+          "name": "HOLLBRUCKER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2121,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.357Z",
+          "updatedAt": "2022-04-21T12:23:16.374Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.63136751857607,
+            "hae": 2172.631367518576
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.421388855,
+            46.683055486
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 23,
+        "properties": {
+          "_id": "62614cb41eacded7b7bbe86f",
+          "name": "HOLLENKRAGEN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2300,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Traverso Vipiteno",
+          "createdAt": "2022-04-21T12:23:16.463Z",
+          "updatedAt": "2022-04-21T12:23:16.493Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.12473864540277,
+            "hae": 2351.124738645403
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.522254943397,
+            46.886946705233
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 24,
+        "properties": {
+          "_id": "62614cb4cb27f4250945326b",
+          "name": "HOCH GALL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2872,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.210Z",
+          "updatedAt": "2022-04-21T12:23:16.298Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.48634854155003,
+            "hae": 2923.48634854155
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.01388867,
+            46.89027659599999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 25,
+        "properties": {
+          "_id": "62614cb4cb27f4250945327d",
+          "name": "HOHE WARTE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2565,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.497Z",
+          "updatedAt": "2022-04-21T12:23:16.598Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.23800078074058,
+            "hae": 2616.2380007807405
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.316666374,
+            46.788889268
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 26,
+        "properties": {
+          "_id": "62614cb4cb27f4250945328f",
+          "name": "JAFFERAU",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2732,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Altitude 2785m",
+          "createdAt": "2022-04-21T12:23:16.821Z",
+          "updatedAt": "2022-04-21T12:23:16.882Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 54.46570598755801,
+            "hae": 2786.465705987558
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            6.7692644497748,
+            45.083390198577
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 27,
+        "properties": {
+          "_id": "62614cb41eacded7b7bbe87b",
+          "name": "IFFINGER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2430,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.672Z",
+          "updatedAt": "2022-04-21T12:23:16.777Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.95228896216719,
+            "hae": 2480.952288962167
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.276111272,
+            46.706944073
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 28,
+        "properties": {
+          "_id": "62614cb41eacded7b7bbe886",
+          "name": "KALLMANNSPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2342,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.960Z",
+          "updatedAt": "2022-04-21T12:23:16.996Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.194036706721164,
+            "hae": 2393.1940367067214
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.382777483,
+            46.721943168
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 29,
+        "properties": {
+          "_id": "62614cb4cb27f4250945329d",
+          "name": "KAPIN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1655,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:16.901Z",
+          "updatedAt": "2022-04-21T12:23:16.949Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.050068882274815,
+            "hae": 1704.050068882275
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.566388961,
+            46.53805398499999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 30,
+        "properties": {
+          "_id": "62614cb51eacded7b7bbe89a",
+          "name": "LAGHI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1800,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Laghi",
+          "createdAt": "2022-04-21T12:23:17.198Z",
+          "updatedAt": "2022-04-21T12:23:17.230Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.63696403773133,
+            "hae": 1850.6369640377313
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.589374541732,
+            46.104244352279
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 31,
+        "properties": {
+          "_id": "62614cb5cb27f425094532ab",
+          "name": "KOENIGS ANGER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2343,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:17.000Z",
+          "updatedAt": "2022-04-21T12:23:17.070Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.06129398670302,
+            "hae": 2394.061293986703
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.568610709,
+            46.707777356
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 32,
+        "properties": {
+          "_id": "62614cb5cb27f425094532bb",
+          "name": "KRONPLATZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2270,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Kronplatz",
+          "createdAt": "2022-04-21T12:23:17.188Z",
+          "updatedAt": "2022-04-21T12:23:17.300Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.51971659015669,
+            "hae": 2321.519716590157
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.957955723618,
+            46.738827737566
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 33,
+        "properties": {
+          "_id": "62614cb51eacded7b7bbe8a7",
+          "name": "LEITERSPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2140,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:17.373Z",
+          "updatedAt": "2022-04-21T12:23:17.473Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.15205534344071,
+            "hae": 2191.1520553434407
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.380555964,
+            46.70305428
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 34,
+        "properties": {
+          "_id": "62614cb5cb27f425094532d6",
+          "name": "M.CAVALLO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Vipiteno_Cross",
+          "createdAt": "2022-04-21T12:23:17.609Z",
+          "updatedAt": "2022-04-21T12:23:17.682Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.20315877763798,
+            "hae": 2051.203158777638
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.384649639959,
+            46.913568319686
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 35,
+        "properties": {
+          "_id": "62614cb5cb27f425094532d4",
+          "name": "M.AGARO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1900,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "M.Agaro",
+          "createdAt": "2022-04-21T12:23:17.599Z",
+          "updatedAt": "2022-04-21T12:23:17.677Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.484896587647114,
+            "hae": 1950.4848965876472
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.656732922373,
+            46.09108741777
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 36,
+        "properties": {
+          "_id": "62614cb51eacded7b7bbe8af",
+          "name": "LITZNER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2937,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:17.500Z",
+          "updatedAt": "2022-04-21T12:23:17.681Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.62823640997718,
+            "hae": 2988.628236409977
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.660277511,
+            46.677779165
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 37,
+        "properties": {
+          "_id": "62614cb5cb27f425094532e3",
+          "name": "M.COMO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1893,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "M.Como",
+          "createdAt": "2022-04-21T12:23:17.751Z",
+          "updatedAt": "2022-04-21T12:23:17.774Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.672204731390536,
+            "hae": 1944.6722047313906
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.918945675619,
+            46.688423227502
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 38,
+        "properties": {
+          "_id": "62614cb51eacded7b7bbe8c6",
+          "name": "M.SERVA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1300,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "M.Serva",
+          "createdAt": "2022-04-21T12:23:17.914Z",
+          "updatedAt": "2022-04-21T12:23:17.953Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.41574780146573,
+            "hae": 1349.4157478014658
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.216692334013,
+            46.18862166174
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 39,
+        "properties": {
+          "_id": "62614cb5cb27f425094532f4",
+          "name": "M.DOLADA",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1400,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "M.Dolada",
+          "createdAt": "2022-04-21T12:23:17.897Z",
+          "updatedAt": "2022-04-21T12:23:17.971Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.06585672105177,
+            "hae": 1449.0658567210517
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.341318493677,
+            46.187195577005
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 40,
+        "properties": {
+          "_id": "62614cb6c982787750408fe7",
+          "name": "MONTE CONFINALE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 3235,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:18.230Z",
+          "updatedAt": "2022-04-21T12:23:18.248Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.3025911286411,
+            "hae": 3287.3025911286413
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.503166198635,
+            46.449880318514
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 41,
+        "properties": {
+          "_id": "62614cb61eacded7b7bbe8d7",
+          "name": "M.VALLAZZA",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1900,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "M.Vallazza",
+          "createdAt": "2022-04-21T12:23:18.108Z",
+          "updatedAt": "2022-04-21T12:23:18.176Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.01894587107017,
+            "hae": 1950.0189458710702
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.804962521381,
+            46.083229587691
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 42,
+        "properties": {
+          "_id": "62614cb6cb27f42509453308",
+          "name": "MAURER SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2456,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:18.257Z",
+          "updatedAt": "2022-04-21T12:23:18.294Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.51015198288991,
+            "hae": 2507.51015198289
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.298055817,
+            46.938610429
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 43,
+        "properties": {
+          "_id": "62614cb6cb27f42509453313",
+          "name": "MONTE CRISTALLO (STELVIO)",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 3284,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:18.351Z",
+          "updatedAt": "2022-04-21T12:23:18.400Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.14694533508114,
+            "hae": 3336.146945335081
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.45716094959,
+            46.496755285304
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 44,
+        "properties": {
+          "_id": "62614cb6cb27f4250945332c",
+          "name": "MONTE MASUCCIO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2630,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:18.529Z",
+          "updatedAt": "2022-04-21T12:23:18.560Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.21396168158586,
+            "hae": 2681.2139616815857
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.176666259679,
+            46.257941385723
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 45,
+        "properties": {
+          "_id": "62614cb61eacded7b7bbe8e9",
+          "name": "MONTE CUZZO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2500,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Monte Cuzzo",
+          "createdAt": "2022-04-21T12:23:18.550Z",
+          "updatedAt": "2022-04-21T12:23:18.597Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.231684277428656,
+            "hae": 2551.2316842774285
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.687049865214,
+            46.856552148877
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 46,
+        "properties": {
+          "_id": "62614cb6cb27f42509453339",
+          "name": "MONTE VALLECETTA/ BORMIO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 3200,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Near the Cable Station of Cima Bianca.",
+          "createdAt": "2022-04-21T12:23:18.632Z",
+          "updatedAt": "2022-04-21T12:23:18.664Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.0405269725502,
+            "hae": 3252.04052697255
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.400169372471,
+            46.413440122705
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 47,
+        "properties": {
+          "_id": "62614cb61eacded7b7bbe8f7",
+          "name": "MT COCCO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1910,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:18.835Z",
+          "updatedAt": "2022-04-21T12:23:18.867Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.20470970466715,
+            "hae": 1959.204709704667
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.442499574,
+            46.548890081
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 48,
+        "properties": {
+          "_id": "62614cb6cb27f4250945334b",
+          "name": "MT. PASTELLO",
+          "type": 0,
+          "reliability": 3,
+          "occurrence": 2,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1127,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Mountain named Mt. Pastello, best lift in antennas area and southward following the edge",
+          "createdAt": "2022-04-21T12:23:18.795Z",
+          "updatedAt": "2022-04-21T12:23:18.890Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.49498650876501,
+            "hae": 1174.4949865087651
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.865590355867,
+            45.583122618632
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 49,
+        "properties": {
+          "_id": "62614cb7cb27f4250945335d",
+          "name": "MUSIERA1",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1600,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Musiera1",
+          "createdAt": "2022-04-21T12:23:19.257Z",
+          "updatedAt": "2022-04-21T12:23:19.290Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.52643626822257,
+            "hae": 1650.5264362682226
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.472711926293,
+            46.09257551709
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 50,
+        "properties": {
+          "_id": "62614cb7cb27f4250945335b",
+          "name": "MT CUCCO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1583,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.116Z",
+          "updatedAt": "2022-04-21T12:23:19.281Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.23944299217311,
+            "hae": 1632.239442992173
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.390833462,
+            46.54666685400001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 51,
+        "properties": {
+          "_id": "62614cb71eacded7b7bbe909",
+          "name": "MUSIERA2",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1700,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Musiera2",
+          "createdAt": "2022-04-21T12:23:19.352Z",
+          "updatedAt": "2022-04-21T12:23:19.379Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.58747850998992,
+            "hae": 1750.58747850999
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.46919286811,
+            46.102634015436
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 52,
+        "properties": {
+          "_id": "62614cb7cb27f42509453379",
+          "name": "PENSER JOCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2379,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.460Z",
+          "updatedAt": "2022-04-21T12:23:19.495Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.176010589719795,
+            "hae": 2430.1760105897197
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.441110714,
+            46.841942762
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 53,
+        "properties": {
+          "_id": "62614cb7cb27f42509453383",
+          "name": "PERON",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1200,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Peron",
+          "createdAt": "2022-04-21T12:23:19.565Z",
+          "updatedAt": "2022-04-21T12:23:19.605Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.576541814450906,
+            "hae": 1249.5765418144508
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.130775814794,
+            46.176558194631
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 54,
+        "properties": {
+          "_id": "62614cb7cb27f42509453391",
+          "name": "PIZ CHAVALATSCH",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2649,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.677Z",
+          "updatedAt": "2022-04-21T12:23:19.712Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.673366451350745,
+            "hae": 2700.673366451351
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.492523193128,
+            46.616743387874
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 55,
+        "properties": {
+          "_id": "62614cb71eacded7b7bbe910",
+          "name": "NASSFELD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1639,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.383Z",
+          "updatedAt": "2022-04-21T12:23:19.438Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.31769340803274,
+            "hae": 1688.3176934080327
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.231944479,
+            46.538887268
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 56,
+        "properties": {
+          "_id": "62614cb71eacded7b7bbe912",
+          "name": "PARES",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2200,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Pares",
+          "createdAt": "2022-04-21T12:23:19.415Z",
+          "updatedAt": "2022-04-21T12:23:19.445Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.81362650120741,
+            "hae": 2251.813626501207
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.964350109873,
+            46.662039944255
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 57,
+        "properties": {
+          "_id": "62614cb7cb27f425094533a0",
+          "name": "PIZO ALTO 2963",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2859,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3,
+            4
+          ],
+          "createdAt": "2022-04-21T12:23:19.785Z",
+          "updatedAt": "2022-04-21T12:23:19.820Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.63332293422022,
+            "hae": 2910.6333229342204
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.338542938088,
+            46.286182066752
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 58,
+        "properties": {
+          "_id": "62614cb7cb27f425094533ae",
+          "name": "PIZZO DEL FERRO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2978,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.882Z",
+          "updatedAt": "2022-04-21T12:23:19.917Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.929709412595884,
+            "hae": 3029.929709412596
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.192459106362,
+            46.566962533604
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 59,
+        "properties": {
+          "_id": "62614cb7cb27f425094533be",
+          "name": "PLATTSPITZ",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2194,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:19.992Z",
+          "updatedAt": "2022-04-21T12:23:20.026Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.1496372471353,
+            "hae": 2245.149637247135
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.592500149,
+            46.852498819
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 60,
+        "properties": {
+          "_id": "62614cb8cb27f425094533cc",
+          "name": "PLOSE NORD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2448,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:20.098Z",
+          "updatedAt": "2022-04-21T12:23:20.131Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.36812045451961,
+            "hae": 2499.3681204545196
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.730277871,
+            46.702777658
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 61,
+        "properties": {
+          "_id": "62614cb81eacded7b7bbe936",
+          "name": "PLOSE WEST",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2239,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:20.289Z",
+          "updatedAt": "2022-04-21T12:23:20.322Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.3877125376564,
+            "hae": 2290.3877125376566
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.726666409,
+            46.694721449
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 62,
+        "properties": {
+          "_id": "62614cb8cb27f425094533d8",
+          "name": "PLOSE OST",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2372,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:20.189Z",
+          "updatedAt": "2022-04-21T12:23:20.247Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.4742954549354,
+            "hae": 2423.4742954549356
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.744444537,
+            46.688888468
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 63,
+        "properties": {
+          "_id": "62614cb8cb27f425094533ea",
+          "name": "PONTE DI LEGNO/MONTE TONALE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2522,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:20.474Z",
+          "updatedAt": "2022-04-21T12:23:20.569Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 52.22879753287128,
+            "hae": 2574.2287975328713
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.550721764453,
+            46.277740310374
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 64,
+        "properties": {
+          "_id": "62614cb8cb27f425094533f6",
+          "name": "REVINE OVEST",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "remarks": "Revine Ovest",
+          "createdAt": "2022-04-21T12:23:20.763Z",
+          "updatedAt": "2022-04-21T12:23:20.801Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 47.737707475582255,
+            "hae": 1047.7377074755823
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.186608677706,
+            45.99630218906
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 65,
+        "properties": {
+          "_id": "62614cb8cb27f425094533f8",
+          "name": "ROSSKOFL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2470,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:20.772Z",
+          "updatedAt": "2022-04-21T12:23:20.812Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.81988778476932,
+            "hae": 2521.8198877847694
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.11250038,
+            46.686111996
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 66,
+        "properties": {
+          "_id": "62614cb81eacded7b7bbe948",
+          "name": "S.ZENON",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1500,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "S.Zenon",
+          "createdAt": "2022-04-21T12:23:20.692Z",
+          "updatedAt": "2022-04-21T12:23:20.722Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.58038697378174,
+            "hae": 1549.5803869737817
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.033805846684,
+            46.136549123902
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 67,
+        "properties": {
+          "_id": "62614cb9cb27f4250945341b",
+          "name": "SATTEL SPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2557,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.002Z",
+          "updatedAt": "2022-04-21T12:23:21.019Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.165777571318955,
+            "hae": 2608.165777571319
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.588055403,
+            46.865001481
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 68,
+        "properties": {
+          "_id": "62614cb9cb27f42509453426",
+          "name": "SCHNALSTAL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2722,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.185Z",
+          "updatedAt": "2022-04-21T12:23:21.203Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.5910071561066,
+            "hae": 2773.5910071561066
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.968611033,
+            46.703334318
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 69,
+        "properties": {
+          "_id": "62614cb81eacded7b7bbe954",
+          "name": "SACCO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "remarks": "Sacco",
+          "createdAt": "2022-04-21T12:23:20.971Z",
+          "updatedAt": "2022-04-21T12:23:21.098Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 48.37321355971764,
+            "hae": 1048.3732135597177
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.237793331938,
+            45.650524809996
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 70,
+        "properties": {
+          "_id": "62614cb81eacded7b7bbe957",
+          "name": "SARLKOFL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2086,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.000Z",
+          "updatedAt": "2022-04-21T12:23:21.169Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.779110358263154,
+            "hae": 2137.779110358263
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.183888663,
+            46.697221299
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 71,
+        "properties": {
+          "_id": "62614cb9cb27f4250945342f",
+          "name": "SCHWARZSEESPITZE",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 0,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2070,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.309Z",
+          "updatedAt": "2022-04-21T12:23:21.388Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.89989910978474,
+            "hae": 2120.8998991097847
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.455202465861,
+            46.589566955917
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 72,
+        "properties": {
+          "_id": "62614cb91eacded7b7bbe975",
+          "name": "STADLHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1675,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.533Z",
+          "updatedAt": "2022-04-21T12:23:21.565Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.763529856401846,
+            "hae": 1726.7635298564019
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.221666439,
+            46.761944171
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 73,
+        "properties": {
+          "_id": "62614cb9cb27f4250945343b",
+          "name": "SEEKOFL",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2674,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.496Z",
+          "updatedAt": "2022-04-21T12:23:21.597Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.832485723044755,
+            "hae": 2725.8324857230446
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.015555236,
+            46.671389523
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 74,
+        "properties": {
+          "_id": "62614cb91eacded7b7bbe980",
+          "name": "STERZING HAUSHANG",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1376,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.644Z",
+          "updatedAt": "2022-04-21T12:23:21.674Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.14484197815207,
+            "hae": 1427.144841978152
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.425555812,
+            46.87472083999999
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 75,
+        "properties": {
+          "_id": "62614cb9cb27f42509453444",
+          "name": "SPITZHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2536,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:21.612Z",
+          "updatedAt": "2022-04-21T12:23:21.711Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.44427792147425,
+            "hae": 2587.444277921474
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.143333249,
+            46.769167096
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 76,
+        "properties": {
+          "_id": "62614cb91eacded7b7bbe98e",
+          "name": "TAURO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1600,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Tauro",
+          "createdAt": "2022-04-21T12:23:21.749Z",
+          "updatedAt": "2022-04-21T12:23:21.780Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 50.57170443199121,
+            "hae": 1650.5717044319913
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.521978741511,
+            46.097396683146
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 77,
+        "properties": {
+          "_id": "62614cb9cb27f42509453465",
+          "name": "TERMICHE SICILIA",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 2,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1171,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Kumeta",
+          "createdAt": "2022-04-21T12:23:21.842Z",
+          "updatedAt": "2022-04-21T12:23:21.874Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 44.141236696385135,
+            "hae": 1215.141236696385
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            13.260393505856,
+            37.96653220148
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 78,
+        "properties": {
+          "_id": "62614cb9cb27f42509453475",
+          "name": "TISOI",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1500,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Tisoi",
+          "createdAt": "2022-04-21T12:23:21.953Z",
+          "updatedAt": "2022-04-21T12:23:21.984Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.523771069036854,
+            "hae": 1549.523771069037
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.159529095511,
+            46.181015448979
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 79,
+        "properties": {
+          "_id": "62614cba1eacded7b7bbe99f",
+          "name": "VILLNOESS",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1651,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:22.357Z",
+          "updatedAt": "2022-04-21T12:23:22.389Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.47260731027501,
+            "hae": 1702.472607310275
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.720000144,
+            46.666109787
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 80,
+        "properties": {
+          "_id": "62614cbacb27f42509453484",
+          "name": "TOBLACHER PFANNHORN",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2424,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:22.169Z",
+          "updatedAt": "2022-04-21T12:23:22.204Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.8224471751729,
+            "hae": 2475.822447175173
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.25805598,
+            46.788889268
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 81,
+        "properties": {
+          "_id": "62614cbacb27f4250945348e",
+          "name": "VESES",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            2,
+            1
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1450,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Veses",
+          "createdAt": "2022-04-21T12:23:22.292Z",
+          "updatedAt": "2022-04-21T12:23:22.427Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.52433057735436,
+            "hae": 1499.5243305773542
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.015676861621,
+            46.123221430465
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 82,
+        "properties": {
+          "_id": "62614cbacb27f42509453496",
+          "name": "VEZZA D'OGLIO NORD",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2786,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:22.498Z",
+          "updatedAt": "2022-04-21T12:23:22.528Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.96088634163115,
+            "hae": 2837.960886341631
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            10.42488861068,
+            46.284165357834
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 83,
+        "properties": {
+          "_id": "62614cba1eacded7b7bbe9ab",
+          "name": "VIRGOLO1",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 0,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1600,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Virgolo 1",
+          "createdAt": "2022-04-21T12:23:22.564Z",
+          "updatedAt": "2022-04-21T12:23:22.597Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.17711581687709,
+            "hae": 1651.1771158168772
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.729002362093,
+            46.773727243855
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 84,
+        "properties": {
+          "_id": "62614cbacb27f425094534a4",
+          "name": "VIPITENO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1400,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Dynamic",
+          "createdAt": "2022-04-21T12:23:22.634Z",
+          "updatedAt": "2022-04-21T12:23:22.667Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.11093929523403,
+            "hae": 1451.110939295234
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.473055249111,
+            46.886708586721
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 85,
+        "properties": {
+          "_id": "62614cba1eacded7b7bbe9b4",
+          "name": "VIRGOLO2",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1800,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Virgolo2",
+          "createdAt": "2022-04-21T12:23:22.679Z",
+          "updatedAt": "2022-04-21T12:23:22.711Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.23529128219056,
+            "hae": 1851.2352912821905
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.764536267123,
+            46.769494641524
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 86,
+        "properties": {
+          "_id": "62614cbacb27f425094534bd",
+          "name": "VIRGOLO3",
+          "type": 0,
+          "reliability": 1,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2100,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Virgolo3",
+          "createdAt": "2022-04-21T12:23:22.765Z",
+          "updatedAt": "2022-04-21T12:23:22.801Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.45304721502879,
+            "hae": 2151.4530472150286
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.834059124748,
+            46.729738985455
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 87,
+        "properties": {
+          "_id": "62614cbb1eacded7b7bbe9c9",
+          "name": "ZEH_2",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 3000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Zeh_2",
+          "createdAt": "2022-04-21T12:23:23.180Z",
+          "updatedAt": "2022-04-21T12:23:23.211Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.92255336766647,
+            "hae": 3051.9225533676663
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.955080395562,
+            46.59885622622
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 88,
+        "properties": {
+          "_id": "62614cbacb27f425094534cf",
+          "name": "VIRGOLO4",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Virgolo4",
+          "createdAt": "2022-04-21T12:23:22.872Z",
+          "updatedAt": "2022-04-21T12:23:22.978Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.496981681082985,
+            "hae": 2051.496981681083
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.809511547886,
+            46.711262626925
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 89,
+        "properties": {
+          "_id": "62614cbb1eacded7b7bbe9d3",
+          "name": "ZWOELFERSPITZE",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 0,
+          "category": [
+            2,
+            1,
+            0
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 2276,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "createdAt": "2022-04-21T12:23:23.294Z",
+          "updatedAt": "2022-04-21T12:23:23.328Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.08976688579139,
+            "hae": 2327.0897668857915
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            12.687499855,
+            46.65389057900001
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 90,
+        "properties": {
+          "_id": "62614cbbcb27f425094534d8",
+          "name": "XOMO",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 1200,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2
+          ],
+          "remarks": "Xomo",
+          "createdAt": "2022-04-21T12:23:23.069Z",
+          "updatedAt": "2022-04-21T12:23:23.196Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 49.459116935386305,
+            "hae": 1249.4591169353862
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.215091114883,
+            45.769704734311
+          ]
+        }
+      },
+      {
+        "type": "Feature",
+        "id": 91,
+        "properties": {
+          "_id": "62614cbbcb27f425094534e6",
+          "name": "ZEHNER",
+          "type": 0,
+          "reliability": 2,
+          "occurrence": 1,
+          "category": [
+            0,
+            1,
+            2
+          ],
+          "country": "IT",
+          "elevation": {
+            "value": 3000,
+            "unit": 0,
+            "referenceDatum": 1
+          },
+          "timeOfDay": [
+            2,
+            3
+          ],
+          "remarks": "Zehner",
+          "createdAt": "2022-04-21T12:23:23.429Z",
+          "updatedAt": "2022-04-21T12:23:23.483Z",
+          "createdBy": "AUTO-IMPORTER",
+          "updatedBy": "import-script",
+          "elevationGeoid": {
+            "geoidHeight": 51.88232006134328,
+            "hae": 3051.8823200613433
+          }
+        },
+        "geometry": {
+          "type": "Point",
+          "coordinates": [
+            11.960573559611,
+            46.622322969177
+          ]
+        }
+      }
+    ]
+  },
+  "lastUpdated": "2025-07-17T12:08:38.565Z",
+  "country": "it",
+  "dataType": "hot",
+  "version": "1.0"
+}

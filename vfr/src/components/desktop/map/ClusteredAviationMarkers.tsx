@@ -106,8 +106,9 @@ function createPopupContent(marker: AviationMarker): string {
           <h3>${airspace.name || 'Unknown Airspace'}</h3>
           <p><strong>Type:</strong> ${airspace.type || 'N/A'}</p>
           <p><strong>ICAO Class:</strong> ${airspace.icaoClass || 'N/A'}</p>
-          <p><strong>Lower Limit:</strong> ${airspace.lowerLimit?.value || 'N/A'}m</p>
           <p><strong>Upper Limit:</strong> ${airspace.upperLimit?.value || 'N/A'}m</p>
+          <p><strong>Lower Limit:</strong> ${airspace.lowerLimit?.value || 'N/A'}m</p>
+
         </div>
       `;
 

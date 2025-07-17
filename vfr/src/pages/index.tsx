@@ -77,7 +77,7 @@ export default function Home() {
   // OpenAIP
   const [showAviationData, setShowAviationData] = useState(true);
   const [aviationLayers, setAviationLayers] = useState({
-    airports: false,
+    airports: true,
     airspaces: false,
     navigation: false,
     obstacles: false,
