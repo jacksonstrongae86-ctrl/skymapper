@@ -4,7 +4,7 @@ import path from 'path';
 
 export const createSyncConfig = (): OpenAIPConfig => {
   return {
-    countries: ['es', 'us', 'uk', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'],
+    countries: ['es', 'us', 'gb', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'],
     dataTypes: ['apt', 'asp', 'hot', 'nav', 'obs'],
     cachePath: path.join(process.cwd(), 'public', 'data', 'cache', 'openaip')
   };

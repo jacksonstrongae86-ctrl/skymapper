@@ -274,12 +274,19 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
 
   // Available countries (same as in CountrySelector)
   const AVAILABLE_COUNTRIES = [
-    { code: 'es', name: 'Spain', flag: '🇪🇸' },
-    { code: 'us', name: 'United States', flag: '🇺🇸' },
-    { code: 'uk', name: 'United Kingdom', flag: '🇬🇧' },
-    { code: 'de', name: 'Germany', flag: '🇩🇪' },
-    { code: 'fr', name: 'France', flag: '🇫🇷' },
-    { code: 'ca', name: 'Canada', flag: '🇨🇦' },
+    { code: "es", name: "Spain", flag: "🇪🇸" },
+    { code: "us", name: "United States", flag: "🇺🇸" },
+    { code: "gb", name: "United Kingdom", flag: "🇬🇧" },
+    { code: "mx", name: "Mexico", flag: "🇲🇽" },
+    { code: "it", name: "Italy", flag: "🇮🇹" },
+    { code: "fr", name: "France", flag: "🇫🇷" },
+    { code: "de", name: "Germany", flag: "🇩🇪" },
+    { code: "ca", name: "Canada", flag: "🇨🇦" },
+    { code: "nl", name: "Netherlands", flag: "🇳🇱" },
+    { code: "be", name: "Belgium", flag: "🇧🇪" },
+    { code: "ch", name: "Switzerland", flag: "🇨🇭" },
+    { code: "at", name: "Austria", flag: "🇦🇹" },
+    { code: "pt", name: "Portugal", flag: "🇵🇹" },
   ];
 
   // Update click outside handler to include country selector
@@ -291,7 +298,8 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         (!mapSelectorRef.current?.contains(event.target as Node) &&
           isMapSelectorOpen) ||
         (!searchRef.current?.contains(event.target as Node) && isSearchOpen) ||
-        (!aviationRef.current?.contains(event.target as Node) && isAviationOpen) ||
+        (!aviationRef.current?.contains(event.target as Node) &&
+          isAviationOpen) ||
         (!countryRef.current?.contains(event.target as Node) && isCountryOpen)
       ) {
         setIsThemeSelectorOpen(false);
@@ -302,14 +310,26 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
       }
     };
 
-    if (isThemeSelectorOpen || isMapSelectorOpen || isSearchOpen || isAviationOpen || isCountryOpen) {
+    if (
+      isThemeSelectorOpen ||
+      isMapSelectorOpen ||
+      isSearchOpen ||
+      isAviationOpen ||
+      isCountryOpen
+    ) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isThemeSelectorOpen, isMapSelectorOpen, isSearchOpen, isAviationOpen, isCountryOpen]);
+  }, [
+    isThemeSelectorOpen,
+    isMapSelectorOpen,
+    isSearchOpen,
+    isAviationOpen,
+    isCountryOpen,
+  ]);
 
   return (
     <div className="fixed right-4 top-4 z-50 grid grid-rows-2 gap-3">
@@ -497,24 +517,24 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         </div>
 
         {/* Country Selector */}
-      <div className="relative" ref={countryRef}>
-        <button
-          onClick={() => {
-            setIsCountryOpen((prev) => !prev);
-            setIsMapSelectorOpen(false);
-            setIsThemeSelectorOpen(false);
-            setIsSearchOpen(false);
-            setIsAviationOpen(false);
-          }}
-          className={`${ButtonClass} ${isCountryOpen ? "opacity-75" : ""}`}
-          title="Select Country"
-        >
-          <Globe size={18} className="text-[var(--button-text)]" />
-        </button>
+        <div className="relative" ref={countryRef}>
+          <button
+            onClick={() => {
+              setIsCountryOpen((prev) => !prev);
+              setIsMapSelectorOpen(false);
+              setIsThemeSelectorOpen(false);
+              setIsSearchOpen(false);
+              setIsAviationOpen(false);
+            }}
+            className={`${ButtonClass} ${isCountryOpen ? "opacity-75" : ""}`}
+            title="Select Country"
+          >
+            <Globe size={18} className="text-[var(--button-text)]" />
+          </button>
 
-        {isCountryOpen && (
-          <div
-            className={`
+          {isCountryOpen && (
+            <div
+              className={`
               absolute top-12 right-0
               ${`gradient-${theme}`}
               backdrop-blur-md p-2
@@ -523,15 +543,15 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
               min-w-[200px]
               z-50
             `}
-          >
-            {AVAILABLE_COUNTRIES.map((country) => (
-              <button
-                key={country.code}
-                onClick={() => {
-                  onCountryChange(country.code);
-                  setIsCountryOpen(false);
-                }}
-                className={`
+            >
+              {AVAILABLE_COUNTRIES.map((country) => (
+                <button
+                  key={country.code}
+                  onClick={() => {
+                    onCountryChange(country.code);
+                    setIsCountryOpen(false);
+                  }}
+                  className={`
                   w-full px-3 py-2
                   flex items-center gap-2
                   rounded-lg
@@ -542,15 +562,15 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                       : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                   }
                 `}
-                title={country.name}
-              >
-                <span className="text-sm">{country.flag}</span>
-                <span className="text-sm font-medium">{country.name}</span>
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
+                  title={country.name}
+                >
+                  <span className="text-sm">{country.flag}</span>
+                  <span className="text-sm font-medium">{country.name}</span>
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
 
         {/* Aviation Layer Control */}
         <div className="relative" ref={aviationRef}>

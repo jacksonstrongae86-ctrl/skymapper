@@ -472,10 +472,17 @@ export interface AviationDataWrapper<T> {
 export const COUNTRY_CENTERS: Record<string, [number, number]> = {
   es: [40.0, -4.0],    // Spain
   us: [39.8, -98.5],   // United States
-  uk: [54.0, -2.0],    // United Kingdom
-  de: [51.0, 9.0],     // Germany
+  gb: [54.0, -2.0],    // United Kingdom
+  mx: [23.0, -102.0],  // Mexico
+  it: [42.8, 12.8],    // Italy
   fr: [46.0, 2.0],     // France
+  de: [51.0, 9.0],     // Germany
   ca: [60.0, -95.0],   // Canada
+  nl: [52.0, 5.0],     // Netherlands
+  be: [50.8, 4.0],     // Belgium
+  ch: [47.0, 8.0],     // Switzerland
+  at: [47.3, 13.3],    // Austria
+  pt: [39.5, -8.0],    // Portugal
 };
 
 export const getCountryCenter = (countryCode: string): [number, number] => {

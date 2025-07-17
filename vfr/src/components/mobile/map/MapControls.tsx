@@ -78,10 +78,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
   const AVAILABLE_COUNTRIES = [
     { code: "es", name: "Spain", flag: "🇪🇸" },
     { code: "us", name: "United States", flag: "🇺🇸" },
-    { code: "uk", name: "United Kingdom", flag: "🇬🇧" },
-    { code: "de", name: "Germany", flag: "🇩🇪" },
+    { code: "gb", name: "United Kingdom", flag: "🇬🇧" },
+    { code: "mx", name: "Mexico", flag: "🇲🇽" },
+    { code: "it", name: "Italy", flag: "🇮🇹" },
     { code: "fr", name: "France", flag: "🇫🇷" },
+    { code: "de", name: "Germany", flag: "🇩🇪" },
     { code: "ca", name: "Canada", flag: "🇨🇦" },
+    { code: "nl", name: "Netherlands", flag: "🇳🇱" },
+    { code: "be", name: "Belgium", flag: "🇧🇪" },
+    { code: "ch", name: "Switzerland", flag: "🇨🇭" },
+    { code: "at", name: "Austria", flag: "🇦🇹" },
+    { code: "pt", name: "Portugal", flag: "🇵🇹" },
   ];
 
   // Fix: Use the same Nominatim approach as desktop
@@ -310,7 +317,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
               <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
                 Country
               </h3>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2 overflow-auto">
                 {AVAILABLE_COUNTRIES.map((country) => (
                   <button
                     key={country.code}
