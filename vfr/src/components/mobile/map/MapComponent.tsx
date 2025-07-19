@@ -59,6 +59,7 @@ interface ExtendedMapComponentProps extends MapComponentProps {
     hotspots: boolean;
   };
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
+  selectedCountry: string;
   onCountryChange: (country: string) => void;
 }
 
@@ -75,6 +76,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   onToggleAviationData,
   aviationLayers,
   onLayerToggle,
+  selectedCountry,
   onCountryChange,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -83,14 +85,13 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
-  const [selectedCountry, setSelectedCountry] = useState('es');
   const [countryDetected, setCountryDetected] = useState(false);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
         try {
           const detectedCountry = await detectUserCountry();
-          setSelectedCountry(detectedCountry);
+          onCountryChange(detectedCountry);
           setCountryDetected(true);
           console.log('Auto-detected country:', detectedCountry);
         } catch (error) {
@@ -101,7 +102,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     };
 
     detectAndSetCountry();
-  }, [countryDetected]);
+  }, [countryDetected, onCountryChange]);
   const mapCenter = getCountryCenter(selectedCountry);
   useEffect(() => {
       if (mapRef.current) {
