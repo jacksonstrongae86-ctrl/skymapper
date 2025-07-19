@@ -1,6 +1,6 @@
 // src/components/legal/ConsentManager.tsx
 import React, { useState, useEffect } from "react";
-import { useTheme } from "@/src/utils/ThemeContext";
+// import { useTheme } from "@/src/utils/ThemeContext";
 import {
   ConsentManager as ConsentUtil,
   ConsentState,
@@ -17,6 +17,7 @@ import {
   AlertTriangle,
   Info,
 } from "lucide-react";
+import { useTheme } from "@/src/utils/ThemeContext";
 
 interface ConsentManagerProps {
   onConsentChange?: (consents: ConsentState) => void;
@@ -36,7 +37,7 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
     ConsentUtil.getDefaultConsents()
   );
   const [isLoading, setIsLoading] = useState(true);
-  const [,setHasInitialized] = useState(false);
+  const [, setHasInitialized] = useState(false);
 
   // Initialize consent state
   useEffect(() => {
@@ -194,12 +195,21 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
     <>
       {/* Main Consent Modal */}
       {showConsentModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 dark:bg-black/20 backdrop-blur-md">
+        <div
+          className="
+    fixed inset-0 z-50 flex items-center justify-center
+    bg-black/50 backdrop-blur-md
+  "
+        >
           <div
-            className={`
-        w-full max-w-lg sm:max-w-2xl mx-2 sm:mx-4 rounded-xl shadow-2xl border border-[var(--sidebar-border)]
-        ${`gradient-${theme}`} max-h-[95vh] sm:max-h-[90vh] flex flex-col
-      `}
+            className="
+      w-full max-w-[88vw] sm:max-w-2xl
+      h-auto max-h-[78vh] sm:max-h-[80vh]
+      bg-gray-900 text-gray-100 shadow-2xl border border-gray-700
+      rounded-xl sm:rounded-xl
+      overflow-y-auto custom-scrollbar
+      p-2 sm:p-8
+    "
           >
             <div className="custom-scrollbar overflow-y-auto p-4 sm:p-8">
               {/* Header */}
@@ -220,8 +230,8 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
                   flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium
                   ${
                     status.isComplete
-                      ? "bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 border border-green-300 dark:border-green-700"
-                      : "bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 border border-yellow-300 dark:border-yellow-700"
+                      ? "bg-green-900 text-green-200 border border-green-700"
+                      : "bg-yellow-900 text-yellow-200 border border-yellow-700"
                   }
                 `}
                 >
@@ -253,19 +263,15 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
                       p-3 rounded-lg border text-center
                       ${
                         enabled
-                          ? "border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20"
-                          : "border-gray-300 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/20"
+                          ? "border-green-700 bg-green-900/20"
+                          : "border-gray-700 bg-gray-900/20"
                       }
                     `}
                     >
                       <div
                         className={`
                         text-sm font-medium capitalize
-                        ${
-                          enabled
-                            ? "text-green-800 dark:text-green-200"
-                            : "text-gray-600 dark:text-gray-400"
-                        }
+                        ${enabled ? "text-green-200" : "text-gray-400"}
                       `}
                       >
                         {key.replace(/([A-Z])/g, " $1").trim()}
@@ -274,10 +280,10 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
                         {enabled ? (
                           <CheckCircle
                             size={16}
-                            className="mx-auto text-green-600 dark:text-green-400"
+                            className="mx-auto text-green-400"
                           />
                         ) : (
-                          <div className="w-4 h-4 mx-auto rounded-full border-2 border-gray-400 dark:border-gray-600" />
+                          <div className="w-4 h-4 mx-auto rounded-full border-2 border-gray-600" />
                         )}
                       </div>
                     </div>
@@ -286,17 +292,17 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
               </div>
 
               {/* Aviation Safety Notice */}
-              <div className="mb-8 p-6 rounded-lg border-2 border-red-500 bg-red-50 dark:bg-red-900/20">
+              <div className="mb-8 p-6 rounded-lg border-2 border-red-500 bg-red-900/20">
                 <div className="flex items-start gap-3">
                   <AlertTriangle
                     size={24}
-                    className="text-red-600 dark:text-red-400 flex-shrink-0 mt-1"
+                    className="text-red-400 flex-shrink-0 mt-1"
                   />
                   <div>
-                    <h3 className="font-bold text-red-800 dark:text-red-200 mb-2">
+                    <h3 className="font-bold text-red-200 mb-2">
                       IMPORTANT AVIATION SAFETY NOTICE
                     </h3>
-                    <p className="text-red-700 dark:text-red-300 text-sm">
+                    <p className="text-red-300 text-sm">
                       SkyMapper is a flight planning tool only and is NOT
                       approved for actual flight operations. We do not take
                       responsibility for flight safety, weather accuracy,
@@ -328,7 +334,7 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
 
                   <button
                     onClick={handleReset}
-                    className="px-4 py-2 rounded-lg border border-red-300 dark:border-red-700 bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 hover:opacity-80 transition-all duration-200 flex items-center gap-2 text-sm"
+                    className="px-4 py-2 rounded-lg border border-red-700 bg-red-900/20 text-red-300 hover:opacity-80 transition-all duration-200 flex items-center gap-2 text-sm"
                   >
                     <Trash2 size={16} />
                     Reset All
@@ -358,7 +364,7 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
                       ${
                         status.isComplete
                           ? `${`button-gradient-${theme}`} text-[var(--button-text)] hover:opacity-90`
-                          : "bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
+                          : "bg-gray-700 text-gray-400 cursor-not-allowed"
                       }
                     `}
                   >

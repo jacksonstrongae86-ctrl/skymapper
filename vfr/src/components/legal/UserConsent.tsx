@@ -51,8 +51,8 @@ export const UserConsent: React.FC<UserConsentProps> = ({
       ],
       icon: Shield,
       required: true,
-      color: "text-green-600 dark:text-green-400",
-      bgColor: "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800",
+      color: "text-green-400",
+      bgColor: "bg-green-900/20 border-green-800",
     },
     {
       key: "analytics" as keyof ConsentState,
@@ -66,8 +66,8 @@ export const UserConsent: React.FC<UserConsentProps> = ({
       ],
       icon: BarChart,
       required: false,
-      color: "text-blue-600 dark:text-blue-400",
-      bgColor: "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800",
+      color: "text-blue-400",
+      bgColor: "bg-blue-900/20 border-blue-800",
     },
     {
       key: "marketing" as keyof ConsentState,
@@ -81,8 +81,8 @@ export const UserConsent: React.FC<UserConsentProps> = ({
       ],
       icon: Target,
       required: false,
-      color: "text-purple-600 dark:text-purple-400",
-      bgColor: "bg-purple-50 dark:bg-purple-900/20 border-purple-200 dark:border-purple-800",
+      color: "text-purple-400",
+      bgColor: "bg-purple-900/20 border-purple-800",
     },
     {
       key: "preferences" as keyof ConsentState,
@@ -96,8 +96,8 @@ export const UserConsent: React.FC<UserConsentProps> = ({
       ],
       icon: Settings2,
       required: false,
-      color: "text-orange-600 dark:text-orange-400",
-      bgColor: "bg-orange-50 dark:bg-orange-900/20 border-orange-200 dark:border-orange-800",
+      color: "text-orange-400",
+      bgColor: "bg-orange-900/20 border-orange-800",
     },
   ];
 
@@ -138,14 +138,14 @@ export const UserConsent: React.FC<UserConsentProps> = ({
   return (
     <div className="space-y-8">
       {/* Aviation Safety Warning */}
-      <div className="p-4 rounded-lg border-2 border-red-500 bg-red-50 dark:bg-red-900/20">
+      <div className="p-4 rounded-lg border-2 border-red-500 bg-red-900/20">
         <div className="flex items-start gap-3">
-          <AlertTriangle size={24} className="text-red-600 dark:text-red-400 flex-shrink-0 mt-1" />
+          <AlertTriangle size={24} className="text-red-400 flex-shrink-0 mt-1" />
           <div>
-            <h3 className="font-bold text-red-800 dark:text-red-200 mb-2">
+            <h3 className="font-bold text-red-200 mb-2">
               IMPORTANT AVIATION SAFETY NOTICE
             </h3>
-            <p className="text-red-700 dark:text-red-300 text-sm">
+            <p className="text-red-300 text-sm">
               SkyMapper is a flight planning tool only and is NOT approved for actual flight operations.
               Always verify all information with official aviation authorities, current NOTAMs, and certified navigation equipment.
             </p>
@@ -193,7 +193,7 @@ export const UserConsent: React.FC<UserConsentProps> = ({
                           {category.title}
                         </h4>
                         {category.required && (
-                          <span className="text-xs bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200 px-2 py-1 rounded-full border border-green-300 dark:border-green-700">
+                          <span className="text-xs bg-green-900 text-green-200 px-2 py-1 rounded-full border border-green-700">
                             Required
                           </span>
                         )}
@@ -211,7 +211,7 @@ export const UserConsent: React.FC<UserConsentProps> = ({
                           <Info size={14} />
                           What data is collected?
                         </summary>
-                        <div className="mt-2 p-3 rounded-lg bg-white dark:bg-gray-800 border border-[var(--sidebar-border)]">
+                        <div className="mt-2 p-3 rounded-lg bg-gray-800 border border-[var(--sidebar-border)]">
                           <ul className="text-sm text-[var(--sidebar-text)] space-y-1">
                             {category.details.map((detail, index) => (
                               <li key={index} className="flex items-center gap-2">
@@ -253,7 +253,7 @@ export const UserConsent: React.FC<UserConsentProps> = ({
             </p>
           </div>
           {isLegalConsentComplete && (
-            <CheckCircle size={20} className="text-green-600 dark:text-green-400" />
+            <CheckCircle size={20} className="text-green-400" />
           )}
         </div>
 
@@ -267,7 +267,7 @@ export const UserConsent: React.FC<UserConsentProps> = ({
                 key={consent.key as Key}
                 className={`p-6 rounded-xl border-2 transition-all duration-200 ${
                   isAccepted
-                    ? 'border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20'
+                    ? 'border-green-700 bg-green-900/20'
                     : 'border-[var(--sidebar-border)] bg-[var(--sidebar-bg)]'
                 }`}
               >
@@ -285,17 +285,17 @@ export const UserConsent: React.FC<UserConsentProps> = ({
                       >
                         <Eye size={16} />
                       </button>
-                      <span className="text-xs bg-red-100 dark:bg-red-900 text-red-800 dark:text-red-200 px-2 py-1 rounded-full border border-red-300 dark:border-red-700">
+                      <span className="text-xs bg-red-900 text-red-200 px-2 py-1 rounded-full border border-red-700">
                         Required
                       </span>
                       {isAccepted && (
-                        <CheckCircle size={16} className="text-green-600 dark:text-green-400" />
+                        <CheckCircle size={16} className="text-green-400" />
                       )}
                     </div>
                     <p className="text-[var(--sidebar-text)] opacity-75 text-sm mb-2">
                       {consent.description}
                     </p>
-                    <div className="text-xs text-orange-700 dark:text-orange-300 bg-orange-50 dark:bg-orange-900/20 p-2 rounded border border-orange-200 dark:border-orange-800">
+                    <div className="text-xs text-orange-300 bg-orange-900/20 p-2 rounded border border-orange-800">
                       <strong>Note:</strong> {consent.warning}
                     </div>
                   </div>
@@ -316,21 +316,21 @@ export const UserConsent: React.FC<UserConsentProps> = ({
         {/* Legal Status Summary */}
         <div className={`mt-4 p-4 rounded-lg border ${
           isLegalConsentComplete
-            ? 'border-green-300 dark:border-green-700 bg-green-50 dark:bg-green-900/20'
-            : 'border-yellow-300 dark:border-yellow-700 bg-yellow-50 dark:bg-yellow-900/20'
+            ? 'border-green-700 bg-green-900/20'
+            : 'border-yellow-700 bg-yellow-900/20'
         }`}>
           <div className="flex items-center gap-2">
             {isLegalConsentComplete ? (
               <>
-                <CheckCircle size={18} className="text-green-600 dark:text-green-400" />
-                <span className="text-green-800 dark:text-green-200 font-medium">
+                <CheckCircle size={18} className="text-green-400" />
+                <span className="text-green-200 font-medium">
                   All required agreements accepted
                 </span>
               </>
             ) : (
               <>
-                <AlertTriangle size={18} className="text-yellow-600 dark:text-yellow-400" />
-                <span className="text-yellow-800 dark:text-yellow-200 font-medium">
+                <AlertTriangle size={18} className="text-yellow-400" />
+                <span className="text-yellow-200 font-medium">
                   Please accept all required agreements to continue
                 </span>
               </>

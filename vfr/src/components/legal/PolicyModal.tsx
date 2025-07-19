@@ -1,6 +1,5 @@
 // src/components/legal/PolicyModal.tsx
 import React, { useState, useEffect, useCallback } from "react";
-import { useTheme } from "@/src/utils/ThemeContext";
 import {
   X,
   FileText,
@@ -8,12 +7,12 @@ import {
   Cookie,
   Database,
   AlertTriangle,
-//   Download,
-//   Printer,
-  Search,
+  //   Download,
+  //   Printer,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import { useTheme } from "@/src/utils/ThemeContext";
 interface PolicyModalProps {
   policyType: string;
   onClose: () => void;
@@ -34,7 +33,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
 }) => {
   const { theme } = useTheme();
   const [currentSection, setCurrentSection] = useState(0);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm] = useState("");
   const [, setSearchResults] = useState<number[]>([]);
 
   // Close modal on escape key
@@ -395,110 +394,110 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
   const config = getPolicyConfig(policyType);
   const PolicyIcon = config.icon;
 
-//   const handlePrint = () => {
-//     // Create a new window with printable content
-//     const printWindow = window.open("", "_blank");
-//     if (!printWindow) {
-//       alert("Pop-up blocked. Please allow pop-ups to print.");
-//       return;
-//     }
+  //   const handlePrint = () => {
+  //     // Create a new window with printable content
+  //     const printWindow = window.open("", "_blank");
+  //     if (!printWindow) {
+  //       alert("Pop-up blocked. Please allow pop-ups to print.");
+  //       return;
+  //     }
 
-//     const printContent = `
-//     <!DOCTYPE html>
-//     <html>
-//     <head>
-//       <title>${config.title} - SkyMapper</title>
-//       <style>
-//         body {
-//           font-family: Arial, sans-serif;
-//           line-height: 1.6;
-//           margin: 20px;
-//           color: #333;
-//         }
-//         h1, h2, h3 {
-//           color: #2c3e50;
-//           margin-top: 20px;
-//         }
-//         .header {
-//           border-bottom: 2px solid #3498db;
-//           padding-bottom: 10px;
-//           margin-bottom: 20px;
-//         }
-//         .section {
-//           margin-bottom: 30px;
-//           page-break-inside: avoid;
-//         }
-//         .warning {
-//           background-color: #fff3cd;
-//           border: 1px solid #ffeaa7;
-//           border-radius: 4px;
-//           padding: 15px;
-//           margin: 15px 0;
-//         }
-//         @media print {
-//           body { margin: 0; }
-//           .no-print { display: none; }
-//         }
-//       </style>
-//     </head>
-//     <body>
-//       <div class="header">
-//         <h1>${config.title}</h1>
-//         <p>Last updated: ${config.lastUpdated}</p>
-//         <p>Generated: ${new Date().toLocaleDateString()}</p>
-//       </div>
+  //     const printContent = `
+  //     <!DOCTYPE html>
+  //     <html>
+  //     <head>
+  //       <title>${config.title} - SkyMapper</title>
+  //       <style>
+  //         body {
+  //           font-family: Arial, sans-serif;
+  //           line-height: 1.6;
+  //           margin: 20px;
+  //           color: #333;
+  //         }
+  //         h1, h2, h3 {
+  //           color: #2c3e50;
+  //           margin-top: 20px;
+  //         }
+  //         .header {
+  //           border-bottom: 2px solid #3498db;
+  //           padding-bottom: 10px;
+  //           margin-bottom: 20px;
+  //         }
+  //         .section {
+  //           margin-bottom: 30px;
+  //           page-break-inside: avoid;
+  //         }
+  //         .warning {
+  //           background-color: #fff3cd;
+  //           border: 1px solid #ffeaa7;
+  //           border-radius: 4px;
+  //           padding: 15px;
+  //           margin: 15px 0;
+  //         }
+  //         @media print {
+  //           body { margin: 0; }
+  //           .no-print { display: none; }
+  //         }
+  //       </style>
+  //     </head>
+  //     <body>
+  //       <div class="header">
+  //         <h1>${config.title}</h1>
+  //         <p>Last updated: ${config.lastUpdated}</p>
+  //         <p>Generated: ${new Date().toLocaleDateString()}</p>
+  //       </div>
 
-//       ${config.sections
-//         .map(
-//           (section) => `
-//         <div class="section">
-//           <h2>${section.title}</h2>
-//           <div>${
-//             typeof section.content === "string"
-//               ? section.content
-//               : "Content not available for print"
-//           }</div>
-//         </div>
-//       `
-//         )
-//         .join("")}
+  //       ${config.sections
+  //         .map(
+  //           (section) => `
+  //         <div class="section">
+  //           <h2>${section.title}</h2>
+  //           <div>${
+  //             typeof section.content === "string"
+  //               ? section.content
+  //               : "Content not available for print"
+  //           }</div>
+  //         </div>
+  //       `
+  //         )
+  //         .join("")}
 
-//       <div style="margin-top: 40px; font-size: 12px; color: #666;">
-//         <p>This document was generated from SkyMapper Legal Policies</p>
-//         <p>For the most current version, please visit our website</p>
-//       </div>
-//     </body>
-//     </html>
-//   `;
+  //       <div style="margin-top: 40px; font-size: 12px; color: #666;">
+  //         <p>This document was generated from SkyMapper Legal Policies</p>
+  //         <p>For the most current version, please visit our website</p>
+  //       </div>
+  //     </body>
+  //     </html>
+  //   `;
 
-//     printWindow.document.write(printContent);
-//     printWindow.document.close();
+  //     printWindow.document.write(printContent);
+  //     printWindow.document.close();
 
-//     // Wait for content to load, then print
-//     setTimeout(() => {
-//       printWindow.print();
-//       printWindow.close();
-//     }, 250);
-//   };
+  //     // Wait for content to load, then print
+  //     setTimeout(() => {
+  //       printWindow.print();
+  //       printWindow.close();
+  //     }, 250);
+  //   };
 
-//   const handleDownload = () => {
-//     const content = config.sections
-//       .map(
-//         (section) =>
-//           `${section.title}\n${"=".repeat(section.title.length)}\n\n${
-//             section.content
-//           }\n\n`
-//       )
-//       .join("");
+  //   const handleDownload = () => {
+  //     const content = config.sections
+  //       .map(
+  //         (section) =>
+  //           `${section.title}\n${"=".repeat(section.title.length)}\n\n${
+  //             section.content
+  //           }\n\n`
+  //       )
+  //       .join("");
 
-//     const blob = new Blob([content], { type: "text/plain" });
-//     const url = URL.createObjectURL(blob);
-//     const a = document.createElement("a");
-//     a.href = url;
-//     a.download = `skymapper-${policyType}-policy.txt`;
-//     a.click();
-//     URL.revokeObjectURL(url);
-//   };
+  //     const blob = new Blob([content], { type: "text/plain" });
+  //     const url = URL.createObjectURL(blob);
+  //     const a = document.createElement("a");
+  //     a.href = url;
+  //     a.download = `skymapper-${policyType}-policy.txt`;
+  //     a.click();
+  //     URL.revokeObjectURL(url);
+  //   };
   //   const [isSearching, setIsSearching] = useState(false);
   const getSearchableContent = useCallback(
     (content: React.ReactNode): string => {
@@ -540,126 +539,48 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-white/10 dark:bg-black/20 backdrop-blur-md">
+    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/70 backdrop-blur-md">
       <div
-        className={`
-    w-full max-w-6xl mx-2 sm:mx-4 rounded-xl shadow-2xl border border-[var(--sidebar-border)]
-    ${`gradient-${theme}`} max-h-[95vh] sm:max-h-[90vh] flex flex-col
-  `}
+        className="
+    w-[95vw] sm:max-w-3xl
+    max-h-[95vh]
+    bg-gray-900 text-gray-100 border border-gray-700 shadow-2xl
+    rounded-xl sm:rounded-xl
+    flex flex-col
+  "
       >
+        {" "}
         {/* Header - Mobile optimized */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 border-b border-[var(--sidebar-border)]">
-          <div className="flex items-center gap-3 mb-4 sm:mb-0">
-            <PolicyIcon size={24} className="text-[var(--button-text)]" />
-            <div>
-              <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--sidebar-text)]">
-                {config.title}
-              </h2>
-              <p className="text-xs sm:text-sm text-[var(--sidebar-text)] opacity-60">
-                Last updated: {config.lastUpdated}
-              </p>
+        <div className="shrink-0 border-b border-gray-700 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between p-4 sm:p-6 border-b border-[var(--sidebar-border)]">
+            <div className="flex items-center gap-3 mb-4 sm:mb-0">
+              <PolicyIcon size={24} className="text-[var(--button-text)]" />
+              <div>
+                <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-[var(--sidebar-text)]">
+                  {config.title}
+                </h2>
+                <p className="text-xs sm:text-sm text-[var(--sidebar-text)] opacity-60">
+                  Last updated: {config.lastUpdated}
+                </p>
+              </div>
+              {/* Actions - Stack on mobile */}
+              <div className="flex ml-72 gap-2">
+                <button
+                  onClick={onClose}
+                  className="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors"
+                >
+                  <X size={18} className="text-[var(--sidebar-text)]" />
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="flex items-center gap-2">
-            {/* Search - Hide on small screens */}
-            {/* <div className="relative hidden md:block">
-              <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-8 pr-4 py-2 rounded-lg border border-[var(--sidebar-border)] bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] text-sm w-32 lg:w-48"
-              />
-              <Search
-                size={16}
-                className="absolute left-2.5 top-2.5 text-[var(--sidebar-text)] opacity-50"
-              />
-            </div> */}
-
-            {/* Actions - Stack on mobile */}
-            <div className="flex gap-2">
-            <button
-              onClick={onClose}
-              className="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors"
-            >
-              <X size={18} className="text-[var(--sidebar-text)]" />
-            </button>
-            </div>
-            {/* <div className="flex gap-2">
-              <button
-                onClick={handlePrint}
-                className="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors"
-                title="Print"
-              >
-                <Printer size={16} className="text-[var(--sidebar-text)]" />
-              </button>
-              <button
-                onClick={handleDownload}
-                className="p-2 rounded-lg hover:bg-white hover:bg-opacity-10 transition-colors"
-                title="Download"
-              >
-                <Download size={16} className="text-[var(--sidebar-text)]" />
-              </button>
-
-            </div> */}
-          </div>
+          <div className="flex items-center gap-2"></div>
         </div>
-
-        {/* Mobile search bar - show on small screens */}
-        <div className="md:hidden border-b border-[var(--sidebar-border)] p-4">
-          <div className="relative">
-            <input
-              type="text"
-              placeholder="Search content..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-8 pr-4 py-2 rounded-lg border border-[var(--sidebar-border)] bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] text-sm"
-            />
-            <Search
-              size={16}
-              className="absolute left-2.5 top-2.5 text-[var(--sidebar-text)] opacity-50"
-            />
-          </div>
-        </div>
-
-        <div className="flex flex-1 overflow-hidden">
-          {/* Sidebar Navigation - Hide on mobile, show as horizontal tabs */}
-          <div className="hidden lg:block w-64 xl:w-80 border-r border-[var(--sidebar-border)] bg-[var(--sidebar-bg)] bg-opacity-30 overflow-y-auto custom_scrollbar">
-            <div className="p-4">
-              <h3 className="font-semibold text-[var(--sidebar-text)] mb-3">
-                Sections
-              </h3>
-              <nav className="space-y-1">
-                {config.sections.map((section, index) => {
-                  const SectionIcon = section.icon || FileText;
-                  return (
-                    <button
-                      key={section.id}
-                      onClick={() => setCurrentSection(index)}
-                      className={`
-                    w-full text-left p-3 rounded-lg transition-all duration-200 flex items-center gap-3
-                    ${
-                      currentSection === index
-                        ? `${`button-gradient-${theme}`} text-[var(--button-text)] shadow-md`
-                        : "hover:bg-white hover:bg-opacity-5 text-[var(--sidebar-text)]"
-                    }
-                  `}
-                    >
-                      <SectionIcon size={16} />
-                      <span className="font-medium text-sm">
-                        {section.title}
-                      </span>
-                    </button>
-                  );
-                })}
-              </nav>
-            </div>
-          </div>
-
+        <div className="flex flex-col overflow-hidden">
           {/* Mobile navigation tabs */}
-          <div className="lg:hidden w-full border-b border-[var(--sidebar-border)] p-2 bg-[var(--sidebar-bg)] bg-opacity-30">
-            <div className="flex overflow-x-auto gap-2 custom_scrollbar">
+          <div className="w-full border-b max-h-[8vw] border-[var(--sidebar-border)] p-2 bg-[var(--sidebar-bg)] bg-opacity-30">
+            <div className="flex overflow-x-auto gap-2 custom-scrollbar">
               {config.sections.map((section, index) => {
                 const SectionIcon = section.icon || FileText;
                 return (
@@ -684,7 +605,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
           </div>
 
           {/* Content Area */}
-          <div className="flex-1 overflow-y-auto custom_scrollbar">
+          <div className="flex-1 overflow-y-auto custom-scrollbar">
             <div className="p-4 sm:p-6 lg:p-8">
               {config.sections[currentSection] && (
                 <div>
@@ -714,7 +635,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
           </div>
         </div>
         {/* Footer Navigation */}
-        <div className="flex flex-col sm:flex-row items-center justify-between p-4 sm:p-6 border-t border-[var(--sidebar-border)] gap-4">
+        <div className="flex flex-row items-center justify-between p-6 border-t border-[var(--sidebar-border)] gap-4">
           <button
             onClick={() => setCurrentSection(Math.max(0, currentSection - 1))}
             disabled={currentSection === 0}
@@ -731,7 +652,7 @@ export const PolicyModal: React.FC<PolicyModalProps> = ({
             <span className="text-sm">Previous</span>
           </button>
 
-          <div className="text-sm text-[var(--sidebar-text)] opacity-60 text-center">
+          <div className="text-sm text-gray-400 opacity-60 text-center whitespace-nowrap w-full sm:w-auto">
             {currentSection + 1} of {config.sections.length}
           </div>
 
