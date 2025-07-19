@@ -18,7 +18,12 @@ import {
   Flame,
 } from "lucide-react";
 
-type AviationLayerKey = "airports" | "airspaces" | "navigation" | "obstacles" | "hotspots";
+type AviationLayerKey =
+  | "airports"
+  | "airspaces"
+  | "navigation"
+  | "obstacles"
+  | "hotspots";
 
 interface ExtendedMapControlProps extends MapControlsProps {
   showAviationData?: boolean;
@@ -51,7 +56,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
     hotspots: true,
   },
   onLayerToggle,
-  selectedCountry = 'es',
+  selectedCountry = "es",
   onCountryChange,
 }) => {
   const { theme } = useTheme();
@@ -63,7 +68,44 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
-    const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const searchTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isOpen &&
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        // Don't close if clicking on the menu button
+        const menuButton = document.querySelector("[data-menu-button]");
+        if (menuButton && !menuButton.contains(event.target as Node)) {
+          setIsOpen(false);
+        }
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
+  // Prevent body scroll when modal is open
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isOpen]);
 
   type SearchResult = {
     place_id: number;
@@ -210,37 +252,62 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
   return (
     <div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
       <button
+        data-menu-button
         onClick={() => setIsOpen(!isOpen)}
         className={`
+          fixed top-4 left-4 z-[1001]
           w-8 h-8 rounded-lg
           ${`button-gradient-${theme}`}
           text-[var(--button-text)]
           hover:opacity-90
           transition-all duration-200
           flex items-center justify-center
+          shadow-lg
+          ${isOpen ? "opacity-75" : ""}
         `}
       >
-        <Menu size={16} />
+        <Menu size={20} />
       </button>
 
       {isOpen && (
-        <div
-          ref={dropdownRef}
-          className="space-y-4 bg-[var(--sidebar-bg)] rounded-lg p-4 border border-[var(--sidebar-border)]"
-        >
-          {/* Search Section - Fixed to match desktop */}
-          <div>
-            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
-              Search Location
-            </h3>
-            <div className="flex items-center gap-2 mb-2">
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search location..."
-                className={`
+        <>
+          {/* Overlay */}
+          <div
+            className="fixed inset-0 bg-transparent bg-blur bg-opacity-50 z-[999]"
+            onClick={() => setIsOpen(false)}
+          />
+          <div
+            ref={dropdownRef}
+            className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 sm:w-80 max-w-[90vw] max-h-[80vh] bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] rounded-xl z-[1000] flex flex-col shadow-2xl"
+          >
+            {/* Header */}
+            <div className="flex items-center justify-between p-4 border-b rounded-lg border-[var(--sidebar-border)] bg-[var(--sidebar-bg)]">
+              <h3 className="text-lg font-semibold text-[var(--sidebar-text)]">
+                Map Controls
+              </h3>
+              <button
+                onClick={() => setIsOpen(false)}
+                className="p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
+              >
+                <XCircle size={20} className="text-[var(--sidebar-text)]" />
+              </button>
+            </div>
+            {/* Scrollable Content */}
+            <div className="flex-1 overflow-y-auto custom_scrollbar">
+              <div className="p-4 space-y-6">
+                {/* Search Section - Fixed to match desktop */}
+                <div>
+                  <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                    Search Location
+                  </h3>
+                  <div className="flex items-center gap-2 mb-2">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search location..."
+                      className={`
                   flex-1 px-3 py-2 rounded-lg text-sm
                   bg-[var(--input-bg)]
                   border border-[var(--sidebar-border)]
@@ -252,79 +319,92 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                   transition-all duration-200
                   min-w-0
                 `}
-              />
-              {isSearching && (
-                <Loader2 className="w-4 h-4 animate-spin text-[var(--sidebar-text-muted)]" />
-              )}
-            </div>
+                    />
+                    {isSearching && (
+                      <Loader2 className="w-4 h-4 animate-spin text-[var(--sidebar-text-muted)]" />
+                    )}
+                  </div>
 
-            {/* Search results - Fixed to match desktop */}
-            <div className="max-h-40 overflow-y-auto">
-              {searchError && (
-                <div className="flex items-center gap-2 p-2 text-red-400 text-sm">
-                  <AlertCircle className="w-4 h-4" />
-                  <span className="truncate">{searchError}</span>
-                </div>
-              )}
-
-              {searchResults.length > 0 && (
-                <div className="space-y-1">
-                  {searchResults.map((result) => (
-                    <button
-                      key={result.place_id}
-                      onClick={() => handleResultClick(result)}
-                      className="w-full text-left p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
-                    >
-                      <div className="font-medium text-[var(--sidebar-text)] truncate">
-                        {result.display_name.split(",")[0]}
+                  {/* Search results - Fixed to match desktop */}
+                  <div className="max-h-40 overflow-y-auto">
+                    {searchError && (
+                      <div className="flex items-center gap-2 p-2 text-red-400 text-sm">
+                        <AlertCircle className="w-4 h-4" />
+                        <span className="truncate">{searchError}</span>
                       </div>
-                      <div className="text-sm text-[var(--sidebar-text-muted)] truncate">
-                        {result.display_name.split(",").slice(1).join(",").trim()}
+                    )}
+
+                    {searchResults.length > 0 && (
+                      <div className="space-y-1">
+                        {searchResults.map((result) => (
+                          <button
+                            key={result.place_id}
+                            onClick={() => handleResultClick(result)}
+                            className="w-full text-left p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
+                          >
+                            <div className="font-medium text-[var(--sidebar-text)] truncate">
+                              {result.display_name.split(",")[0]}
+                            </div>
+                            <div className="text-sm text-[var(--sidebar-text-muted)] truncate">
+                              {result.display_name
+                                .split(",")
+                                .slice(1)
+                                .join(",")
+                                .trim()}
+                            </div>
+                            <div className="text-xs text-[var(--sidebar-text-muted)]">
+                              {result.lat}, {result.lon}
+                            </div>
+                          </button>
+                        ))}
                       </div>
-                      <div className="text-xs text-[var(--sidebar-text-muted)]">
-                        {result.lat}, {result.lon}
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              )}
+                    )}
 
-              {/* Status messages - Fixed to match desktop */}
-              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length >= 2 && (
-                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
-                  No locations found
-                </div>
-              )}
+                    {/* Status messages - Fixed to match desktop */}
+                    {!isSearching &&
+                      searchResults.length === 0 &&
+                      !searchError &&
+                      searchQuery.length >= 2 && (
+                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                          No locations found
+                        </div>
+                      )}
 
-              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length < 2 && searchQuery.length > 0 && (
-                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
-                  Type at least 2 characters to search
-                </div>
-              )}
+                    {!isSearching &&
+                      searchResults.length === 0 &&
+                      !searchError &&
+                      searchQuery.length < 2 &&
+                      searchQuery.length > 0 && (
+                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                          Type at least 2 characters to search
+                        </div>
+                      )}
 
-              {!isSearching && searchResults.length === 0 && !searchError && searchQuery.length === 0 && (
-                <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
-                  Start typing to search for locations
+                    {!isSearching &&
+                      searchResults.length === 0 &&
+                      !searchError &&
+                      searchQuery.length === 0 && (
+                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                          Start typing to search for locations
+                        </div>
+                      )}
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
 
-          {/* Rest of the component remains the same */}
-          {/* Country Selection */}
-          {onCountryChange && (
-            <div>
-              <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
-                Country
-              </h3>
-              <div className="grid grid-cols-2 gap-2 overflow-auto">
-                {AVAILABLE_COUNTRIES.map((country) => (
-                  <button
-                    key={country.code}
-                    onClick={() => {
-                      onCountryChange(country.code);
-                    }}
-                    className={`
+                {/* Country Selection */}
+                {onCountryChange && (
+                  <div>
+                    <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                      Country
+                    </h3>
+                    <div className="grid grid-cols-2 gap-2 overflow-auto">
+                      {AVAILABLE_COUNTRIES.map((country) => (
+                        <button
+                          key={country.code}
+                          onClick={() => {
+                            onCountryChange(country.code);
+                          }}
+                          className={`
                       px-3 py-2 rounded-lg text-sm
                       flex items-center gap-2
                       transition-all duration-200
@@ -334,25 +414,25 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                           : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                       }
                     `}
-                  >
-                    <span className="text-xs">{country.flag}</span>
-                    <span className="truncate">{country.name}</span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
+                        >
+                          <span className="text-xs">{country.flag}</span>
+                          <span className="truncate">{country.name}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
-          {/* Aviation Data */}
-          {onToggleAviationData && onLayerToggle && (
-            <div>
-              <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
-                Aviation Data
-              </h3>
+                {/* Aviation Data */}
+                {onToggleAviationData && onLayerToggle && (
+                  <div>
+                    <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                      Aviation Data
+                    </h3>
 
-              <button
-                onClick={() => onToggleAviationData(!showAviationData)}
-                className={`
+                    <button
+                      onClick={() => onToggleAviationData(!showAviationData)}
+                      className={`
                   w-full px-3 py-2 rounded-lg text-sm mb-2
                   flex items-center gap-2
                   transition-all duration-200
@@ -362,15 +442,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                   }
                 `}
-              >
-                <Plane size={16} />
-                Show Aviation Data
-              </button>
+                    >
+                      <Plane size={16} />
+                      Show Aviation Data
+                    </button>
 
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  onClick={() => onLayerToggle("airports", !aviationLayers.airports)}
-                  className={`
+                    <div className="grid grid-cols-2 gap-2">
+                      <button
+                        onClick={() =>
+                          onLayerToggle("airports", !aviationLayers.airports)
+                        }
+                        className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
@@ -380,14 +462,16 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <Plane size={14} />
-                  <span className="truncate">Airports</span>
-                </button>
+                      >
+                        <Plane size={14} />
+                        <span className="truncate">Airports</span>
+                      </button>
 
-                <button
-                  onClick={() => onLayerToggle("airspaces", !aviationLayers.airspaces)}
-                  className={`
+                      <button
+                        onClick={() =>
+                          onLayerToggle("airspaces", !aviationLayers.airspaces)
+                        }
+                        className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
@@ -397,14 +481,19 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <Shield size={14} />
-                  <span className="truncate">Airspaces</span>
-                </button>
+                      >
+                        <Shield size={14} />
+                        <span className="truncate">Airspaces</span>
+                      </button>
 
-                <button
-                  onClick={() => onLayerToggle("navigation", !aviationLayers.navigation)}
-                  className={`
+                      <button
+                        onClick={() =>
+                          onLayerToggle(
+                            "navigation",
+                            !aviationLayers.navigation
+                          )
+                        }
+                        className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
@@ -414,14 +503,16 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <Radio size={14} />
-                  <span className="truncate">Navigation</span>
-                </button>
+                      >
+                        <Radio size={14} />
+                        <span className="truncate">Navigation</span>
+                      </button>
 
-                <button
-                  onClick={() => onLayerToggle("obstacles", !aviationLayers.obstacles)}
-                  className={`
+                      <button
+                        onClick={() =>
+                          onLayerToggle("obstacles", !aviationLayers.obstacles)
+                        }
+                        className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
@@ -431,14 +522,16 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <AlertTriangle size={14} />
-                  <span className="truncate">Obstacles</span>
-                </button>
+                      >
+                        <AlertTriangle size={14} />
+                        <span className="truncate">Obstacles</span>
+                      </button>
 
-                <button
-                  onClick={() => onLayerToggle("hotspots", !aviationLayers.hotspots)}
-                  className={`
+                      <button
+                        onClick={() =>
+                          onLayerToggle("hotspots", !aviationLayers.hotspots)
+                        }
+                        className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
@@ -448,27 +541,27 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <Flame size={14} />
-                  <span className="truncate">Hotspots</span>
-                </button>
-              </div>
-            </div>
-          )}
+                      >
+                        <Flame size={14} />
+                        <span className="truncate">Hotspots</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
 
-          {/* Map Types Section */}
-          <div>
-            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
-              Map Type
-            </h3>
-            <div className="space-y-1">
-              {MAP_TYPES.map(({ value, label, icon: Icon }) => (
-                <button
-                  key={value}
-                  onClick={() => {
-                    setMapType(value);
-                  }}
-                  className={`
+                {/* Map Types Section */}
+                <div>
+                  <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                    Map Type
+                  </h3>
+                  <div className="space-y-1">
+                    {MAP_TYPES.map(({ value, label, icon: Icon }) => (
+                      <button
+                        key={value}
+                        onClick={() => {
+                          setMapType(value);
+                        }}
+                        className={`
                     w-full px-3 py-2
                     flex items-center gap-2
                     rounded-lg text-left
@@ -479,43 +572,46 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
                   `}
-                >
-                  <Icon size={16} />
-                  <span className="text-sm">{label}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+                      >
+                        <Icon size={16} />
+                        <span className="text-sm">{label}</span>
+                      </button>
+                    ))}
+                  </div>
+                </div>
 
-          {/* Actions Section */}
-          <div>
-            <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
-              Actions
-            </h3>
-            <div className="space-y-1">
-              <button
-                onClick={() => {
-                  onDeleteLastWaypoint();
-                  setIsOpen(false);
-                }}
-                className="w-full px-3 py- flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
-              >
-                <XCircle size={16} />
-                <span className="text-sm">Delete Last Waypoint</span>
-              </button>
-              <button
-                onClick={() => {
-                  onClearWaypoints();
-                  setIsOpen(false);
-                }}
-                className="w-full px-3 py-2 flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
-              >
-                <Trash2 size={16} />
-                <span className="text-sm">Clear All Waypoints</span>
-              </button>
+                {/* Actions Section */}
+                <div>
+                  <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                    Actions
+                  </h3>
+                  <div className="space-y-1">
+                    <button
+                      onClick={() => {
+                        onDeleteLastWaypoint();
+                        setIsOpen(false);
+                      }}
+                      className="w-full px-3 py- flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    >
+                      <XCircle size={16} />
+                      <span className="text-sm">Delete Last Waypoint</span>
+                    </button>
+                    <button
+                      onClick={() => {
+                        onClearWaypoints();
+                        setIsOpen(false);
+                      }}
+                      className="w-full px-3 py-2 flex items-center gap-2 rounded-lg hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    >
+                      <Trash2 size={16} />
+                      <span className="text-sm">Clear All Waypoints</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </>
       )}
     </div>
   );
