@@ -4,9 +4,30 @@ import { ConsentState } from "@/src/utils/consentManager";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../utils/ThemeContext";
 import { useEffect } from "react";
+import posthog from 'posthog-js'
+import { PostHogProvider } from 'posthog-js/react'
 
 export default function App({ Component, pageProps }: AppProps) {
-  useEffect(() => {
+
+   useEffect(() => {
+    if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+      posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+        api_host: '/ingest',
+        ui_host: 'https://eu.posthog.com',
+        defaults: '2025-05-24',
+        person_profiles: 'identified_only',
+
+        // Debug en desarrollo
+        loaded: (posthog) => {
+          console.log('✅ PostHog loaded via proxy - no more ad blocker issues!');
+          if (process.env.NODE_ENV === 'development') {
+            posthog.debug();
+          }
+        }
+      });
+    }
+
+    // Tu otra inicialización
     fetch('/api/sync/initialize', { method: 'POST' })
       .then(res => res.json())
       .then(data => console.log('Sync service initialized:', data))
@@ -30,6 +51,7 @@ export default function App({ Component, pageProps }: AppProps) {
   };
 
   return (
+    <PostHogProvider client={posthog}>
     <ThemeProvider>
       <Component {...pageProps} />
       <ConsentManager
@@ -38,5 +60,6 @@ export default function App({ Component, pageProps }: AppProps) {
         onConsentChange={handleConsentChange}
       />
     </ThemeProvider>
+    </PostHogProvider>
   );
 }

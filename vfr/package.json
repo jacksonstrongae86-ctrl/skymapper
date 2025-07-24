@@ -19,6 +19,7 @@
     "next-sitemap": "^4.2.3",
     "node-cron": "^4.2.1",
     "nominatim-browser": "^1.1.0",
+    "posthog-js": "^1.258.1",
     "react": "^19.0.0",
     "react-datepicker": "^8.4.0",
     "react-dom": "^19.0.0",
