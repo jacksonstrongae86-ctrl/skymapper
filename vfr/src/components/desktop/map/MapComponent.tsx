@@ -76,7 +76,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           const detectedCountry = await detectUserCountry();
           onCountryChange(detectedCountry);
           setCountryDetected(true);
-          console.log("Auto-detected country:", detectedCountry);
+          // console.log("Auto-detected country:", detectedCountry);
         } catch (error) {
           console.error("Failed to detect country:", error);
           setCountryDetected(true);
@@ -98,12 +98,12 @@ const MapComponent: React.FC<MapComponentProps> = ({
     if (mapRef.current) {
       const newCenter = getCountryCenter(selectedCountry);
       mapRef.current.setView(newCenter, 6);
-      console.log(
-        "Desktop map center updated to:",
-        newCenter,
-        "for country:",
-        selectedCountry
-      );
+      // console.log(
+      //   "Desktop map center updated to:",
+      //   newCenter,
+      //   "for country:",
+      //   selectedCountry
+      // );
     }
   }, [selectedCountry]);
   // Load aviation data
@@ -132,18 +132,18 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   // Convert aviation data to markers
   const aviationMarkers = useMemo(() => {
-    console.log(
-      "useMemo running - showAviationData:",
-      showAviationData,
-      "loading:",
-      loading
-    );
+    // console.log(
+    //   "useMemo running - showAviationData:",
+    //   showAviationData,
+    //   "loading:",
+    //   loading
+    // );
 
     if (!showAviationData) return [];
 
     // Wait for loading to complete
     if (loading) {
-      console.log("Still loading aviation data...");
+      // console.log("Still loading aviation data...");
       return [];
     }
 
@@ -156,7 +156,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       hotspots.length > 0;
 
     if (!hasData) {
-      console.log("No aviation data available yet");
+      // console.log("No aviation data available yet");
       return [];
     }
 
@@ -166,14 +166,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
     const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
 
-    console.log("Processing aviation data into markers...");
-    console.log("Filtered Aviation Data:", {
-      airports: filteredAirports.length,
-      airspaces: filteredAirspaces.length,
-      navigation: filteredNavigation.length,
-      obstacles: filteredObstacles.length,
-      hotspots: filteredHotspots.length,
-    });
+    // console.log("Processing aviation data into markers...");
+    // console.log("Filtered Aviation Data:", {
+    //   airports: filteredAirports.length,
+    //   airspaces: filteredAirspaces.length,
+    //   navigation: filteredNavigation.length,
+    //   obstacles: filteredObstacles.length,
+    //   hotspots: filteredHotspots.length,
+    // });
 
     const markers = convertAviationDataToMarkers(
       filteredAirports,
@@ -183,7 +183,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       filteredHotspots
     );
 
-    console.log("Successfully generated markers:", markers.length);
+    // console.log("Successfully generated markers:", markers.length);
     return markers;
   }, [
     showAviationData,
@@ -198,11 +198,11 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
   // Debug: Show loading state
   if (loading) {
-    console.log("Aviation data is loading...");
+    // console.log("Aviation data is loading...");
   }
 
   if (error) {
-    console.error("Aviation data error:", error);
+    // console.error("Aviation data error:", error);
   }
 
   return (
@@ -256,9 +256,9 @@ const MapComponent: React.FC<MapComponentProps> = ({
         <ClusteredAviationMarkers
           markers={aviationMarkers}
           theme={theme}
-          onMarkerClick={(marker) =>
-            console.log(`${marker.type} clicked:`, marker)
-          }
+          // onMarkerClick={(marker) =>
+          //   console.log(`${marker.type} clicked:`, marker)
+          // }
         />
       )}
 

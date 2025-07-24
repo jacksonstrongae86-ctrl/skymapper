@@ -84,7 +84,7 @@ export class ConsentManager {
         })
       );
 
-      console.log("Consents saved successfully");
+      // console.log("Consents saved successfully");
     } catch (error) {
       console.error("Failed to save consents:", error);
     }
@@ -181,7 +181,7 @@ export class ConsentManager {
       "true",
       ConsentManager.config.expirationDays
     );
-    console.log("Analytics enabled");
+    // console.log("Analytics enabled");
   }
 
   private static disableAnalytics(): void {
@@ -199,7 +199,7 @@ export class ConsentManager {
     }
 
     ConsentManager.deleteCookie("analytics_enabled");
-    console.log("Analytics disabled");
+    // console.log("Analytics disabled");
   }
 
   private static enableMarketing(): void {
@@ -222,7 +222,7 @@ export class ConsentManager {
       "true",
       ConsentManager.config.expirationDays
     );
-    console.log("Marketing enabled");
+    // console.log("Marketing enabled");
   }
 
   private static disableMarketing(): void {
@@ -240,7 +240,7 @@ export class ConsentManager {
     }
 
     ConsentManager.deleteCookie("marketing_enabled");
-    console.log("Marketing disabled");
+    // console.log("Marketing disabled");
   }
 
   private static enablePreferences(): void {
@@ -249,12 +249,12 @@ export class ConsentManager {
       "true",
       ConsentManager.config.expirationDays
     );
-    console.log("Preferences enabled");
+    // console.log("Preferences enabled");
   }
 
   private static disablePreferences(): void {
     ConsentManager.deleteCookie("preferences_enabled");
-    console.log("Preferences disabled");
+    // console.log("Preferences disabled");
   }
 
   private static setCookie(name: string, value: string, days: number): void {
@@ -315,7 +315,7 @@ export class ConsentManager {
         );
       }
 
-      console.log("All consent data cleared");
+      // console.log("All consent data cleared");
 
       // Dispatch event
       window.dispatchEvent(new CustomEvent("consentCleared"));

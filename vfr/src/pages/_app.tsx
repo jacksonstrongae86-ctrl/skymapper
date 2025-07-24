@@ -19,7 +19,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
         // Debug en desarrollo
         loaded: (posthog) => {
-          console.log('✅ PostHog loaded via proxy - no more ad blocker issues!');
+          // console.log('✅ PostHog loaded via proxy - no more ad blocker issues!');
           if (process.env.NODE_ENV === 'development') {
             posthog.debug();
           }
@@ -30,23 +30,23 @@ export default function App({ Component, pageProps }: AppProps) {
     // Tu otra inicialización
     fetch('/api/sync/initialize', { method: 'POST' })
       .then(res => res.json())
-      .then(data => console.log('Sync service initialized:', data))
+      // .then(data => console.log('Sync service initialized:', data))
       .catch(error => console.error('Failed to initialize sync service:', error));
   }, []);
 
   // Handle consent changes (optional - for analytics setup, etc.)
   const handleConsentChange = (consents: ConsentState) => {
-    console.log('User consent updated:', consents);
+    // console.log('User consent updated:', consents);
 
     // You can add analytics initialization here based on consent
     if (consents.analytics) {
       // Initialize Google Analytics or other analytics
-      console.log('Analytics enabled');
+      // console.log('Analytics enabled');
     }
 
     if (consents.marketing) {
       // Initialize marketing pixels
-      console.log('Marketing cookies enabled');
+      // console.log('Marketing cookies enabled');
     }
   };
 

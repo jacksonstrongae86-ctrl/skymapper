@@ -158,7 +158,7 @@ export const ConsentManagerComponent: React.FC<ConsentManagerProps> = ({
 
       URL.revokeObjectURL(url);
 
-      console.log("Consent data exported successfully");
+      // console.log("Consent data exported successfully");
     } catch (error) {
       console.error("Failed to export consent data:", error);
       alert("Failed to export consent data. Please try again.");

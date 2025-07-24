@@ -153,11 +153,11 @@ export default async function handler(
 
     // If file doesn't exist, fetch and cache it
     if (!fileExists) {
-      console.log(`Cache file not found: ${filename}. Fetching from OpenAIP...`);
+      // console.log(`Cache file not found: ${filename}. Fetching from OpenAIP...`);
 
       try {
         await fetchAndCacheOpenAIPData(country, type, filepath);
-        console.log(`Successfully cached ${filename}`);
+        // console.log(`Successfully cached ${filename}`);
       } catch (fetchError) {
         console.error(`Failed to fetch ${filename}:`, fetchError);
         return res.status(503).json({

@@ -16,7 +16,7 @@ export class OpenAIPSyncService {
   }
 
   async syncAllData(): Promise<void> {
-    console.log('Starting OpenAIP data synchronization...');
+    // console.log('Starting OpenAIP data synchronization...');
 
     for (const country of this.config.countries) {
       for (const dataType of this.config.dataTypes) {
@@ -29,11 +29,11 @@ export class OpenAIPSyncService {
       }
     }
 
-    console.log('OpenAIP data synchronization completed');
+    // console.log('OpenAIP data synchronization completed');
   }
 
   async checkAndDownloadMissingFiles(): Promise<void> {
-    console.log('Checking for missing aviation data files...');
+    // console.log('Checking for missing aviation data files...');
 
     const missingFiles: { country: string; dataType: string }[] = [];
 
@@ -47,16 +47,16 @@ export class OpenAIPSyncService {
 
         try {
           await fs.access(filepath);
-          console.log(`✓ Found ${filename}`);
+          // console.log(`✓ Found ${filename}`);
         } catch {
-          console.log(`✗ Missing ${filename}`);
+          // console.log(`✗ Missing ${filename}`);
           missingFiles.push({ country, dataType });
         }
       }
     }
 
     if (missingFiles.length > 0) {
-      console.log(`Found ${missingFiles.length} missing files. Downloading immediately...`);
+      // console.log(`Found ${missingFiles.length} missing files. Downloading immediately...`);
 
       for (const { country, dataType } of missingFiles) {
         try {
@@ -67,7 +67,7 @@ export class OpenAIPSyncService {
         }
       }
     } else {
-      console.log('All aviation data files are present');
+      // console.log('All aviation data files are present');
     }
   }
 
@@ -103,7 +103,7 @@ export class OpenAIPSyncService {
     const filepath = path.join(this.config.cachePath, filename);
 
     await fs.writeFile(filepath, JSON.stringify(cachedData, null, 2));
-    console.log(`✓ Downloaded and cached ${filename}`);
+    // console.log(`✓ Downloaded and cached ${filename}`);
   }
 
   private delay(ms: number): Promise<void> {

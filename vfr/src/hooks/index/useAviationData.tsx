@@ -86,13 +86,13 @@ export const useAviationData = (country: string = "es") => {
         loading: false,
       }));
 
-      console.log("Aviation data loaded successfully:", {
-        airports: airportData?.data?.items?.length || 0,
-        airspaces: airspaceData?.data?.items?.length || 0,
-        navigation: navigationData?.data?.items?.length || 0,
-        obstacles: obstacleData?.data?.items?.length || 0,
-        hotspots: hotspotData?.data?.items?.length || 0,
-      });
+      // console.log("Aviation data loaded successfully:", {
+      //   airports: airportData?.data?.items?.length || 0,
+      //   airspaces: airspaceData?.data?.items?.length || 0,
+      //   navigation: navigationData?.data?.items?.length || 0,
+      //   obstacles: obstacleData?.data?.items?.length || 0,
+      //   hotspots: hotspotData?.data?.items?.length || 0,
+      // });
     } catch (error) {
       console.error("Aviation data loading error:", error);
       setState((prev) => ({
