@@ -12,9 +12,11 @@ export default function App({ Component, pageProps }: AppProps) {
     if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
       const savedConsents = localStorage.getItem("skymapper-consents");
       let hasAnalyticsConsent = false;
+
       if (savedConsents) {
         try {
           const parsedConsents = JSON.parse(savedConsents);
+          handleConsentChange(parsedConsents as ConsentState)
           hasAnalyticsConsent = parsedConsents.analytics === true;
         } catch (error) {
           console.error("Error parsing saved consents:", error);
@@ -59,6 +61,7 @@ export default function App({ Component, pageProps }: AppProps) {
       .catch((error) =>
         console.error("Failed to initialize sync service:", error)
       );
+
   }, []);
 
   const handleConsentChange = (consents: ConsentState) => {
