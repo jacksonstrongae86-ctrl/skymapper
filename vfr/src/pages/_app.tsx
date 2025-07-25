@@ -10,9 +10,6 @@ import { PostHogProvider } from "posthog-js/react";
 export default function App({ Component, pageProps }: AppProps) {
   useEffect(() => {
     if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
-      // Debug para ver si las variables están disponibles en producción
-      console.log("Environment:", process.env.NODE_ENV);
-      console.log("PostHog Key exists:", !!process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
         api_host: "/ingest",
@@ -33,16 +30,14 @@ export default function App({ Component, pageProps }: AppProps) {
         },
 
         loaded: (posthogInstance) => {
-          console.log("✅ PostHog loaded in", process.env.NODE_ENV);
 
           // Solo debug en desarrollo
-          if (process.env.NODE_ENV === "development") {
+          if (process.env.NODE_ENV === "production") {
             posthogInstance.debug();
           }
         },
       });
     } else {
-      console.error("❌ NEXT_PUBLIC_POSTHOG_KEY not found in production");
     }
 
     fetch("/api/sync/initialize", { method: "POST" })
