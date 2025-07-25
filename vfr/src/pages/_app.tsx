@@ -34,13 +34,6 @@ export default function App({ Component, pageProps }: AppProps) {
         request_batching: true,
         feature_flag_request_timeout_ms: 10000,
         disable_session_recording: true,
-        session_recording: {
-          maskAllInputs: false,
-          maskInputOptions: {
-            password: true,
-            email: true,
-          },
-        },
         capture_pageview: hasAnalyticsConsent,
         capture_pageleave: hasAnalyticsConsent,
         autocapture: true,
