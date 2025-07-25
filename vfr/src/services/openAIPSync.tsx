@@ -74,7 +74,7 @@ export class OpenAIPSyncService {
   private async syncDataType(country: string, dataType: string): Promise<void> {
     const url = `https://storage.googleapis.com/29f98e10-a489-4c82-ae5e-489dbcd4912f/${country}_${dataType}.geojson`;
 
-    console.log(`Fetching ${country}_${dataType}...`);
+    // console.log(`Fetching ${country}_${dataType}...`);
 
     const response = await fetch(url);
 

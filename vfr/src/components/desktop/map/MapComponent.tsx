@@ -118,17 +118,17 @@ const MapComponent: React.FC<MapComponentProps> = ({
   } = useAviationData(selectedCountry);
 
   // Debug: Log the loaded data
-  console.log("Aviation Data Debug:", {
-    loading,
-    error,
-    airports: airports.length,
-    airspaces: airspaces.length,
-    navigation: navigation.length,
-    obstacles: obstacles.length,
-    hotspots: hotspots.length,
-    showAviationData,
-    aviationLayers,
-  });
+  // console.log("Aviation Data Debug:", {
+  //   loading,
+  //   error,
+  //   airports: airports.length,
+  //   airspaces: airspaces.length,
+  //   navigation: navigation.length,
+  //   obstacles: obstacles.length,
+  //   hotspots: hotspots.length,
+  //   showAviationData,
+  //   aviationLayers,
+  // });
 
   // Convert aviation data to markers
   const aviationMarkers = useMemo(() => {

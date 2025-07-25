@@ -61,8 +61,8 @@ export const useAviationData = (country: string = "es") => {
               lastUpdated: apiResponse.lastUpdated,
             };
           })
-          .catch((err) => {
-            console.warn(`Failed to load ${selectedCountry}_${type}:`, err);
+          .catch(() => {
+            // console.warn(`Failed to load ${selectedCountry}_${type}:`, err);
             return null;
           })
       );

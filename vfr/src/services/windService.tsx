@@ -65,7 +65,7 @@ export async function fetchECMWFWindData(
     );
 
     if (closestTimeIndex === -1) {
-      console.warn("⚠️ No matching time found in API response.");
+      console.warn("No matching time found in API response.");
     } else {
       // console.log("📅 Closest Time Index:", closestTimeIndex);
     }
