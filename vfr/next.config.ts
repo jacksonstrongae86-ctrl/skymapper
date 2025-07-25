@@ -12,6 +12,10 @@ const nextConfig: NextConfig = {
         destination: 'https://eu-assets.i.posthog.com/static/:path*',
       },
       {
+        source: '/ingest/api/:path*',
+        destination: 'https://eu.i.posthog.com/api/:path*',
+      },
+      {
         source: '/ingest/:path*',
         destination: 'https://eu.i.posthog.com/:path*',
       },
