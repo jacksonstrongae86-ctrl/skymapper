@@ -4,58 +4,52 @@ import { ConsentState } from "@/src/utils/consentManager";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../utils/ThemeContext";
 import { useEffect } from "react";
-import posthog from 'posthog-js'
-import { PostHogProvider } from 'posthog-js/react'
+import posthog from "posthog-js";
+import { PostHogProvider } from "posthog-js/react";
 
 export default function App({ Component, pageProps }: AppProps) {
-
-   useEffect(() => {
+  useEffect(() => {
     if (process.env.NEXT_PUBLIC_POSTHOG_KEY) {
-      const savedConsents = localStorage.getItem('skymapper-consents');
-      let hasAnalyticsConsent = false;
-
-      if (savedConsents) {
-        try {
-          const parsedConsents = JSON.parse(savedConsents);
-          hasAnalyticsConsent = parsedConsents.analytics === true;
-        } catch (error) {
-          console.error('Error parsing saved consents:', error);
-        }
-      }
+      // Debug para ver si las variables están disponibles en producción
+      console.log("Environment:", process.env.NODE_ENV);
+      console.log("PostHog Key exists:", !!process.env.NEXT_PUBLIC_POSTHOG_KEY);
 
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-        api_host: '/ingest',
-        ui_host: '/ingest',
+        api_host: "/ingest",
+        ui_host: "/ingest",
 
-        opt_out_capturing_by_default: !hasAnalyticsConsent,
-        persistence: hasAnalyticsConsent ? 'localStorage+cookie' : 'memory',
+        // Configuración específica para producción
+        opt_out_capturing_by_default: true, // Respetar consentimiento
+        persistence: "memory", // Iniciar sin cookies
 
-        disable_session_recording: false,
-        session_recording: {
-          maskAllInputs: false,
-          maskInputOptions: {
-            password: true,
-            email: true
-          }
+        // Configuración de red más permisiva para producción
+        request_batching: true,
+        // Timeouts más largos para redes lentas
+        feature_flag_request_timeout_ms: 10000,
+
+        // Manejo de errores mejorado
+        on_request_error: (error) => {
+          console.error("PostHog request error:", error);
         },
 
-        capture_pageview: hasAnalyticsConsent,
-        capture_pageleave: hasAnalyticsConsent,
-        autocapture: true,
+        loaded: (posthogInstance) => {
+          console.log("✅ PostHog loaded in", process.env.NODE_ENV);
 
-        person_profiles: 'identified_only',
-
-        loaded: (posthog) => {
-          if (process.env.NODE_ENV === 'development') {
-            posthog.debug();
+          // Solo debug en desarrollo
+          if (process.env.NODE_ENV === "development") {
+            posthogInstance.debug();
           }
-        }
+        },
       });
+    } else {
+      console.error("❌ NEXT_PUBLIC_POSTHOG_KEY not found in production");
     }
 
-    fetch('/api/sync/initialize', { method: 'POST' })
-      .then(res => res.json())
-      .catch(error => console.error('Failed to initialize sync service:', error));
+    fetch("/api/sync/initialize", { method: "POST" })
+      .then((res) => res.json())
+      .catch((error) =>
+        console.error("Failed to initialize sync service:", error)
+      );
   }, []);
 
   const handleConsentChange = (consents: ConsentState) => {
@@ -67,14 +61,14 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <PostHogProvider client={posthog}>
-    <ThemeProvider>
-      <Component {...pageProps} />
-      <ConsentManager
-        showInitialModal={true}
-        position="center"
-        onConsentChange={handleConsentChange}
-      />
-    </ThemeProvider>
+      <ThemeProvider>
+        <Component {...pageProps} />
+        <ConsentManager
+          showInitialModal={true}
+          position="center"
+          onConsentChange={handleConsentChange}
+        />
+      </ThemeProvider>
     </PostHogProvider>
   );
 }
