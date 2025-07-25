@@ -33,7 +33,7 @@ export default function App({ Component, pageProps }: AppProps) {
         // Ajustes para evitar errores 400 y mejorar performance
         request_batching: true,
         feature_flag_request_timeout_ms: 10000,
-        disable_session_recording: false,
+        disable_session_recording: true,
         session_recording: {
           maskAllInputs: false,
           maskInputOptions: {
