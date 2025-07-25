@@ -31,8 +31,6 @@ export default function App({ Component, pageProps }: AppProps) {
 
         opt_out_capturing_by_default: !hasAnalyticsConsent,
         persistence: hasAnalyticsConsent ? "localStorage+cookie" : "memory",
-
-        // Ajustes para evitar errores 400 y mejorar performance
         request_batching: false,
         feature_flag_request_timeout_ms: 10000,
         disable_session_recording: true,
