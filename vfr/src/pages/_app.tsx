@@ -63,9 +63,26 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const handleConsentChange = (consents: ConsentState) => {
     if (consents.analytics) {
+      posthog.opt_in_capturing();
+      posthog.set_config({
+        persistence: "localStorage+cookie",
+        capture_pageview: true,
+        capture_pageleave: true,
+      });
+    } else {
+      posthog.opt_out_capturing();
+      posthog.set_config({
+        persistence: "memory",
+        capture_pageview: false,
+        capture_pageleave: false,
+      });
     }
-    if (consents.marketing) {
-    }
+    // Opcional: tracking de cambio de consentimiento
+    posthog.capture("consent_changed", {
+      analytics: consents.analytics,
+      marketing: consents.marketing,
+      timestamp: new Date().toISOString(),
+    });
   };
 
   return (
