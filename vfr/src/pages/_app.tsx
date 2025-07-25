@@ -31,7 +31,7 @@ export default function App({ Component, pageProps }: AppProps) {
         persistence: hasAnalyticsConsent ? "localStorage+cookie" : "memory",
 
         // Ajustes para evitar errores 400 y mejorar performance
-        request_batching: true,
+        request_batching: false,
         feature_flag_request_timeout_ms: 10000,
         disable_session_recording: true,
         capture_pageview: hasAnalyticsConsent,
@@ -46,6 +46,8 @@ export default function App({ Component, pageProps }: AppProps) {
         loaded: (posthogInstance) => {
           if (process.env.NODE_ENV === "development") {
             posthogInstance.debug();
+          } else {
+            posthogInstance.debug(false);
           }
         },
       });
