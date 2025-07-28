@@ -69,23 +69,33 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+  const requestCountry = React.useCallback(async () => {
+    if (window.confirm("¿Permites que detectemos tu ubicación?")) {
+      try {
+        const detectedCountry = await detectUserCountry();
+        onCountryChange(detectedCountry);
+        setCountryDetected(true);
+      } catch (error) {
+        console.error("Failed to detect country:", error);
+        setCountryDetected(true);
+      }
+    }
+  }, [onCountryChange]);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
         try {
-          const detectedCountry = await detectUserCountry();
-          onCountryChange(detectedCountry);
-          setCountryDetected(true);
           // console.log("Auto-detected country:", detectedCountry);
+          requestCountry();
         } catch (error) {
           console.error("Failed to detect country:", error);
-          setCountryDetected(true);
+          setCountryDetected(false);
         }
       }
     };
 
     detectAndSetCountry();
-  }, [countryDetected, onCountryChange]);
+  }, [countryDetected, onCountryChange, requestCountry]);
 
   // const handleCountryChange = (newCountry: string) => {
   //   setSelectedCountry(newCountry);
