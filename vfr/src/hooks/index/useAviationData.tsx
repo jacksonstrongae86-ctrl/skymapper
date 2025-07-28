@@ -50,7 +50,7 @@ export const useAviationData = (country: string = "es") => {
         fetch(`/api/aviation-data?country=${selectedCountry}&type=${type}`)
           .then((res) => {
             if (!res.ok) {
-              throw new Error(`Failed to load ${selectedCountry}_${type}`);
+              // throw new Error(`Failed to load ${selectedCountry}_${type}`);
             }
             return res.json();
           })
