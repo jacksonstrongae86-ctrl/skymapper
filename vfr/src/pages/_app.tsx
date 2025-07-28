@@ -50,9 +50,12 @@ export default function App({ Component, pageProps }: AppProps) {
       persistence: "memory", // Por defecto no almacena localStorage aún
       request_batching: false,
       feature_flag_request_timeout_ms: 10000,
-      disable_session_recording: true,
-      capture_pageview: false,
-      capture_pageleave: false,
+      disable_session_recording: false,
+      session_recording: {
+        maskAllInputs: true,
+      },
+      capture_pageview: true,
+      capture_pageleave: true,
       autocapture: true,
       person_profiles: "identified_only",
 
