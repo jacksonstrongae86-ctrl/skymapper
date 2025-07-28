@@ -16,7 +16,7 @@ export default function App({ Component, pageProps }: AppProps) {
       if (savedConsents) {
         try {
           const parsedConsents = JSON.parse(savedConsents);
-          handleConsentChange(parsedConsents as ConsentState)
+          handleConsentChange(parsedConsents as ConsentState);
           hasAnalyticsConsent = parsedConsents.analytics === true;
         } catch (error) {
           console.error("Error parsing saved consents:", error);
@@ -26,8 +26,10 @@ export default function App({ Component, pageProps }: AppProps) {
       }
 
       posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
-        api_host: "/ingest",
-        ui_host: "/ingest",
+        // api_host: "/ingest",
+        // ui_host: "/ingest",
+        api_host: "https://eu.i.posthog.com", // Endpoints oficiales
+        ui_host: "https://eu.posthog.com",
 
         opt_out_capturing_by_default: !hasAnalyticsConsent,
         persistence: hasAnalyticsConsent ? "localStorage+cookie" : "memory",
@@ -59,7 +61,6 @@ export default function App({ Component, pageProps }: AppProps) {
       .catch((error) =>
         console.error("Failed to initialize sync service:", error)
       );
-
   }, []);
 
   const handleConsentChange = (consents: ConsentState) => {
