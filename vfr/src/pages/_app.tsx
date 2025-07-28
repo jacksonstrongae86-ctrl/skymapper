@@ -29,7 +29,7 @@ export default function App({ Component, pageProps }: AppProps) {
         // api_host: "/ingest",
         // ui_host: "/ingest",
         api_host: "https://eu.i.posthog.com", // Endpoints oficiales
-        ui_host: "https://eu.posthog.com",
+        ui_host: "https://eu.i.posthog.com",
 
         opt_out_capturing_by_default: !hasAnalyticsConsent,
         persistence: hasAnalyticsConsent ? "localStorage+cookie" : "memory",
