@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
       feature_flag_request_timeout_ms: 10000,
       disable_session_recording: false,
       session_recording: {
-        maskAllInputs: true,
+        maskAllInputs: false,
       },
       capture_pageview: true,
       capture_pageleave: true,
