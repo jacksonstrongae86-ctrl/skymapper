@@ -157,31 +157,33 @@ export function useWaypoints(
     new Map()
   );
   const updateWaypointName = useCallback(
-    async (index: number, lat: number, lng: number) => {
-      try {
-        // Clear any previous error for this waypoint
-        setGeocodingErrors((prev) => {
-          const newMap = new Map(prev);
-          newMap.delete(index);
-          return newMap;
-        });
+  async (index: number, lat: number, lng: number): Promise<void> => {
+    try {
+      setGeocodingErrors((prev) => {
+        const newMap = new Map(prev);
+        newMap.delete(index);
+        return newMap;
+      });
 
-        const locationName = await getLocationNameWithRateLimit(lat, lng);
+      const locationName = await getLocationNameWithRateLimit(lat, lng);
 
+      return new Promise((resolve) => {
         setWaypoints((current) => {
           const updated = [...current];
           if (updated[index] && !updated[index].name?.includes("(Manual)")) {
             updated[index] = { ...updated[index], name: locationName };
           }
+          resolve(); // Resolve promise once state is applied (best-effort; React setState is async, but not promise-based)
           return updated;
         });
-      } catch (error) {
-        const errorMessage =
-          error instanceof Error ? error.message : "Geocoding failed";
+      });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Geocoding failed";
 
-        setGeocodingErrors((prev) => new Map(prev).set(index, errorMessage));
+      setGeocodingErrors((prev) => new Map(prev).set(index, errorMessage));
 
-        // Set fallback name
+      return new Promise((resolve) => {
         setWaypoints((current) => {
           const updated = [...current];
           if (updated[index]) {
@@ -190,12 +192,15 @@ export function useWaypoints(
               name: `${lat.toFixed(3)},${lng.toFixed(3)}`,
             };
           }
+          resolve();
           return updated;
         });
-      }
-    },
-    []
-  );
+      });
+    }
+  },
+  []
+);
+
 
   const exitAltitude = useCallback((wp: Waypoint): number => {
     if (wp.isTransition) return wp.altitude;
@@ -639,12 +644,30 @@ export function useWaypoints(
     renameRouteInStorage(id, newName);
   }, []);
 
-  const loadRouteFromSerialized = useCallback((serialized: string) => {
-    const waypoints = deserializeRoute(serialized);
-    if (waypoints.length) {
-      setWaypoints(waypoints);
-    }
-  }, []);
+  const loadWaypointsSequentially = useCallback(
+    async (waypointsToLoad: Waypoint[]) => {
+      setWaypoints([]); // Clear existing
+
+      for (let i = 0; i < waypointsToLoad.length; i++) {
+        const wp = waypointsToLoad[i];
+        setWaypoints((prev) => [...prev, wp]);
+
+        // Wait for the async name update to finish before continuing
+        await updateWaypointName(i, wp.position[0], wp.position[1]);
+      }
+    },
+    [updateWaypointName]
+  );
+
+  const loadRouteFromSerialized = useCallback(
+    async (serialized: string) => {
+      const waypointsArray = deserializeRoute(serialized);
+      if (waypointsArray.length === 0) return;
+
+      await loadWaypointsSequentially(waypointsArray);
+    },
+    [loadWaypointsSequentially]
+  );
 
   return {
     waypoints,
