@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MapControlsProps } from "../../../utils/types";
+import { MapControlsProps, Waypoint } from "../../../utils/types";
 import { useTheme } from "../../../utils/ThemeContext";
 import {
   Layers,
@@ -17,6 +17,12 @@ import {
   Radio,
   AlertTriangle,
   Flame,
+  Save,
+  FolderOpen,
+  Edit,
+  Trash2 as Trash,
+  Check,
+  X,
 } from "lucide-react";
 
 type AviationLayerKey =
@@ -25,6 +31,13 @@ type AviationLayerKey =
   | "navigation"
   | "obstacles"
   | "hotspots";
+
+interface SavedRoute {
+  id: string; // Unique ID (e.g. uuid)
+  name: string; // User's name for the route
+  waypoints: Waypoint[];
+  lastModified: string; // ISO date string
+}
 interface ExtendedMapControlsProps extends MapControlsProps {
   showAviationData: boolean;
   onToggleAviationData: (enabled: boolean) => void;
@@ -38,6 +51,13 @@ interface ExtendedMapControlsProps extends MapControlsProps {
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
   selectedCountry: string;
   onCountryChange: (country: string) => void;
+  waypoints: Waypoint[];
+  listSavedRoutes: () => SavedRoute[];
+  saveNewRoute: (name: string) => void;
+  overwriteRoute: (id: string, name?: string) => void;
+  loadRoute: (id: string) => void;
+  deleteRoute: (id: string) => void;
+  renameRoute: (id: string, name: string) => void;
 }
 
 const MapControls: React.FC<ExtendedMapControlsProps> = ({
@@ -52,6 +72,13 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   onLayerToggle,
   selectedCountry,
   onCountryChange,
+  listSavedRoutes,
+  saveNewRoute,
+  overwriteRoute,
+  loadRoute,
+  deleteRoute,
+  renameRoute,
+  waypoints,
 }) => {
   const { theme } = useTheme();
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false);
@@ -63,6 +90,12 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
   const [isCountryOpen, setIsCountryOpen] = useState(false);
+  const [showRouteManager, setShowRouteManager] = useState(false);
+  const [isRouteManagerOpen, setIsRouteManagerOpen] = useState(false);
+  const [saveName, setSaveName] = useState("");
+  const [renameId, setRenameId] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
+  const routeManagerRef = useRef<HTMLDivElement>(null);
 
   const themeSelectorRef = useRef<HTMLDivElement>(null);
   const mapSelectorRef = useRef<HTMLDivElement>(null);
@@ -89,12 +122,17 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         (!mapSelectorRef.current?.contains(event.target as Node) &&
           isMapSelectorOpen) ||
         (!searchRef.current?.contains(event.target as Node) && isSearchOpen) ||
-        (!aviationRef.current?.contains(event.target as Node) && isAviationOpen)
+        (!aviationRef.current?.contains(event.target as Node) &&
+          isAviationOpen) ||
+        (!routeManagerRef.current?.contains(event.target as Node) &&
+          showRouteManager)
       ) {
         setIsThemeSelectorOpen(false);
         setIsMapSelectorOpen(false);
         setIsSearchOpen(false);
         setIsAviationOpen(false);
+        setShowRouteManager(false);
+        setRenameId(null);
       }
     };
 
@@ -110,7 +148,13 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isThemeSelectorOpen, isMapSelectorOpen, isSearchOpen, isAviationOpen]);
+  }, [
+    isThemeSelectorOpen,
+    isMapSelectorOpen,
+    isSearchOpen,
+    isAviationOpen,
+    showRouteManager,
+  ]);
 
   // Search function using fetch directly
   const searchWithFetch = React.useCallback(
@@ -746,11 +790,206 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         >
           <XCircle size={18} className="text-[var(--button-text)]" />
         </button>
-      </div>
+        <div className="grid grid-cols-2 gap-3 justify-end">
+          <div></div>
+          {/* Clear All Waypoint Button */}
+        </div>
 
-      <div className="grid grid-cols-2 gap-3 justify-end">
-        <div></div>
-        {/* Clear All Waypoint Button */}
+        {/* Route Manager Dropdown */}
+        <div className="relative" ref={routeManagerRef}>
+          <button
+            className={`${ButtonClass} ${
+              isRouteManagerOpen ? "opacity-75" : ""
+            }`}
+            title="Manage saved routes"
+            onClick={() => {
+              setIsRouteManagerOpen((b) => !b);
+              // Close others as needed...
+              setIsThemeSelectorOpen(false);
+              setIsMapSelectorOpen(false);
+              setIsSearchOpen(false);
+              setIsAviationOpen(false);
+            }}
+          >
+            <Save size={18} className="text-[var(--button-text)]" />
+          </button>
+          {isRouteManagerOpen && (
+            <div
+              className={`
+        absolute top-12 right-0
+        ${`gradient-${theme}`}
+        backdrop-blur-md p-4
+        rounded-xl shadow-lg
+        border border-[var(--sidebar-border)]
+        min-w-[320px]
+        max-w-[350px]
+        z-50
+      `}
+              style={{ width: 340 }}
+            >
+              <div className="font-bold text-lg mb-3">Saved Routes</div>
+              <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
+                {listSavedRoutes().length === 0 && (
+                  <div className="text-gray-400 italic px-3 py-2">
+                    No routes saved yet.
+                  </div>
+                )}
+                {listSavedRoutes()
+                  .sort(
+                    (a, b) =>
+                      new Date(b.lastModified).getTime() -
+                      new Date(a.lastModified).getTime()
+                  )
+                  .map((route) => (
+                    <div
+                      key={route.id}
+                      className={`
+        group relative flex items-center justify-between px-1 py-2 rounded
+        transition-all duration-200
+        hover:${`button-gradient-${theme}`}
+        cursor-pointer
+      `}
+                    >
+                      {renameId === route.id ? (
+                        <>
+                          <input
+                            value={renameValue}
+                            onChange={(e) => setRenameValue(e.target.value)}
+                            className="rounded px-2 py-1 text-sm border w-32"
+                            autoFocus
+                            onKeyDown={(e) => {
+                              if (e.key === "Enter") {
+                                renameRoute(route.id, renameValue.trim());
+                                setRenameId(null);
+                              }
+                              if (e.key === "Escape") setRenameId(null);
+                            }}
+                          />
+                          <button
+                            onClick={() => {
+                              renameRoute(route.id, renameValue.trim());
+                              setRenameId(null);
+                            }}
+                            className="ml-2 text-green-600"
+                            title="Confirm"
+                          >
+                            <Check size={16} />
+                          </button>
+                          <button
+                            onClick={() => setRenameId(null)}
+                            className="ml-1 text-gray-400"
+                            title="Cancel"
+                          >
+                            <X size={16} />
+                          </button>
+                        </>
+                      ) : (
+                        <>
+                          <span
+                            className="font-medium overflow-hidden text-ellipsis whitespace-nowrap max-w-[115px]"
+                            title={route.name}
+                          >
+                            {route.name}
+                          </span>
+                          <span className="text-xs text-gray-400 ml-2">
+                            {new Date(route.lastModified).toLocaleString()}
+                          </span>
+                          <div className="flex ml-2 gap-1 items-center justify-end">
+                            <button
+                              onClick={() => {
+                                loadRoute(route.id);
+                                setIsRouteManagerOpen(false);
+                              }}
+                              title="Load"
+                              className={`
+                p-1 relative
+                transition-transform duration-150
+                transform
+                group-hover:scale-110
+              `}
+                              style={{ transitionProperty: "color, transform" }}
+                            >
+                              <FolderOpen
+                                size={16}
+                                className={`
+                  transition-colors duration-200
+                  text-blue-600
+                  group-hover:text-white
+                `}
+                              />
+                            </button>
+                            <button
+                              onClick={() => {
+                                setRenameId(route.id);
+                                setRenameValue(route.name);
+                              }}
+                              title="Rename"
+                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
+                            >
+                              <Edit size={15} className="text-yellow-700" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (
+                                  window.confirm(
+                                    "Overwrite this route with your current waypoints?"
+                                  )
+                                )
+                                  overwriteRoute(route.id);
+                              }}
+                              title="Overwrite"
+                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
+                            >
+                              <Save size={15} className="text-orange-700" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (window.confirm("Delete this route?"))
+                                  deleteRoute(route.id);
+                              }}
+                              title="Delete"
+                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
+                            >
+                              <Trash size={15} className="text-red-600" />
+                            </button>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  ))}
+              </div>
+              <div className="mt-4">
+                <div className="mb-2 font-medium">
+                  Save current route as new:
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    value={saveName}
+                    onChange={(e) => setSaveName(e.target.value)}
+                    placeholder="Route name"
+                    className="px-2 py-1 rounded border flex-1 text-sm"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && saveName.trim()) {
+                        saveNewRoute(saveName.trim());
+                        setSaveName("");
+                      }
+                    }}
+                  />
+                  <button
+                    disabled={!saveName.trim() || !waypoints.length}
+                    onClick={() => {
+                      saveNewRoute(saveName.trim());
+                      setSaveName("");
+                    }}
+                    className="bg-blue-600 text-white rounded px-3 py-1 text-sm disabled:opacity-40"
+                  >
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

@@ -9,6 +9,48 @@ import {
 } from "@/src/utils/logic";
 
 import { getLocationNameWithRateLimit } from "@/src/utils/geocoding";
+import { v4 as uuidv4 } from "uuid";
+
+interface SavedRoute {
+  id: string; // Unique ID (e.g. uuid)
+  name: string; // User's name for the route
+  waypoints: Waypoint[];
+  lastModified: string; // ISO date string
+}
+
+// Get all saved routes
+function getAllRoutesFromStorage(): Record<string, SavedRoute> {
+  try {
+    const raw = localStorage.getItem("routes");
+    return raw ? JSON.parse(raw) : {};
+  } catch {
+    return {};
+  }
+}
+
+// Save or update a route (by id)
+function saveRouteToStorage(id: string, data: SavedRoute) {
+  const all = getAllRoutesFromStorage();
+  all[id] = data;
+  localStorage.setItem("routes", JSON.stringify(all));
+}
+
+// Delete a route
+function deleteRouteFromStorage(id: string) {
+  const all = getAllRoutesFromStorage();
+  delete all[id];
+  localStorage.setItem("routes", JSON.stringify(all));
+}
+
+// Rename a route
+function renameRouteInStorage(id: string, newName: string) {
+  const all = getAllRoutesFromStorage();
+  if (all[id]) {
+    all[id].name = newName;
+    all[id].lastModified = new Date().toISOString();
+    localStorage.setItem("routes", JSON.stringify(all));
+  }
+}
 
 export function useWaypoints(
   defaultTAS: number = 100,
@@ -450,6 +492,58 @@ export function useWaypoints(
     });
   }, []);
 
+  // List all saved routes
+  const listSavedRoutes = useCallback((): SavedRoute[] => {
+    return Object.values(getAllRoutesFromStorage());
+  }, []);
+
+  // Save current as new route (asks for name)
+  const saveNewRoute = useCallback(
+    (name: string) => {
+      const id = uuidv4();
+      saveRouteToStorage(id, {
+        id,
+        name,
+        waypoints,
+        lastModified: new Date().toISOString(),
+      });
+    },
+    [waypoints]
+  );
+
+  // Overwrite an existing saved route
+  const overwriteRoute = useCallback(
+    (id: string, name?: string) => {
+      const prev = getAllRoutesFromStorage()[id];
+      if (!prev) return;
+      saveRouteToStorage(id, {
+        id,
+        name: name ?? prev.name,
+        waypoints,
+        lastModified: new Date().toISOString(),
+      });
+    },
+    [waypoints]
+  );
+
+  // Load a route by id
+  const loadRoute = useCallback((id: string) => {
+    const all = getAllRoutesFromStorage();
+    if (all[id]) {
+      setWaypoints(all[id].waypoints);
+    }
+  }, []);
+
+  // Delete a route
+  const deleteRoute = useCallback((id: string) => {
+    deleteRouteFromStorage(id);
+  }, []);
+
+  // Rename route
+  const renameRoute = useCallback((id: string, newName: string) => {
+    renameRouteInStorage(id, newName);
+  }, []);
+
   return {
     waypoints,
     setWaypoints,
@@ -461,5 +555,11 @@ export function useWaypoints(
     handleClearWaypoints,
     setManualWaypointName,
     geocodingErrors,
+    listSavedRoutes,
+    saveNewRoute,
+    overwriteRoute,
+    loadRoute,
+    deleteRoute,
+    renameRoute,
   };
 }

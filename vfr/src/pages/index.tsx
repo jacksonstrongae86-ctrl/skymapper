@@ -46,6 +46,12 @@ export default function Home() {
     handleDeleteLastWaypoint,
     onAddSearchWaypoint,
     handleClearWaypoints,
+    listSavedRoutes,
+    saveNewRoute,
+    overwriteRoute,
+    loadRoute,
+    deleteRoute,
+    renameRoute,
   } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
 
   const isMobile = useIsMobile();
@@ -138,6 +144,12 @@ export default function Home() {
               onLayerToggle={handleLayerToggle}
               selectedCountry={selectedCountry}
               onCountryChange={setSelectedCountry}
+              listSavedRoutes={listSavedRoutes}
+              saveNewRoute={saveNewRoute}
+              overwriteRoute={overwriteRoute}
+              loadRoute={loadRoute}
+              deleteRoute={deleteRoute}
+              renameRoute={renameRoute}
             />
           </div>
 
@@ -201,6 +213,13 @@ export default function Home() {
                 onLayerToggle={handleLayerToggle}
                 selectedCountry={selectedCountry}
                 onCountryChange={setSelectedCountry}
+                waypoints={waypoints}
+                listSavedRoutes={listSavedRoutes}
+                saveNewRoute={saveNewRoute}
+                overwriteRoute={overwriteRoute}
+                loadRoute={loadRoute}
+                deleteRoute={deleteRoute}
+                renameRoute={renameRoute}
               />
             </div>
           </div>

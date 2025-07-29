@@ -25,7 +25,7 @@ import {
 } from "@/src/utils/aviationUtils";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
-import { detectUserCountry } from '../../../utils/countryDetection';
+import { detectUserCountry } from "../../../utils/countryDetection";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -48,6 +48,13 @@ type AviationLayerKey =
   | "obstacles"
   | "hotspots";
 
+interface SavedRoute {
+  id: string; // Unique ID (e.g. uuid)
+  name: string; // User's name for the route
+  waypoints: Waypoint[];
+  lastModified: string; // ISO date string
+}
+
 interface ExtendedMapComponentProps extends MapComponentProps {
   showAviationData: boolean;
   onToggleAviationData: (enabled: boolean) => void;
@@ -61,6 +68,12 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
   selectedCountry: string;
   onCountryChange: (country: string) => void;
+  listSavedRoutes: () => SavedRoute[];
+  saveNewRoute: (name: string) => void;
+  overwriteRoute: (id: string, name?: string) => void;
+  loadRoute: (id: string) => void;
+  deleteRoute: (id: string) => void;
+  renameRoute: (id: string, name: string) => void;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -78,6 +91,12 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   onLayerToggle,
   selectedCountry,
   onCountryChange,
+  listSavedRoutes,
+  saveNewRoute,
+  overwriteRoute,
+  loadRoute,
+  deleteRoute,
+  renameRoute,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
@@ -95,7 +114,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           setCountryDetected(true);
           // console.log('Auto-detected country:', detectedCountry);
         } catch (error) {
-          console.error('Failed to detect country:', error);
+          console.error("Failed to detect country:", error);
           setCountryDetected(true);
         }
       }
@@ -105,12 +124,12 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   }, [countryDetected, onCountryChange]);
   const mapCenter = getCountryCenter(selectedCountry);
   useEffect(() => {
-      if (mapRef.current) {
-        const newCenter = getCountryCenter(selectedCountry);
-        mapRef.current.setView(newCenter, 6);
-        // console.log('Desktop map center updated to:', newCenter, 'for country:', selectedCountry);
-      }
-    }, [selectedCountry]);
+    if (mapRef.current) {
+      const newCenter = getCountryCenter(selectedCountry);
+      mapRef.current.setView(newCenter, 6);
+      // console.log('Desktop map center updated to:', newCenter, 'for country:', selectedCountry);
+    }
+  }, [selectedCountry]);
 
   // Load aviation data
   const {
@@ -384,6 +403,13 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               onLayerToggle={onLayerToggle}
               selectedCountry={selectedCountry}
               onCountryChange={onCountryChange}
+              listSavedRoutes={listSavedRoutes}
+              saveNewRoute={saveNewRoute}
+              overwriteRoute={overwriteRoute}
+              loadRoute={loadRoute}
+              deleteRoute={deleteRoute}
+              renameRoute={renameRoute}
+              waypoints={waypoints}
             />
           </div>
         </div>

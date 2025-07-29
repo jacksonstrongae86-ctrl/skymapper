@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { MapControlsProps } from "../../../utils/types";
+import { MapControlsProps, Waypoint } from "../../../utils/types";
 import { useTheme } from "../../../utils/ThemeContext";
 import {
   Menu,
@@ -16,6 +16,12 @@ import {
   Radio,
   AlertTriangle,
   Flame,
+  Save,
+  FolderOpen,
+  Edit,
+  Trash2 as Trash,
+  Check,
+  X,
 } from "lucide-react";
 
 type AviationLayerKey =
@@ -24,6 +30,13 @@ type AviationLayerKey =
   | "navigation"
   | "obstacles"
   | "hotspots";
+
+interface SavedRoute {
+  id: string; // Unique ID (e.g. uuid)
+  name: string; // User's name for the route
+  waypoints: Waypoint[];
+  lastModified: string; // ISO date string
+}
 
 interface ExtendedMapControlProps extends MapControlsProps {
   showAviationData?: boolean;
@@ -38,6 +51,13 @@ interface ExtendedMapControlProps extends MapControlsProps {
   onLayerToggle?: (layer: AviationLayerKey, enabled: boolean) => void;
   selectedCountry?: string;
   onCountryChange?: (country: string) => void;
+  listSavedRoutes: () => SavedRoute[];
+  saveNewRoute: (name: string) => void;
+  overwriteRoute: (id: string, name?: string) => void;
+  loadRoute: (id: string) => void;
+  deleteRoute: (id: string) => void;
+  renameRoute: (id: string, name: string) => void;
+  waypoints: Waypoint[];
 }
 
 const MapControls: React.FC<ExtendedMapControlProps> = ({
@@ -58,6 +78,13 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
   onLayerToggle,
   selectedCountry = "es",
   onCountryChange,
+  listSavedRoutes,
+  saveNewRoute,
+  overwriteRoute,
+  loadRoute,
+  deleteRoute,
+  renameRoute,
+  waypoints,
 }) => {
   const { theme } = useTheme();
   const [isOpen, setIsOpen] = useState(false);
@@ -65,6 +92,9 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
   const [searchResults, setSearchResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
   const [searchError, setSearchError] = useState<string | null>(null);
+  const [saveName, setSaveName] = useState("");
+  const [renameId, setRenameId] = useState<string | null>(null);
+  const [renameValue, setRenameValue] = useState("");
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -293,7 +323,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
               </button>
             </div>
             {/* Scrollable Content */}
-            <div className="flex-1 overflow-y-auto custom_scrollbar">
+            <div className="flex-1 overflow-y-auto custom-scrollbar">
               <div className="p-4 space-y-6">
                 {/* Search Section - Fixed to match desktop */}
                 <div>
@@ -606,6 +636,184 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       <Trash2 size={16} />
                       <span className="text-sm">Clear All Waypoints</span>
                     </button>
+                  </div>
+                </div>
+
+                {/* Saved Routes Section */}
+                <div>
+                  <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                    Saved Routes
+                  </h3>
+                  <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar rounded">
+                    {listSavedRoutes().length === 0 && (
+                      <div className="text-gray-400 italic px-3 py-2">
+                        No routes saved yet.
+                      </div>
+                    )}
+                    {listSavedRoutes()
+                      .sort(
+                        (a, b) =>
+                          new Date(b.lastModified).getTime() -
+                          new Date(a.lastModified).getTime()
+                      )
+                      .map((route) => (
+                        <div
+                          key={route.id}
+                          className={`
+            group relative flex items-center justify-between px-1 py-2 rounded
+            transition-all duration-200
+            hover:${`button-gradient-${theme}`}
+            cursor-pointer
+          `}
+                        >
+                          {/* Rename logic */}
+                          {renameId === route.id ? (
+                            <div className="flex items-center w-full gap-2">
+                              <input
+                                value={renameValue}
+                                onChange={(e) => setRenameValue(e.target.value)}
+                                className="rounded px-2 py-1 text-sm border flex-1"
+                                autoFocus
+                                onKeyDown={(e) => {
+                                  if (e.key === "Enter") {
+                                    renameRoute(route.id, renameValue.trim());
+                                    setRenameId(null);
+                                  }
+                                  if (e.key === "Escape") setRenameId(null);
+                                }}
+                              />
+                              <button
+                                className="text-green-600"
+                                title="Save"
+                                onClick={() => {
+                                  renameRoute(route.id, renameValue.trim());
+                                  setRenameId(null);
+                                }}
+                              >
+                                <Check size={16} />
+                              </button>
+                              <button
+                                className="text-gray-400"
+                                title="Cancel"
+                                onClick={() => setRenameId(null)}
+                              >
+                                <X size={16} />
+                              </button>
+                            </div>
+                          ) : (
+                            <>
+                              <div className="min-w-0 flex-1">
+                                <span
+                                  className="font-medium truncate block"
+                                  title={route.name}
+                                >
+                                  {route.name}
+                                </span>
+                                <span className="text-xs text-gray-400 ml-1">
+                                  {new Date(
+                                    route.lastModified
+                                  ).toLocaleString()}
+                                </span>
+                              </div>
+                              <div className="flex gap-1 ml-2 items-center justify-end">
+                                <button
+                                  onClick={() => loadRoute(route.id)}
+                                  title="Load"
+                                  className={`
+                    p-1 relative
+                    transition-transform duration-150
+                    transform
+                    group-hover:scale-110
+                  `}
+                                  style={{
+                                    transitionProperty: "color, transform",
+                                  }}
+                                >
+                                  <FolderOpen
+                                    size={16}
+                                    className={`
+                      transition-colors duration-200
+                      text-blue-600
+                      group-hover:text-white
+                    `}
+                                  />
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    setRenameId(route.id);
+                                    setRenameValue(route.name);
+                                  }}
+                                  title="Rename"
+                                  className={`
+                    p-1 transition-transform duration-150 transform group-hover:scale-110
+                  `}
+                                >
+                                  <Edit size={15} className="text-yellow-700" />
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    if (
+                                      window.confirm(
+                                        "Overwrite this route with your current waypoints?"
+                                      )
+                                    )
+                                      overwriteRoute(route.id);
+                                  }}
+                                  title="Overwrite"
+                                  className={`
+                    p-1 transition-transform duration-150 transform group-hover:scale-110
+                  `}
+                                >
+                                  <Save size={15} className="text-orange-700" />
+                                </button>
+                                <button
+                                  onClick={() => {
+                                    if (window.confirm("Delete this route?"))
+                                      deleteRoute(route.id);
+                                  }}
+                                  title="Delete"
+                                  className={`
+                    p-1 transition-transform duration-150 transform group-hover:scale-110
+                  `}
+                                >
+                                  <Trash size={15} className="text-red-600" />
+                                </button>
+                              </div>
+                            </>
+                          )}
+                        </div>
+                      ))}
+                  </div>
+
+                  {/* Save as new route */}
+                  <div className="mt-5">
+                    <div className="mb-2 font-medium">
+                      Save current route as new:
+                    </div>
+                    <div className="flex gap-2">
+                      <input
+                        value={saveName}
+                        onChange={(e) => setSaveName(e.target.value)}
+                        placeholder="Route name"
+                        className="flex-1 px-2 py-1 rounded border text-sm"
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter" && saveName.trim()) {
+                            saveNewRoute(saveName.trim());
+                            setSaveName("");
+                          }
+                        }}
+                      />
+                      <button
+                        disabled={!saveName.trim() || !waypoints.length}
+                        onClick={() => {
+                          saveNewRoute(saveName.trim());
+                          setSaveName("");
+                        }}
+                        className="bg-blue-600 text-white rounded px-3 py-1 text-sm disabled:opacity-40"
+                      >
+                        Save
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
