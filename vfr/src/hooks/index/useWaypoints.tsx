@@ -18,6 +18,26 @@ interface SavedRoute {
   lastModified: string; // ISO date string
 }
 
+interface SerializedWaypoint {
+  p: [number, number];
+  t: "waypoint" | "BOC" | "TOC" | "TOD" | "BOD";
+  a: number;
+  i: number;
+  v: boolean;
+  n?: string;
+  ac?: number;
+  r?: number;
+  icd?: number;
+  oa?: number;
+  nd?: number;
+  sd?: number;
+  sf?: number;
+  it?: boolean;
+  twi?: number;
+  tm?: number;
+  imn?: boolean;
+}
+
 // Get all saved routes
 function getAllRoutesFromStorage(): Record<string, SavedRoute> {
   try {
@@ -50,6 +70,81 @@ function renameRouteInStorage(id: string, newName: string) {
     all[id].lastModified = new Date().toISOString();
     localStorage.setItem("routes", JSON.stringify(all));
   }
+}
+
+// Simple base64 encode/decode helpers for Unicode safe data
+function encodeData(data: string): string {
+  return btoa(unescape(encodeURIComponent(data)));
+}
+function decodeData(base64: string): string {
+  return decodeURIComponent(escape(atob(base64)));
+}
+
+export function serializeRoute(waypoints: Waypoint[]): string {
+  const compact = waypoints.map((wp) => {
+    const obj: SerializedWaypoint = {
+      p: wp.position,
+      t: wp.type,
+      a: wp.altitude,
+      i: wp.ias,
+      v: wp.visible,
+    };
+    if (wp.name !== undefined) obj.n = wp.name;
+    if (wp.altitudeChange !== undefined) obj.ac = wp.altitudeChange;
+    if (wp.rocRod !== undefined) obj.r = wp.rocRod;
+    if (wp.iasClimbDescent !== undefined) obj.icd = wp.iasClimbDescent;
+    if (wp.originalAltitude !== undefined) obj.oa = wp.originalAltitude;
+    if (wp.normalDistance !== undefined) obj.nd = wp.normalDistance;
+    if (wp.specialDistance !== undefined) obj.sd = wp.specialDistance;
+    if (wp.specialFuel !== undefined) obj.sf = wp.specialFuel;
+    if (wp.isTransition !== undefined) obj.it = wp.isTransition;
+    if (wp.transitionWaypointIndex !== undefined)
+      obj.twi = wp.transitionWaypointIndex;
+    if (wp.time !== undefined) obj.tm = wp.time;
+    if (wp.isManualName !== undefined) obj.imn = wp.isManualName;
+    return obj;
+  });
+  return encodeData(JSON.stringify(compact));
+}
+
+export function deserializeRoute(serialized: string): Waypoint[] {
+  let data: Waypoint[] = [];
+  try {
+    const json = decodeData(serialized);
+    const arr = JSON.parse(json);
+    data = arr.map((obj: SerializedWaypoint) => ({
+      position: obj.p,
+      type: obj.t,
+      altitude: obj.a,
+      ias: obj.i,
+      visible: obj.v,
+      name: obj.n,
+      altitudeChange: obj.ac,
+      rocRod: obj.r,
+      iasClimbDescent: obj.icd,
+      originalAltitude: obj.oa,
+      normalDistance: obj.nd,
+      specialDistance: obj.sd,
+      specialFuel: obj.sf,
+      isTransition: obj.it,
+      transitionWaypointIndex: obj.twi,
+      time: obj.tm,
+      isManualName: obj.imn ?? false,
+    }));
+  } catch (e) {
+    console.error("Failed to deserialize route:", e);
+  }
+  return data;
+}
+
+// Import route from URL parameter (to call from your app entry point)
+export function importRouteFromUrl() {
+  if (typeof window === "undefined") return null;
+  const params = new URLSearchParams(window.location.search);
+  const importRoute = params.get("importRoute");
+  if (!importRoute) return null;
+  const waypoints = deserializeRoute(importRoute);
+  return waypoints;
 }
 
 export function useWaypoints(
@@ -544,6 +639,13 @@ export function useWaypoints(
     renameRouteInStorage(id, newName);
   }, []);
 
+  const loadRouteFromSerialized = useCallback((serialized: string) => {
+    const waypoints = deserializeRoute(serialized);
+    if (waypoints.length) {
+      setWaypoints(waypoints);
+    }
+  }, []);
+
   return {
     waypoints,
     setWaypoints,
@@ -561,5 +663,6 @@ export function useWaypoints(
     loadRoute,
     deleteRoute,
     renameRoute,
+    loadRouteFromSerialized,
   };
 }

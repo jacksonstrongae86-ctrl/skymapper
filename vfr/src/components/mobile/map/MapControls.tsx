@@ -22,7 +22,9 @@ import {
   Trash2 as Trash,
   Check,
   X,
+  Share2,
 } from "lucide-react";
+import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
 type AviationLayerKey =
   | "airports"
@@ -227,6 +229,30 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
     },
     [searchWithFetch]
   );
+
+  const generateShareableLink = (route: SavedRoute): string => {
+    // Use the serializeRoute helper from props or import directly if available here
+    // To do that, pass serializeRoute as a prop to MapControls or import it in
+    // For demonstration, you can call serializeRoute(route.waypoints)
+
+    const serialized = serializeRoute(route.waypoints);
+    return `${window.location.origin}${
+      window.location.pathname
+    }?importRoute=${encodeURIComponent(serialized)}`;
+  };
+
+  const handleCopyLink = (route: SavedRoute) => {
+    const link = generateShareableLink(route);
+    navigator.clipboard
+      .writeText(link)
+      .then(() => {
+        // optionally notify user, e.g. toast
+        alert("Shareable link copied to clipboard!");
+      })
+      .catch(() => {
+        alert("Failed to copy link.");
+      });
+  };
 
   // Fix: Use the same debounced search pattern as desktop
   useEffect(() => {
@@ -777,6 +803,16 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                   `}
                                 >
                                   <Trash size={15} className="text-red-600" />
+                                </button>
+                                <button
+                                  onClick={() => handleCopyLink(route)}
+                                  title="Copy Share Link"
+                                  className="p-1 transition-transform duration-150 transform group-hover:scale-110"
+                                >
+                                  <Share2
+                                    size={15}
+                                    className="text-teal-600 hover:text-teal-400"
+                                  />
                                 </button>
                               </div>
                             </>
