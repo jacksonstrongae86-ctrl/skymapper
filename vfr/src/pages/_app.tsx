@@ -6,6 +6,7 @@ import { ThemeProvider } from "../utils/ThemeContext";
 import { useEffect, useState, useCallback } from "react";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
+import LoadingPage from "../components/LoadingPage";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [initialized, setInitialized] = useState(false);
@@ -100,7 +101,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   // Opcional: puedes renderizar un loading antes de que PostHog inicialice
   if (!initialized) {
-    return <div>Loading analytics...</div>;
+    return <LoadingPage/>;
   }
 
   return (
