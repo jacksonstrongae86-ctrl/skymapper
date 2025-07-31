@@ -32,7 +32,8 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
         rounded-b-xl
         rouunded-t-none
         w-full
-        overflow-hidden
+        overflow-auto
+        custom-scrollbar
       `}>
         <table className="w-full">
           <thead className={`
