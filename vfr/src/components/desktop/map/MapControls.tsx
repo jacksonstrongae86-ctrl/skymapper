@@ -407,6 +407,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         {/* Search Button */}
         <div className="relative" ref={searchRef}>
           <button
+            id="search-button"
             className={`${ButtonClass} ${isSearchOpen ? "opacity-75" : ""}`}
             onClick={handleSearchToggle}
             title="Search Location"
@@ -533,6 +534,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         {/* Map Type Selector */}
         <div className="relative" ref={mapSelectorRef}>
           <button
+            id="map-type-selector"
             onClick={() => {
               setIsMapSelectorOpen((prev) => !prev);
               setIsThemeSelectorOpen(false);
@@ -585,10 +587,10 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             </div>
           )}
         </div>
-
         {/* Country Selector */}
         <div className="relative" ref={countryRef}>
           <button
+            id="country-selector"
             onClick={() => {
               setIsCountryOpen((prev) => !prev);
               setIsMapSelectorOpen(false);
@@ -645,6 +647,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         {/* Aviation Layer Control */}
         <div className="relative" ref={aviationRef}>
           <button
+            id="aviation-data-toggle"
             onClick={() => {
               setIsAviationOpen((prev) => !prev);
               setIsMapSelectorOpen(false);
@@ -802,6 +805,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
 
         {/* Delete Last Waypoint Button */}
         <button
+          id="delete-last-waypoint"
           className={ButtonClass}
           onClick={onDeleteLastWaypoint}
           title="Delete Last Waypoint"
@@ -810,6 +814,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         </button>
 
         <button
+          id="clear-waypoints"
           className={ButtonClass}
           onClick={onClearWaypoints}
           title="Clear All Waypoints"
@@ -824,6 +829,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         {/* Route Manager Dropdown */}
         <div className="relative" ref={routeManagerRef}>
           <button
+            id="route-manager"
             className={`${ButtonClass} ${
               isRouteManagerOpen ? "opacity-75" : ""
             }`}
