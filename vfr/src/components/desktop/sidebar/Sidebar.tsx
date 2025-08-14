@@ -49,6 +49,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   return (
     <div
+    id="main-sidebar"
       className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] transition-all duration-300 md:translate-x-0 md:block fixed ${
         isFullScreen ? "inset-0" : "top-0 left-0 h-full"
       } z-50 flex`}

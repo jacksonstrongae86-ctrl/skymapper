@@ -43,10 +43,15 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
         </button>
 
         <div
+          id="waypoints-section"
           className={`
           transition-all duration-300
           ease-in-out overflow-hidden flex-1
-          ${isWaypointsVisible ? "max-h-[calc(100vh-200px)] opacity-100" : "max-h-0 opacity-0"}
+          ${
+            isWaypointsVisible
+              ? "max-h-[calc(100vh-200px)] opacity-100"
+              : "max-h-0 opacity-0"
+          }
           ${`gradient-${theme}`}
           overflowhidden
         `}
