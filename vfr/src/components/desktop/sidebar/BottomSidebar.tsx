@@ -21,23 +21,17 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
 }) => {
   const { theme } = useTheme();
 
-  const {
-    height,
-    handleMouseDown,
-  } = useBottomSidebarResize({
+  const { height, handleMouseDown } = useBottomSidebarResize({
     onHeightChange: onHeightChange || (() => {}),
     minHeight: 7, // Reduced minimum height
     maxHeight: 90,
   });
 
-  const {
-    isBottomMinimized,
-    isFullScreen,
-    handleFullScreen,
-  } = useBottomSidebarVisibility({
-    onHeightChange,
-    defaultHeight: height,
-  });
+  const { isBottomMinimized, isFullScreen, handleFullScreen } =
+    useBottomSidebarVisibility({
+      onHeightChange,
+      defaultHeight: height,
+    });
 
   // Custom hooks for data and actions
   const results = useResultsCalculation({
@@ -55,6 +49,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
 
   return (
     <div
+      id="bottom-sidebar"
       className={`
         fixed bottom-0
         text-[var(--results-text)]
@@ -65,20 +60,22 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
       `}
       style={{
         height: `${isBottomMinimized ? 7 : isFullScreen ? 90 : height}%`,
-        left: isParentFullScreen ? 0 : isMinimized ? "48px" : `${sidebarWidth}px`,
+        left: isParentFullScreen
+          ? 0
+          : isMinimized
+          ? "48px"
+          : `${sidebarWidth}px`,
         width: isParentFullScreen
           ? "100%"
           : isMinimized
-            ? "calc(100vw - 48px)"
-            : `calc(100vw - ${sidebarWidth}px)`,
+          ? "calc(100vw - 48px)"
+          : `calc(100vw - ${sidebarWidth}px)`,
         zIndex: 40,
       }}
     >
       {/* Resize Handle Component */}
       {!isBottomMinimized && !isFullScreen && (
-        <ResizeHandle
-          handleMouseDown={handleMouseDown}
-        />
+        <ResizeHandle handleMouseDown={handleMouseDown} />
       )}
 
       {/* Main Content Container */}
@@ -88,7 +85,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           overflow-y-auto
           custom-scrollbar
           hide-scrollbar
-          ${isBottomMinimized ? 'opacity-50' : 'opacity-100'}
+          ${isBottomMinimized ? "opacity-50" : "opacity-100"}
           transition-opacity duration-200
         `}
       >
@@ -98,16 +95,13 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           isBottomMinimized={isBottomMinimized}
           isFullScreen={isFullScreen}
           handleFullScreen={handleFullScreen}
-
           handlePrint={handlePrint}
         />
 
         {/* Results Table Component */}
         {!isBottomMinimized && (
-          <ResultsTable
-            results={results}
-            gal_liter={gal_liter}
-          />
+          
+          <ResultsTable results={results} gal_liter={gal_liter} />
         )}
       </div>
     </div>

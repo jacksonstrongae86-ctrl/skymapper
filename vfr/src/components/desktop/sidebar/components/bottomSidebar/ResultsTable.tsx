@@ -26,7 +26,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
   { label: "Wind", unit: "", icon: Wind },
 ] as const;
   return (
-    <div className="px-4 pb-4">
+    <div id="results-table" className="px-4 pb-4">
       <div className={`
         border border-[var(--sidebar-border)]
         rounded-b-xl
@@ -36,7 +36,7 @@ export const ResultsTable: React.FC<ResultsTableProps> = ({
         custom-scrollbar
       `}>
         <table className="w-full">
-          <thead className={`
+          <thead id="flight-totals" className={`
             top-[74px] z-10
             ${`gradient-${theme}`}
             border-b border-[var(--sidebar-border)]
