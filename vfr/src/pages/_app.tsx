@@ -103,7 +103,7 @@ export default function App({ Component, pageProps }: AppProps) {
       localStorage.getItem("skymapper-tutorial-completed") != null
     ) {
       // Save a flag to mark consent as set (so it only runs once)
-      localStorage.setItem("skymapper-tutorial-candidate", "false");
+      localStorage.setItem("skymapper-tutorial-candidate", "true");
     }
   };
 
@@ -125,12 +125,6 @@ export default function App({ Component, pageProps }: AppProps) {
           }, 1000);
         });
       }
-      import("intro.js").then((introModule) => {
-          const introJs = introModule.default;
-          setTimeout(() => {
-            startTutorial(introJs);
-          }, 1000);
-        });
     }
   }, [initialized]);
 

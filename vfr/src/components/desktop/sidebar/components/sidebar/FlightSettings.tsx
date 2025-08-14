@@ -67,7 +67,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   };
 
   return (
-    <div className="px-4 mb-4">
+    <div id="flight-settings" className="px-4 mb-4">
       <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden shadow-lg">
         <button
           onClick={() => setIsSettingsVisible(!isSettingsVisible)}
