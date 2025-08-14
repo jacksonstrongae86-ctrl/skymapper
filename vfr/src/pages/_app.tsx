@@ -186,7 +186,13 @@ export default function App({ Component, pageProps }: AppProps) {
           {
             element: document.querySelector("#main-sidebar"),
             intro:
-              "Configure your flight settings including aircraft performance, fuel consumption, and weather data.",
+              "This is where the magic happens. Everything a pilot would dream for the configuration of a route.",
+            position: "left",
+          },
+          {
+            element: document.querySelector("#flight-settings"),
+            intro:
+              "Configure your flight settings including aircraft performance, fuel consumption, and weather data",
             position: "left",
           },
           {

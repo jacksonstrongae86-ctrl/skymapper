@@ -146,7 +146,7 @@ export default function Home() {
               set_gal_liter={set_gal_liter}
             />
           </div>
-          <div className="flex-1 relative mt-0">
+          <div id="map-container" className="flex-1 relative mt-0">
             <MobileMapComponent
               onMapClick={handleMapClick}
               waypoints={waypoints}
