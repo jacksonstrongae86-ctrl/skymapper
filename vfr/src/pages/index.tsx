@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
-import { useWaypoints} from "../hooks/index/useWaypoints";
+import { useWaypoints } from "../hooks/index/useWaypoints";
 import { useFlightCalculations } from "../hooks/index/useFlightCalculations";
 import { useUIState } from "../hooks/index/useUIState";
 import { useWindData } from "../hooks/index/useWindData";
@@ -10,6 +10,7 @@ import MobileSidebar from "../components/mobile/sidebar/Sidebar";
 import MapControls from "../components/desktop/map/MapControls";
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
+import "intro.js/introjs.css";
 
 const MapComponent = dynamic(
   () => import("../components/desktop/map/MapComponent"),
@@ -55,20 +56,21 @@ export default function Home() {
   } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
 
   useEffect(() => {
-  const serialized = new URLSearchParams(window.location.search).get("importRoute");
-  if (serialized) {
-    try {
-      loadRouteFromSerialized(serialized);
-      // Optionally, clear the param to avoid reimport on reload
-      const url = new URL(window.location.href);
-      url.searchParams.delete("importRoute");
-      window.history.replaceState(null, "", url.toString());
-    } catch {
-      // ignore or show an error
+    const serialized = new URLSearchParams(window.location.search).get(
+      "importRoute"
+    );
+    if (serialized) {
+      try {
+        loadRouteFromSerialized(serialized);
+        // Optionally, clear the param to avoid reimport on reload
+        const url = new URL(window.location.href);
+        url.searchParams.delete("importRoute");
+        window.history.replaceState(null, "", url.toString());
+      } catch {
+        // ignore or show an error
+      }
     }
-  }
-}, [loadRouteFromSerialized]);
-
+  }, [loadRouteFromSerialized]);
 
   const isMobile = useIsMobile();
   // Shared state for both sidebar heights

@@ -662,3 +662,120 @@ body {
   padding-left: 20px;
 }
 
+
+.introjs-tooltip.theme-dark {
+  background: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+  border: 1px solid var(--sidebar-border) !important;
+  min-width: 320px !important;
+  max-width: 450px !important;
+  padding: 20px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3) !important;
+}
+
+/* Dark theme styling for Intro.js tooltips */
+.theme-dark .introjs-tooltip {
+  background: var(--sidebar-bg) !important;
+  color: var(--sidebar-text) !important;
+  border: 1px solid var(--sidebar-border) !important;
+  min-width: 320px !important;
+  max-width: 450px !important;
+  padding: 20px !important;
+  line-height: 1.5 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Dark theme tooltip arrows */
+.theme-dark .introjs-arrow.top {
+  border-bottom-color: var(--sidebar-bg) !important;
+}
+.theme-dark .introjs-arrow.bottom {
+  border-top-color: var(--sidebar-bg) !important;
+}
+.theme-dark .introjs-arrow.left {
+  border-right-color: var(--sidebar-bg) !important;
+}
+.theme-dark .introjs-arrow.right {
+  border-left-color: var(--sidebar-bg) !important;
+}
+
+/* Dark theme buttons using your button variables */
+.theme-dark .introjs-button {
+  background: var(--button-bg) !important;
+  color: var(--button-text) !important;
+  border: none !important;
+  padding: 10px 18px !important;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.theme-dark .introjs-button:hover {
+  background: var(--button-hover) !important;
+}
+
+/* Dark theme skip button */
+.theme-dark .introjs-skipbutton {
+  background: var(--results-bg2) !important;
+  color: var(--results-text) !important;
+  border: 1px solid var(--results-border) !important;
+  font-size: 12px !important;
+  padding: 6px 12px !important;
+  border-radius: 4px !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.theme-dark .introjs-skipbutton:hover {
+  background: var(--results-hover) !important;
+}
+
+/* Dark theme progress bar */
+.theme-dark .introjs-progress {
+  background-color: var(--results-bg2) !important;
+  border-radius: 4px !important;
+}
+
+.theme-dark .introjs-progressbar {
+  background: linear-gradient(to right, #3b82f6, #2563eb) !important;
+  border-radius: 4px !important;
+}
+
+/* Dark theme bullet points */
+.theme-dark .introjs-bullets ul li a {
+  background-color: var(--results-bg2) !important;
+  border: 1px solid var(--results-border) !important;
+}
+
+.theme-dark .introjs-bullets ul li a.active {
+  background: var(--button-bg) !important;
+}
+
+/* Dark theme overlay */
+.theme-dark .introjs-overlay {
+  background-color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Dark theme highlighted element */
+.theme-dark .introjs-helperLayer {
+  border: 2px solid var(--button-bg) !important;
+  box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.6), 0 0 20px var(--button-bg) !important;
+}
+
+/* Optional: Add gradient styling to match your theme */
+.theme-dark .introjs-tooltip {
+  background: linear-gradient(135deg, var(--sidebar-bg) 0%, var(--results-bg1) 100%) !important;
+}
+
+.theme-dark .introjs-button {
+  background: linear-gradient(to right, var(--button-bg), var(--button-hover)) !important;
+}
+
+.theme-dark .introjs-button:hover {
+  background: linear-gradient(to right, var(--button-hover), #1d4ed8) !important;
+}
+
+

@@ -10,7 +10,9 @@
     "sitemap": "next-sitemap"
   },
   "dependencies": {
+    "@types/intro.js": "^5.1.5",
     "@types/react-leaflet-markercluster": "^3.0.4",
+    "intro.js": "^8.3.2",
     "leaflet": "^1.9.4",
     "leaflet.markercluster": "^1.5.3",
     "lucide-react": "^0.511.0",

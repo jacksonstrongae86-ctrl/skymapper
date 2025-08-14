@@ -7,6 +7,7 @@ import { useEffect, useState, useCallback } from "react";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 import LoadingPage from "../components/LoadingPage";
+import "intro.js/introjs.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [initialized, setInitialized] = useState(false);
@@ -66,7 +67,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
       loaded: (instance) => {
         if (process.env.NODE_ENV === "development") {
-          instance.debug();
+          instance.debug(false);
         }
 
         // Luego de inicializar PostHog, cargar consentimiento guardado y aplicar
@@ -97,11 +98,180 @@ export default function App({ Component, pageProps }: AppProps) {
   const handleConsentChange = (consents: ConsentState) => {
     // Al cambiar consentimientos, actualiza la configuración PostHog
     applyConsent(consents);
+    if (
+      consents.analytics &&
+      localStorage.getItem("skymapper-tutorial-completed") != null
+    ) {
+      // Save a flag to mark consent as set (so it only runs once)
+      localStorage.setItem("skymapper-tutorial-candidate", "false");
+    }
   };
 
-  // Opcional: puedes renderizar un loading antes de que PostHog inicialice
+  useEffect(() => {
+    if (initialized) {
+      console.log(
+        "candidate: ",
+        localStorage.getItem("skymapper-tutorial-candidate")
+      );
+      if (
+        typeof window !== "undefined" &&
+        localStorage.getItem("skymapper-tutorial-candidate")
+      ) {
+        localStorage.removeItem("skymapper-tutorial-candidate");
+        import("intro.js").then((introModule) => {
+          const introJs = introModule.default;
+          setTimeout(() => {
+            startTutorial(introJs);
+          }, 1000);
+        });
+      }
+      import("intro.js").then((introModule) => {
+          const introJs = introModule.default;
+          setTimeout(() => {
+            startTutorial(introJs);
+          }, 1000);
+        });
+    }
+  }, [initialized]);
+
+  const startTutorial = (introJs: typeof import("intro.js").default) => {
+    introJs()
+      .setOptions({
+        steps: [
+          {
+            intro:
+              "Welcome to Skymapper! This interactive flight planning tool helps you create and manage flight routes with real-time calculations and aviation data.",
+          },
+          {
+            element: document.querySelector("#search-button"),
+            intro:
+              "Search for any location worldwide to add as a waypoint to your flight route.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#map-type-selector"),
+            intro:
+              "Switch between different map views: Street, Satellite, Hybrid, or Terrain to suit your planning needs.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#country-selector"),
+            intro:
+              "Select your country to load relevant aviation data including airports, airspaces, and navigation aids.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#aviation-data-toggle"),
+            intro:
+              "Toggle aviation layers on/off including airports, airspaces, navigation aids, obstacles, and hotspots.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#route-manager"),
+            intro:
+              "Save, load, and manage your flight routes. Share routes with others using generated links.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#delete-last-waypoint"),
+            intro: "Remove the last waypoint you added to your route.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#clear-waypoints"),
+            intro:
+              "Clear all waypoints and start planning a new route from scratch.",
+            position: "right",
+          },
+          {
+            element: document.querySelector("#main-sidebar"),
+            intro:
+              "Configure your flight settings including aircraft performance, fuel consumption, and weather data.",
+            position: "left",
+          },
+          {
+            element: document.querySelector("#waypoints-section"),
+            intro:
+              "View and manage all your waypoints. Click on waypoints to edit coordinates, change types, or delete them.",
+            position: "left",
+          },
+          {
+            element: document.querySelector("#map-container"),
+            intro:
+              "Click anywhere on the map to add waypoints. Your flight path will automatically connect them in order.",
+            position: "top",
+          },
+          {
+            element: document.querySelector("#bottom-sidebar"),
+            intro:
+              "View detailed flight calculations including distances, headings, fuel consumption, and estimated flight times.",
+            position: "top",
+          },
+          {
+            element: document.querySelector("#results-table"),
+            intro:
+              "Detailed leg-by-leg breakdown of your flight with track, heading, distance, and fuel calculations.",
+            position: "top",
+          },
+          {
+            element: document.querySelector("#flight-totals"),
+            intro:
+              "Summary of your complete flight: total distance, flight time, and fuel required.",
+            position: "top",
+          },
+          {
+            intro:
+              "That's it! Start by clicking on the map to add waypoints and create your flight plan. Happy flying! ✈️",
+          },
+        ],
+        showProgress: true,
+        showBullets: true,
+        exitOnOverlayClick: false,
+        showStepNumbers: false,
+        nextLabel: "Next",
+        prevLabel: "Back",
+        skipLabel: "Skip",
+        doneLabel: "Start Planning!",
+        highlightClass: "introjs-helperNumberLayer",
+        tooltipClass: "theme-dark",
+      })
+      .onBeforeChange((targetElement: Element) => {
+        // Apply theme styling
+        setTimeout(() => {
+          document
+            .querySelectorAll(".introjs-tooltip")
+            .forEach((el) => el.classList.add("theme-dark"));
+        }, 10);
+
+        // Custom logic based on the target element
+        const elementId = targetElement?.id;
+
+        // Adjust tooltip position or content based on element
+        if (elementId === "map-container") {
+          // Special handling for map step
+          console.log("About to highlight the map");
+        } else if (elementId === "search-button") {
+          // Special handling for search button
+          console.log("About to highlight search");
+        }
+
+        // You could also modify the step content dynamically
+        // or perform animations before the step shows
+
+        // Return true to continue, false to prevent the step change
+        return true;
+      })
+      .onComplete(() => {
+        localStorage.setItem("skymapper-tutorial-completed", "true");
+      })
+      .onExit(() => {
+        localStorage.setItem("skymapper-tutorial-completed", "true");
+      })
+      .start();
+  };
+
   if (!initialized) {
-    return <LoadingPage/>;
+    return <LoadingPage />;
   }
 
   return (
