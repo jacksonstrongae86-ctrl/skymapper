@@ -1,22 +1,34 @@
 // components/ClusteredAviationMarkers.tsx
-import { useMap } from 'react-leaflet';
-import { useEffect } from 'react';
-import L from 'leaflet';
-import 'leaflet.markercluster';
-import { AviationMarker, createAviationIcon } from '../../../utils/aviationUtils';
-import { Airport, Airspace, Hotspot, NavigationPoint, Obstacle} from '@/src/utils/types';
-import { Theme } from '@/src/utils/ThemeContext';
+import { useMap } from "react-leaflet";
+import { useEffect } from "react";
+import L from "leaflet";
+import "leaflet.markercluster";
+import {
+  AviationMarker,
+  createAviationIcon,
+} from "../../../utils/aviationUtils";
+import {
+  Airport,
+  Airspace,
+  Hotspot,
+  NavigationPoint,
+  Obstacle,
+  ReportingPoint,
+} from "@/src/utils/types";
+import { Theme } from "@/src/utils/ThemeContext";
 
 interface ClusteredAviationMarkersProps {
   markers: AviationMarker[];
   theme: Theme;
   onMarkerClick?: (marker: AviationMarker) => void;
+  airports?: Airport[];
 }
 
 const ClusteredAviationMarkers: React.FC<ClusteredAviationMarkersProps> = ({
   markers,
   theme,
-  onMarkerClick
+  onMarkerClick,
+  airports = [],
 }) => {
   const map = useMap();
 
@@ -46,21 +58,21 @@ const ClusteredAviationMarkers: React.FC<ClusteredAviationMarkersProps> = ({
           className: `marker-cluster ${className}`,
           iconSize: L.point(40, 40, true),
         });
-      }
+      },
     });
 
     // Add markers to cluster group
-    markers.forEach(marker => {
+    markers.forEach((marker) => {
       const leafletMarker = L.marker(marker.position, {
-        icon: createAviationIcon(marker.type, theme)
+        icon: createAviationIcon(marker.type, theme),
       });
 
       // Create popup content as HTML string
-      const popupContent = createPopupContent(marker);
+      const popupContent = createPopupContent(marker, airports);
       leafletMarker.bindPopup(popupContent);
 
       // Add click handler
-      leafletMarker.on('click', () => {
+      leafletMarker.on("click", () => {
         if (onMarkerClick) {
           onMarkerClick(marker);
         }
@@ -76,74 +88,150 @@ const ClusteredAviationMarkers: React.FC<ClusteredAviationMarkersProps> = ({
     return () => {
       map.removeLayer(clusterGroup);
     };
-  }, [map, markers, theme, onMarkerClick]);
+  }, [map, markers, theme, onMarkerClick, airports]);
 
   return null;
 };
 
 // Helper function to create popup content
-function createPopupContent(marker: AviationMarker): string {
+function createPopupContent(
+  marker: AviationMarker,
+  airports: Airport[] = []
+): string {
   const { data, type } = marker;
 
   switch (type) {
-    case 'airport':
+    case "airport":
       const airport = data as Airport;
       return `
         <div class="aviation-popup">
-          <h3>${airport.name || 'Unknown Airport'}</h3>
-          <p><strong>ICAO:</strong> ${airport.icaoCode || 'N/A'}</p>
-          ${airport.iataCode ? `<p><strong>IATA:</strong> ${airport.iataCode}</p>` : ''}
-          <p><strong>Elevation:</strong> ${airport.elevation?.value || 'N/A'}m</p>
+          <h3>${airport.name || "Unknown Airport"}</h3>
+          <p><strong>ICAO:</strong> ${airport.icaoCode || "N/A"}</p>
+          ${
+            airport.iataCode
+              ? `<p><strong>IATA:</strong> ${airport.iataCode}</p>`
+              : ""
+          }
+          <p><strong>Elevation:</strong> ${
+            airport.elevation?.value || "N/A"
+          }m</p>
           <p><strong>Runways:</strong> ${airport.runways?.length || 0}</p>
-          ${airport.frequencies?.length > 0 ? `<p><strong>Primary Frequency:</strong> ${airport.frequencies[0].value}</p>` : ''}
+          ${
+            airport.frequencies?.length > 0
+              ? `<p><strong>Primary Frequency:</strong> ${airport.frequencies[0].value}</p>`
+              : ""
+          }
         </div>
       `;
 
-    case 'airspace':
+    case "airspace":
       const airspace = data as Airspace;
       return `
         <div class="aviation-popup">
-          <h3>${airspace.name || 'Unknown Airspace'}</h3>
-          <p><strong>Type:</strong> ${airspace.type || 'N/A'}</p>
-          <p><strong>ICAO Class:</strong> ${airspace.icaoClass || 'N/A'}</p>
-          <p><strong>Upper Limit:</strong> ${airspace.upperLimit?.value || 'N/A'}m</p>
-          <p><strong>Lower Limit:</strong> ${airspace.lowerLimit?.value || 'N/A'}m</p>
+          <h3>${airspace.name || "Unknown Airspace"}</h3>
+          <p><strong>Type:</strong> ${airspace.type || "N/A"}</p>
+          <p><strong>ICAO Class:</strong> ${airspace.icaoClass || "N/A"}</p>
+          <p><strong>Upper Limit:</strong> ${
+            airspace.upperLimit?.value || "N/A"
+          }m</p>
+          <p><strong>Lower Limit:</strong> ${
+            airspace.lowerLimit?.value || "N/A"
+          }m</p>
 
         </div>
       `;
 
-    case 'navigation':
+    case "navigation":
       const navPoint = data as NavigationPoint;
       return `
         <div class="aviation-popup">
-          <h3>${navPoint.name || 'Unknown Navigation Point'}</h3>
-          <p><strong>Identifier:</strong> ${navPoint.identifier || 'N/A'}</p>
-          <p><strong>Type:</strong> ${navPoint.type || 'N/A'}</p>
-          <p><strong>Frequency:</strong> ${navPoint.frequency?.value || 'N/A'}</p>
-          <p><strong>Elevation:</strong> ${navPoint.elevation?.value || 'N/A'}m</p>
-          ${navPoint.channel ? `<p><strong>Channel:</strong> ${navPoint.channel}</p>` : ''}
+          <h3>${navPoint.name || "Unknown Navigation Point"}</h3>
+          <p><strong>Identifier:</strong> ${navPoint.identifier || "N/A"}</p>
+          <p><strong>Type:</strong> ${navPoint.type || "N/A"}</p>
+          <p><strong>Frequency:</strong> ${
+            navPoint.frequency?.value || "N/A"
+          }</p>
+          <p><strong>Elevation:</strong> ${
+            navPoint.elevation?.value || "N/A"
+          }m</p>
+          ${
+            navPoint.channel
+              ? `<p><strong>Channel:</strong> ${navPoint.channel}</p>`
+              : ""
+          }
         </div>
       `;
 
-    case 'obstacle':
+    case "obstacle":
       const obstacle = data as Obstacle;
       return `
         <div class="aviation-popup">
-          <h3>${obstacle.name || 'Unknown Obstacle'}</h3>
-          <p><strong>Type:</strong> ${obstacle.type || 'N/A'}</p>
-          <p><strong>Elevation:</strong> ${obstacle.elevation?.value || 'N/A'}m</p>
-          <p><strong>OSM ID:</strong> ${obstacle.osmId || 'N/A'}</p>
-          ${obstacle.osmTags?.power ? `<p><strong>Power:</strong> ${obstacle.osmTags.power}</p>` : ''}
+          <h3>${obstacle.name || "Unknown Obstacle"}</h3>
+          <p><strong>Type:</strong> ${obstacle.type || "N/A"}</p>
+          <p><strong>Elevation:</strong> ${
+            obstacle.elevation?.value || "N/A"
+          }m</p>
+          <p><strong>OSM ID:</strong> ${obstacle.osmId || "N/A"}</p>
+          ${
+            obstacle.osmTags?.power
+              ? `<p><strong>Power:</strong> ${obstacle.osmTags.power}</p>`
+              : ""
+          }
         </div>
       `;
 
-    case 'hotspot':
+    case "hotspot":
       const hotspot = data as Hotspot;
       return `
         <div class="aviation-popup">
-          <h3>${hotspot.name || 'Unknown Hotspot'}</h3>
-          <p><strong>Type:</strong> ${hotspot.type || 'N/A'}</p>
-          <p><strong>Country:</strong> ${hotspot.country || 'N/A'}</p>
+          <h3>${hotspot.name || "Unknown Hotspot"}</h3>
+          <p><strong>Type:</strong> ${hotspot.type || "N/A"}</p>
+          <p><strong>Country:</strong> ${hotspot.country || "N/A"}</p>
+        </div>
+      `;
+
+    case "reportingpoint":
+      const reportingPoint = data as ReportingPoint;
+      const compulsoryText = reportingPoint.compulsory ? "Yes" : "No";
+
+      // UPDATED: Look up airport names instead of showing IDs
+      const airportNames: string[] = [];
+      if (reportingPoint.airports?.length > 0) {
+        reportingPoint.airports.forEach((airportId) => {
+          const airport = airports.find((a) => a._id === airportId);
+          if (airport) {
+            airportNames.push(airport.name);
+          }
+        });
+      }
+      const airportsText =
+        airportNames.length > 0 ? airportNames.join(", ") : "N/A";
+
+      const createdDate = reportingPoint.createdAt
+        ? new Date(reportingPoint.createdAt).toLocaleDateString()
+        : "N/A";
+      const updatedDate = reportingPoint.updatedAt
+        ? new Date(reportingPoint.updatedAt).toLocaleDateString()
+        : "N/A";
+
+      return `
+        <div class="aviation-popup">
+          <h3>${reportingPoint.name || "Unknown Reporting Point"}</h3>
+          <p><strong>Compulsory:</strong> ${compulsoryText}</p>
+          <p><strong>Country:</strong> ${reportingPoint.country || "N/A"}</p>
+          <p><strong>Linked Airports:</strong> ${airportsText}</p>
+          <p><strong>Elevation:</strong> ${
+            reportingPoint.elevation?.value || "N/A"
+          }m</p>
+          ${
+            reportingPoint.elevationGeoid?.hae
+              ? `<p><strong>Elevation HAE:</strong> ${
+                  Math.round(reportingPoint.elevationGeoid.hae * 100) / 100
+                }m</p>`
+              : ""
+          }
+          <p><strong>Created:</strong> ${createdDate}</p>
+          <p><strong>Updated:</strong> ${updatedDate}</p>
         </div>
       `;
 
@@ -151,6 +239,5 @@ function createPopupContent(marker: AviationMarker): string {
       return `<div class="aviation-popup"><h3>${type}</h3><p>No detailed information available</p></div>`;
   }
 }
-
 
 export default ClusteredAviationMarkers;

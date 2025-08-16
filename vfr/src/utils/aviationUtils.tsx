@@ -6,6 +6,7 @@ import {
   Radio,
   AlertTriangle,
   Flame,
+  MapPin,
 } from 'lucide-static';
 import { Theme } from './ThemeContext';
 import {
@@ -15,14 +16,15 @@ import {
   NavigationPoint,
   Obstacle,
   Hotspot,
+  ReportingPoint,
   Runway,
 } from './types';
-export type AviationItem = Airport | Airspace | NavigationPoint | Obstacle | Hotspot;
+export type AviationItem = Airport | Airspace | NavigationPoint | Obstacle | Hotspot | ReportingPoint;
 
 export interface AviationMarker {
   id: string;
   name: string;
-  type: 'airport' | 'airspace' | 'navigation' | 'obstacle' | 'hotspot';
+  type: 'airport' | 'airspace' | 'navigation' | 'obstacle' | 'hotspot' | 'reportingpoint';
   position: [number, number];
   data: AviationItem;
 }
@@ -33,7 +35,7 @@ interface IconConfig {
 }
 
 export function createAviationIcon(
-  type: 'airport' | 'airspace' | 'navigation' | 'obstacle' | 'hotspot',
+  type: 'airport' | 'airspace' | 'navigation' | 'obstacle' | 'hotspot' | 'reportingpoint',
   theme: Theme
 ): L.DivIcon {
   const iconCfg: Record<typeof type, IconConfig> = {
@@ -42,6 +44,7 @@ export function createAviationIcon(
     navigation: { icon: Radio, color: '#ffffff' },
     obstacle: { icon: AlertTriangle, color: '#ffffff' },
     hotspot: { icon: Flame, color: '#ffffff' },
+    reportingpoint: { icon: MapPin , color: '#ffffff'}
   };
 
   const config = iconCfg[type] ?? iconCfg.airport;
@@ -179,7 +182,8 @@ export function convertAviationDataToMarkers(
   airspaces: Airspace[],
   navigation: NavigationPoint[],
   obstacles: Obstacle[],
-  hotspots: Hotspot[]
+  hotspots: Hotspot[],
+  reportingpoints: ReportingPoint[],
 ): AviationMarker[] {
   const markers: AviationMarker[] = [];
 
@@ -249,6 +253,20 @@ export function convertAviationDataToMarkers(
         type: 'hotspot',
         position,
         data: hotspot,
+      });
+    }
+  });
+
+  // Process reportingpoints
+  reportingpoints.forEach(rp => {
+    const position = extractCoordinates(rp.geometry);
+    if (position) {
+      markers.push({
+        id: rp._id,
+        name: rp.name,
+        type: 'reportingpoint',
+        position,
+        data: rp,
       });
     }
   });

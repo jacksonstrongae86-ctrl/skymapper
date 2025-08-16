@@ -6,6 +6,7 @@ import {
   NavigationPoint,
   Obstacle,
   Hotspot,
+  ReportingPoint,
 } from "../../utils/types";
 
 export interface AviationDataState {
@@ -14,6 +15,7 @@ export interface AviationDataState {
   navigation: NavigationPoint[];
   obstacles: Obstacle[];
   hotspots: Hotspot[];
+  reportingpoints: ReportingPoint[];
   loading: boolean;
   error: string | null;
   lastUpdated: string | null;
@@ -28,6 +30,7 @@ export const useAviationData = (country: string = "es") => {
     navigation: [],
     obstacles: [],
     hotspots: [],
+    reportingpoints: [],
     loading: false,
     error: null,
     lastUpdated: null,
@@ -43,7 +46,7 @@ export const useAviationData = (country: string = "es") => {
     }));
 
     try {
-      const dataTypes = ["apt", "asp", "nav", "obs", "hot"];
+      const dataTypes = ["apt", "asp", "nav", "obs", "hot", "rpp"];
 
       const promises = dataTypes.map((type) =>
         // Use your API instead of direct file access
@@ -73,6 +76,7 @@ export const useAviationData = (country: string = "es") => {
         navigationData,
         obstacleData,
         hotspotData,
+        reportingpointData,
       ] = await Promise.all(promises);
 
       setState((prev) => ({
@@ -82,6 +86,7 @@ export const useAviationData = (country: string = "es") => {
         navigation: navigationData?.data?.items || [],
         obstacles: obstacleData?.data?.items || [],
         hotspots: hotspotData?.data?.items || [],
+        reportingpoints: reportingpointData?.data?.items || [],
         lastUpdated: airportData?.lastUpdated || new Date().toISOString(),
         loading: false,
       }));

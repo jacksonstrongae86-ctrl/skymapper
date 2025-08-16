@@ -267,10 +267,9 @@ export type AirspaceData = AviationDataWrapper<Airspace>;
 export type NavigationData = AviationDataWrapper<NavigationPoint>;
 export type ObstacleData = AviationDataWrapper<Obstacle>;
 export type HotspotData = AviationDataWrapper<Hotspot>;
-
-export type AviationData = AirportData | AirspaceData | NavigationData | ObstacleData | HotspotData;
-
-export type AviationProperties = Airport | Airspace | NavigationPoint | Obstacle
+export type ReportingPointData = AviationDataWrapper<ReportingPoint>;
+export type AviationData = AirportData | AirspaceData | NavigationData | ObstacleData | HotspotData | ReportingPointData;
+export type AviationProperties = Airport | Airspace | NavigationPoint | Obstacle | ReportingPoint;
 
 export interface Elevation {
   value: number;
@@ -456,6 +455,22 @@ export interface Hotspot {
   type: number;
   country: string;
   geometry: AviationGeometry;
+}
+
+export interface ReportingPoint {
+  _id: string;
+  name: string;
+  compulsory: boolean;
+  country: string;
+  airports: string[]; // Array of airport IDs this reporting point is linked to
+  geometry: AviationGeometry;
+  elevation: Elevation;
+  elevationGeoid: ElevationGeoid;
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  updatedBy: string;
+  __v?: number;
 }
 
 // Data wrapper interfaces

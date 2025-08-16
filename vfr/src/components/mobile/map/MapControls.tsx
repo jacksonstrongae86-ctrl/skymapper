@@ -23,6 +23,7 @@ import {
   Check,
   X,
   Share2,
+  MapPin,
 } from "lucide-react";
 import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
@@ -31,7 +32,8 @@ type AviationLayerKey =
   | "airspaces"
   | "navigation"
   | "obstacles"
-  | "hotspots";
+  | "hotspots"
+  | "reportingpoints";
 
 interface SavedRoute {
   id: string; // Unique ID (e.g. uuid)
@@ -49,6 +51,7 @@ interface ExtendedMapControlProps extends MapControlsProps {
     navigation: boolean;
     obstacles: boolean;
     hotspots: boolean;
+    reportingpoints: boolean;
   };
   onLayerToggle?: (layer: AviationLayerKey, enabled: boolean) => void;
   selectedCountry?: string;
@@ -76,6 +79,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
     navigation: true,
     obstacles: true,
     hotspots: true,
+    reportingpoints: true,
   },
   onLayerToggle,
   selectedCountry = "es",
@@ -600,6 +604,24 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       >
                         <Flame size={14} />
                         <span className="truncate">Hotspots</span>
+                      </button>
+                      <button
+                        onClick={() =>
+                          onLayerToggle("reportingpoints", !aviationLayers.hotspots)
+                        }
+                        className={`
+                    px-3 py-2 rounded-lg text-sm
+                    flex items-center gap-2
+                    transition-all duration-200
+                    ${
+                      aviationLayers.hotspots
+                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                    }
+                  `}
+                      >
+                        <MapPin size={14} />
+                        <span className="truncate">Reporting Points</span>
                       </button>
                     </div>
                   </div>

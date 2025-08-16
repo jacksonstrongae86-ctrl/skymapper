@@ -46,7 +46,8 @@ type AviationLayerKey =
   | "airspaces"
   | "navigation"
   | "obstacles"
-  | "hotspots";
+  | "hotspots"
+  | "reportingpoints"
 
 interface SavedRoute {
   id: string; // Unique ID (e.g. uuid)
@@ -64,6 +65,7 @@ interface ExtendedMapComponentProps extends MapComponentProps {
     navigation: boolean;
     obstacles: boolean;
     hotspots: boolean;
+    reportingpoints: boolean;
   };
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
   selectedCountry: string;
@@ -138,6 +140,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     navigation,
     obstacles,
     hotspots,
+    reportingpoints,
     loading,
     error,
   } = useAviationData(selectedCountry);
@@ -178,7 +181,8 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       airspaces.length > 0 ||
       navigation.length > 0 ||
       obstacles.length > 0 ||
-      hotspots.length > 0;
+      hotspots.length > 0 ||
+      reportingpoints.length > 0;
 
     if (!hasData) {
       // console.log("No aviation data available yet");
@@ -190,6 +194,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     const filteredNavigation = aviationLayers.navigation ? navigation : [];
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
     const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
+    const filteredReportingPoints = aviationLayers.reportingpoints ? reportingpoints : [];
 
     // console.log("Processing aviation data into markers...");
     // console.log("Filtered Aviation Data:", {
@@ -205,7 +210,8 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       filteredAirspaces,
       filteredNavigation,
       filteredObstacles,
-      filteredHotspots
+      filteredHotspots,
+      filteredReportingPoints,
     );
 
     // console.log("Successfully generated markers:", markers.length);
@@ -217,6 +223,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     airspaces,
     navigation,
     obstacles,
+    reportingpoints,
     hotspots,
     loading,
   ]);
@@ -296,6 +303,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           <ClusteredAviationMarkers
             markers={aviationMarkers}
             theme={theme}
+            airports={airports}
             // onMarkerClick={(marker) =>
             //   console.log(`${marker.type} clicked:`, marker)
             // }

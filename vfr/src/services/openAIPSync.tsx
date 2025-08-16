@@ -4,7 +4,7 @@ import path from 'path';
 
 export interface OpenAIPConfig {
   countries: string[];
-  dataTypes: ('apt' | 'asp' | 'hot' | 'nav' | 'obs')[];
+  dataTypes: ('apt' | 'asp' | 'hot' | 'nav' | 'obs' | 'rpp')[];
   cachePath: string;
 }
 

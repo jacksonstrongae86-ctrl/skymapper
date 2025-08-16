@@ -7,6 +7,7 @@ type AviationLayers = {
   navigation: boolean;
   obstacles: boolean;
   hotspots: boolean;
+  reportingpoints: boolean;
 };
 
 interface AviationLayerControlProps {
@@ -81,6 +82,16 @@ const AviationLayerControl: React.FC<AviationLayerControlProps> = ({
             />
             🔥 Hotspots
           </label>
+
+          <label>
+            <input
+              type="checkbox"
+              checked={layers.reportingpoints}
+              onChange={(e) => onLayerToggle('reportingpoints', e.target.checked)}
+            />
+            Pin ReportingPoints
+          </label>
+
         </div>
       )}
     </div>

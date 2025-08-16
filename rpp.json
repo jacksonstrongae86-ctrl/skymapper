@@ -1,0 +1,5294 @@
+[
+  {
+    "_id": "629cc1c8f4b4089a578e0d56",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450be3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.741666666666667, 28.079166666666666]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:32.953Z",
+    "updatedAt": "2023-11-24T08:12:08.634Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.12876000000031,
+      "hae": 45.12876000000031
+    }
+  },
+  {
+    "_id": "629cc1c9f4b4089a578e0d5f",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450be3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.579166666666666, 28.069444444444443]
+    },
+    "elevation": { "value": 220, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:33.957Z",
+    "updatedAt": "2023-11-24T08:09:02.620Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.16582499999973,
+      "hae": 265.1658249999997
+    }
+  },
+  {
+    "_id": "629cc1cbf4b4089a578e0d68",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450be3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.533333333333335, 27.833333333333332]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:35.016Z",
+    "updatedAt": "2023-11-24T08:10:15.172Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 39.88920000000013,
+      "hae": 39.88920000000013
+    }
+  },
+  {
+    "_id": "629cc1ccf4b4089a578e0d71",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450be3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.431944444444444, 28.17222222222222]
+    },
+    "elevation": { "value": 42, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:36.037Z",
+    "updatedAt": "2023-11-24T08:11:17.996Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.34042333333335,
+      "hae": 87.34042333333335
+    }
+  },
+  {
+    "_id": "629cc1e1f4b4089a578e0e22",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.9966666666666666, 39.115]
+    },
+    "elevation": { "value": 691, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:57.444Z",
+    "updatedAt": "2023-11-29T10:13:57.871Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.40664000000001, "hae": 743.40664 }
+  },
+  {
+    "_id": "629cc1e2f4b4089a578e0e2b",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.6758333333333333, 39.13616666666667]
+    },
+    "elevation": { "value": 659, "unit": 0, "referenceDatum": 1 },
+    "remarks": "Albacete VRP - N - Valdeganga {NVALD}",
+    "createdAt": "2022-06-05T14:46:58.459Z",
+    "updatedAt": "2023-11-29T10:12:48.982Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.35731483999999, "hae": 711.35731484 }
+  },
+  {
+    "_id": "629cc1e3f4b4089a578e0e34",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.7327777777777778, 38.80361111111111]
+    },
+    "elevation": { "value": 789, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:46:59.501Z",
+    "updatedAt": "2023-11-29T10:16:03.326Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.675877533333335,
+      "hae": 841.6758775333333
+    }
+  },
+  {
+    "_id": "629cc1e4f4b4089a578e0e3d",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.5580555555555555, 38.82666666666667]
+    },
+    "elevation": { "value": 860, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:00.694Z",
+    "updatedAt": "2023-11-29T10:14:53.261Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.72329640000004, "hae": 912.7232964 }
+  },
+  {
+    "_id": "629cc1e5f4b4089a578e0e4a",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.8972222222222221, 39.00555555555555]
+    },
+    "elevation": { "value": 680, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:01.731Z",
+    "updatedAt": "2023-11-29T10:17:14.608Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.50133333333335,
+      "hae": 732.5013333333334
+    }
+  },
+  {
+    "_id": "629cc1e6f4b4089a578e0e5b",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.6080555555555556, 36.74638888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:02.893Z",
+    "updatedAt": "2023-11-29T10:38:36.156Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.897491400000035,
+      "hae": 49.897491400000035
+    }
+  },
+  {
+    "_id": "629cc1e7f4b4089a578e0e6a",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502d3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.5702777777777778, 38.24166666666667]
+    },
+    "elevation": { "value": 8, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:03.907Z",
+    "updatedAt": "2023-11-29T10:28:08.067Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.497164999999995,
+      "hae": 58.497164999999995
+    }
+  },
+  {
+    "_id": "629cc1e8f4b4089a578e0e75",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502d3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6549999999999999, 38.14388888888889]
+    },
+    "elevation": { "value": 54, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:04.945Z",
+    "updatedAt": "2023-11-29T10:26:55.079Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.465025999999995, "hae": 104.465026 }
+  },
+  {
+    "_id": "629cc1e9f4b4089a578e0e7e",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502d3"],
+    "geometry": { "type": "Point", "coordinates": [-0.545, 38.31111111111111] },
+    "elevation": { "value": 26, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:05.957Z",
+    "updatedAt": "2023-11-29T10:24:44.247Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.52704, "hae": 76.52704 }
+  },
+  {
+    "_id": "629cc1eaf4b4089a578e0e87",
+    "name": "NE-1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502d3"],
+    "geometry": { "type": "Point", "coordinates": [-0.392, 38.43783333333333] },
+    "elevation": { "value": 13, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:06.995Z",
+    "updatedAt": "2023-11-29T10:22:16.859Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.53917892799993,
+      "hae": 63.53917892799993
+    }
+  },
+  {
+    "_id": "629cc1ecf4b4089a578e0e90",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502d3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.40777777777777774, 38.36194444444445]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:08.063Z",
+    "updatedAt": "2023-11-29T10:25:48.882Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.175039466666675,
+      "hae": 49.175039466666675
+    }
+  },
+  {
+    "_id": "629cc1edf4b4089a578e0e9b",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.2930555555555556, 36.94027777777778]
+    },
+    "elevation": { "value": 444, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:09.265Z",
+    "updatedAt": "2023-11-29T10:34:34.564Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.69955166666662,
+      "hae": 494.6995516666666
+    }
+  },
+  {
+    "_id": "629cc1eef4b4089a578e0ea4",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.203888888888889, 36.96083333333333]
+    },
+    "elevation": { "value": 299, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:10.300Z",
+    "updatedAt": "2023-11-29T10:33:49.947Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.67325539999999, "hae": 349.6732554 }
+  },
+  {
+    "_id": "629cc1eff4b4089a578e0ead",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.1841666666666666, 36.72694444444444]
+    },
+    "elevation": { "value": 195, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:11.323Z",
+    "updatedAt": "2023-11-29T10:35:08.462Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.58144160000003,
+      "hae": 244.58144160000003
+    }
+  },
+  {
+    "_id": "629cc1f0f4b4089a578e0eb6",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.5952777777777776, 36.81027777777778]
+    },
+    "elevation": { "value": 54, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:12.369Z",
+    "updatedAt": "2023-11-29T10:37:01.625Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.4700699666667,
+      "hae": 104.4700699666667
+    }
+  },
+  {
+    "_id": "629cc1f8f4b4089a578e0ebf",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cf5e9ded57104502eb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.562777777777778, 36.959722222222226]
+    },
+    "elevation": { "value": 448, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:20.828Z",
+    "updatedAt": "2023-11-29T10:36:01.033Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.04073466666688,
+      "hae": 499.0407346666669
+    }
+  },
+  {
+    "_id": "629cc1faf4b4089a578e0eca",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e70e8346dfd92514bf"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.9333333333333336, 40.35]
+    },
+    "elevation": { "value": 605, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:22.008Z",
+    "updatedAt": "2023-12-07T09:19:12.258Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.782159999999976, "hae": 656.78216 }
+  },
+  {
+    "_id": "629cc1fbf4b4089a578e0ed3",
+    "name": "WG",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e70e8346dfd92514bf", "626150e75e9ded57104508aa"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.9416666666666664, 40.298611111111114]
+    },
+    "elevation": { "value": 555, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:23.038Z",
+    "updatedAt": "2023-12-07T09:24:02.968Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.77667500000004,
+      "hae": 606.7766750000001
+    }
+  },
+  {
+    "_id": "629cc1fcf4b4089a578e0edc",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e70e8346dfd92514bf"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.841388888888889, 40.31388888888889]
+    },
+    "elevation": { "value": 656, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:24.110Z",
+    "updatedAt": "2023-12-07T09:18:42.489Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.726388000000014, "hae": 707.726388 }
+  },
+  {
+    "_id": "629cc1fdf4b4089a578e0ee5",
+    "name": "SG",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e70e8346dfd92514bf", "626150e75e9ded57104508aa"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.6669444444444443, 40.18888888888889]
+    },
+    "elevation": { "value": 584, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:25.129Z",
+    "updatedAt": "2023-12-07T09:24:09.825Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.78472533333334,
+      "hae": 635.7847253333333
+    }
+  },
+  {
+    "_id": "629cc1fef4b4089a578e0ef0",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463cdd"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8083333333333336, 39.01833333333333]
+    },
+    "elevation": { "value": 613, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:26.315Z",
+    "updatedAt": "2023-12-09T17:38:58.047Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.637857999999994, "hae": 666.637858 }
+  },
+  {
+    "_id": "629cc1fff4b4089a578e0ef9",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463cdd"],
+    "geometry": { "type": "Point", "coordinates": [-3.75, 39.013666666666666] },
+    "elevation": { "value": 617, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:27.360Z",
+    "updatedAt": "2023-12-09T17:38:55.840Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.56146000000001, "hae": 670.56146 }
+  },
+  {
+    "_id": "629cc200f4b4089a578e0f02",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463cdd"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.658666666666667, 38.90416666666667]
+    },
+    "elevation": { "value": 660, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:28.390Z",
+    "updatedAt": "2023-12-09T17:38:49.100Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.504189999999994, "hae": 713.50419 }
+  },
+  {
+    "_id": "629cc201f4b4089a578e0f0b",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463cdd"],
+    "geometry": { "type": "Point", "coordinates": [-3.77, 38.85333333333333] },
+    "elevation": { "value": 660, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:29.435Z",
+    "updatedAt": "2023-12-09T17:38:51.345Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.61055679999998, "hae": 713.6105568 }
+  },
+  {
+    "_id": "629cc202f4b4089a578e0f14",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463cdd"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8261666666666665, 38.90833333333333]
+    },
+    "elevation": { "value": 624, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:30.504Z",
+    "updatedAt": "2023-12-09T17:38:53.587Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.65684679999998, "hae": 677.6568468 }
+  },
+  {
+    "_id": "629cc203f4b4089a578e0f1f",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": { "type": "Point", "coordinates": [-4.21, 42.083333333333336] },
+    "elevation": { "value": 749, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:31.708Z",
+    "updatedAt": "2023-12-09T19:12:57.240Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.91539999999998, "hae": 802.9154 }
+  },
+  {
+    "_id": "629cc204f4b4089a578e0f28",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.208055555555555, 42.0975]
+    },
+    "elevation": { "value": 722, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:32.731Z",
+    "updatedAt": "2023-12-09T19:13:00.327Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 55.21626330000004, "hae": 777.2162633 }
+  },
+  {
+    "_id": "629cc205f4b4089a578e0f33",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e70e8346dfd92514bf"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8791666666666664, 40.404444444444444]
+    },
+    "elevation": { "value": 671, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:33.887Z",
+    "updatedAt": "2023-12-07T09:18:02.282Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.786636000000016, "hae": 722.786636 }
+  },
+  {
+    "_id": "629cc207f4b4089a578e0f3e",
+    "name": "S3",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.823055555555555, 43.13916666666667]
+    },
+    "elevation": { "value": 328, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:35.132Z",
+    "updatedAt": "2023-12-03T15:55:44.435Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 56.02439989999999, "hae": 384.0243999 }
+  },
+  {
+    "_id": "629cc208f4b4089a578e0f47",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.422777777777778, 43.279444444444444]
+    },
+    "elevation": { "value": 680, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:36.381Z",
+    "updatedAt": "2023-12-03T15:54:42.021Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.8258973333333,
+      "hae": 735.8258973333333
+    }
+  },
+  {
+    "_id": "629cc209f4b4089a578e0f50",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": { "type": "Point", "coordinates": [-6.29889, 43.56528] },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:37.443Z",
+    "updatedAt": "2025-02-10T21:09:52.415Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1"
+  },
+  {
+    "_id": "629cc20af4b4089a578e0f59",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.0938888888888885, 43.49888888888889]
+    },
+    "elevation": { "value": 72, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:38.463Z",
+    "updatedAt": "2023-12-03T15:56:35.018Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.924490933333374,
+      "hae": 125.92449093333337
+    }
+  },
+  {
+    "_id": "629cc20bf4b4089a578e0f62",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.802222222222222, 43.390277777777776]
+    },
+    "elevation": { "value": 185, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:39.480Z",
+    "updatedAt": "2023-12-03T15:53:23.770Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.3344946666667,
+      "hae": 239.3344946666667
+    }
+  },
+  {
+    "_id": "629cc20cf4b4089a578e0f6b",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.700833333333334, 43.373333333333335]
+    },
+    "elevation": { "value": 201, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:40.549Z",
+    "updatedAt": "2023-12-03T15:54:01.309Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 54.36307919999999, "hae": 255.3630792 }
+  },
+  {
+    "_id": "629cc20df4b4089a578e0f74",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.615833333333334, 43.56777777777778]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:41.547Z",
+    "updatedAt": "2023-12-03T15:50:43.467Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.28891360000003,
+      "hae": 53.28891360000003
+    }
+  },
+  {
+    "_id": "629cc20ef4b4089a578e0f7d",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.387777777777778, 43.56333333333333]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:42.714Z",
+    "updatedAt": "2023-12-03T15:51:17.413Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.095747200000034,
+      "hae": 53.095747200000034
+    }
+  },
+  {
+    "_id": "629cc20ff4b4089a578e0f86",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.848611111111111, 43.66694444444445]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:43.803Z",
+    "updatedAt": "2023-12-03T15:52:20.416Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.772513333333364,
+      "hae": 52.772513333333364
+    }
+  },
+  {
+    "_id": "629cc210f4b4089a578e0f8f",
+    "name": "W2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.725, 43.569722222222225]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:44.832Z",
+    "updatedAt": "2023-12-03T15:58:57.286Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.647362000000044,
+      "hae": 53.647362000000044
+    }
+  },
+  {
+    "_id": "629cc212f4b4089a578e0f9a",
+    "name": "W2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.5169444444444444, 39.46666666666667]
+    },
+    "elevation": { "value": 75, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:46.001Z",
+    "updatedAt": "2023-12-09T19:13:09.321Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.85091599999993,
+      "hae": 125.85091599999993
+    }
+  },
+  {
+    "_id": "629cc213f4b4089a578e0fa3",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cfcb27f42509463b26"],
+    "geometry": { "type": "Point", "coordinates": [-5.430555555555555, 36] },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:47.014Z",
+    "updatedAt": "2023-12-09T19:12:39.287Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.02800000000002,
+      "hae": 42.02800000000002
+    }
+  },
+  {
+    "_id": "629cc214f4b4089a578e0fae",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.768055555555556, 37.86055555555556]
+    },
+    "elevation": { "value": 133, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:48.207Z",
+    "updatedAt": "2023-12-06T09:08:12.887Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.716183333333476,
+      "hae": 183.71618333333348
+    }
+  },
+  {
+    "_id": "629cc215f4b4089a578e0fb7",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.822222222222222, 37.75833333333333]
+    },
+    "elevation": { "value": 287, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:49.229Z",
+    "updatedAt": "2023-12-06T09:09:15.743Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.063260000000014, "hae": 337.06326 }
+  },
+  {
+    "_id": "629cc216f4b4089a578e0fc0",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.023888888888889, 37.8075]
+    },
+    "elevation": { "value": 211, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:50.249Z",
+    "updatedAt": "2023-12-06T09:06:35.058Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.02216760000002, "hae": 262.0221676 }
+  },
+  {
+    "_id": "629cc217f4b4089a578e0fcb",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.6794444444444445, 43.31333333333333]
+    },
+    "elevation": { "value": 32, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:51.492Z",
+    "updatedAt": "2023-12-03T16:29:34.802Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.942364800000036,
+      "hae": 81.94236480000004
+    }
+  },
+  {
+    "_id": "629cc218f4b4089a578e0fd4",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.8466666666666667, 43.35722222222222]
+    },
+    "elevation": { "value": 30, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:52.529Z",
+    "updatedAt": "2023-12-03T16:32:41.460Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.801240000000035,
+      "hae": 79.80124000000004
+    }
+  },
+  {
+    "_id": "629cc219f4b4089a578e0fdd",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.725833333333333, 43.4175]
+    },
+    "elevation": { "value": 22, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:53.563Z",
+    "updatedAt": "2023-12-03T16:28:23.214Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.28347530000002,
+      "hae": 71.28347530000002
+    }
+  },
+  {
+    "_id": "629cc21af4b4089a578e0fe6",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.900000277777778, 43.43333361111111]
+    },
+    "elevation": { "value": 4, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:54.606Z",
+    "updatedAt": "2023-12-03T16:27:49.122Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.33379800000051,
+      "hae": 53.33379800000051
+    }
+  },
+  {
+    "_id": "629cc21bf4b4089a578e0fef",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.966666666666667, 43.2775]
+    },
+    "elevation": { "value": 6, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:55.623Z",
+    "updatedAt": "2023-12-03T16:33:15.565Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.429645999999906,
+      "hae": 56.429645999999906
+    }
+  },
+  {
+    "_id": "629cc21cf4b4089a578e0ff8",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.9477777777777776, 43.24055555555555]
+    },
+    "elevation": { "value": 165, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:56.649Z",
+    "updatedAt": "2023-12-03T16:33:57.096Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.62584586666665,
+      "hae": 215.62584586666665
+    }
+  },
+  {
+    "_id": "629cc21df4b4089a578e1001",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.2655555555555553, 43.40083333333333]
+    },
+    "elevation": { "value": 35, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:57.803Z",
+    "updatedAt": "2023-12-03T16:31:24.366Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.154652, "hae": 85.154652 }
+  },
+  {
+    "_id": "629cc21ef4b4089a578e100a",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d35e9ded57104503d1"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.964444444444444, 43.140277777777776]
+    },
+    "elevation": { "value": 143, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:47:58.857Z",
+    "updatedAt": "2023-12-03T16:30:20.352Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.08222800000004,
+      "hae": 194.08222800000004
+    }
+  },
+  {
+    "_id": "629cc220f4b4089a578e1015",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d3cb27f42509463c35"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.3916666666666666, 42.30833333333333]
+    },
+    "elevation": { "value": 1025, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:00.061Z",
+    "updatedAt": "2023-12-03T16:46:54.765Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 54.52242000000001, "hae": 1079.52242 }
+  },
+  {
+    "_id": "629cc221f4b4089a578e1022",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d3cb27f42509463c35"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.7083333333333335, 42.51111111111111]
+    },
+    "elevation": { "value": 978, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:01.096Z",
+    "updatedAt": "2023-12-03T16:48:29.515Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.899100000000004, "hae": 1031.8991 }
+  },
+  {
+    "_id": "629cc222f4b4089a578e1031",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d3cb27f42509463c35"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8430555555555554, 42.37222222222222]
+    },
+    "elevation": { "value": 841, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:02.161Z",
+    "updatedAt": "2023-12-03T16:50:29.802Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.97021000000001, "hae": 894.97021 }
+  },
+  {
+    "_id": "629cc224f4b4089a578e1046",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.786388888888888, 41.66305555555556]
+    },
+    "elevation": { "value": 761, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:04.512Z",
+    "updatedAt": "2023-12-09T19:12:42.304Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.030106466666666,
+      "hae": 815.0301064666667
+    }
+  },
+  {
+    "_id": "629cc225f4b4089a578e104f",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cfcb27f42509463b26"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.433611111111111, 36.106944444444444]
+    },
+    "elevation": { "value": 17, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:05.517Z",
+    "updatedAt": "2023-12-09T19:12:33.304Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.84231799999998,
+      "hae": 59.84231799999998
+    }
+  },
+  {
+    "_id": "629cc226f4b4089a578e1058",
+    "name": "SE1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.21722222222222223, 39.18666666666667]
+    },
+    "elevation": { "value": 8, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:06.580Z",
+    "updatedAt": "2023-12-09T19:13:03.263Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.362120799999985,
+      "hae": 58.362120799999985
+    }
+  },
+  {
+    "_id": "629cc227f4b4089a578e1061",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.808611111111111, 40.64805555555556]
+    },
+    "elevation": { "value": 760, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:07.696Z",
+    "updatedAt": "2023-12-09T19:12:21.419Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.47827396666676,
+      "hae": 812.4782739666667
+    }
+  },
+  {
+    "_id": "629cc229f4b4089a578e106e",
+    "name": "N2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.4272222222222222, 39.50083333333333]
+    },
+    "elevation": { "value": 72, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:09.871Z",
+    "updatedAt": "2023-12-09T19:13:15.301Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.728403000000014,
+      "hae": 122.72840300000001
+    }
+  },
+  {
+    "_id": "629cc22af4b4089a578e1077",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cfcb27f42509463b26"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.437777777777778, 36.13777777777778]
+    },
+    "elevation": { "value": 9, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:10.870Z",
+    "updatedAt": "2023-12-09T19:12:30.324Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 43.09064479999995,
+      "hae": 52.09064479999995
+    }
+  },
+  {
+    "_id": "629cc22bf4b4089a578e1080",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.2122222222222222, 39.65611111111111]
+    },
+    "elevation": { "value": 8, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:11.993Z",
+    "updatedAt": "2023-12-09T19:13:06.241Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.75264400000009,
+      "hae": 58.75264400000009
+    }
+  },
+  {
+    "_id": "629cc22df4b4089a578e1089",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8166666666666664, 40.708888888888886]
+    },
+    "elevation": { "value": 886, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:13.006Z",
+    "updatedAt": "2023-12-09T19:12:18.193Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.89403200000007, "hae": 938.894032 }
+  },
+  {
+    "_id": "629cc231f4b4089a578e1096",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.4608333333333333, 39.456944444444446]
+    },
+    "elevation": { "value": 58, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:17.146Z",
+    "updatedAt": "2023-12-09T19:13:12.296Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.73829049999998,
+      "hae": 108.73829049999998
+    }
+  },
+  {
+    "_id": "629cc232f4b4089a578e109f",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.146944444444444, 41.68083333333333]
+    },
+    "elevation": { "value": 767, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:18.249Z",
+    "updatedAt": "2023-12-09T19:12:48.235Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 54.90318909999999, "hae": 821.9031891 }
+  },
+  {
+    "_id": "629cc233f4b4089a578e10a8",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cfcb27f42509463b26"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.426388888888889, 36.077222222222225]
+    },
+    "elevation": { "value": 16, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:19.271Z",
+    "updatedAt": "2023-12-09T19:12:36.296Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.602848333333384,
+      "hae": 58.602848333333384
+    }
+  },
+  {
+    "_id": "629cc234f4b4089a578e10b3",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cd5e9ded571045024a"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.553, 43.352833333333336]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:20.477Z",
+    "updatedAt": "2023-11-24T16:10:48.662Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.89772739199995,
+      "hae": 54.89772739199995
+    }
+  },
+  {
+    "_id": "629cc235f4b4089a578e10bc",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150cd5e9ded571045024a"],
+    "geometry": { "type": "Point", "coordinates": [-8.13972, 43.23722] },
+    "elevation": { "value": 312, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:21.510Z",
+    "updatedAt": "2025-02-10T19:51:23.650Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 56, "hae": 368 }
+  },
+  {
+    "_id": "629cc23af4b4089a578e10dd",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e65e9ded5710450841"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.6663888888888889, 41.74583333333333]
+    },
+    "elevation": { "value": 245, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:26.143Z",
+    "updatedAt": "2023-11-24T08:29:18.871Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.03080049999997,
+      "hae": 295.03080049999994
+    }
+  },
+  {
+    "_id": "629cc23bf4b4089a578e10e6",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e65e9ded5710450841"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.4919444444444444, 41.63361111111111]
+    },
+    "elevation": { "value": 233, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:27.221Z",
+    "updatedAt": "2023-11-24T08:30:05.406Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.09688516666665,
+      "hae": 283.09688516666665
+    }
+  },
+  {
+    "_id": "629cc23cf4b4089a578e10ef",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e65e9ded5710450841"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.4066666666666666, 41.70055555555555]
+    },
+    "elevation": { "value": 214, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:28.236Z",
+    "updatedAt": "2023-11-24T08:30:48.433Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.144985599999984, "hae": 264.1449856 }
+  },
+  {
+    "_id": "629cc23df4b4089a578e10f8",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e65e9ded5710450841"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.5669444444444445, 41.82527777777778]
+    },
+    "elevation": { "value": 289, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:29.262Z",
+    "updatedAt": "2023-11-24T08:28:28.899Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.272207699999996,
+      "hae": 339.27220769999997
+    }
+  },
+  {
+    "_id": "629cc240f4b4089a578e1105",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2eb6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.9316666666666666, 41.723055555555554]
+    },
+    "elevation": { "value": 13, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:32.638Z",
+    "updatedAt": "2023-12-06T09:51:14.531Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.64855979999999,
+      "hae": 62.64855979999999
+    }
+  },
+  {
+    "_id": "629cc241f4b4089a578e110e",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2eb6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5597222222222222, 41.776666666666664]
+    },
+    "elevation": { "value": 167, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:33.667Z",
+    "updatedAt": "2023-12-06T09:49:19.685Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.30825599999997,
+      "hae": 217.30825599999997
+    }
+  },
+  {
+    "_id": "629cc242f4b4089a578e1117",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2eb6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.5308333333333333, 42.04805555555556]
+    },
+    "elevation": { "value": 643, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:34.675Z",
+    "updatedAt": "2023-12-06T09:48:40.753Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.911559900000015, "hae": 693.9115599 }
+  },
+  {
+    "_id": "629cc243f4b4089a578e1120",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2eb6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.046333333333333, 41.96888888888889]
+    },
+    "elevation": { "value": 75, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:35.693Z",
+    "updatedAt": "2023-12-06T09:50:33.756Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.897933119999976,
+      "hae": 124.89793311999998
+    }
+  },
+  {
+    "_id": "629cc245f4b4089a578e112b",
+    "name": "G",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f64"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.6322222222222225, 36.644444444444446]
+    },
+    "elevation": { "value": 97, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:37.046Z",
+    "updatedAt": "2023-12-07T06:23:58.244Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.49716000000009,
+      "hae": 143.4971600000001
+    }
+  },
+  {
+    "_id": "629cc246f4b4089a578e1134",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ddcb27f42509463e7d"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.024444444444445, 37.03333361111111]
+    },
+    "elevation": { "value": 994, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:38.224Z",
+    "updatedAt": "2023-12-07T06:01:35.485Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 48.96824671973337,
+      "hae": 1042.9682467197333
+    }
+  },
+  {
+    "_id": "629cc247f4b4089a578e113d",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ddcb27f42509463e7d"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8955555555555557, 37.305]
+    },
+    "elevation": { "value": 950, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:39.437Z",
+    "updatedAt": "2023-12-07T05:59:46.934Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 48.98523439999997, "hae": 998.9852344 }
+  },
+  {
+    "_id": "629cc248f4b4089a578e1146",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ddcb27f42509463e7d"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.701388888888889, 37.38055555555555]
+    },
+    "elevation": { "value": 971, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:40.560Z",
+    "updatedAt": "2023-12-06T12:16:27.195Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.586583333333266,
+      "hae": 1020.5865833333332
+    }
+  },
+  {
+    "_id": "629cc249f4b4089a578e1151",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f22"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.21055555555555555, 42.125]
+    },
+    "elevation": { "value": 501, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:41.700Z",
+    "updatedAt": "2023-12-07T06:07:53.801Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.14899, "hae": 552.14899 }
+  },
+  {
+    "_id": "629cc24af4b4089a578e115a",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f22"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.31444444444444447, 42.004444444444445]
+    },
+    "elevation": { "value": 442, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:42.724Z",
+    "updatedAt": "2023-12-07T06:08:46.127Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.833933866666655,
+      "hae": 492.83393386666665
+    }
+  },
+  {
+    "_id": "629cc24bf4b4089a578e1163",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f22"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.33555555555555555, 42.153888888888886]
+    },
+    "elevation": { "value": 491, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:43.734Z",
+    "updatedAt": "2023-12-07T06:06:56.219Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.24297493333333,
+      "hae": 542.2429749333334
+    }
+  },
+  {
+    "_id": "629cc24cf4b4089a578e116c",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f22"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.43527777777777776, 42.07972222222222]
+    },
+    "elevation": { "value": 417, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:44.742Z",
+    "updatedAt": "2023-12-07T06:09:51.833Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.98248226666669,
+      "hae": 467.9824822666667
+    }
+  },
+  {
+    "_id": "629cc24df4b4089a578e1177",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e04b027aab592b2f90"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.3119444444444444, 38.983333333333334]
+    },
+    "elevation": { "value": 5, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:45.895Z",
+    "updatedAt": "2023-12-07T06:13:31.468Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.67601400000001,
+      "hae": 54.67601400000001
+    }
+  },
+  {
+    "_id": "629cc24ef4b4089a578e1180",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e04b027aab592b2f90"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.3469444444444445, 38.92111111111111]
+    },
+    "elevation": { "value": 155, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:46.893Z",
+    "updatedAt": "2023-12-07T06:12:48.535Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 49.68518399999999, "hae": 204.685184 }
+  },
+  {
+    "_id": "629cc24ff4b4089a578e1189",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e04b027aab592b2f90"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.4166666666666667, 38.77361111111111]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:47.911Z",
+    "updatedAt": "2023-12-07T06:14:09.561Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.33760000000001,
+      "hae": 49.33760000000001
+    }
+  },
+  {
+    "_id": "629cc250f4b4089a578e1192",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e04b027aab592b2f90"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.4269444444444446, 38.73638888888889]
+    },
+    "elevation": { "value": 5, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:48.911Z",
+    "updatedAt": "2023-12-07T06:14:46.536Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.25936390000001,
+      "hae": 54.25936390000001
+    }
+  },
+  {
+    "_id": "629cc252f4b4089a578e119d",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f64"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.930833333333333, 36.72555555555556]
+    },
+    "elevation": { "value": 64, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:50.112Z",
+    "updatedAt": "2023-12-07T06:23:01.017Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.583855200000016,
+      "hae": 110.58385520000002
+    }
+  },
+  {
+    "_id": "629cc253f4b4089a578e11a6",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e1cb27f42509463f64"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.170277777777778, 36.790277777777774]
+    },
+    "elevation": { "value": 35, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:51.163Z",
+    "updatedAt": "2023-12-07T06:22:20.608Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.99099399999997,
+      "hae": 81.99099399999997
+    }
+  },
+  {
+    "_id": "629cc254f4b4089a578e11b1",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6463888888888889, 37.98777777777778]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:52.745Z",
+    "updatedAt": "2023-12-08T14:23:57.942Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.29486000000003,
+      "hae": 50.29486000000003
+    }
+  },
+  {
+    "_id": "629cc256f4b4089a578e11ba",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.6753333333333333, 37.614666666666665]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:54.039Z",
+    "updatedAt": "2023-12-08T14:23:53.131Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.74664588800002,
+      "hae": 49.74664588800002
+    }
+  },
+  {
+    "_id": "629cc257f4b4089a578e11c3",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.7172222222222222, 37.73444444444444]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:55.106Z",
+    "updatedAt": "2023-12-08T14:24:00.304Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.007799466666654,
+      "hae": 50.007799466666654
+    }
+  },
+  {
+    "_id": "629cc258f4b4089a578e11cc",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.7170000000000001, 37.909666666666666]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:56.165Z",
+    "updatedAt": "2023-12-08T14:23:55.480Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.24101641599995,
+      "hae": 50.24101641599995
+    }
+  },
+  {
+    "_id": "629cc259f4b4089a578e11d5",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c", "626150ea4b027aab592b32f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.3508333333333333, 38.03916666666667]
+    },
+    "elevation": { "value": 170, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:57.226Z",
+    "updatedAt": "2023-12-08T14:18:17.460Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.71813829999999, "hae": 220.7181383 }
+  },
+  {
+    "_id": "629cc25af4b4089a578e11de",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ebcb27f4250946417c"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.9299999999999999, 37.5425]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:58.274Z",
+    "updatedAt": "2023-12-08T14:23:50.550Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.77998759999997,
+      "hae": 49.77998759999997
+    }
+  },
+  {
+    "_id": "629cc25bf4b4089a578e11e9",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef5e9ded5710450aab"],
+    "geometry": { "type": "Point", "coordinates": [2.188833333333333, 41.555] },
+    "elevation": { "value": 113, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:48:59.462Z",
+    "updatedAt": "2023-12-09T13:57:24.020Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.94864603999997,
+      "hae": 162.94864603999997
+    }
+  },
+  {
+    "_id": "629cc25cf4b4089a578e11f6",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef5e9ded5710450aab"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.0263333333333335, 41.56633333333333]
+    },
+    "elevation": { "value": 307, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:00.544Z",
+    "updatedAt": "2023-12-09T13:57:19.571Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.113460016000005,
+      "hae": 357.113460016
+    }
+  },
+  {
+    "_id": "629cc25df4b4089a578e11ff",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef5e9ded5710450aab"],
+    "geometry": { "type": "Point", "coordinates": [2.0125, 41.50216666666667] },
+    "elevation": { "value": 186, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:01.561Z",
+    "updatedAt": "2023-12-09T13:57:26.268Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.94112690000003,
+      "hae": 235.94112690000003
+    }
+  },
+  {
+    "_id": "629cc25ef4b4089a578e1210",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e54b027aab592b3102"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.575555555555556, 42.52611111111111]
+    },
+    "elevation": { "value": 794, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:02.764Z",
+    "updatedAt": "2023-12-07T06:43:51.195Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.94438453333339,
+      "hae": 849.9443845333334
+    }
+  },
+  {
+    "_id": "629cc25ff4b4089a578e121f",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e54b027aab592b3102"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.628611111111111, 42.8025]
+    },
+    "elevation": { "value": 961, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:03.848Z",
+    "updatedAt": "2023-12-07T06:42:12.034Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 56.55567409999995,
+      "hae": 1017.5556740999999
+    }
+  },
+  {
+    "_id": "629cc261f4b4089a578e122c",
+    "name": "NW1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.413611111111111, 42.533611111111114]
+    },
+    "elevation": { "value": 524, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:05.112Z",
+    "updatedAt": "2023-12-07T09:11:09.965Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.46867366666663,
+      "hae": 575.4686736666666
+    }
+  },
+  {
+    "_id": "629cc262f4b4089a578e1235",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.1661111111111113, 42.55916666666667]
+    },
+    "elevation": { "value": 440, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:06.263Z",
+    "updatedAt": "2023-12-07T09:05:47.741Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.88806519999994,
+      "hae": 490.8880651999999
+    }
+  },
+  {
+    "_id": "629cc263f4b4089a578e123e",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.047222222222222, 42.62611111111111]
+    },
+    "elevation": { "value": 881, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:07.381Z",
+    "updatedAt": "2023-12-07T09:05:14.090Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.70331266666665,
+      "hae": 931.7033126666666
+    }
+  },
+  {
+    "_id": "629cc264f4b4089a578e1247",
+    "name": "NW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.5155555555555553, 42.591944444444444]
+    },
+    "elevation": { "value": 704, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:08.405Z",
+    "updatedAt": "2023-12-07T09:10:33.552Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.67900773333329,
+      "hae": 755.6790077333333
+    }
+  },
+  {
+    "_id": "629cc265f4b4089a578e1250",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.727777777777778, 42.41916666666667]
+    },
+    "elevation": { "value": 505, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:09.430Z",
+    "updatedAt": "2023-12-07T09:09:25.147Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.53706600000004,
+      "hae": 557.5370660000001
+    }
+  },
+  {
+    "_id": "629cc266f4b4089a578e1259",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.9825, 42.28527777777778]
+    },
+    "elevation": { "value": 359, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:10.533Z",
+    "updatedAt": "2023-12-07T09:06:40.945Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.899601099999956,
+      "hae": 409.8996010999999
+    }
+  },
+  {
+    "_id": "629cc267f4b4089a578e1262",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.3872222222222224, 42.35638888888889]
+    },
+    "elevation": { "value": 523, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:11.568Z",
+    "updatedAt": "2023-12-07T09:08:35.388Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.05238653333353,
+      "hae": 575.0523865333336
+    }
+  },
+  {
+    "_id": "629cc268f4b4089a578e126b",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.560277777777778, 42.428333333333335]
+    },
+    "elevation": { "value": 502, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:12.645Z",
+    "updatedAt": "2023-12-07T09:09:52.724Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.10772780000002, "hae": 554.1077278 }
+  },
+  {
+    "_id": "629cc269f4b4089a578e1276",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.066666666666666, 39.90138888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:13.876Z",
+    "updatedAt": "2023-12-08T14:00:21.935Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 48.56421999999998,
+      "hae": 48.56421999999998
+    }
+  },
+  {
+    "_id": "629cc26af4b4089a578e127f",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.293055555555555, 39.80000027777778]
+    },
+    "elevation": { "value": 13, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:14.947Z",
+    "updatedAt": "2023-12-08T14:03:43.847Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 48.0717709981667,
+      "hae": 61.0717709981667
+    }
+  },
+  {
+    "_id": "629cc26bf4b4089a578e1288",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": { "type": "Point", "coordinates": [4.316666666666666, 39.875] },
+    "elevation": { "value": 56, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:15.964Z",
+    "updatedAt": "2023-12-08T14:02:25.295Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 48.18930000000003,
+      "hae": 104.18930000000003
+    }
+  },
+  {
+    "_id": "629cc271f4b4089a578e1295",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.3538888888888889, 39.53722222222222]
+    },
+    "elevation": { "value": 25, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:21.004Z",
+    "updatedAt": "2023-12-09T17:15:46.395Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.70328840000002,
+      "hae": 75.70328840000002
+    }
+  },
+  {
+    "_id": "629cc272f4b4089a578e129e",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.47638888888888886, 39.39361111111111]
+    },
+    "elevation": { "value": 54, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:22.030Z",
+    "updatedAt": "2023-12-09T17:15:44.101Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.717584833333405,
+      "hae": 104.7175848333334
+    }
+  },
+  {
+    "_id": "629cc275f4b4089a578e12ab",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150edcb27f42509464222"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.8638333333333335, 42.74366666666667]
+    },
+    "elevation": { "value": 702, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:25.406Z",
+    "updatedAt": "2023-12-09T13:57:08.332Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.58079324799999, "hae": 752.580793248 }
+  },
+  {
+    "_id": "629cc276f4b4089a578e12b4",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150edcb27f42509464222"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.5453333333333332, 42.94116666666667]
+    },
+    "elevation": { "value": 642, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:26.406Z",
+    "updatedAt": "2023-12-09T13:57:03.633Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.04318627200004,
+      "hae": 693.0431862720001
+    }
+  },
+  {
+    "_id": "629cc277f4b4089a578e12bd",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150edcb27f42509464222"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.4308333333333334, 42.782833333333336]
+    },
+    "elevation": { "value": 574, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:27.434Z",
+    "updatedAt": "2023-12-09T13:57:06.063Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.946211439999985, "hae": 624.94621144 }
+  },
+  {
+    "_id": "629cc278f4b4089a578e12c8",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d65e9ded571045047e"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.296944444444445, 35.90694444444444]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:28.678Z",
+    "updatedAt": "2023-12-09T19:12:27.294Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.436974333333296,
+      "hae": 42.436974333333296
+    }
+  },
+  {
+    "_id": "629cc279f4b4089a578e12d1",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f70e8346dfd9251525"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.5705555555555556, 39.452777777777776]
+    },
+    "elevation": { "value": 113, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:29.732Z",
+    "updatedAt": "2023-12-09T19:13:18.341Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.94530066666661,
+      "hae": 163.9453006666666
+    }
+  },
+  {
+    "_id": "629cc27af4b4089a578e12da",
+    "name": "NW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d65e9ded571045047e"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.346388888888889, 35.91722222222222]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:30.754Z",
+    "updatedAt": "2023-12-09T19:12:24.337Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.29417533333333,
+      "hae": 42.29417533333333
+    }
+  },
+  {
+    "_id": "629cc27bf4b4089a578e12e3",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.697222222222222, 41.306666666666665]
+    },
+    "elevation": { "value": 733, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:31.789Z",
+    "updatedAt": "2023-12-09T19:12:51.313Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.59903200000002,
+      "hae": 786.5990320000001
+    }
+  },
+  {
+    "_id": "629cc27df4b4089a578e12ee",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.4916666666666667, 42.21666666666667]
+    },
+    "elevation": { "value": 872, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:33.002Z",
+    "updatedAt": "2023-12-07T09:08:09.688Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.332139999999924, "hae": 925.33214 }
+  },
+  {
+    "_id": "629cc27ef4b4089a578e12f7",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e64b027aab592b313f"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.112222222222222, 42.331944444444446]
+    },
+    "elevation": { "value": 499, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:34.118Z",
+    "updatedAt": "2023-12-07T09:07:05.644Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.16085533333322,
+      "hae": 550.1608553333332
+    }
+  },
+  {
+    "_id": "629cc27ff4b4089a578e1302",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef4b027aab592b3408"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.9086111111111111, 40.998333333333335]
+    },
+    "elevation": { "value": 53, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:35.281Z",
+    "updatedAt": "2023-12-09T13:57:15.032Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.81825119999999,
+      "hae": 102.81825119999999
+    }
+  },
+  {
+    "_id": "629cc280f4b4089a578e130b",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef4b027aab592b3408"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.1630555555555555, 41.26611111111111]
+    },
+    "elevation": { "value": 270, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:36.334Z",
+    "updatedAt": "2023-12-09T13:57:10.531Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.07659353333332,
+      "hae": 320.0765935333333
+    }
+  },
+  {
+    "_id": "629cc281f4b4089a578e1314",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef4b027aab592b3408"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.4638333333333333, 41.1795]
+    },
+    "elevation": { "value": 19, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:37.328Z",
+    "updatedAt": "2023-12-09T13:57:12.759Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 49.817902032000006, "hae": 68.817902032 }
+  },
+  {
+    "_id": "629cc282f4b4089a578e131d",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef4b027aab592b3408"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.8221666666666666, 41.13783333333333]
+    },
+    "elevation": { "value": 362, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:38.401Z",
+    "updatedAt": "2023-12-09T13:57:17.261Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.131739460000006, "hae": 412.13173946 }
+  },
+  {
+    "_id": "629cc283f4b4089a578e1328",
+    "name": "R",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.251666666666667, 36.615]
+    },
+    "elevation": { "value": 65, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:39.611Z",
+    "updatedAt": "2023-12-03T16:56:45.375Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.10693640000002,
+      "hae": 111.10693640000002
+    }
+  },
+  {
+    "_id": "629cc284f4b4089a578e1331",
+    "name": "M",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.341666666666667, 36.61333333333333]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:40.622Z",
+    "updatedAt": "2023-12-03T16:58:28.015Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.14572399999986,
+      "hae": 46.14572399999986
+    }
+  },
+  {
+    "_id": "629cc285f4b4089a578e133a",
+    "name": "P",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.341666666666667, 36.62605555555555]
+    },
+    "elevation": { "value": 4, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:41.664Z",
+    "updatedAt": "2023-12-03T17:00:55.513Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.24089639999991,
+      "hae": 50.24089639999991
+    }
+  },
+  {
+    "_id": "629cc286f4b4089a578e1343",
+    "name": "F",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.288333333333333, 36.626666666666665]
+    },
+    "elevation": { "value": 16, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:42.705Z",
+    "updatedAt": "2023-12-03T16:57:32.633Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 46.20800879999999,
+      "hae": 62.20800879999999
+    }
+  },
+  {
+    "_id": "629cc287f4b4089a578e134c",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.316666666666666, 36.528333333333336]
+    },
+    "elevation": { "value": 6, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:43.730Z",
+    "updatedAt": "2023-12-03T16:56:04.034Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.492756000000014,
+      "hae": 51.492756000000014
+    }
+  },
+  {
+    "_id": "629cc288f4b4089a578e1355",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d8cb27f42509463d2b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.471666666666667, 36.735]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:44.886Z",
+    "updatedAt": "2023-12-03T16:54:22.088Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 47.22391079999997,
+      "hae": 47.22391079999997
+    }
+  },
+  {
+    "_id": "629cc28af4b4089a578e1360",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f0cb27f425094642cb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.503833333333334, 40.82833333333333]
+    },
+    "elevation": { "value": 850, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:46.094Z",
+    "updatedAt": "2023-12-09T14:15:21.345Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 55.77041004000003, "hae": 905.77041004 }
+  },
+  {
+    "_id": "629cc28bf4b4089a578e1369",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f0cb27f425094642cb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.378611111111111, 40.92861111111111]
+    },
+    "elevation": { "value": 830, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:47.114Z",
+    "updatedAt": "2023-12-09T14:15:16.822Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.32958813333329,
+      "hae": 885.3295881333333
+    }
+  },
+  {
+    "_id": "629cc28cf4b4089a578e1372",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f0cb27f425094642cb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.672166666666667, 41.0045]
+    },
+    "elevation": { "value": 790, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:48.173Z",
+    "updatedAt": "2023-12-09T14:15:12.366Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 55.84867484399999, "hae": 845.848674844 }
+  },
+  {
+    "_id": "629cc28df4b4089a578e137b",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f0cb27f425094642cb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.693666666666667, 41.134166666666665]
+    },
+    "elevation": { "value": 793, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:49.189Z",
+    "updatedAt": "2023-12-09T14:15:14.597Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.81441260000008,
+      "hae": 848.8144126000001
+    }
+  },
+  {
+    "_id": "629cc28ef4b4089a578e1384",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f0cb27f425094642cb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.192, 40.907833333333336]
+    },
+    "elevation": { "value": 900, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:50.242Z",
+    "updatedAt": "2023-12-09T14:15:19.095Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 55.02689520000001, "hae": 955.0268952 }
+  },
+  {
+    "_id": "629cc291f4b4089a578e1391",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f04b027aab592b34b2"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.0191666666666666, 43.263333333333335]
+    },
+    "elevation": { "value": 35, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:53.503Z",
+    "updatedAt": "2023-12-09T14:14:55.324Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 49.5893868, "hae": 84.5893868 }
+  },
+  {
+    "_id": "629cc292f4b4089a578e139a",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f04b027aab592b34b2"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.9075000000000002, 43.31466666666667]
+    },
+    "elevation": { "value": 73, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:54.518Z",
+    "updatedAt": "2023-12-09T14:14:53.096Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.4479763999999,
+      "hae": 122.4479763999999
+    }
+  },
+  {
+    "_id": "629cc293f4b4089a578e13a3",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f04b027aab592b34b2"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.6625, 43.383833333333335]
+    },
+    "elevation": { "value": 8, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:55.581Z",
+    "updatedAt": "2023-12-09T14:15:10.101Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.56647069999991,
+      "hae": 57.56647069999991
+    }
+  },
+  {
+    "_id": "629cc294f4b4089a578e13ac",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f04b027aab592b34b2"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.6695, 43.163833333333336]
+    },
+    "elevation": { "value": 99, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:56.597Z",
+    "updatedAt": "2023-12-09T14:15:07.774Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.67484601999993,
+      "hae": 149.67484601999993
+    }
+  },
+  {
+    "_id": "629cc295f4b4089a578e13b7",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.3602777777777777, 42.27777777777778]
+    },
+    "elevation": { "value": 566, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:57.805Z",
+    "updatedAt": "2023-11-29T10:46:34.521Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 52.47679000000002, "hae": 618.47679 }
+  },
+  {
+    "_id": "629cc296f4b4089a578e13c0",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.631388888888889, 42.36833333333333]
+    },
+    "elevation": { "value": 1152, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:58.843Z",
+    "updatedAt": "2023-11-29T10:49:14.171Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.251957800000014,
+      "hae": 1205.2519578000001
+    }
+  },
+  {
+    "_id": "629cc297f4b4089a578e13c9",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.4630555555555556, 42.42777777777778]
+    },
+    "elevation": { "value": 812, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:49:59.842Z",
+    "updatedAt": "2023-11-29T10:43:35.019Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 53.43329666666668,
+      "hae": 865.4332966666667
+    }
+  },
+  {
+    "_id": "629cc298f4b4089a578e13d6",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.3166666666666667, 42.17194444444444]
+    },
+    "elevation": { "value": 531, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:00.838Z",
+    "updatedAt": "2023-11-29T10:48:00.779Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.897557999999975, "hae": 582.897558 }
+  },
+  {
+    "_id": "629cc29af4b4089a578e13e7",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d1cb27f42509463b8b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.904722222222222, 39.00888888888889]
+    },
+    "elevation": { "value": 197, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:02.154Z",
+    "updatedAt": "2023-12-03T16:13:04.938Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.93401559999998,
+      "hae": 251.93401559999998
+    }
+  },
+  {
+    "_id": "629cc29bf4b4089a578e13f9",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d1cb27f42509463b8b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.618055555555555, 38.90888888888889]
+    },
+    "elevation": { "value": 203, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:03.228Z",
+    "updatedAt": "2023-12-03T16:11:43.016Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.6294433333334,
+      "hae": 257.62944333333337
+    }
+  },
+  {
+    "_id": "629cc29cf4b4089a578e1404",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d1cb27f42509463b8b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.823055555555555, 38.71722222222222]
+    },
+    "elevation": { "value": 260, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:04.244Z",
+    "updatedAt": "2023-12-03T16:13:22.948Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.17545360000008,
+      "hae": 315.1754536000001
+    }
+  },
+  {
+    "_id": "629cc29df4b4089a578e140d",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d1cb27f42509463b8b"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-7.001388888888889, 38.82888888888889]
+    },
+    "elevation": { "value": 187, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:05.311Z",
+    "updatedAt": "2023-12-03T16:08:53.790Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.12864399999998,
+      "hae": 242.12864399999998
+    }
+  },
+  {
+    "_id": "629cc29ef4b4089a578e1418",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.9447222222222225, 41.790277777777774]
+    },
+    "elevation": { "value": 848, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:06.628Z",
+    "updatedAt": "2023-12-09T19:12:45.308Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 54.537492666666594,
+      "hae": 902.5374926666666
+    }
+  },
+  {
+    "_id": "629cc29ff4b4089a578e1421",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f75e9ded5710450cce"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.118333333333333, 41.60138888888889]
+    },
+    "elevation": { "value": 751, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:07.659Z",
+    "updatedAt": "2023-12-09T19:12:54.219Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 53.520984999999996, "hae": 804.520985 }
+  },
+  {
+    "_id": "629cc2a0f4b4089a578e142e",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150facb27f42509464508"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.3278333333333334, 42.857]
+    },
+    "elevation": { "value": 639, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:08.994Z",
+    "updatedAt": "2023-12-09T17:20:46.069Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.168617736000016,
+      "hae": 690.168617736
+    }
+  },
+  {
+    "_id": "629cc2a2f4b4089a578e1437",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150facb27f42509464508"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.900000277777778, 42.8375]
+    },
+    "elevation": { "value": 806, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:10.020Z",
+    "updatedAt": "2023-12-09T17:20:50.478Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.82935047500007,
+      "hae": 857.8293504750001
+    }
+  },
+  {
+    "_id": "629cc2a3f4b4089a578e1440",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150facb27f42509464508"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.8355, 42.972166666666666]
+    },
+    "elevation": { "value": 673, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:11.068Z",
+    "updatedAt": "2023-12-09T17:20:43.871Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 51.62432270400001, "hae": 724.624322704 }
+  },
+  {
+    "_id": "629cc2a4f4b4089a578e1449",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150facb27f42509464508"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.7138333333333335, 42.65833333333333]
+    },
+    "elevation": { "value": 774, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:12.229Z",
+    "updatedAt": "2023-12-09T17:20:48.261Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.823690200000044,
+      "hae": 825.8236902000001
+    }
+  },
+  {
+    "_id": "629cc2a5f4b4089a578e1454",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f8cb27f425094644b6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.796333333333333, 42.267]
+    },
+    "elevation": { "value": 115, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:13.413Z",
+    "updatedAt": "2023-12-09T17:15:39.615Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.81340318399998,
+      "hae": 170.81340318399998
+    }
+  },
+  {
+    "_id": "629cc2a6f4b4089a578e145d",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f8cb27f425094644b6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.487833333333333, 42.1705]
+    },
+    "elevation": { "value": 43, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:14.461Z",
+    "updatedAt": "2023-12-09T17:15:41.871Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 56.07529155599994,
+      "hae": 99.07529155599994
+    }
+  },
+  {
+    "_id": "629cc2a7f4b4089a578e146a",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.4305555555555554, 43.450833333333335]
+    },
+    "elevation": { "value": 207, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:15.691Z",
+    "updatedAt": "2023-12-09T14:14:34.763Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.05002999999982,
+      "hae": 257.0500299999998
+    }
+  },
+  {
+    "_id": "629cc2a8f4b4089a578e1473",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.5741666666666667, 43.51416666666667]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:16.735Z",
+    "updatedAt": "2023-12-09T14:14:37.200Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 49.76737289999983,
+      "hae": 49.76737289999983
+    }
+  },
+  {
+    "_id": "629cc2a9f4b4089a578e147c",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.721111111111111, 43.475833333333334]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:17.748Z",
+    "updatedAt": "2023-12-09T14:14:39.482Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.27202639999999,
+      "hae": 50.27202639999999
+    }
+  },
+  {
+    "_id": "629cc2aaf4b4089a578e1485",
+    "name": "N2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.8116666666666665, 43.495]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:18.814Z",
+    "updatedAt": "2023-12-09T14:14:41.740Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.2008816, "hae": 50.2008816 }
+  },
+  {
+    "_id": "629cc2abf4b4089a578e148e",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.805833333333333, 43.23305555555555]
+    },
+    "elevation": { "value": 207, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:19.958Z",
+    "updatedAt": "2023-12-09T14:14:44.063Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.240728700000034,
+      "hae": 259.24072870000003
+    }
+  },
+  {
+    "_id": "629cc2adf4b4089a578e1497",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.883611111111111, 43.39055555555556]
+    },
+    "elevation": { "value": 120, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:21.001Z",
+    "updatedAt": "2023-12-09T14:14:46.312Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.10927146666663,
+      "hae": 171.10927146666663
+    }
+  },
+  {
+    "_id": "629cc2aef4b4089a578e14a0",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.034722222222222, 43.3475]
+    },
+    "elevation": { "value": 43, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:22.028Z",
+    "updatedAt": "2023-12-09T14:14:48.561Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 51.56777000000005,
+      "hae": 94.56777000000005
+    }
+  },
+  {
+    "_id": "629cc2aff4b4089a578e14aa",
+    "name": "W2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd92514e4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.035277777777778, 43.43638888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:23.107Z",
+    "updatedAt": "2023-12-09T14:14:50.863Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 50.82858376666664,
+      "hae": 50.82858376666664
+    }
+  },
+  {
+    "_id": "629cc2b0f4b4089a578e14bb",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150fb4b027aab592b37b3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.1161666666666668, 41.76833333333333]
+    },
+    "elevation": { "value": 227, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:24.245Z",
+    "updatedAt": "2023-12-09T17:25:12.552Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.536276920000006, "hae": 277.53627692 }
+  },
+  {
+    "_id": "629cc2b1f4b4089a578e14c8",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150fb4b027aab592b37b3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.1186666666666667, 41.57383333333333]
+    },
+    "elevation": { "value": 581, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:25.276Z",
+    "updatedAt": "2023-12-09T17:25:07.752Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.74206600000002, "hae": 631.742066 }
+  },
+  {
+    "_id": "629cc2b2f4b4089a578e14d1",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150fb4b027aab592b37b3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.7736666666666667, 41.68833333333333]
+    },
+    "elevation": { "value": 211, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T14:50:26.316Z",
+    "updatedAt": "2023-12-09T17:25:10.345Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 50.53355448000002, "hae": 261.53355448 }
+  },
+  {
+    "_id": "629cc833f4b4089a578e40de",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2e74"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-13.695555555555556, 28.454166666666666]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:13:55.683Z",
+    "updatedAt": "2023-12-06T09:43:52.627Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.87935199999973,
+      "hae": 42.87935199999973
+    }
+  },
+  {
+    "_id": "629cc834f4b4089a578e40e9",
+    "name": "W2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e35e9ded5710450790"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.28388888888889, 28.025833333333335]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:13:56.983Z",
+    "updatedAt": "2023-12-07T06:27:07.454Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.926257400000054,
+      "hae": 42.926257400000054
+    }
+  },
+  {
+    "_id": "629cc836f4b4089a578e40f2",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e35e9ded5710450790"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.20138888888889, 27.968333333333334]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:13:58.031Z",
+    "updatedAt": "2023-12-07T06:27:34.020Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.08552999999998,
+      "hae": 42.08552999999998
+    }
+  },
+  {
+    "_id": "629cc837f4b4089a578e40fb",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e35e9ded5710450790"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.145555555555557, 28.04222222222222]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:13:59.131Z",
+    "updatedAt": "2023-12-07T06:26:41.667Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 43.51210666666671,
+      "hae": 43.51210666666671
+    }
+  },
+  {
+    "_id": "629cc838f4b4089a578e4106",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dacb27f42509463db6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.830833333333334, 27.88361111111111]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:00.305Z",
+    "updatedAt": "2023-12-06T09:38:34.196Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 39.20571329999984,
+      "hae": 39.20571329999984
+    }
+  },
+  {
+    "_id": "629cc839f4b4089a578e4113",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dacb27f42509463db6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.791666944444444, 27.828333333333333]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:01.370Z",
+    "updatedAt": "2023-12-06T09:39:21.962Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 39.06393169180012,
+      "hae": 39.06393169180012
+    }
+  },
+  {
+    "_id": "629cc83af4b4089a578e4122",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dacb27f42509463db6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.904722222222222, 27.734166666666667]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:02.639Z",
+    "updatedAt": "2023-12-06T09:37:52.697Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 39.68484329999987,
+      "hae": 39.68484329999987
+    }
+  },
+  {
+    "_id": "629cc83bf4b4089a578e4133",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507d9"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.733333333333334, 28.730555555555554]
+    },
+    "elevation": { "value": 115, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:03.822Z",
+    "updatedAt": "2023-12-07T06:30:03.849Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.893700000000194,
+      "hae": 157.8937000000002
+    }
+  },
+  {
+    "_id": "629cc83cf4b4089a578e413e",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507d9"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.63111111111111, 28.628055555555555]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:04.923Z",
+    "updatedAt": "2023-12-07T06:30:30.290Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 41.70444986666695,
+      "hae": 41.70444986666695
+    }
+  },
+  {
+    "_id": "629cc83ef4b4089a578e4147",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507d9"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-17.7875, 28.520833333333332]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:06.018Z",
+    "updatedAt": "2023-12-07T06:30:58.897Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.2438250000003,
+      "hae": 42.2438250000003
+    }
+  },
+  {
+    "_id": "629cc83ff4b4089a578e4152",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.520555555555555, 28.168055555555554]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:07.200Z",
+    "updatedAt": "2023-12-06T12:05:25.680Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 43.601441000000136,
+      "hae": 43.601441000000136
+    }
+  },
+  {
+    "_id": "629cc840f4b4089a578e415b",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.406666666666666, 28.003333333333334]
+    },
+    "elevation": { "value": 101, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:08.235Z",
+    "updatedAt": "2023-12-06T12:06:04.094Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 44.28295679999917,
+      "hae": 145.28295679999917
+    }
+  },
+  {
+    "_id": "629cc841f4b4089a578e4164",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.425, 27.954166666666666]
+    },
+    "elevation": { "value": 237, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:09.517Z",
+    "updatedAt": "2023-12-06T12:06:38.782Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 44.534775000000394,
+      "hae": 281.5347750000004
+    }
+  },
+  {
+    "_id": "629cc842f4b4089a578e416d",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.289444444444445, 27.913888888888888]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:10.591Z",
+    "updatedAt": "2023-12-06T12:10:14.391Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.756194666666715,
+      "hae": 42.756194666666715
+    }
+  },
+  {
+    "_id": "629cc843f4b4089a578e4176",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.0325, 28.045833333333334]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:11.581Z",
+    "updatedAt": "2023-12-06T12:10:49.220Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 41.1225915, "hae": 41.1225915 }
+  },
+  {
+    "_id": "629cc844f4b4089a578e417f",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.078888888888889, 27.739722222222223]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:12.641Z",
+    "updatedAt": "2023-12-06T12:08:01.789Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 39.16368080000012,
+      "hae": 39.16368080000012
+    }
+  },
+  {
+    "_id": "629cc845f4b4089a578e4188",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.706111111111111, 27.73138888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:13.679Z",
+    "updatedAt": "2023-12-06T12:08:40.370Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 42.735222533333285,
+      "hae": 42.735222533333285
+    }
+  },
+  {
+    "_id": "629cc846f4b4089a578e4191",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de5e9ded5710450621"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-15.520555555555555, 27.843333333333334]
+    },
+    "elevation": { "value": 563, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:14.694Z",
+    "updatedAt": "2023-12-06T12:09:14.294Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 44.66520240000011,
+      "hae": 607.6652024000001
+    }
+  },
+  {
+    "_id": "629cc847f4b4089a578e419c",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e44b027aab592b3076"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-13.663611111111111, 29.051944444444445]
+    },
+    "elevation": { "value": 242, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:15.920Z",
+    "updatedAt": "2023-12-07T06:33:50.282Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.47194676666672,
+      "hae": 287.47194676666675
+    }
+  },
+  {
+    "_id": "629cc848f4b4089a578e41a5",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e44b027aab592b3076"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-13.463611111111112, 28.97972222222222]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:16.989Z",
+    "updatedAt": "2023-12-07T06:34:21.391Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 44.47993696666683,
+      "hae": 44.47993696666683
+    }
+  },
+  {
+    "_id": "629cc84af4b4089a578e41ae",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e44b027aab592b3076"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-13.766666666666667, 28.864444444444445]
+    },
+    "elevation": { "value": 39, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:18.062Z",
+    "updatedAt": "2023-12-07T06:34:49.921Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 44.789056000000016,
+      "hae": 83.78905600000002
+    }
+  },
+  {
+    "_id": "629cc84bf4b4089a578e41b9",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": { "type": "Point", "coordinates": [-16.35, 28.6] },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:19.439Z",
+    "updatedAt": "2023-12-09T16:59:07.147Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 43.112039999999865,
+      "hae": 43.112039999999865
+    }
+  },
+  {
+    "_id": "629cc84cf4b4089a578e41c2",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.211666666666666, 28.47388888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:20.456Z",
+    "updatedAt": "2023-12-09T16:58:55.539Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 43.62223799999998,
+      "hae": 43.62223799999998
+    }
+  },
+  {
+    "_id": "629cc84df4b4089a578e41cb",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.3225, 28.403333333333332]
+    },
+    "elevation": { "value": 105, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:21.502Z",
+    "updatedAt": "2023-12-09T16:58:58.379Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.122152799999895,
+      "hae": 150.1221527999999
+    }
+  },
+  {
+    "_id": "629cc84ef4b4089a578e41d4",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.458055555555557, 28.448055555555555]
+    },
+    "elevation": { "value": 413, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-05T15:14:22.548Z",
+    "updatedAt": "2023-12-09T16:59:04.186Z",
+    "createdBy": "openaip-system",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 45.7406689666667,
+      "hae": 458.7406689666667
+    }
+  },
+  {
+    "_id": "62a5a93c35eb2975135fba4b",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e54b027aab592b3102"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.645833333333333, 42.153055555555554]
+    },
+    "elevation": { "value": 769, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-12T08:52:12.930Z",
+    "updatedAt": "2023-12-07T06:43:10.749Z",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 56.238095000000015, "hae": 825.238095 }
+  },
+  {
+    "_id": "62a5a99035eb2975135fbad1",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e54b027aab592b3102"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.384722222222222, 42.46111111111111]
+    },
+    "elevation": { "value": 814, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-12T08:53:36.170Z",
+    "updatedAt": "2023-12-07T06:42:41.639Z",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.549516666666676,
+      "hae": 869.5495166666667
+    }
+  },
+  {
+    "_id": "62a75bafa4cb426e81fb2406",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd9251502"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.660555555555556, 42.7375]
+    },
+    "elevation": { "value": 17, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-13T15:45:51.434Z",
+    "updatedAt": "2023-12-09T16:59:19.161Z",
+    "createdBy": "82yDFpejwXUKqrMo5feEJEHwEQ82",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 55.977216000000055,
+      "hae": 72.97721600000006
+    }
+  },
+  {
+    "_id": "62a75c89a4cb426e81fb2f9f",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd9251502"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.163333333333334, 42.92638888888889]
+    },
+    "elevation": { "value": 388, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-13T15:49:29.291Z",
+    "updatedAt": "2023-12-09T16:59:22.188Z",
+    "createdBy": "82yDFpejwXUKqrMo5feEJEHwEQ82",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 56.825998, "hae": 444.825998 }
+  },
+  {
+    "_id": "62a75d14a4cb426e81fb3556",
+    "name": "W2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f10e8346dfd9251502"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-8.735555555555555, 42.910833333333336]
+    },
+    "elevation": { "value": 178, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2022-06-13T15:51:48.474Z",
+    "updatedAt": "2023-12-09T16:59:16.152Z",
+    "createdBy": "82yDFpejwXUKqrMo5feEJEHwEQ82",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": { "geoidHeight": 56.03478440000001, "hae": 234.0347844 }
+  },
+  {
+    "_id": "63e6ad8b15be6e06d23c7bb9",
+    "name": "NW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d14b027aab592b2a75"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-6.2555555555555555, 43.689166666666665]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "createdAt": "2023-02-10T20:48:11.578Z",
+    "updatedAt": "2023-12-03T15:52:54.648Z",
+    "createdBy": "EE07nLsmEmeLtgqzgD4wuLRPwvo1",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "elevationGeoid": {
+      "geoidHeight": 52.05179800000002,
+      "hae": 52.05179800000002
+    }
+  },
+  {
+    "_id": "6560563220d073d7dec07506",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-11-24T07:52:18.324Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:59:01.193Z",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.333333333333332, 28.488888888888887]
+    },
+    "elevation": { "value": 588, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 44.91040000000001, "hae": 632.9104 }
+  },
+  {
+    "_id": "6560566c20d073d7dec075eb",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-11-24T07:53:16.038Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:58:53.314Z",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450bc7"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-16.352777777777778, 28.470277777777778]
+    },
+    "elevation": { "value": 697, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 45.108051000000046, "hae": 742.108051 }
+  },
+  {
+    "_id": "65605b1b20d073d7dec08890",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-11-24T08:13:15.841Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-11-24T08:13:29.925Z",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f45e9ded5710450be3"],
+    "geometry": { "type": "Point", "coordinates": [-16.56111111111111, 28] },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 43.41940000000014,
+      "hae": 43.41940000000014
+    }
+  },
+  {
+    "_id": "65670ff1c6ae8a49ce800136",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-11-29T10:18:25.766Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-11-29T10:50:44.049Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ce4b027aab592b2976"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.7255555555555555, 38.91777777777778]
+    },
+    "elevation": { "value": 903, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.70139039999998, "hae": 955.7013904 }
+  },
+  {
+    "_id": "65671773c6ae8a49ce8036c8",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-11-29T10:50:27.315Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-11-29T10:50:48.766Z",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e45e9ded57104507f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [1.5274999999999999, 42.35777777777778]
+    },
+    "elevation": { "value": 873, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 53.0539144, "hae": 926.0539143999999 }
+  },
+  {
+    "_id": "656caa4d5790755b59a339f8",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:18:21.224Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:07:43.737Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": { "type": "Point", "coordinates": [2, 41.44166666666667] },
+    "elevation": { "value": 47, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.94969999999998,
+      "hae": 96.94969999999998
+    }
+  },
+  {
+    "_id": "656caa8d5790755b59a33adc",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:19:25.222Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:07:47.818Z",
+    "name": "N-A1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.0519444444444446, 41.33138888888889]
+    },
+    "elevation": { "value": 18, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.73784273333334,
+      "hae": 67.73784273333334
+    }
+  },
+  {
+    "_id": "656caac18fe4bc4cec4b89d6",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:20:17.643Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:07:52.175Z",
+    "name": "N-A2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.053611111111111, 41.29888888888889]
+    },
+    "elevation": { "value": 7, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.64240453333335,
+      "hae": 56.64240453333335
+    }
+  },
+  {
+    "_id": "656caaed5790755b59a34753",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:21:01.913Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:07:56.380Z",
+    "name": "N-D1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.071111111111111, 41.303333333333335]
+    },
+    "elevation": { "value": 9, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.61415679999999,
+      "hae": 58.61415679999999
+    }
+  },
+  {
+    "_id": "656cab8e5790755b59a3509a",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:23:42.502Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:01.086Z",
+    "name": "H",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.099163888888889, 41.309441666666665]
+    },
+    "elevation": { "value": 7, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.577079819340014,
+      "hae": 56.577079819340014
+    }
+  },
+  {
+    "_id": "656cb1255790755b59a398f7",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:47:33.136Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:05.186Z",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d3cb27f42509463c35"],
+    "geometry": { "type": "Point", "coordinates": [-3.55, 42.28611111111111] },
+    "elevation": { "value": 973, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 54.31693999999993, "hae": 1027.31694 }
+  },
+  {
+    "_id": "656cb1c68fe4bc4cec4b8b70",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:50:14.620Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:10.107Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d3cb27f42509463c35"],
+    "geometry": { "type": "Point", "coordinates": [-3.7, 42.2] },
+    "elevation": { "value": 880, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 54.12516000000005, "hae": 934.12516 }
+  },
+  {
+    "_id": "656cb5385790755b59a3c663",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:04:56.822Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:15.601Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d64b027aab592b2c66"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.11166666666666666, 40.31527777777778]
+    },
+    "elevation": { "value": 197, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 51.190023999999994, "hae": 248.190024 }
+  },
+  {
+    "_id": "656cb55f5790755b59a3c855",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:05:35.877Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:19.906Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d64b027aab592b2c66"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.21333333333333335, 40.22805555555556]
+    },
+    "elevation": { "value": 33, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.74183880000001,
+      "hae": 83.74183880000001
+    }
+  },
+  {
+    "_id": "656cb5815790755b59a3c924",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:06:09.070Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:24.132Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d64b027aab592b2c66"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-0.012222222222222221, 40.071666666666665]
+    },
+    "elevation": { "value": 308, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.13119760000015,
+      "hae": 359.1311976000002
+    }
+  },
+  {
+    "_id": "656cb5a65790755b59a3c9eb",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:06:46.914Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:28.287Z",
+    "name": "S1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d64b027aab592b2c66"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [0.04888888888888889, 40.14944444444444]
+    },
+    "elevation": { "value": 274, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.12147253333333,
+      "hae": 325.1214725333333
+    }
+  },
+  {
+    "_id": "656caa1c5790755b59a3360c",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:17:32.801Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:08:35.896Z",
+    "name": "HOLDING",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.0816666666666666, 41.30694444444445]
+    },
+    "elevation": { "value": 6, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.59982800000003,
+      "hae": 55.59982800000003
+    }
+  },
+  {
+    "_id": "656cab1d5790755b59a34a43",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T16:21:49.488Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:09:01.808Z",
+    "name": "N-D2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d2cb27f42509463bba"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.0694444444444446, 41.33305555555555]
+    },
+    "elevation": { "value": 7, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.70221333333333,
+      "hae": 56.70221333333333
+    }
+  },
+  {
+    "_id": "656cb75b5790755b59a3d424",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:14:03.221Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:23.699Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.108333333333333, 38.983333333333334]
+    },
+    "elevation": { "value": 630, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 53.9727, "hae": 683.9727 }
+  },
+  {
+    "_id": "656cb8475790755b59a3d618",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:17:59.959Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:28.536Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.081666666666667, 38.86333333333333]
+    },
+    "elevation": { "value": 1, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 53.865585599999974,
+      "hae": 54.865585599999974
+    }
+  },
+  {
+    "_id": "656cb81e5790755b59a3d604",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:17:18.460Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:32.720Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.091666666666667, 38.74305555555556]
+    },
+    "elevation": { "value": 1, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 53.86112499999999,
+      "hae": 54.86112499999999
+    }
+  },
+  {
+    "_id": "656cb7f05790755b59a3d5f0",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:16:32.159Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:37.191Z",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": { "type": "Point", "coordinates": [-3.85, 38.733333333333334] },
+    "elevation": { "value": 1, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 53.700840000000056,
+      "hae": 54.700840000000056
+    }
+  },
+  {
+    "_id": "656cb7c65790755b59a3d5c9",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:15:50.416Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:42.144Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": { "type": "Point", "coordinates": [-3.783333333333333, 38.7] },
+    "elevation": { "value": 1, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 53.66556000000003,
+      "hae": 54.66556000000003
+    }
+  },
+  {
+    "_id": "656cb79b5790755b59a3d5ad",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-03T17:15:07.627Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-03T17:18:45.301Z",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d7cb27f42509463ccb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.091666666666667, 38.90833333333333]
+    },
+    "elevation": { "value": 11, "unit": 0, "referenceDatum": 1 },
+    "remarks": "only for daytime VFR",
+    "elevationGeoid": { "geoidHeight": 53.8887, "hae": 64.8887 }
+  },
+  {
+    "_id": "65703a71e6c00b1aa2fb2712",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-06T09:10:09.332Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-06T09:45:14.431Z",
+    "name": "E2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.661388888888888, 37.92944444444444]
+    },
+    "elevation": { "value": 107, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.02224173333329,
+      "hae": 158.0222417333333
+    }
+  },
+  {
+    "_id": "65704294e6c00b1aa2fb53c1",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-06T09:44:52.495Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-06T09:45:18.959Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150dd4b027aab592b2e74"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-13.924722222222222, 28.426666666666666]
+    },
+    "elevation": { "value": 140, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 45.605441199999746,
+      "hae": 185.60544119999975
+    }
+  },
+  {
+    "_id": "65703b6de6c00b1aa2fb293f",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-06T09:14:21.540Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-06T09:45:28.523Z",
+    "name": "S2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.698888888888889, 37.64861111111111]
+    },
+    "elevation": { "value": 390, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.92058133333339,
+      "hae": 438.9205813333334
+    }
+  },
+  {
+    "_id": "65703a98e6c00b1aa2fb2792",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-06T09:10:48.133Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-06T09:45:33.153Z",
+    "name": "E3",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150d85e9ded57104504f6"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.5675, 37.94888888888889]
+    },
+    "elevation": { "value": 117, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.021634399999954,
+      "hae": 168.02163439999995
+    }
+  },
+  {
+    "_id": "65706595e6c00b1aa2fd139f",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-06T12:14:13.218Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-06T12:14:25.682Z",
+    "name": "F",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150de4b027aab592b2ed4"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.585, 37.120555555555555]
+    },
+    "elevation": { "value": 746, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.81108080000021,
+      "hae": 795.8110808000002
+    }
+  },
+  {
+    "_id": "65719273b14330eaaabe4b6a",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:37:55.153Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:30.573Z",
+    "name": "PERALVECHE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.4519444444444445, 40.604166666666664]
+    },
+    "elevation": { "value": 1061, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 53.26362750000001, "hae": 1114.2636275 }
+  },
+  {
+    "_id": "65719253b14330eaaabe4b4c",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:37:23.434Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:32.907Z",
+    "name": "POVEDA DE LA SIERRA",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.0369444444444444, 40.634166666666665]
+    },
+    "elevation": { "value": 1313, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 53.578378600000036, "hae": 1366.5783786 }
+  },
+  {
+    "_id": "65719233b14330eaaabe4aa7",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:36:51.566Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:35.269Z",
+    "name": "PUENTE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-2.7380555555555555, 40.56777777777778]
+    },
+    "elevation": { "value": 698, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 52.8068878666667,
+      "hae": 750.8068878666667
+    }
+  },
+  {
+    "_id": "65719214b14330eaaabe4a1c",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:36:20.545Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:37.559Z",
+    "name": "SANTOS",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.249722222222222, 40.49611111111111]
+    },
+    "elevation": { "value": 882, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 52.29353720000012,
+      "hae": 934.2935372000002
+    }
+  },
+  {
+    "_id": "657191f4b14330eaaabe4991",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:35:48.380Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:39.825Z",
+    "name": "FOX",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.269722222222222, 40.549166666666665]
+    },
+    "elevation": { "value": 607, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.28377689999999, "hae": 659.2837769 }
+  },
+  {
+    "_id": "657191d8b14330eaaabe4849",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:35:20.630Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:42.055Z",
+    "name": "CANFI",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.0675, 40.56361111111111]
+    },
+    "elevation": { "value": 914, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.53993510000001, "hae": 966.5399351 }
+  },
+  {
+    "_id": "6571917eb14330eaaabe42e4",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:33:50.506Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:44.275Z",
+    "name": "M",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.3897222222222223, 40.43888888888889]
+    },
+    "elevation": { "value": 683, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.92812066666656,
+      "hae": 734.9281206666666
+    }
+  },
+  {
+    "_id": "6571915eb14330eaaabe42cd",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:33:18.785Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:46.496Z",
+    "name": "D",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.4669444444444446, 40.54972222222222]
+    },
+    "elevation": { "value": 687, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.931800099999975,
+      "hae": 738.9318000999999
+    }
+  },
+  {
+    "_id": "65719141b14330eaaabe42b4",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:32:49.011Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:48.685Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.308611111111111, 40.36944444444445]
+    },
+    "elevation": { "value": 813, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 52.059232333333284,
+      "hae": 865.0592323333333
+    }
+  },
+  {
+    "_id": "65719126b14330eaaabe429d",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-07T09:32:22.581Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-07T11:34:50.868Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e74b027aab592b31e0"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.4319444444444445, 40.636944444444445]
+    },
+    "elevation": { "value": 755, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 52.176828333333304,
+      "hae": 807.1768283333333
+    }
+  },
+  {
+    "_id": "65730c71160c5b1a9f355094",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:30:41.359Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:07.231Z",
+    "name": "WA",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.514166666666666, 36.65833333333333]
+    },
+    "elevation": { "value": 147, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 48.237551999999994, "hae": 195.237552 }
+  },
+  {
+    "_id": "65730c52160c5b1a9f35400d",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:30:10.673Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:09.633Z",
+    "name": "EA",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.477777777777778, 36.69722222222222]
+    },
+    "elevation": { "value": 23, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.348853333333295,
+      "hae": 71.3488533333333
+    }
+  },
+  {
+    "_id": "65730c33160c5b1a9f3532b7",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:29:39.591Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:12.008Z",
+    "name": "PW2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.573611111111111, 36.56166666666667]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.11644099999998,
+      "hae": 48.11644099999998
+    }
+  },
+  {
+    "_id": "65730c16160c5b1a9f353297",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:29:10.160Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:14.458Z",
+    "name": "PW1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.531666666666666, 36.596666666666664]
+    },
+    "elevation": { "value": 73, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.19803119999992,
+      "hae": 121.19803119999992
+    }
+  },
+  {
+    "_id": "65730bf4160c5b1a9f353276",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:28:36.752Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:16.810Z",
+    "name": "PW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.638888888888889, 36.50694444444444]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 47.86758333333333,
+      "hae": 47.86758333333333
+    }
+  },
+  {
+    "_id": "65730bd9160c5b1a9f353257",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:28:09.264Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:19.224Z",
+    "name": "PS",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.528888888888889, 36.47138888888889]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 47.234954933333285,
+      "hae": 47.234954933333285
+    }
+  },
+  {
+    "_id": "65730bb9160c5b1a9f353236",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:27:37.806Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:21.554Z",
+    "name": "PE1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.392777777777778, 36.702222222222225]
+    },
+    "elevation": { "value": 0, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.501830666666734,
+      "hae": 48.501830666666734
+    }
+  },
+  {
+    "_id": "65730b93160c5b1a9f353217",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:26:59.581Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:31:23.902Z",
+    "name": "PE2",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e84b027aab592b3211"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-4.303055555555556, 36.71472222222222]
+    },
+    "elevation": { "value": 6, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.78363703333335,
+      "hae": 54.78363703333335
+    }
+  },
+  {
+    "_id": "65730ec5160c5b1a9f358f31",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:40:37.748Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:40:56.324Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e8cb27f425094640d2", "626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.396111111111111, 39.54944444444445]
+    },
+    "elevation": { "value": 6, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.44435173333335,
+      "hae": 55.44435173333335
+    }
+  },
+  {
+    "_id": "65730e77160c5b1a9f357df8",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:39:19.567Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:40:58.548Z",
+    "name": "NW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e8cb27f425094640d2", "626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.6555555555555554, 39.595555555555556]
+    },
+    "elevation": { "value": 51, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.50559733333333,
+      "hae": 100.50559733333333
+    }
+  },
+  {
+    "_id": "65730e49160c5b1a9f357dcb",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:38:33.010Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:41:00.757Z",
+    "name": "NN",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e8cb27f425094640d2"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.673611111111111, 39.64222222222222]
+    },
+    "elevation": { "value": 92, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 49.60901000000001, "hae": 141.60901 }
+  },
+  {
+    "_id": "65730e1a160c5b1a9f357d9c",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:37:46.557Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:41:02.995Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e8cb27f425094640d2", "626150eccb27f425094641fb"],
+    "geometry": { "type": "Point", "coordinates": [2.623611111111111, 39.71] },
+    "elevation": { "value": 402, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 49.60028, "hae": 451.60028 }
+  },
+  {
+    "_id": "65730ded160c5b1a9f357bc9",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:37:01.354Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:41:05.266Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e8cb27f425094640d2", "626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.907222222222222, 39.72388888888889]
+    },
+    "elevation": { "value": 140, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.516257466666644,
+      "hae": 189.51625746666664
+    }
+  },
+  {
+    "_id": "657310a9160c5b1a9f35b781",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:48:41.087Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:48:56.934Z",
+    "name": "SA",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150eccb27f425094641fb"],
+    "geometry": { "type": "Point", "coordinates": [2.7725, 39.535] },
+    "elevation": { "value": 23, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 49.358456399999994, "hae": 72.3584564 }
+  },
+  {
+    "_id": "65731089160c5b1a9f35b762",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:48:09.089Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:48:59.154Z",
+    "name": "NA",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.7155555555555555, 39.57388888888889]
+    },
+    "elevation": { "value": 21, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.41482666666667,
+      "hae": 70.41482666666667
+    }
+  },
+  {
+    "_id": "65731065160c5b1a9f35b742",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:47:33.680Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:49:01.503Z",
+    "name": "SW",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.7558333333333334, 39.41722222222222]
+    },
+    "elevation": { "value": 126, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.154662400000035,
+      "hae": 175.15466240000003
+    }
+  },
+  {
+    "_id": "65730fef160c5b1a9f35b051",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:45:35.146Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:49:03.817Z",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [2.894722222222222, 39.48777777777778]
+    },
+    "elevation": { "value": 137, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.35654760000003,
+      "hae": 186.35654760000003
+    }
+  },
+  {
+    "_id": "65730f30160c5b1a9f359e90",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T12:42:24.500Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T12:49:06.196Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150eccb27f425094641fb"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [3.0183333333333335, 39.43222222222222]
+    },
+    "elevation": { "value": 23, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.20887440000001,
+      "hae": 72.20887440000001
+    }
+  },
+  {
+    "_id": "657322cb160c5b1a9f379eb3",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:06:03.045Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:06:19.314Z",
+    "name": "W1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.184444444444445, 39.87638888888889]
+    },
+    "elevation": { "value": 86, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.42217066666666,
+      "hae": 134.42217066666666
+    }
+  },
+  {
+    "_id": "657322ab160c5b1a9f379ad7",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:05:31.541Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:06:21.718Z",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.266666666666667, 39.99722222222222]
+    },
+    "elevation": { "value": 14, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.284279999999995,
+      "hae": 62.284279999999995
+    }
+  },
+  {
+    "_id": "65732289160c5b1a9f378594",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:04:57.351Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:06:24.110Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e9cb27f42509464127"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [4.129722222222222, 40.05777777777778]
+    },
+    "elevation": { "value": 18, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 48.51176480000001,
+      "hae": 66.51176480000001
+    }
+  },
+  {
+    "_id": "657323f3160c5b1a9f37ba2f",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:10:59.237Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:11:13.482Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ea4b027aab592b32db"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.2641666666666667, 37.76166666666667]
+    },
+    "elevation": { "value": 220, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.86794180000004,
+      "hae": 270.86794180000004
+    }
+  },
+  {
+    "_id": "657323d2160c5b1a9f37b71f",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:10:26.823Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:11:15.910Z",
+    "name": "SE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ea4b027aab592b32db"],
+    "geometry": { "type": "Point", "coordinates": [-1.0475, 37.7175] },
+    "elevation": { "value": 83, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.49782039999994,
+      "hae": 133.49782039999994
+    }
+  },
+  {
+    "_id": "657323ab160c5b1a9f37a36b",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:09:47.660Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:11:18.319Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ea4b027aab592b32db"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.1252777777777778, 37.90638888888889]
+    },
+    "elevation": { "value": 516, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.77795816666671,
+      "hae": 566.7779581666667
+    }
+  },
+  {
+    "_id": "657325f5160c5b1a9f37deab",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:19:33.637Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:19:46.301Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ea4b027aab592b32f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.371388888888889, 37.830555555555556]
+    },
+    "elevation": { "value": 149, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.98062466666667,
+      "hae": 199.98062466666667
+    }
+  },
+  {
+    "_id": "657325ce160c5b1a9f37de93",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-08T14:18:54.315Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-08T14:19:48.713Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ea4b027aab592b32f3"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.0886111111111112, 38.095555555555556]
+    },
+    "elevation": { "value": 88, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 50.659021466666644,
+      "hae": 138.65902146666664
+    }
+  },
+  {
+    "_id": "657471d85a79cfb8f75ad22e",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T13:55:36.738Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T13:57:21.780Z",
+    "name": "NE",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150ef5e9ded5710450aab"],
+    "geometry": { "type": "Point", "coordinates": [2.0675, 41.55416666666667] },
+    "elevation": { "value": 231, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 50.0585715, "hae": 281.05857149999997 }
+  },
+  {
+    "_id": "65749c6d9f8951432fe9c1f8",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T16:57:17.022Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:58:46.348Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f44b027aab592b3585"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.3430555555555554, 40.4175]
+    },
+    "elevation": { "value": 1055, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.78243800000001, "hae": 1107.782438 }
+  },
+  {
+    "_id": "65749c429f8951432fe9c1ce",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T16:56:34.583Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:58:48.888Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f44b027aab592b3585"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.1102777777777777, 40.37416666666667]
+    },
+    "elevation": { "value": 911, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.64460180000003, "hae": 963.6446018 }
+  },
+  {
+    "_id": "65749c1922c310aca7a8818b",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T16:55:53.355Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:58:51.089Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f44b027aab592b3585"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-1.2497222222222222, 40.505833333333335]
+    },
+    "elevation": { "value": 1006, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.6100998, "hae": 1058.6100998 }
+  },
+  {
+    "_id": "657499c69f8951432fe9990c",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T16:45:58.828Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:59:10.512Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f25e9ded5710450b3d"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.918333333333333, 37.28333361111111]
+    },
+    "elevation": { "value": 37, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 49.231802591000104,
+      "hae": 86.2318025910001
+    }
+  },
+  {
+    "_id": "6574999a22c310aca7a87e55",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T16:45:14.567Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T16:59:13.168Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150f25e9ded5710450b3d"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-5.885833333333333, 37.550555555555555]
+    },
+    "elevation": { "value": 12, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 51.77141640000005,
+      "hae": 63.77141640000005
+    }
+  },
+  {
+    "_id": "6574bbe39f8951432feafe76",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:11:31.269Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:03.469Z",
+    "name": "E1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.7191666666666667, 40.70472222222222]
+    },
+    "elevation": { "value": 1084, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.593262700000025, "hae": 1136.5932627 }
+  },
+  {
+    "_id": "6574bbc69f8951432feafd00",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:11:02.681Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:05.733Z",
+    "name": "N1",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.718611111111111, 40.74916666666667]
+    },
+    "elevation": { "value": 956, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.865042099999926, "hae": 1008.8650421 }
+  },
+  {
+    "_id": "6574bbad9f8951432feafb64",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:10:37.407Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:07.959Z",
+    "name": "E",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.6025, 40.719722222222224]
+    },
+    "elevation": { "value": 877, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 52.48144370000006, "hae": 929.4814437 }
+  },
+  {
+    "_id": "6574bb959f8951432feaf93f",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:10:13.665Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:10.198Z",
+    "name": "N",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.6777777777777776, 40.79138888888889]
+    },
+    "elevation": { "value": 926, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 53.002639999999985,
+      "hae": 979.0026399999999
+    }
+  },
+  {
+    "_id": "6574bb6e9f8951432feaf3bb",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:09:34.744Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:12.436Z",
+    "name": "W",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.9175, 40.719722222222224]
+    },
+    "elevation": { "value": 939, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": { "geoidHeight": 53.31733540000002, "hae": 992.3173354 }
+  },
+  {
+    "_id": "6574bb549f8951432feaf39d",
+    "createdBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "createdAt": "2023-12-09T19:09:08.378Z",
+    "updatedBy": "eBT9qSrxquPVguazo7MwJzzaf2p1",
+    "updatedAt": "2023-12-09T19:12:15.435Z",
+    "name": "S",
+    "compulsory": true,
+    "country": "ES",
+    "airports": ["626150e7cb27f42509464085"],
+    "geometry": {
+      "type": "Point",
+      "coordinates": [-3.924722222222222, 40.59027777777778]
+    },
+    "elevation": { "value": 981, "unit": 0, "referenceDatum": 1 },
+    "elevationGeoid": {
+      "geoidHeight": 52.54332083333327,
+      "hae": 1033.5433208333334
+    }
+  }
+]

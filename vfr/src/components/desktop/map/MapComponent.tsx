@@ -42,6 +42,7 @@ type MapComponentProps = {
     navigation: boolean;
     obstacles: boolean;
     hotspots: boolean;
+    reportingpoints: boolean;
   };
   selectedCountry: string;
   onCountryChange: (country: string) => void;
@@ -59,6 +60,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     navigation: true,
     obstacles: true,
     hotspots: true,
+    reportingpoints: true,
   },
   selectedCountry,
   onCountryChange,
@@ -113,6 +115,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     navigation,
     obstacles,
     hotspots,
+    reportingpoints,
     loading,
     error,
   } = useAviationData(selectedCountry);
@@ -153,7 +156,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
       airspaces.length > 0 ||
       navigation.length > 0 ||
       obstacles.length > 0 ||
-      hotspots.length > 0;
+      hotspots.length > 0 ||
+      reportingpoints.length > 0;
 
     if (!hasData) {
       // console.log("No aviation data available yet");
@@ -165,6 +169,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     const filteredNavigation = aviationLayers.navigation ? navigation : [];
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
     const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
+    const filteredReportingPoints = aviationLayers.reportingpoints ? reportingpoints : [];
 
     // console.log("Processing aviation data into markers...");
     // console.log("Filtered Aviation Data:", {
@@ -180,7 +185,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
       filteredAirspaces,
       filteredNavigation,
       filteredObstacles,
-      filteredHotspots
+      filteredHotspots,
+      filteredReportingPoints
     );
 
     // console.log("Successfully generated markers:", markers.length);
@@ -193,6 +199,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
     navigation,
     obstacles,
     hotspots,
+    reportingpoints,
     loading,
   ]);
 
@@ -256,6 +263,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         <ClusteredAviationMarkers
           markers={aviationMarkers}
           theme={theme}
+          airports={airports}
           // onMarkerClick={(marker) =>
           //   console.log(`${marker.type} clicked:`, marker)
           // }

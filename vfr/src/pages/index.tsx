@@ -106,6 +106,7 @@ export default function Home() {
     navigation: false,
     obstacles: false,
     hotspots: false,
+    reportingpoints:false,
   });
 
   const handleLayerToggle = (
