@@ -61,12 +61,14 @@ export const getBearing = (wp1: LatLng, wp2: LatLng): number => {
 };
 
 export const getHeading = (track: number, tas: number, windDir: number, windSpeed: number): number => {
-  const windAngle = toRad(track - windDir);
+  const windAngle = toRad((windDir + 180) - track);
   const crosswind = windSpeed * Math.sin(windAngle);
   const headwind = windSpeed * Math.cos(windAngle);
   const groundSpeed = tas - headwind;
-  return (track + toDeg(Math.atan2(crosswind, groundSpeed)) + 360) % 360;
+  const wca = toDeg(Math.atan2(crosswind, groundSpeed));
+  return (track + wca + 360) % 360;
 };
+
 
 export const getGroundSpeed = (track: number, tas: number, windDir: number, windSpeed: number): number => {
   const windAngle = toRad(track - windDir);
