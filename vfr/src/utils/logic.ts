@@ -71,7 +71,7 @@ export const getHeading = (track: number, tas: number, windDir: number, windSpee
 
 
 export const getGroundSpeed = (track: number, tas: number, windDir: number, windSpeed: number): number => {
-  const windAngle = toRad(track - windDir);
+  const windAngle = toRad((windDir + 180) - track);
   return tas - windSpeed * Math.cos(windAngle);
 };
 
