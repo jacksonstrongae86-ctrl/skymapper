@@ -66,7 +66,7 @@ export const getHeading = (track: number, tas: number, windDir: number, windSpee
   const headwind = windSpeed * Math.cos(windAngle);
   const groundSpeed = tas - headwind;
   const wca = toDeg(Math.atan2(crosswind, groundSpeed));
-  return (track + wca + 360) % 360;
+  return (track - wca + 360) % 360;
 };
 
 
