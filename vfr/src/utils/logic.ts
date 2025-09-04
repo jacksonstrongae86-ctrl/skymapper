@@ -72,7 +72,7 @@ export const getHeading = (track: number, tas: number, windDir: number, windSpee
 
 export const getGroundSpeed = (track: number, tas: number, windDir: number, windSpeed: number): number => {
   const windAngle = toRad((windDir + 180) - track);
-  return tas - windSpeed * Math.cos(windAngle);
+  return tas + windSpeed * Math.cos(windAngle);
 };
 
 function getPointAtDistanceAndBearing(from: LatLng, bearing: number, distanceNM: number): LatLng {
