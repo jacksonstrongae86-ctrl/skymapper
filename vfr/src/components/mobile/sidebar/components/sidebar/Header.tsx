@@ -34,7 +34,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           alt="Logo"
           width={40}
           height={40}
-          className="rounded-xl shadow-lg"
+          className=""
         />
         <span
           className={`
