@@ -41,7 +41,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
           ${prompt.className}
           text-xl
           font-bold
-          text-[var(--sidebar-text)]
+          text-white
         `}
         >
           Skymapper

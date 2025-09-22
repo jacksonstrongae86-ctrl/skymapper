@@ -15,13 +15,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const [tutorialType, setTutorialType] = useState<"desktop" | "mobile" | null>(
     null
   );
-  const [tutorialState, setTutorialState] = useState({
-    waypointsAdded: false,
-    menuOpened: false,
-    menuClosed: false,
-    upperSidebarDragged: false,
-    bottomSidebarOpened: false,
-  });
+
   const isMobile = useIsMobile();
   // Función para aplicar estado de consentimiento a PostHog
   const applyConsent = useCallback((consents: ConsentState) => {
@@ -61,6 +55,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+      console.warn("PostHog key not found, analytics disabled");
+      setInitialized(true);
       return;
     }
 
@@ -122,7 +118,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const desktopTutorial = useCallback(
     (introJs: typeof import("intro.js").default) => {
-      introJs()
+      introJs.tour()
         .setOptions({
           steps: [
             {
@@ -265,27 +261,46 @@ export default function App({ Component, pageProps }: AppProps) {
     []
   );
 
-  const mobileTutorial = useCallback(
+  const mobile2ndTutorial = useCallback(
     (introJs: typeof import("intro.js").default) => {
-      let currentStep = 0;
-
-      const intro = introJs()
+      introJs.tour()
         .setOptions({
           steps: [
-
+            {
+              element: "#map-menu-button",
+              intro:
+                "Tap here to access search, map types, aviation data, and route management.",
+              position: "right",
+            },
+            {
+              element: "#mobile-map-close-button",
+              intro:
+                "Tap here to exit the expanded map view and return to the full interface.",
+              position: "right",
+            },
+            {
+              element: "#mobile-bottom-sidebar > div",
+              intro:
+                "This section shows your flight calculations: distance, track, heading, GS, time, and fuel.",
+              position: "top",
+            },
+            {
+              intro:
+                "That’s it! Add waypoints on the map and let Skymapper calculate your flight. Happy flying! ✈️",
+            },
           ],
-          // showProgress: true,
-          // showBullets: true,
-          // exitOnOverlayClick: false,
-          // showStepNumbers: false,
-          // nextLabel: "Next",
-          // prevLabel: "Back",
-          // skipLabel: "Skip",
-          // doneLabel: "Start Flying!",
-          // highlightClass: "introjs-helperNumberLayer",
-          // tooltipClass: "theme-dark",
+          showProgress: true,
+          showBullets: false,
+          exitOnOverlayClick: false,
+          showStepNumbers: false,
+          nextLabel: "Next",
+          prevLabel: "Back",
+          skipLabel: "Skip",
+          doneLabel: "Start Planning!",
+          highlightClass: "introjs-helperNumberLayer",
+          tooltipClass: "theme-dark",
         })
-        .onBeforeChange(() => {
+        .onBeforeChange((targetElement: Element) => {
           // Apply theme styling
           setTimeout(() => {
             document
@@ -293,144 +308,125 @@ export default function App({ Component, pageProps }: AppProps) {
               .forEach((el) => el.classList.add("theme-dark"));
           }, 10);
 
-          // Step-specific logic using our tracked currentStep
-          switch (currentStep) {
-            case 2: // Map click step
-              if (!tutorialState.waypointsAdded) {
-                // Wait for waypoint to be added
-                const checkWaypoints = () => {
-                  const waypoints = document.querySelectorAll(
-                    ".leaflet-marker-icon"
-                  );
-                  if (waypoints.length > 0) {
-                    setTutorialState((prev) => ({
-                      ...prev,
-                      waypointsAdded: true,
-                    }));
-                    return true;
-                  }
-                  return false;
-                };
+          // Custom logic based on the target element
+          const elementId = targetElement?.id;
 
-                if (!checkWaypoints()) {
-                  setTimeout(() => {
-                    if (!checkWaypoints()) {
-                      alert(
-                        "Please tap the map to add a waypoint before continuing."
-                      );
-                    }
-                  }, 1000);
-                }
-              }
-              break;
-
-            // case 4: // Menu open step
-            //   if (!tutorialState.menuOpened) {
-            //     const menuDropdown = document.querySelector(
-            //       '[data-testid="map-controls-dropdown"]'
-            //     );
-            //     if (
-            //       !menuDropdown ||
-            //       !menuDropdown.classList.contains("block")
-            //     ) {
-            //       alert(
-            //         "Please open the menu by tapping the menu button before continuing."
-            //       );
-            //       return false;
-            //     }
-            //     setTutorialState((prev) => ({ ...prev, menuOpened: true }));
-            //   }
-            //   break;
-
-            case 9: // Menu close step
-              if (!tutorialState.menuClosed) {
-                const menuDropdown = document.querySelector(
-                  '[data-testid="map-controls-dropdown"]'
-                );
-                if (menuDropdown && menuDropdown.classList.contains("block")) {
-                  alert("Please close the menu before continuing.");
-                  return false;
-                }
-                setTutorialState((prev) => ({ ...prev, menuClosed: true }));
-              }
-              break;
-
-            case 10: // Upper sidebar drag
-              if (!tutorialState.upperSidebarDragged) {
-                // Check if upper sidebar is visible/expanded
-                const upperSidebar = document.querySelector("#upper-sidebar");
-                if (upperSidebar) {
-                  const height = upperSidebar.clientHeight;
-                  if (height < 200) {
-                    // Assuming 200px+ means dragged/expanded
-                    alert(
-                      "Please drag the upper sidebar handle to expand the flight settings panel."
-                    );
-                    return false;
-                  }
-                }
-                setTutorialState((prev) => ({
-                  ...prev,
-                  upperSidebarDragged: true,
-                }));
-              }
-              break;
-
-            case 13: // Bottom sidebar open
-              if (!tutorialState.bottomSidebarOpened) {
-                const bottomSidebar = document.querySelector("#bottom-sidebar");
-                if (bottomSidebar) {
-                  const height = bottomSidebar.clientHeight;
-                  if (height < 150) {
-                    // Assuming 150px+ means opened
-                    alert(
-                      "Please drag the bottom sidebar handle to view the flight results."
-                    );
-                    return false;
-                  }
-                }
-                setTutorialState((prev) => ({
-                  ...prev,
-                  bottomSidebarOpened: true,
-                }));
-              }
-              break;
+          if (elementId === "map-menu-button") {
+            // Ensure the map menu button is visible
+            const menuButton = document.querySelector(
+              "#map-menu-button"
+            ) as HTMLElement;
+            // click it to open the menu
+            menuButton?.click();
           }
-
           return true;
         })
-        .onAfterChange(() => {
-          // Increment step counter after successful step change
-          currentStep++;
+        .onAfterChange(function (targetElement: Element) {
+          if (!targetElement)
+            return undefined;
+
+          // if (targetElement.parentElement?.id === "mobile-map-close-button") {
+          //   const MapContainer = document.querySelector(
+          //     "#map-container"
+          //   ) as HTMLElement;
+          //   // click it to close the expanded map
+          //   MapContainer?.click();
+          // }
+          // // When the bottom sidebar step is shown, we need to close the expanded map.
+          // // The targetElement is the `div` inside `#mobile-bottom-sidebar`, so we check its parent's ID.
+          // if (targetElement.parentElement?.id === "mobile-bottom-sidebar") {
+          //   const closeButton = document.querySelector(
+          //     "#mobile-map-close-button"
+          //   ) as HTMLElement;
+          //   // click it to close the expanded map
+          //   closeButton?.click();
+          // }
         })
         .onComplete(() => {
-          localStorage.setItem("skymapper-tutorial-completed", "true");
-          // Reset tutorial state
-          setTutorialState({
-            waypointsAdded: false,
-            menuOpened: false,
-            menuClosed: false,
-            upperSidebarDragged: false,
-            bottomSidebarOpened: false,
-          });
+          localStorage.setItem("skymapper-mobile-2nd-tutorial-completed", "true");
         })
         .onExit(() => {
-          localStorage.setItem("skymapper-tutorial-completed", "true");
-          // Reset tutorial state
-          setTutorialState({
-            waypointsAdded: false,
-            menuOpened: false,
-            menuClosed: false,
-            upperSidebarDragged: false,
-            bottomSidebarOpened: false,
-          });
+          localStorage.setItem("skymapper-mobile-2nd-tutorial-completed", "true");
         })
         .start();
-
-      return intro;
     },
-    [tutorialState]
+    []
   );
+
+
+  const mobileTutorial = useCallback(
+    (introJs: typeof import("intro.js").default) => {
+      const tour = introJs.tour();
+      tour
+        .setOptions(
+          {
+          steps: [
+            {
+              intro:
+                "Welcome to Skymapper (Mobile)! This guide will show you how to plan flights efficiently on your phone.",
+            },
+            {
+              element: "#mobile-top-sidebar > div",
+              intro:
+                "Tap here to configure your flight: fuel consumption, performance, and weather data.",
+              // place tooltip below the resize handle
+              position: "bottom",
+            },
+            {
+              element: "#waypoints-tab",
+              intro:
+                "Switch to the Waypoints tab to view, edit, or delete your route’s waypoints.",
+              position: "bottom",
+              // show the whole sidebar
+            },
+            {
+              element: "#map-container",
+              intro:
+                "Tap anywhere on the map to add waypoints. The route will connect them in order.",
+              position: "top",
+            },
+          ],
+          showProgress: true,
+          showBullets: false,
+          exitOnOverlayClick: false,
+          showStepNumbers: false,
+          nextLabel: "Next",
+          prevLabel: "Back",
+          skipLabel: "Skip",
+          doneLabel: "Next",
+          tooltipClass: "theme-dark",
+          scrollToElement: false,
+        })
+        .onBeforeChange(() => {
+          setTimeout(() => {
+            document
+              .querySelectorAll(".introjs-tooltip")
+              .forEach((el) => el.classList.add("theme-dark"));
+          }, 10);
+          return true;
+        })
+        .onAfterChange(function (targetElement: Element) {
+           if (!targetElement) return undefined;
+
+           // When the map step is shown, click it to expand it.
+           if (targetElement.id === "map-container") {
+             console.log("Clicking the map in mobile tutorial to expand it.");
+             (targetElement.firstElementChild as HTMLElement)?.click();
+            }
+        })
+        .onComplete(() => {
+          // initialize the next tutorial
+          mobile2ndTutorial(introJs);
+          localStorage.setItem("skymapper-mobile-tutorial-completed", "true");
+        })
+        .onExit(() => {
+          localStorage.setItem("skymapper-mobile-tutorial-completed", "true");
+        })
+        .start();
+    },
+    [mobile2ndTutorial]
+  );
+
 
   // On initialization and device detection, set tutorialType string
   useEffect(() => {

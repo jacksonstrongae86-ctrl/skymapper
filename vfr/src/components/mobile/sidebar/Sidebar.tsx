@@ -122,6 +122,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
           <button
             onClick={() => setActiveTab("waypoints")}
+            id = "waypoints-tab"
             className={`flex-1 text-sm py-2 transition-all ${
               activeTab === "waypoints"
                 ? "bg-[var(--sidebar-bg)] font-semibold"

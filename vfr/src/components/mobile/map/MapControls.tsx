@@ -313,6 +313,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
     <div className="p-4 space-y-4 max-h-[60vh] overflow-y-auto">
       <button
         data-menu-button
+        id = "map-menu-button"
         onClick={() => setIsOpen(!isOpen)}
         className={`
           fixed top-4 left-4 z-[1001]
@@ -607,14 +608,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       </button>
                       <button
                         onClick={() =>
-                          onLayerToggle("reportingpoints", !aviationLayers.hotspots)
+                          onLayerToggle(
+                            "reportingpoints",
+                            !aviationLayers.reportingpoints
+                          )
                         }
                         className={`
                     px-3 py-2 rounded-lg text-sm
                     flex items-center gap-2
                     transition-all duration-200
                     ${
-                      aviationLayers.hotspots
+                      aviationLayers.reportingpoints
                         ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
                         : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
                     }
