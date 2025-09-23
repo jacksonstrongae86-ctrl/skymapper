@@ -386,7 +386,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       </MapContainer>
       {isExpanded && (
         <div
-          className="absolute top-0 left-0 w-full h-ful z-[999]"
+          className="absolute top-0 left-0 w-full h-full z-[999]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -394,6 +394,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               e.stopPropagation();
               setIsExpanded(false);
             }}
+            id = "mobile-map-close-button"
             className={`fixed top-4 right-4 z-[1000] ${`button-gradient-${theme}`} text-white px-1 py-1 rounded-full`}
           >
             <X size={20} />

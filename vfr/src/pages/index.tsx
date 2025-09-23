@@ -126,7 +126,7 @@ export default function Home() {
       <meta></meta>
       {isMobile ? (
         <div className="flex flex-col h-full">
-          <div className="flex-none">
+          <div id="mobile-top-sidebar" className="flex-none">
             <MobileSidebar
               results={undefined}
               {...uiState}
@@ -172,7 +172,7 @@ export default function Home() {
             />
           </div>
 
-          <div className="flex-none">
+          <div id="mobile-bottom-sidebar" className="flex-none">
             <MobileBottomSidebar
               waypoints={waypoints}
               storedWindData={storedWindData}
