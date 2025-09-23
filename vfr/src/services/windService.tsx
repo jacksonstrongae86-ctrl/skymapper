@@ -2,8 +2,8 @@ import { WindAPIResponse } from "../utils/types";
 
 // Extended pressure levels for better accuracy
 const extendedPressureLevels = [
-  1000, 975, 950, 925, 900, 875, 850, 825, 800, 775, 750,
-  700, 650, 600, 550, 500, 450, 400, 350, 300, 250, 200, 150, 100
+  1000, 975, 950, 925, 900, 850, 800,
+  700, 600, 500, 400, 300, 250, 200, 150, 100, 70, 50, 30
 ];
 
 function ftToHpa(feet: number): number {
