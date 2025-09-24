@@ -47,7 +47,7 @@ type AviationLayerKey =
   | "navigation"
   | "obstacles"
   | "hotspots"
-  | "reportingpoints"
+  | "reportingpoints";
 
 interface SavedRoute {
   id: string; // Unique ID (e.g. uuid)
@@ -194,7 +194,9 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     const filteredNavigation = aviationLayers.navigation ? navigation : [];
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
     const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
-    const filteredReportingPoints = aviationLayers.reportingpoints ? reportingpoints : [];
+    const filteredReportingPoints = aviationLayers.reportingpoints
+      ? reportingpoints
+      : [];
 
     // console.log("Processing aviation data into markers...");
     // console.log("Filtered Aviation Data:", {
@@ -211,7 +213,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       filteredNavigation,
       filteredObstacles,
       filteredHotspots,
-      filteredReportingPoints,
+      filteredReportingPoints
     );
 
     // console.log("Successfully generated markers:", markers.length);
@@ -386,6 +388,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       </MapContainer>
       {isExpanded && (
         <div
+          className="absolute top-0 left-0 w-full h-ful z-[999]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -393,7 +396,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               e.stopPropagation();
               setIsExpanded(false);
             }}
-            id = "mobile-map-close-button"
+            id="mobile-map-close-button"
             className={`fixed top-4 right-4 z-[1000] ${`button-gradient-${theme}`} text-white px-1 py-1 rounded-full`}
           >
             <X size={20} />
