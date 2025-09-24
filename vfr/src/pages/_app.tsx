@@ -114,11 +114,38 @@ export default function App({ Component, pageProps }: AppProps) {
     applyConsent(consents);
     // ✅ Check tutorial eligibility when consent changes
     checkTutorialEligibility(consents);
+    console.log(
+      "complete",
+      localStorage.getItem("skymapper-tutorial-completed")
+    );
+    console.log(
+      "candidate",
+      localStorage.getItem("skymapper-tutorial-candidate")
+    );
+    if (
+      consents.analytics &&
+      localStorage.getItem("skymapper-tutorial-completed") == null &&
+      initialized &&
+      tutorialType
+    ) {
+      localStorage.removeItem("skymapper-tutorial-candidate");
+      import("intro.js").then((introModule) => {
+        const introJs = introModule.default;
+        setTimeout(() => {
+          if (tutorialType === "mobile") {
+            mobileTutorial(introJs);
+          } else {
+            desktopTutorial(introJs);
+          }
+        }, 1000);
+      });
+    }
   };
 
   const desktopTutorial = useCallback(
     (introJs: typeof import("intro.js").default) => {
-      introJs.tour()
+      introJs
+        .tour()
         .setOptions({
           steps: [
             {
@@ -263,7 +290,8 @@ export default function App({ Component, pageProps }: AppProps) {
 
   const mobile2ndTutorial = useCallback(
     (introJs: typeof import("intro.js").default) => {
-      introJs.tour()
+      introJs
+        .tour()
         .setOptions({
           steps: [
             {
@@ -322,8 +350,7 @@ export default function App({ Component, pageProps }: AppProps) {
           return true;
         })
         .onAfterChange(function (targetElement: Element) {
-          if (!targetElement)
-            return undefined;
+          if (!targetElement) return undefined;
 
           // if (targetElement.parentElement?.id === "mobile-map-close-button") {
           //   const MapContainer = document.querySelector(
@@ -353,13 +380,11 @@ export default function App({ Component, pageProps }: AppProps) {
     []
   );
 
-
   const mobileTutorial = useCallback(
     (introJs: typeof import("intro.js").default) => {
       const tour = introJs.tour();
       tour
-        .setOptions(
-          {
+        .setOptions({
           steps: [
             {
               intro:
@@ -406,27 +431,26 @@ export default function App({ Component, pageProps }: AppProps) {
           return true;
         })
         .onAfterChange(function (targetElement: Element) {
-           if (!targetElement) return undefined;
+          if (!targetElement) return undefined;
 
-           // When the map step is shown, click it to expand it.
-           if (targetElement.id === "map-container") {
-             console.log("Clicking the map in mobile tutorial to expand it.");
-             (targetElement.firstElementChild as HTMLElement)?.click();
-            }
+          // When the map step is shown, click it to expand it.
+          if (targetElement.id === "map-container") {
+            console.log("Clicking the map in mobile tutorial to expand it.");
+            (targetElement.firstElementChild as HTMLElement)?.click();
+          }
         })
         .onComplete(() => {
           // initialize the next tutorial
           mobile2ndTutorial(introJs);
-          localStorage.setItem("skymapper-mobile-tutorial-completed", "true");
+          localStorage.setItem("skymapper-tutorial-completed", "true");
         })
         .onExit(() => {
-          localStorage.setItem("skymapper-mobile-tutorial-completed", "true");
+          localStorage.setItem("skymapper-tutorial-completed", "true");
         })
         .start();
     },
     [mobile2ndTutorial]
   );
-
 
   // On initialization and device detection, set tutorialType string
   useEffect(() => {
@@ -445,6 +469,7 @@ export default function App({ Component, pageProps }: AppProps) {
       if (
         typeof window !== "undefined" &&
         localStorage.getItem("skymapper-tutorial-candidate")
+        && localStorage.getItem("skymapper-tutorial-completed") !== "true"
       ) {
         localStorage.removeItem("skymapper-tutorial-candidate");
         import("intro.js").then((introModule) => {
@@ -459,7 +484,13 @@ export default function App({ Component, pageProps }: AppProps) {
         });
       }
     }
-  }, [initialized, tutorialType, mobileTutorial, mobile2ndTutorial, desktopTutorial]);
+  }, [
+    initialized,
+    tutorialType,
+    mobileTutorial,
+    mobile2ndTutorial,
+    desktopTutorial,
+  ]);
 
   if (!initialized) {
     return <LoadingPage />;
