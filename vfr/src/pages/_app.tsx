@@ -343,10 +343,10 @@ export default function App({ Component, pageProps }: AppProps) {
           // }
         })
         .onComplete(() => {
-          localStorage.setItem("skymapper-mobile-2nd-tutorial-completed", "true");
+          localStorage.setItem("skymapper-tutorial-completed", "true");
         })
         .onExit(() => {
-          localStorage.setItem("skymapper-mobile-2nd-tutorial-completed", "true");
+          localStorage.setItem("skymapper-tutorial-completed", "true");
         })
         .start();
     },
