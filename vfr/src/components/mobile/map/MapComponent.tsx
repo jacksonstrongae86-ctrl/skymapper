@@ -386,7 +386,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       </MapContainer>
       {isExpanded && (
         <div
-          className="absolute top-0 left-0 w-full h-full z-[999]"
           onClick={(e) => e.stopPropagation()}
         >
           <button
@@ -399,7 +398,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           >
             <X size={20} />
           </button>
-          <div className="fixed top-0 left-1 z-[1000] text-white">
+          <div className="fixed top-0 left-1 z-[999] text-white">
             <MobileMapControls
               mapType={mapType}
               setMapType={setMapType}
