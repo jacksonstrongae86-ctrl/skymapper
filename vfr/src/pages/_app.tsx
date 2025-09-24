@@ -459,7 +459,7 @@ export default function App({ Component, pageProps }: AppProps) {
         });
       }
     }
-  }, [initialized, tutorialType, mobileTutorial, desktopTutorial]);
+  }, [initialized, tutorialType, mobileTutorial, mobile2ndTutorial, desktopTutorial]);
 
   if (!initialized) {
     return <LoadingPage />;
