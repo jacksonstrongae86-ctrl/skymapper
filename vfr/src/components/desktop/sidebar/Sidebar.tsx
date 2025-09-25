@@ -6,6 +6,7 @@ import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import AltitudeCompliancePanel from "../../shared/AltitudeCompliancePanel";
 import AirspaceLegend from "../../shared/AirspaceLegend";
+import AltitudeUnitSelector from "../../shared/AltitudeUnitSelector";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
@@ -133,6 +134,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               />
             </div>
           )}
+
+          {/* Altitude Unit Selector */}
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <AltitudeUnitSelector />
+          </div>
 
           {/* Airspace Legend */}
           <div className="p-4 border-b border-gray-200 dark:border-gray-700">

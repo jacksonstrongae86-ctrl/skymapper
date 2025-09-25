@@ -25,6 +25,8 @@ import {
 } from "../../../utils/aviationUtils";
 import { Airspace } from "../../../utils/types";
 import { getAirspaceColor } from "../../../utils/airspaceColors";
+import { useAltitudeUnit } from "../../../utils/AltitudeUnitContext";
+import { formatElevation } from "../../../utils/unitConversions";
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 
@@ -68,6 +70,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   onCountryChange,
 }) => {
   const { theme } = useTheme();
+  const { altitudeUnit } = useAltitudeUnit();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
@@ -304,8 +307,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
                 const colorConfig = getAirspaceColor(airspace);
                 const tooltipText = `${airspace.name || 'Unnamed Airspace'}
 Type: ${colorConfig.name}
-Lower: ${airspace.lowerLimit.value}${airspace.lowerLimit.unit === 2 ? 'FL' : (airspace.lowerLimit.unit === 1 ? 'm' : 'ft')}
-Upper: ${airspace.upperLimit.value}${airspace.upperLimit.unit === 2 ? 'FL' : (airspace.upperLimit.unit === 1 ? 'm' : 'ft')}`;
+Lower: ${formatElevation(airspace.lowerLimit, altitudeUnit)}
+Upper: ${formatElevation(airspace.upperLimit, altitudeUnit)}`;
 
                 return (
                   <Polygon

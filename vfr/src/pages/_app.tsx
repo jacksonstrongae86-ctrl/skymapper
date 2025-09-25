@@ -3,6 +3,7 @@ import { ConsentManager } from "@/src/components/legal/ConsentManager";
 import { ConsentState } from "@/src/utils/consentManager";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../utils/ThemeContext";
+import { AltitudeUnitProvider } from "../utils/AltitudeUnitContext";
 import { useEffect, useState, useCallback } from "react";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
@@ -499,12 +500,14 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <PostHogProvider client={posthog}>
       <ThemeProvider>
-        <Component {...pageProps} />
-        <ConsentManager
-          showInitialModal={true}
-          position="center"
-          onConsentChange={handleConsentChange}
-        />
+        <AltitudeUnitProvider>
+          <Component {...pageProps} />
+          <ConsentManager
+            showInitialModal={true}
+            position="center"
+            onConsentChange={handleConsentChange}
+          />
+        </AltitudeUnitProvider>
       </ThemeProvider>
     </PostHogProvider>
   );

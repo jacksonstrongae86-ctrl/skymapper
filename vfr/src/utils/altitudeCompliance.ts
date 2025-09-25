@@ -1,25 +1,9 @@
-import { LatLng, Airspace, AviationGeometry, Elevation } from './types';
+import { LatLng, Airspace, AviationGeometry } from './types';
+import { elevationToFeet } from './unitConversions';
 
 /**
  * Utility functions for aerospace altitude compliance in flight planning
  */
-
-/**
- * Convert elevation object to numeric value in feet
- */
-export function elevationToFeet(elevation: Elevation): number {
-  // Unit codes: 0=feet, 1=meters, 2=flight level
-  switch (elevation.unit) {
-    case 0: // feet
-      return elevation.value;
-    case 1: // meters
-      return elevation.value * 3.28084;
-    case 2: // flight level (hundreds of feet)
-      return elevation.value * 100;
-    default:
-      return elevation.value; // assume feet if unknown
-  }
-}
 
 /**
  * Validate and correct airspace altitude limits

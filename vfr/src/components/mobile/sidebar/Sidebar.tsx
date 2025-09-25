@@ -9,6 +9,7 @@ import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
+import AltitudeUnitSelector from "../../shared/AltitudeUnitSelector";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
@@ -135,18 +136,24 @@ const Sidebar: React.FC<SidebarProps> = ({
 
         <div className="flex-1 flex flex-col">
           {activeTab === "settings" ? (
-            <FlightSettings
-              isSettingsVisible={true}
-              setIsSettingsVisible={() => {}}
-              fuelConsumption={fuelConsumption}
-              setFuelConsumption={setFuelConsumption}
-              selectedDateTime={selectedDateTime}
-              setSelectedDateTime={setSelectedDateTime}
-              fetchWindData={fetchWindData}
-              updateCalculations={updateCalculations}
-              gal_liter={gal_liter}
-              set_gal_liter={set_gal_liter}
-            />
+            <div className="flex-1 flex flex-col">
+              <FlightSettings
+                isSettingsVisible={true}
+                setIsSettingsVisible={() => {}}
+                fuelConsumption={fuelConsumption}
+                setFuelConsumption={setFuelConsumption}
+                selectedDateTime={selectedDateTime}
+                setSelectedDateTime={setSelectedDateTime}
+                fetchWindData={fetchWindData}
+                updateCalculations={updateCalculations}
+                gal_liter={gal_liter}
+                set_gal_liter={set_gal_liter}
+              />
+              {/* Altitude Unit Selector */}
+              <div className="p-4 border-t border-[var(--sidebar-border)]">
+                <AltitudeUnitSelector />
+              </div>
+            </div>
           ) : (
             <ScrollableContent
               isWaypointsVisible={true}
