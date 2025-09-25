@@ -8,6 +8,7 @@ import {
   useMapEvents,
   Circle,
   Polygon,
+  Tooltip,
 } from "react-leaflet";
 import { Airspace, getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
@@ -23,6 +24,7 @@ import {
   convertAviationDataToMarkers,
   extractPolygonCoordinates,
 } from "@/src/utils/aviationUtils";
+import { getAirspaceColor } from "@/src/utils/airspaceColors";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
@@ -341,17 +343,34 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
                 );
 
                 if (polygonCoords) {
+                  const colorConfig = getAirspaceColor(airspace);
+                  const tooltipText = `${airspace.name || 'Unnamed Airspace'}
+Type: ${colorConfig.name}
+Lower: ${airspace.lowerLimit.value}${airspace.lowerLimit.unit === 2 ? 'FL' : (airspace.lowerLimit.unit === 1 ? 'm' : 'ft')}
+Upper: ${airspace.upperLimit.value}${airspace.upperLimit.unit === 2 ? 'FL' : (airspace.upperLimit.unit === 1 ? 'm' : 'ft')}`;
+
                   return (
                     <Polygon
                       key={`polygon-${marker.id}`}
                       positions={polygonCoords}
                       pathOptions={{
-                        color: "#dc2626",
-                        fillColor: "#dc2626",
-                        fillOpacity: 0.1,
-                        weight: 2,
+                        color: colorConfig.color,
+                        fillColor: colorConfig.fillColor,
+                        fillOpacity: colorConfig.fillOpacity,
+                        weight: colorConfig.weight,
                       }}
-                    />
+                    >
+                      <Tooltip
+                        direction="top"
+                        offset={[0, -10]}
+                        opacity={0.9}
+                        className="airspace-tooltip"
+                      >
+                        <div className="text-sm whitespace-pre-line">
+                          {tooltipText}
+                        </div>
+                      </Tooltip>
+                    </Polygon>
                   );
                 }
                 break;

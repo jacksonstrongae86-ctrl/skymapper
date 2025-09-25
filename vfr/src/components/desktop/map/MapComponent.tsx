@@ -8,6 +8,7 @@ import {
   useMapEvents,
   Circle,
   Polygon,
+  Tooltip,
 } from "react-leaflet";
 import { useRef } from "react";
 import { Map } from "leaflet";
@@ -23,6 +24,7 @@ import {
   extractPolygonCoordinates,
 } from "../../../utils/aviationUtils";
 import { Airspace } from "../../../utils/types";
+import { getAirspaceColor } from "../../../utils/airspaceColors";
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 
@@ -299,17 +301,34 @@ const MapComponent: React.FC<MapComponentProps> = ({
               );
 
               if (polygonCoords) {
+                const colorConfig = getAirspaceColor(airspace);
+                const tooltipText = `${airspace.name || 'Unnamed Airspace'}
+Type: ${colorConfig.name}
+Lower: ${airspace.lowerLimit.value}${airspace.lowerLimit.unit === 2 ? 'FL' : (airspace.lowerLimit.unit === 1 ? 'm' : 'ft')}
+Upper: ${airspace.upperLimit.value}${airspace.upperLimit.unit === 2 ? 'FL' : (airspace.upperLimit.unit === 1 ? 'm' : 'ft')}`;
+
                 return (
                   <Polygon
                     key={`polygon-${marker.id}`}
                     positions={polygonCoords}
                     pathOptions={{
-                      color: "#dc2626",
-                      fillColor: "#dc2626",
-                      fillOpacity: 0.1,
-                      weight: 2,
+                      color: colorConfig.color,
+                      fillColor: colorConfig.fillColor,
+                      fillOpacity: colorConfig.fillOpacity,
+                      weight: colorConfig.weight,
                     }}
-                  />
+                  >
+                    <Tooltip
+                      direction="top"
+                      offset={[0, -10]}
+                      opacity={0.9}
+                      className="airspace-tooltip"
+                    >
+                      <div className="text-sm whitespace-pre-line">
+                        {tooltipText}
+                      </div>
+                    </Tooltip>
+                  </Polygon>
                 );
               }
               break;

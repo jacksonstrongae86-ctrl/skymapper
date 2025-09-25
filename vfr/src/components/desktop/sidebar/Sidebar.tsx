@@ -5,6 +5,7 @@ import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import AltitudeCompliancePanel from "../../shared/AltitudeCompliancePanel";
+import AirspaceLegend from "../../shared/AirspaceLegend";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
@@ -132,6 +133,11 @@ const Sidebar: React.FC<SidebarProps> = ({
               />
             </div>
           )}
+
+          {/* Airspace Legend */}
+          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+            <AirspaceLegend />
+          </div>
 
           <ScrollableContent
             isWaypointsVisible={isWaypointsVisible}
