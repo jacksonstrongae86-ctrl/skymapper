@@ -79,7 +79,7 @@ export async function fetchECMWFWindData(
     }
   });
 
-  const baseUrl = "https://api.open-meteo.com/v1/ecmwf";
+  const baseUrl = "https://api.open-meteo.com/v1/forecast";
   const params = new URLSearchParams({
     latitude: lat.toFixed(6), // Higher precision
     longitude: lon.toFixed(6),
