@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { LeafletMouseEvent } from "leaflet";
-import { Waypoint, WindDataArray } from "@/src/utils/types";
+import { Waypoint, WindDataArray, Airspace } from "@/src/utils/types";
 import {
   IAStoTAS,
   getBearing,
   getGroundSpeed,
   calculateTransitionWaypoint,
 } from "@/src/utils/logic";
+import { useAltitudeCompliance } from "./useAltitudeCompliance";
 
 import { getLocationNameWithRateLimit } from "@/src/utils/geocoding";
 import { v4 as uuidv4 } from "uuid";
@@ -150,12 +151,26 @@ export function importRouteFromUrl() {
 export function useWaypoints(
   defaultTAS: number = 100,
   fuelConsumption: number = 8,
-  storedWindData: WindDataArray = []
+  storedWindData: WindDataArray = [],
+  airspaces: Airspace[] = []
 ) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [geocodingErrors, setGeocodingErrors] = useState<Map<number, string>>(
     new Map()
   );
+
+  // Initialize altitude compliance hook (airspaces are already validated in useAviationData)
+  const {
+    autoAdjustEnabled,
+    setAutoAdjustEnabled,
+    analyzeRouteCompliance,
+    adjustWaypointForCompliance,
+    getAltitudeLimits,
+    complianceAlerts,
+    addComplianceAlert,
+    clearComplianceAlerts,
+    generateTransitionWaypoints
+  } = useAltitudeCompliance(airspaces);
   const updateWaypointName = useCallback(
   async (index: number, lat: number, lng: number): Promise<void> => {
     try {
@@ -293,6 +308,17 @@ export function useWaypoints(
           ) {
             updated[index] = { ...updated[index], position: newPosition };
 
+            // Check altitude compliance for new position if auto-adjust is enabled
+            if (autoAdjustEnabled) {
+              const adjustedWaypoint = adjustWaypointForCompliance(updated[index]);
+              if (adjustedWaypoint.altitude !== updated[index].altitude) {
+                updated[index] = adjustedWaypoint;
+                addComplianceAlert(
+                  `Waypoint ${index + 1} altitude adjusted to ${adjustedWaypoint.altitude}ft due to new position's airspace requirements`
+                );
+              }
+            }
+
             // Only auto-update if name wasn't manually set
             if (!updated[index].isManualName) {
               updateWaypointName(index, newPosition[0], newPosition[1]);
@@ -302,17 +328,43 @@ export function useWaypoints(
         }
 
         /* ───────────────────────────────────────────────────────────────
-         1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route
+         1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route + compliance check
       ──────────────────────────────────────────────────────────────── */
         if (field === "altitude" || field === "altitudeChange") {
           // update the edited waypoint first …
           updated[index] = { ...updated[index], [field]: value };
 
+          // Check altitude compliance if auto-adjust is enabled
+          if (autoAdjustEnabled && field === "altitude") {
+            const adjustedWaypoint = adjustWaypointForCompliance(updated[index]);
+            if (adjustedWaypoint.altitude !== updated[index].altitude) {
+              updated[index] = adjustedWaypoint;
+              addComplianceAlert(
+                `Waypoint ${index + 1} altitude adjusted from ${value}ft to ${adjustedWaypoint.altitude}ft for airspace compliance`
+              );
+            }
+          }
+
           // … then copy its exit altitude into every following waypoint
           for (let i = index + 1; i < updated.length; i++) {
+            let newAltitude = exitAltitude(updated[i - 1]);
+
+            // Apply compliance check to following waypoints too
+            if (autoAdjustEnabled) {
+              const tempWaypoint = { ...updated[i], altitude: newAltitude };
+              const adjustedWaypoint = adjustWaypointForCompliance(tempWaypoint);
+              newAltitude = adjustedWaypoint.altitude;
+
+              if (adjustedWaypoint.altitude !== tempWaypoint.altitude) {
+                addComplianceAlert(
+                  `Waypoint ${i + 1} altitude auto-adjusted to ${newAltitude}ft for airspace compliance`
+                );
+              }
+            }
+
             updated[i] = {
               ...updated[i],
-              altitude: exitAltitude(updated[i - 1]),
+              altitude: newAltitude,
             };
           }
         } else {
@@ -484,7 +536,7 @@ export function useWaypoints(
         return updated;
       });
     },
-    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName]
+    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName, autoAdjustEnabled, adjustWaypointForCompliance, addComplianceAlert]
   );
 
   const handleMapClick = useCallback(
@@ -493,7 +545,7 @@ export function useWaypoints(
 
       setWaypoints((prev) => {
         const newIndex = prev.length;
-        const newWaypoint = {
+        let newWaypoint: Waypoint = {
           position: [lat, lng] as [number, number],
           type: "waypoint" as const,
           altitude: lastRouteAltitude(prev),
@@ -506,12 +558,23 @@ export function useWaypoints(
           name: "Loading...",
         };
 
+        // Check altitude compliance for new waypoint
+        if (autoAdjustEnabled) {
+          const adjustedWaypoint = adjustWaypointForCompliance(newWaypoint);
+          if (adjustedWaypoint.altitude !== newWaypoint.altitude) {
+            newWaypoint = adjustedWaypoint;
+            addComplianceAlert(
+              `New waypoint altitude adjusted to ${adjustedWaypoint.altitude}ft for airspace compliance`
+            );
+          }
+        }
+
         updateWaypointName(newIndex, lat, lng);
 
         return [...prev, newWaypoint];
       });
     },
-    [defaultTAS, fuelConsumption, lastRouteAltitude, updateWaypointName]
+    [defaultTAS, fuelConsumption, lastRouteAltitude, updateWaypointName, autoAdjustEnabled, adjustWaypointForCompliance, addComplianceAlert]
   );
 
   const handleDeleteWaypoint = useCallback(
@@ -669,6 +732,44 @@ export function useWaypoints(
     [loadWaypointsSequentially]
   );
 
+  /**
+   * Generate and insert compliance transition waypoints for the entire route
+   */
+  const insertComplianceTransitions = useCallback(() => {
+    setWaypoints(prev => {
+      if (prev.length < 2) return prev;
+
+      const waypointsWithTransitions = generateTransitionWaypoints(prev);
+      const transitionsAdded = waypointsWithTransitions.length - prev.length;
+
+      if (transitionsAdded > 0) {
+        addComplianceAlert(
+          `${transitionsAdded} transition waypoints added for airspace compliance`
+        );
+      }
+
+      return waypointsWithTransitions;
+    });
+  }, [generateTransitionWaypoints, addComplianceAlert]);
+
+  /**
+   * Remove all compliance transition waypoints
+   */
+  const removeComplianceTransitions = useCallback(() => {
+    setWaypoints(prev => {
+      const filtered = prev.filter(wp => !wp.isTransition || wp.name !== 'Compliance Transition');
+      const transitionsRemoved = prev.length - filtered.length;
+
+      if (transitionsRemoved > 0) {
+        addComplianceAlert(
+          `${transitionsRemoved} compliance transition waypoints removed`
+        );
+      }
+
+      return filtered;
+    });
+  }, [addComplianceAlert]);
+
   return {
     waypoints,
     setWaypoints,
@@ -687,5 +788,14 @@ export function useWaypoints(
     deleteRoute,
     renameRoute,
     loadRouteFromSerialized,
+    // Altitude compliance functions
+    autoAdjustEnabled,
+    setAutoAdjustEnabled,
+    analyzeRouteCompliance,
+    getAltitudeLimits,
+    complianceAlerts,
+    clearComplianceAlerts,
+    insertComplianceTransitions,
+    removeComplianceTransitions,
   };
 }

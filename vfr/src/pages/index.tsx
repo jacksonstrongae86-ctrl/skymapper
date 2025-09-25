@@ -4,6 +4,7 @@ import { useWaypoints } from "../hooks/index/useWaypoints";
 import { useFlightCalculations } from "../hooks/index/useFlightCalculations";
 import { useUIState } from "../hooks/index/useUIState";
 import { useWindData } from "../hooks/index/useWindData";
+import { useAviationData } from "../hooks/index/useAviationData";
 import { useIsMobile } from "../hooksMobile/useIsMobile";
 import Sidebar from "../components/desktop/sidebar/Sidebar";
 import MobileSidebar from "../components/mobile/sidebar/Sidebar";
@@ -38,6 +39,12 @@ export default function Home() {
     setSelectedDateTime,
     fetchWindData,
   } = useWindData();
+
+  const [selectedCountry, setSelectedCountry] = useState("es");
+
+  // Load aviation data for altitude compliance
+  const { airspaces } = useAviationData(selectedCountry);
+
   const {
     waypoints,
     handleWaypointUpdate,
@@ -53,7 +60,15 @@ export default function Home() {
     deleteRoute,
     renameRoute,
     loadRouteFromSerialized,
-  } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
+    // Altitude compliance functions
+    autoAdjustEnabled,
+    setAutoAdjustEnabled,
+    analyzeRouteCompliance,
+    complianceAlerts,
+    clearComplianceAlerts,
+    insertComplianceTransitions,
+    removeComplianceTransitions,
+  } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? [], airspaces);
 
   useEffect(() => {
     const serialized = new URLSearchParams(window.location.search).get(
@@ -119,7 +134,6 @@ export default function Home() {
     }));
   };
 
-  const [selectedCountry, setSelectedCountry] = useState("es");
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
@@ -203,6 +217,15 @@ export default function Home() {
             onWaypointUpdate={handleWaypointUpdate}
             onDeleteWaypoint={handleDeleteWaypoint}
             gal_liter={gal_liter}
+            // Altitude compliance props
+            airspaces={airspaces}
+            autoAdjustEnabled={autoAdjustEnabled}
+            setAutoAdjustEnabled={setAutoAdjustEnabled}
+            analyzeRouteCompliance={analyzeRouteCompliance}
+            complianceAlerts={complianceAlerts}
+            clearComplianceAlerts={clearComplianceAlerts}
+            insertComplianceTransitions={insertComplianceTransitions}
+            removeComplianceTransitions={removeComplianceTransitions}
             set_gal_liter={set_gal_liter}
           />
 

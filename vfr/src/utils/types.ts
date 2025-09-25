@@ -126,6 +126,20 @@ export interface LatLng {
   lng: number;
 }
 
+export interface AnalyzeRouteCompliance  {
+    waypointCompliance: Array<{
+      index: number;
+      compliant: boolean;
+      adjustedAltitude: number | null;
+      violation: {
+        type: 'above_upper_limit' | 'below_lower_limit' | null;
+        limit: number | null;
+        airspaces: Airspace[];
+      };
+    }>;
+    overallCompliant: boolean;
+  }
+
 export interface SidebarProps {
   fuelConsumption: number;
   setFuelConsumption: (consumption: number) => void;
@@ -151,6 +165,15 @@ export interface SidebarProps {
   bottomSidebarHeight?: number;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
+  // Altitude compliance properties
+  airspaces?: Airspace[];
+  autoAdjustEnabled?: boolean;
+  setAutoAdjustEnabled?: (enabled: boolean) => void;
+  analyzeRouteCompliance?: (waypoints: Waypoint[]) => AnalyzeRouteCompliance;
+  complianceAlerts?: string[];
+  insertComplianceTransitions?: () => void;
+  removeComplianceTransitions?: () => void;
+  clearComplianceAlerts?: () => void;
 }
 
 export interface MapControlsProps {
