@@ -100,10 +100,11 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
 
         {/* Results Table Component */}
         {!isBottomMinimized && (
-          
+
           <ResultsTable results={results} gal_liter={gal_liter} />
         )}
       </div>
+
     </div>
   );
 };

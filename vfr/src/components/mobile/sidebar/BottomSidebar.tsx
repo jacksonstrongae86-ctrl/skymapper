@@ -100,6 +100,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
           <ResultsTable results={results} gal_liter={gal_liter} />
         </div>
       </div>
+
     </div>
   );
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { useTheme } from '@/src/utils/ThemeContext';
 import { Waypoint } from '@/src/utils/types';
 import { Maximize2, Minimize2, Printer } from 'lucide-react';
+import HeaderTrivia from '../../../../shared/HeaderTrivia';
 
 interface HeaderProps {
   waypoints: Waypoint[];
@@ -52,6 +53,16 @@ export const Header: React.FC<HeaderProps> = ({
           `}>
             {waypoints.length > 1 ? waypoints.length - 1 : 0} legs
           </span>
+          {/* Trivia Section - inline */}
+          {!isBottomMinimized && (
+            <div className="flex-1 max-w-sm ml-4 min-w-0">
+              <HeaderTrivia
+                autoRotate={true}
+                rotateInterval={25000}
+                isMobile={false}
+              />
+            </div>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
@@ -79,6 +90,7 @@ export const Header: React.FC<HeaderProps> = ({
             )}
           </div>
         </div>
+
       </div>
     </div>
   );
