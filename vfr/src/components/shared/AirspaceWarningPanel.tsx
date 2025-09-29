@@ -25,8 +25,6 @@ interface AirspaceWarningPanelProps {
   waypoints: Waypoint[];
   airspaces: Airspace[];
   warningAlerts: string[];
-  showWarnings: boolean;
-  onToggleWarnings: (enabled: boolean) => void;
   onClearAlerts: () => void;
   analyzeRouteWarnings: (waypoints: Waypoint[]) => RouteWarningAnalysis;
 }
@@ -35,8 +33,6 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
   waypoints,
   airspaces,
   warningAlerts,
-  showWarnings,
-  onToggleWarnings,
   onClearAlerts,
   analyzeRouteWarnings,
 }) => {
@@ -70,49 +66,41 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
       </div>
 
       {/* Controls */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div className="space-y-3">
-          <label className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              checked={showWarnings}
-              onChange={(e) => onToggleWarnings(e.target.checked)}
-              className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700"
-            />
-            <span className="text-sm text-gray-700 dark:text-gray-300">
-              Show airspace warnings
-            </span>
-          </label>
-        </div>
-
-        <div className="space-y-3">
-          <button
-            onClick={onClearAlerts}
-            className="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 hover:bg-gray-300 dark:bg-gray-600 dark:text-gray-200 dark:hover:bg-gray-500 rounded-md transition-colors duration-200"
-          >
-            Clear Alerts
-          </button>
-        </div>
+      <div className="flex justify-center mb-4">
+        <button
+          onClick={onClearAlerts}
+          className="px-6 py-2 text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-800 rounded-lg transition-colors duration-200 shadow-sm"
+        >
+          Clear All Alerts
+        </button>
       </div>
 
       {/* Violation Warnings */}
       {violationWarnings.length > 0 && (
-        <div className="mb-4 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-md">
-          <h4 className="text-sm font-medium text-red-800 dark:text-red-200 mb-2">
-            ⚠️ Altitude Violations ({violationWarnings.length})
+        <div className="mb-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+          <h4 className="text-sm font-semibold text-red-800 dark:text-red-200 mb-3 flex items-center">
+            <span className="text-base mr-2">⚠️</span>
+            Altitude Violations ({violationWarnings.length})
           </h4>
-          <div className="space-y-2 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-red-400 scrollbar-track-red-100 dark:scrollbar-track-red-900">
+          <div className="space-y-3 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-red-400 scrollbar-track-red-100 dark:scrollbar-track-red-900">
             {violationWarnings.map((warning) => (
-              <div key={`${warning.waypointIndex}-violation`} className="text-xs text-red-700 dark:text-red-300 p-2 bg-red-50 dark:bg-red-900/30 rounded border-l-2 border-red-400 break-inside-avoid">
-                <div className="font-medium truncate mb-1">
-                  Waypoint {warning.waypointIndex + 1} ({warning.altitude}ft)
+              <div key={`${warning.waypointIndex}-violation`} className="p-3 bg-white dark:bg-red-900/40 rounded-md border-l-4 border-red-500 shadow-sm">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-red-800 dark:text-red-200 text-sm">
+                    Waypoint {warning.waypointIndex + 1}
+                  </span>
+                  <span className="text-xs px-2 py-1 bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-200 rounded-full font-medium">
+                    {warning.altitude}ft
+                  </span>
                 </div>
-                <div className="ml-2 break-words text-wrap hyphens-auto leading-tight">
+                <div className="text-sm text-red-700 dark:text-red-300 leading-relaxed">
                   {warning.warning.message}
                 </div>
                 {warning.warning.suggestedAltitude && (
-                  <div className="ml-2 font-medium text-red-600 dark:text-red-400 break-words text-wrap mt-1">
-                    💡 Suggested: {warning.warning.suggestedAltitude}ft
+                  <div className="mt-2 p-2 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-800 rounded text-sm">
+                    <span className="text-green-700 dark:text-green-300 font-medium">
+                      💡 Suggested altitude: {warning.warning.suggestedAltitude}ft
+                    </span>
                   </div>
                 )}
               </div>
@@ -123,17 +111,23 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
 
       {/* Informational Warnings */}
       {informationalWarnings.length > 0 && (
-        <div className="mb-4 p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-md">
-          <h4 className="text-sm font-medium text-yellow-800 dark:text-yellow-200 mb-2">
-            ℹ️ Airspace Intersections ({informationalWarnings.length})
+        <div className="mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+          <h4 className="text-sm font-semibold text-yellow-800 dark:text-yellow-200 mb-3 flex items-center">
+            <span className="text-base mr-2">ℹ️</span>
+            Airspace Intersections ({informationalWarnings.length})
           </h4>
-          <div className="space-y-2 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-yellow-100 dark:scrollbar-track-yellow-900">
+          <div className="space-y-3 max-h-40 overflow-y-auto scrollbar-thin scrollbar-thumb-yellow-400 scrollbar-track-yellow-100 dark:scrollbar-track-yellow-900">
             {informationalWarnings.map((warning) => (
-              <div key={`${warning.waypointIndex}-info`} className="text-xs text-yellow-700 dark:text-yellow-300 p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded border-l-2 border-yellow-400 break-inside-avoid">
-                <div className="font-medium truncate mb-1">
-                  Waypoint {warning.waypointIndex + 1} ({warning.altitude}ft)
+              <div key={`${warning.waypointIndex}-info`} className="p-3 bg-white dark:bg-yellow-900/40 rounded-md border-l-4 border-yellow-500 shadow-sm">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="font-semibold text-yellow-800 dark:text-yellow-200 text-sm">
+                    Waypoint {warning.waypointIndex + 1}
+                  </span>
+                  <span className="text-xs px-2 py-1 bg-yellow-100 dark:bg-yellow-800 text-yellow-700 dark:text-yellow-200 rounded-full font-medium">
+                    {warning.altitude}ft
+                  </span>
                 </div>
-                <div className="ml-2 break-words text-wrap hyphens-auto leading-tight">
+                <div className="text-sm text-yellow-700 dark:text-yellow-300 leading-relaxed">
                   {warning.warning.message}
                 </div>
               </div>
@@ -144,15 +138,20 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
 
       {/* Recent Alerts */}
       {warningAlerts.length > 0 && (
-        <div className="mb-4 space-y-2">
-          <h4 className="text-sm font-medium text-gray-900 dark:text-white">Recent Alerts</h4>
-          <div className="max-h-32 overflow-y-auto space-y-1 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
+        <div className="mb-4 p-4 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg">
+          <h4 className="text-sm font-semibold text-gray-900 dark:text-white mb-3 flex items-center">
+            <span className="text-base mr-2">📋</span>
+            Recent Alerts
+          </h4>
+          <div className="max-h-32 overflow-y-auto space-y-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100 dark:scrollbar-track-gray-700">
             {warningAlerts.slice(-5).map((alert, index) => (
               <div
                 key={index}
-                className="text-xs text-gray-600 dark:text-gray-400 p-2 bg-gray-50 dark:bg-gray-700/50 rounded border-l-2 border-yellow-400 break-words text-wrap hyphens-auto leading-tight break-inside-avoid"
+                className="p-3 bg-white dark:bg-gray-700 rounded-md border-l-4 border-blue-400 shadow-sm"
               >
-                {alert}
+                <div className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                  {alert}
+                </div>
               </div>
             ))}
           </div>

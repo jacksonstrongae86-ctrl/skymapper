@@ -33,8 +33,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   set_gal_liter,
   // Airspace warning props
   airspaces = [],
-  showWarnings = true,
-  setShowWarnings,
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
@@ -190,8 +188,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                   waypoints={waypoints}
                   airspaces={airspaces}
                   warningAlerts={warningAlerts}
-                  showWarnings={showWarnings}
-                  onToggleWarnings={setShowWarnings || (() => {})}
                   onClearAlerts={clearWarningAlerts || (() => {})}
                   analyzeRouteWarnings={analyzeRouteWarnings}
                 />
