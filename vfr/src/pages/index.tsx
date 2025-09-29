@@ -131,6 +131,12 @@ export default function Home() {
     setAlertDismissed(false);
   }, [waypoints]);
 
+  // Enhanced clear alerts function that also dismisses page-level alerts
+  const handleClearAllAlerts = () => {
+    clearWarningAlerts(); // Clear sidebar alerts
+    setAlertDismissed(true); // Dismiss page-level alert
+  };
+
   const handleLayerToggle = (
     layer: keyof typeof aviationLayers,
     enabled: boolean
@@ -181,7 +187,7 @@ export default function Home() {
               setShowWarnings={setShowWarnings}
               analyzeRouteWarnings={analyzeRouteWarnings}
               warningAlerts={warningAlerts}
-              clearWarningAlerts={clearWarningAlerts}
+              clearWarningAlerts={handleClearAllAlerts}
             />
           </div>
           <div id="map-container" className="flex-1 relative mt-0">
@@ -247,7 +253,7 @@ export default function Home() {
             setShowWarnings={setShowWarnings}
             analyzeRouteWarnings={analyzeRouteWarnings}
             warningAlerts={warningAlerts}
-            clearWarningAlerts={clearWarningAlerts}
+            clearWarningAlerts={handleClearAllAlerts}
             set_gal_liter={set_gal_liter}
           />
 
