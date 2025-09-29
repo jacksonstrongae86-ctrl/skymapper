@@ -30,6 +30,7 @@ import { formatElevation } from "@/src/utils/unitConversions";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
+import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -80,7 +81,7 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   loadRoute: (id: string) => void;
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
-  analyzeRouteWarnings?: (waypoints: Waypoint[]) => any;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -299,7 +300,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           .map((waypoint, absoluteIndex) => {
             // Find if this waypoint has a violation
             const waypointWarning = routeWarnings.warnings?.find(
-              (warning: any) => warning.waypointIndex === absoluteIndex
+              (warning) => warning.waypointIndex === absoluteIndex
             );
             const hasViolation = waypointWarning?.hasViolation || false;
 

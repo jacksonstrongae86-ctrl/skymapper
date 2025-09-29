@@ -43,7 +43,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [activeTab, setActiveTab] = useState<"settings" | "waypoints" | "warnings">(
     "settings"
   );
-  const [showWarningPanel, setShowWarningPanel] = useState(true);
 
   // Use the same resize logic as BottomSidebar
   const {
