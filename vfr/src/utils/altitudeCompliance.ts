@@ -137,7 +137,101 @@ export function getAltitudeLimitsAtPoint(point: LatLng, airspaces: Airspace[]): 
 }
 
 /**
- * Check if an altitude is compliant at a given point
+ * Check if an altitude is compliant at a given point and get warning information
+ */
+export function checkAltitudeCompliance(
+  altitude: number,
+  point: LatLng,
+  airspaces: Airspace[]
+): {
+  isInRestrictedAirspace: boolean;
+  hasViolation: boolean;
+  warning: {
+    type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+    message: string;
+    limit: number | null;
+    suggestedAltitude: number | null;
+    airspaces: Airspace[];
+  };
+} {
+  const limits = getAltitudeLimitsAtPoint(point, airspaces);
+  const applicableAirspaces = getAirspacesAtPoint(point, airspaces);
+
+  // No airspace restrictions
+  if (limits.lowerLimit === null && limits.upperLimit === null && applicableAirspaces.length === 0) {
+    return {
+      isInRestrictedAirspace: false,
+      hasViolation: false,
+      warning: { type: null, message: '', limit: null, suggestedAltitude: null, airspaces: [] }
+    };
+  }
+
+  // In airspace but no altitude restrictions (informational)
+  if (limits.lowerLimit === null && limits.upperLimit === null && applicableAirspaces.length > 0) {
+    const airspaceNames = applicableAirspaces.map(a => a.name || 'Unnamed').join(', ');
+    return {
+      isInRestrictedAirspace: true,
+      hasViolation: false,
+      warning: {
+        type: 'in_restricted_airspace',
+        message: `Waypoint is in airspace: ${airspaceNames}. Please verify operational status and restrictions.`,
+        limit: null,
+        suggestedAltitude: null,
+        airspaces: applicableAirspaces
+      }
+    };
+  }
+
+  // Check upper limit violation
+  if (limits.upperLimit !== null && altitude > limits.upperLimit) {
+    const airspaceNames = limits.restrictiveAirspaces.map(a => a.name || 'Unnamed').join(', ');
+    return {
+      isInRestrictedAirspace: true,
+      hasViolation: true,
+      warning: {
+        type: 'above_upper_limit',
+        message: `Altitude ${altitude}ft exceeds upper limit of ${limits.upperLimit}ft in airspace: ${airspaceNames}. Consider flying below ${limits.upperLimit}ft.`,
+        limit: limits.upperLimit,
+        suggestedAltitude: limits.upperLimit,
+        airspaces: limits.restrictiveAirspaces
+      }
+    };
+  }
+
+  // Check lower limit violation
+  if (limits.lowerLimit !== null && altitude < limits.lowerLimit) {
+    const airspaceNames = limits.restrictiveAirspaces.map(a => a.name || 'Unnamed').join(', ');
+    return {
+      isInRestrictedAirspace: true,
+      hasViolation: true,
+      warning: {
+        type: 'below_lower_limit',
+        message: `Altitude ${altitude}ft is below minimum limit of ${limits.lowerLimit}ft in airspace: ${airspaceNames}. Consider flying above ${limits.lowerLimit}ft.`,
+        limit: limits.lowerLimit,
+        suggestedAltitude: limits.lowerLimit,
+        airspaces: limits.restrictiveAirspaces
+      }
+    };
+  }
+
+  // In restricted airspace but compliant
+  const airspaceNames = limits.restrictiveAirspaces.map(a => a.name || 'Unnamed').join(', ');
+  return {
+    isInRestrictedAirspace: true,
+    hasViolation: false,
+    warning: {
+      type: 'in_restricted_airspace',
+      message: `Waypoint is in airspace: ${airspaceNames}. Altitude ${altitude}ft is within limits (${limits.lowerLimit || 0}ft - ${limits.upperLimit || '∞'}ft). Please verify operational status.`,
+      limit: null,
+      suggestedAltitude: null,
+      airspaces: limits.restrictiveAirspaces
+    }
+  };
+}
+
+/**
+ * Legacy function for backward compatibility - now just calls checkAltitudeCompliance
+ * @deprecated Use checkAltitudeCompliance instead
  */
 export function isAltitudeCompliant(
   altitude: number,
@@ -152,48 +246,70 @@ export function isAltitudeCompliant(
     airspaces: Airspace[];
   };
 } {
-  const limits = getAltitudeLimitsAtPoint(point, airspaces);
-
-  // No airspace restrictions
-  if (limits.lowerLimit === null && limits.upperLimit === null) {
-    return {
-      compliant: true,
-      adjustedAltitude: null,
-      violation: { type: null, limit: null, airspaces: [] }
-    };
-  }
-
-  // Check upper limit violation
-  if (limits.upperLimit !== null && altitude > limits.upperLimit) {
-    return {
-      compliant: false,
-      adjustedAltitude: limits.upperLimit,
-      violation: {
-        type: 'above_upper_limit',
-        limit: limits.upperLimit,
-        airspaces: limits.restrictiveAirspaces
-      }
-    };
-  }
-
-  // Check lower limit violation
-  if (limits.lowerLimit !== null && altitude < limits.lowerLimit) {
-    return {
-      compliant: false,
-      adjustedAltitude: limits.lowerLimit,
-      violation: {
-        type: 'below_lower_limit',
-        limit: limits.lowerLimit,
-        airspaces: limits.restrictiveAirspaces
-      }
-    };
-  }
-
+  const compliance = checkAltitudeCompliance(altitude, point, airspaces);
   return {
-    compliant: true,
-    adjustedAltitude: null,
-    violation: { type: null, limit: null, airspaces: [] }
+    compliant: !compliance.hasViolation,
+    adjustedAltitude: compliance.warning.suggestedAltitude,
+    violation: {
+      type: compliance.warning.type === 'in_restricted_airspace' ? null : compliance.warning.type,
+      limit: compliance.warning.limit,
+      airspaces: compliance.warning.airspaces
+    }
   };
+}
+
+/**
+ * Analyze route for airspace warnings without automatic adjustments
+ */
+export function analyzeRouteForWarnings(
+  waypoints: Array<{ position: [number, number]; altitude: number }>,
+  airspaces: Airspace[]
+): Array<{
+  waypointIndex: number;
+  position: [number, number];
+  altitude: number;
+  isInRestrictedAirspace: boolean;
+  hasViolation: boolean;
+  warning: {
+    type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+    message: string;
+    limit: number | null;
+    suggestedAltitude: number | null;
+    airspaces: Airspace[];
+  };
+}> {
+  const warnings: Array<{
+    waypointIndex: number;
+    position: [number, number];
+    altitude: number;
+    isInRestrictedAirspace: boolean;
+    hasViolation: boolean;
+    warning: {
+      type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+      message: string;
+      limit: number | null;
+      suggestedAltitude: number | null;
+      airspaces: Airspace[];
+    };
+  }> = [];
+
+  waypoints.forEach((waypoint, index) => {
+    const point: LatLng = { lat: waypoint.position[0], lng: waypoint.position[1] };
+    const compliance = checkAltitudeCompliance(waypoint.altitude, point, airspaces);
+
+    if (compliance.isInRestrictedAirspace) {
+      warnings.push({
+        waypointIndex: index,
+        position: waypoint.position,
+        altitude: waypoint.altitude,
+        isInRestrictedAirspace: compliance.isInRestrictedAirspace,
+        hasViolation: compliance.hasViolation,
+        warning: compliance.warning
+      });
+    }
+  });
+
+  return warnings;
 }
 
 /**

@@ -1,247 +1,101 @@
 import { useState, useCallback } from 'react';
 import { Waypoint, Airspace, LatLng } from '@/src/utils/types';
 import {
-  isAltitudeCompliant,
-  getAltitudeLimitsAtPoint,
-  calculateComplianceTransitions,
-  getAirspacesAtPoint
+  checkAltitudeCompliance,
+  analyzeRouteForWarnings,
+  getAltitudeLimitsAtPoint
 } from '@/src/utils/altitudeCompliance';
 
-export interface WaypointComplianceInfo {
-  index: number;
-  compliant: boolean;
-  adjustedAltitude: number | null;
-  violation: {
-    type: 'above_upper_limit' | 'below_lower_limit' | null;
+export interface WaypointWarningInfo {
+  waypointIndex: number;
+  position: [number, number];
+  altitude: number;
+  isInRestrictedAirspace: boolean;
+  hasViolation: boolean;
+  warning: {
+    type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+    message: string;
     limit: number | null;
+    suggestedAltitude: number | null;
     airspaces: Airspace[];
   };
-  restrictiveAirspaces: Airspace[];
 }
 
-export interface LegComplianceInfo {
-  fromIndex: number;
-  toIndex: number;
-  needsTransitions: boolean;
-  transitions: Array<{
-    position: [number, number];
-    altitude: number;
-    reason: string;
-    restrictiveAirspaces: Airspace[];
-  }>;
-}
-
-export interface ComplianceState {
-  waypointCompliance: WaypointComplianceInfo[];
-  legCompliance: LegComplianceInfo[];
-  overallCompliant: boolean;
-  autoAdjustEnabled: boolean;
+export interface RouteWarningAnalysis {
+  warnings: WaypointWarningInfo[];
+  hasViolations: boolean;
+  hasRestrictedAirspaceIntersections: boolean;
+  totalWarnings: number;
 }
 
 export function useAltitudeCompliance(airspaces: Airspace[] = []) {
-  const [autoAdjustEnabled, setAutoAdjustEnabled] = useState(true);
-  const [complianceAlerts, setComplianceAlerts] = useState<string[]>([]);
+  const [showWarnings, setShowWarnings] = useState(true);
+  const [warningAlerts, setWarningAlerts] = useState<string[]>([]);
 
   /**
-   * Check compliance for all waypoints in a route
+   * Analyze route for airspace warnings (non-intrusive)
    */
-  const checkWaypointCompliance = useCallback(
-    (waypoints: Waypoint[]): WaypointComplianceInfo[] => {
-      return waypoints.map((waypoint, index) => {
-        const point: LatLng = {
-          lat: waypoint.position[0],
-          lng: waypoint.position[1]
-        };
-
-        const compliance = isAltitudeCompliant(waypoint.altitude, point, airspaces);
-        const restrictiveAirspaces = getAirspacesAtPoint(point, airspaces);
-
-        return {
-          index,
-          compliant: compliance.compliant,
-          adjustedAltitude: compliance.adjustedAltitude,
-          violation: compliance.violation,
-          restrictiveAirspaces
-        };
-      });
-    },
-    [airspaces]
-  );
-
-  /**
-   * Check compliance for all legs in a route
-   */
-  const checkLegCompliance = useCallback(
-    (waypoints: Waypoint[]): LegComplianceInfo[] => {
-      const legCompliance: LegComplianceInfo[] = [];
-
-      for (let i = 0; i < waypoints.length - 1; i++) {
-        const fromWaypoint = waypoints[i];
-        const toWaypoint = waypoints[i + 1];
-
-        const transitions = calculateComplianceTransitions(
-          {
-            position: fromWaypoint.position,
-            altitude: fromWaypoint.altitude
-          },
-          {
-            position: toWaypoint.position,
-            altitude: toWaypoint.altitude
-          },
-          airspaces
-        );
-
-        legCompliance.push({
-          fromIndex: i,
-          toIndex: i + 1,
-          needsTransitions: transitions.length > 0,
-          transitions
-        });
-      }
-
-      return legCompliance;
-    },
-    [airspaces]
-  );
-
-  /**
-   * Get complete compliance analysis for a route
-   */
-  const analyzeRouteCompliance = useCallback(
-    (waypoints: Waypoint[]): ComplianceState => {
+  const analyzeRouteWarnings = useCallback(
+    (waypoints: Waypoint[]): RouteWarningAnalysis => {
       if (waypoints.length === 0) {
         return {
-          waypointCompliance: [],
-          legCompliance: [],
-          overallCompliant: true,
-          autoAdjustEnabled
+          warnings: [],
+          hasViolations: false,
+          hasRestrictedAirspaceIntersections: false,
+          totalWarnings: 0
         };
       }
 
-      const waypointCompliance = checkWaypointCompliance(waypoints);
-      const legCompliance = checkLegCompliance(waypoints);
+      const waypointsForAnalysis = waypoints.map(wp => ({
+        position: wp.position,
+        altitude: wp.altitude
+      }));
 
-      const overallCompliant = waypointCompliance.every(wc => wc.compliant) &&
-        legCompliance.every(lc => !lc.needsTransitions);
+      const warnings = analyzeRouteForWarnings(waypointsForAnalysis, airspaces);
+
+      const hasViolations = warnings.some(w => w.hasViolation);
+      const hasRestrictedAirspaceIntersections = warnings.some(w => w.isInRestrictedAirspace);
 
       return {
-        waypointCompliance,
-        legCompliance,
-        overallCompliant,
-        autoAdjustEnabled
+        warnings,
+        hasViolations,
+        hasRestrictedAirspaceIntersections,
+        totalWarnings: warnings.length
       };
     },
-    [checkWaypointCompliance, checkLegCompliance, autoAdjustEnabled]
+    [airspaces]
   );
 
   /**
-   * Auto-adjust waypoint altitudes to be compliant
+   * Check if a specific waypoint is in restricted airspace
    */
-  const adjustWaypointForCompliance = useCallback(
-    (waypoint: Waypoint): Waypoint => {
+  const checkWaypointWarning = useCallback(
+    (waypoint: Waypoint): WaypointWarningInfo | null => {
       const point: LatLng = {
         lat: waypoint.position[0],
         lng: waypoint.position[1]
       };
 
-      const compliance = isAltitudeCompliant(waypoint.altitude, point, airspaces);
+      console.log('Checking waypoint warning for:', waypoint.position, 'altitude:', waypoint.altitude, 'airspaces available:', airspaces.length);
 
-      if (!compliance.compliant && compliance.adjustedAltitude !== null) {
+      const compliance = checkAltitudeCompliance(waypoint.altitude, point, airspaces);
+
+      console.log('Compliance check result:', compliance);
+
+      if (compliance.isInRestrictedAirspace) {
+        console.log('Waypoint is in restricted airspace, returning warning');
         return {
-          ...waypoint,
-          altitude: compliance.adjustedAltitude,
-          // Store original altitude for reference
-          originalAltitude: waypoint.originalAltitude ?? waypoint.altitude
+          waypointIndex: -1, // Will be set by caller
+          position: waypoint.position,
+          altitude: waypoint.altitude,
+          isInRestrictedAirspace: compliance.isInRestrictedAirspace,
+          hasViolation: compliance.hasViolation,
+          warning: compliance.warning
         };
       }
 
-      return waypoint;
-    },
-    [airspaces]
-  );
-
-  /**
-   * Auto-adjust all waypoints in a route for compliance
-   */
-  const adjustRouteForCompliance = useCallback(
-    (waypoints: Waypoint[]): {
-      adjustedWaypoints: Waypoint[];
-      adjustmentsMade: Array<{
-        index: number;
-        originalAltitude: number;
-        adjustedAltitude: number;
-        reason: string;
-      }>;
-    } => {
-      const adjustmentsMade: Array<{
-        index: number;
-        originalAltitude: number;
-        adjustedAltitude: number;
-        reason: string;
-      }> = [];
-
-      const adjustedWaypoints = waypoints.map((waypoint, index) => {
-        const adjusted = adjustWaypointForCompliance(waypoint);
-
-        if (adjusted.altitude !== waypoint.altitude) {
-          adjustmentsMade.push({
-            index,
-            originalAltitude: waypoint.altitude,
-            adjustedAltitude: adjusted.altitude,
-            reason: 'Airspace compliance'
-          });
-        }
-
-        return adjusted;
-      });
-
-      return { adjustedWaypoints, adjustmentsMade };
-    },
-    [adjustWaypointForCompliance]
-  );
-
-  /**
-   * Generate transition waypoints for the entire route
-   */
-  const generateTransitionWaypoints = useCallback(
-    (waypoints: Waypoint[]): Waypoint[] => {
-      const result: Waypoint[] = [];
-
-      for (let i = 0; i < waypoints.length; i++) {
-        result.push(waypoints[i]);
-
-        // Add transition waypoints for the leg to the next waypoint
-        if (i < waypoints.length - 1) {
-          const transitions = calculateComplianceTransitions(
-            {
-              position: waypoints[i].position,
-              altitude: waypoints[i].altitude
-            },
-            {
-              position: waypoints[i + 1].position,
-              altitude: waypoints[i + 1].altitude
-            },
-            airspaces
-          );
-
-          for (const transition of transitions) {
-            result.push({
-              position: transition.position,
-              type: 'waypoint',
-              altitude: transition.altitude,
-              ias: waypoints[i].ias, // Inherit IAS from source waypoint
-              visible: false, // Hidden transition waypoint
-              name: `Compliance Transition`,
-              isTransition: true,
-              altitudeChange: 0,
-              rocRod: 500,
-              iasClimbDescent: waypoints[i].ias
-            });
-          }
-        }
-      }
-
-      return result;
+      console.log('Waypoint is not in restricted airspace');
+      return null;
     },
     [airspaces]
   );
@@ -258,38 +112,32 @@ export function useAltitudeCompliance(airspaces: Airspace[] = []) {
   );
 
   /**
-   * Add compliance alert
+   * Add warning alert
    */
-  const addComplianceAlert = useCallback((message: string) => {
-    setComplianceAlerts(prev => [...prev, message]);
+  const addWarningAlert = useCallback((message: string) => {
+    setWarningAlerts(prev => [...prev, message]);
   }, []);
 
   /**
-   * Clear compliance alerts
+   * Clear warning alerts
    */
-  const clearComplianceAlerts = useCallback(() => {
-    setComplianceAlerts([]);
+  const clearWarningAlerts = useCallback(() => {
+    setWarningAlerts([]);
   }, []);
 
   return {
     // State
-    autoAdjustEnabled,
-    complianceAlerts,
+    showWarnings,
+    warningAlerts,
 
     // Actions
-    setAutoAdjustEnabled,
-    addComplianceAlert,
-    clearComplianceAlerts,
+    setShowWarnings,
+    addWarningAlert,
+    clearWarningAlerts,
 
     // Analysis functions
-    analyzeRouteCompliance,
-    checkWaypointCompliance,
-    checkLegCompliance,
-
-    // Adjustment functions
-    adjustWaypointForCompliance,
-    adjustRouteForCompliance,
-    generateTransitionWaypoints,
+    analyzeRouteWarnings,
+    checkWaypointWarning,
 
     // Utility functions
     getAltitudeLimits

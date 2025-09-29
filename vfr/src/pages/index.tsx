@@ -11,6 +11,7 @@ import MobileSidebar from "../components/mobile/sidebar/Sidebar";
 import MapControls from "../components/desktop/map/MapControls";
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
+import AirspaceAlert from "../components/shared/AirspaceAlert";
 import "intro.js/introjs.css";
 
 const MapComponent = dynamic(
@@ -60,14 +61,12 @@ export default function Home() {
     deleteRoute,
     renameRoute,
     loadRouteFromSerialized,
-    // Altitude compliance functions
-    autoAdjustEnabled,
-    setAutoAdjustEnabled,
-    analyzeRouteCompliance,
-    complianceAlerts,
-    clearComplianceAlerts,
-    insertComplianceTransitions,
-    removeComplianceTransitions,
+    // Airspace warning functions
+    showWarnings,
+    setShowWarnings,
+    analyzeRouteWarnings,
+    warningAlerts,
+    clearWarningAlerts,
   } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? [], airspaces);
 
   useEffect(() => {
@@ -124,6 +123,14 @@ export default function Home() {
     reportingpoints:false,
   });
 
+  // Airspace alert dismissal
+  const [alertDismissed, setAlertDismissed] = useState(false);
+
+  // Reset alert dismissal when waypoints change
+  useEffect(() => {
+    setAlertDismissed(false);
+  }, [waypoints]);
+
   const handleLayerToggle = (
     layer: keyof typeof aviationLayers,
     enabled: boolean
@@ -138,6 +145,15 @@ export default function Home() {
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
       <meta></meta>
+      {/* Airspace Alert - appears on both mobile and desktop */}
+      {!alertDismissed && waypoints.length > 0 && (
+        <AirspaceAlert
+          waypoints={waypoints}
+          analyzeRouteWarnings={analyzeRouteWarnings}
+          onDismiss={() => setAlertDismissed(true)}
+        />
+      )}
+
       {isMobile ? (
         <div className="flex flex-col h-full">
           <div id="mobile-top-sidebar" className="flex-none">
@@ -159,6 +175,13 @@ export default function Home() {
               bottomSidebarHeight={bottomSidebarHeight}
               gal_liter={gal_liter}
               set_gal_liter={set_gal_liter}
+              // Airspace warning props
+              airspaces={airspaces}
+              showWarnings={showWarnings}
+              setShowWarnings={setShowWarnings}
+              analyzeRouteWarnings={analyzeRouteWarnings}
+              warningAlerts={warningAlerts}
+              clearWarningAlerts={clearWarningAlerts}
             />
           </div>
           <div id="map-container" className="flex-1 relative mt-0">
@@ -183,6 +206,7 @@ export default function Home() {
               loadRoute={loadRoute}
               deleteRoute={deleteRoute}
               renameRoute={renameRoute}
+              analyzeRouteWarnings={analyzeRouteWarnings}
             />
           </div>
 
@@ -217,15 +241,13 @@ export default function Home() {
             onWaypointUpdate={handleWaypointUpdate}
             onDeleteWaypoint={handleDeleteWaypoint}
             gal_liter={gal_liter}
-            // Altitude compliance props
+            // Airspace warning props
             airspaces={airspaces}
-            autoAdjustEnabled={autoAdjustEnabled}
-            setAutoAdjustEnabled={setAutoAdjustEnabled}
-            analyzeRouteCompliance={analyzeRouteCompliance}
-            complianceAlerts={complianceAlerts}
-            clearComplianceAlerts={clearComplianceAlerts}
-            insertComplianceTransitions={insertComplianceTransitions}
-            removeComplianceTransitions={removeComplianceTransitions}
+            showWarnings={showWarnings}
+            setShowWarnings={setShowWarnings}
+            analyzeRouteWarnings={analyzeRouteWarnings}
+            warningAlerts={warningAlerts}
+            clearWarningAlerts={clearWarningAlerts}
             set_gal_liter={set_gal_liter}
           />
 
@@ -240,6 +262,7 @@ export default function Home() {
                 aviationLayers={aviationLayers}
                 selectedCountry={selectedCountry}
                 onCountryChange={setSelectedCountry}
+                analyzeRouteWarnings={analyzeRouteWarnings}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">

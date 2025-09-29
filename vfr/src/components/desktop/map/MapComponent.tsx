@@ -50,6 +50,7 @@ type MapComponentProps = {
   };
   selectedCountry: string;
   onCountryChange: (country: string) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => any;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -68,6 +69,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   },
   selectedCountry,
   onCountryChange,
+  analyzeRouteWarnings,
 }) => {
   const { theme } = useTheme();
   const { altitudeUnit } = useAltitudeUnit();
@@ -76,6 +78,14 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Analyze route warnings to get violation information for waypoints
+  const routeWarnings = useMemo(() => {
+    if (analyzeRouteWarnings && waypoints.length > 0) {
+      return analyzeRouteWarnings(waypoints);
+    }
+    return { warnings: [] };
+  }, [analyzeRouteWarnings, waypoints]);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
@@ -245,23 +255,31 @@ const MapComponent: React.FC<MapComponentProps> = ({
       {/* Waypoint markers */}
       {waypoints
         .filter((wp) => wp.visible !== false)
-        .map((waypoint, absoluteIndex) => (
-          <Marker
-            key={absoluteIndex}
-            position={waypoint.position}
-            icon={createWaypointIcon(waypoint.type, theme)}
-            draggable={true}
-            eventHandlers={{
-              dragend: (e) => {
-                const newPosition: [number, number] = [
-                  e.target.getLatLng().lat,
-                  e.target.getLatLng().lng,
-                ];
-                onWaypointDrag(absoluteIndex, newPosition);
-              },
-            }}
-          />
-        ))}
+        .map((waypoint, absoluteIndex) => {
+          // Find if this waypoint has a violation
+          const waypointWarning = routeWarnings.warnings?.find(
+            (warning: any) => warning.waypointIndex === absoluteIndex
+          );
+          const hasViolation = waypointWarning?.hasViolation || false;
+
+          return (
+            <Marker
+              key={absoluteIndex}
+              position={waypoint.position}
+              icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
+              draggable={true}
+              eventHandlers={{
+                dragend: (e) => {
+                  const newPosition: [number, number] = [
+                    e.target.getLatLng().lat,
+                    e.target.getLatLng().lng,
+                  ];
+                  onWaypointDrag(absoluteIndex, newPosition);
+                },
+              }}
+            />
+          );
+        })}
 
       {/* Aviation data with clustering */}
       {showAviationData && (

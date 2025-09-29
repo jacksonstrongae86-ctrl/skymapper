@@ -80,6 +80,7 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   loadRoute: (id: string) => void;
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => any;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -103,6 +104,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   loadRoute,
   deleteRoute,
   renameRoute,
+  analyzeRouteWarnings,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
@@ -112,6 +114,14 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Analyze route warnings to get violation information for waypoints
+  const routeWarnings = useMemo(() => {
+    if (analyzeRouteWarnings && waypoints.length > 0) {
+      return analyzeRouteWarnings(waypoints);
+    }
+    return { warnings: [] };
+  }, [analyzeRouteWarnings, waypoints]);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
@@ -287,12 +297,18 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
         {waypoints
           .filter((wp) => wp.visible !== false)
           .map((waypoint, absoluteIndex) => {
+            // Find if this waypoint has a violation
+            const waypointWarning = routeWarnings.warnings?.find(
+              (warning: any) => warning.waypointIndex === absoluteIndex
+            );
+            const hasViolation = waypointWarning?.hasViolation || false;
+
             return (
               <Marker
                 key={absoluteIndex}
                 position={waypoint.position}
                 draggable={true}
-                icon={createWaypointIcon(waypoint.type, theme)}
+                icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
                 eventHandlers={{
                   dragend: (e) => {
                     const newPosition: [number, number] = [

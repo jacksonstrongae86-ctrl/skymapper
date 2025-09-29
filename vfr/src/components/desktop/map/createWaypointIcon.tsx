@@ -8,7 +8,7 @@ import {
   PlaneLanding
 } from 'lucide-react';
 
-export const createWaypointIcon = (type: string, theme: string) => {
+export const createWaypointIcon = (type: string, theme: string, hasViolation?: boolean) => {
   const getIcon = () => {
     switch (type) {
       case 'BOC':
@@ -29,9 +29,11 @@ export const createWaypointIcon = (type: string, theme: string) => {
       w-8 h-8
       flex items-center justify-center
       rounded-full
-      ${`button-gradient-${theme}`}
-      text-[var(--button-text)]
-      border-2 border-[var(--sidebar-border)]
+      ${hasViolation
+        ? 'bg-red-600 border-red-800 text-white animate-pulse shadow-red-500/50'
+        : `button-gradient-${theme} text-[var(--button-text)] border-[var(--sidebar-border)]`
+      }
+      border-2
       shadow-lg
     `}>
       {getIcon()}

@@ -165,15 +165,31 @@ export interface SidebarProps {
   bottomSidebarHeight?: number;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
-  // Altitude compliance properties
+  // Airspace warning properties
   airspaces?: Airspace[];
-  autoAdjustEnabled?: boolean;
-  setAutoAdjustEnabled?: (enabled: boolean) => void;
-  analyzeRouteCompliance?: (waypoints: Waypoint[]) => AnalyzeRouteCompliance;
-  complianceAlerts?: string[];
-  insertComplianceTransitions?: () => void;
-  removeComplianceTransitions?: () => void;
-  clearComplianceAlerts?: () => void;
+  showWarnings?: boolean;
+  setShowWarnings?: (enabled: boolean) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => {
+    warnings: Array<{
+      waypointIndex: number;
+      position: [number, number];
+      altitude: number;
+      isInRestrictedAirspace: boolean;
+      hasViolation: boolean;
+      warning: {
+        type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+        message: string;
+        limit: number | null;
+        suggestedAltitude: number | null;
+        airspaces: Airspace[];
+      };
+    }>;
+    hasViolations: boolean;
+    hasRestrictedAirspaceIntersections: boolean;
+    totalWarnings: number;
+  };
+  warningAlerts?: string[];
+  clearWarningAlerts?: () => void;
 }
 
 export interface MapControlsProps {

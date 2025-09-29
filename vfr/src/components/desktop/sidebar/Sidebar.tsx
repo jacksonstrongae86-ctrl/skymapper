@@ -4,7 +4,7 @@ import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
-import AltitudeCompliancePanel from "../../shared/AltitudeCompliancePanel";
+import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
 import AirspaceLegend from "../../shared/AirspaceLegend";
 import AltitudeUnitSelector from "../../shared/AltitudeUnitSelector";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
@@ -30,19 +30,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   setIsFullScreen,
   gal_liter,
   set_gal_liter,
-  // Altitude compliance props
+  // Airspace warning props
   airspaces = [],
-  autoAdjustEnabled = true,
-  setAutoAdjustEnabled,
-  analyzeRouteCompliance,
-  complianceAlerts = [],
-  clearComplianceAlerts,
-  insertComplianceTransitions,
-  removeComplianceTransitions,
+  showWarnings = true,
+  setShowWarnings,
+  analyzeRouteWarnings,
+  warningAlerts = [],
+  clearWarningAlerts,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  const [showCompliancePanel, setShowCompliancePanel] = useState(false);
+  const [showWarningPanel, setShowWarningPanel] = useState(true);
 
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,
@@ -98,16 +96,16 @@ const Sidebar: React.FC<SidebarProps> = ({
             set_gal_liter={set_gal_liter}
           />
 
-          {/* Altitude Compliance Toggle */}
+          {/* Airspace Warnings Toggle */}
           <div className="border-b border-gray-200 dark:border-gray-700 p-4">
             <button
-              onClick={() => setShowCompliancePanel(!showCompliancePanel)}
+              onClick={() => setShowWarningPanel(!showWarningPanel)}
               className="flex items-center justify-between w-full text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
             >
-              <span>Altitude Compliance</span>
+              <span>Airspace Warnings</span>
               <svg
                 className={`w-4 h-4 transform transition-transform ${
-                  showCompliancePanel ? 'rotate-180' : ''
+                  showWarningPanel ? 'rotate-180' : ''
                 }`}
                 fill="none"
                 stroke="currentColor"
@@ -118,19 +116,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             </button>
           </div>
 
-          {/* Altitude Compliance Panel */}
-          {showCompliancePanel && analyzeRouteCompliance && (
+          {/* Airspace Warning Panel */}
+          {showWarningPanel && analyzeRouteWarnings && (
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 max-h-96 overflow-y-auto">
-              <AltitudeCompliancePanel
+              <AirspaceWarningPanel
                 waypoints={waypoints}
                 airspaces={airspaces}
-                complianceAlerts={complianceAlerts}
-                autoAdjustEnabled={autoAdjustEnabled}
-                onAutoAdjustToggle={setAutoAdjustEnabled || (() => {})}
-                onInsertTransitions={insertComplianceTransitions || (() => {})}
-                onRemoveTransitions={removeComplianceTransitions || (() => {})}
-                onClearAlerts={clearComplianceAlerts || (() => {})}
-                analyzeRouteCompliance={analyzeRouteCompliance}
+                warningAlerts={warningAlerts}
+                showWarnings={showWarnings}
+                onToggleWarnings={setShowWarnings || (() => {})}
+                onClearAlerts={clearWarningAlerts || (() => {})}
+                analyzeRouteWarnings={analyzeRouteWarnings}
               />
             </div>
           )}
