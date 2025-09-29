@@ -23,10 +23,10 @@ import {
   convertAviationDataToMarkers,
   extractPolygonCoordinates,
 } from "../../../utils/aviationUtils";
-import { Airspace } from "../../../utils/types";
+import { Airspace, Elevation } from "../../../utils/types";
 import { getAirspaceColor } from "../../../utils/airspaceColors";
-import { useAltitudeUnit } from "../../../utils/AltitudeUnitContext";
 import { formatElevation } from "../../../utils/unitConversions";
+import { useAltitudeUnit } from "../../../utils/AltitudeUnitContext";
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
@@ -324,10 +324,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
               if (polygonCoords) {
                 const colorConfig = getAirspaceColor(airspace);
-                const tooltipText = `${airspace.name || 'Unnamed Airspace'}
-Type: ${colorConfig.name}
-Lower: ${formatElevation(airspace.lowerLimit, altitudeUnit)}
-Upper: ${formatElevation(airspace.upperLimit, altitudeUnit)}`;
+                const formatAltitude = (elevation: Elevation | null | undefined) => {
+                  if (!elevation) return 'N/A';
+                  return formatElevation(elevation, altitudeUnit);
+                };
 
                 return (
                   <Polygon
@@ -342,12 +342,32 @@ Upper: ${formatElevation(airspace.upperLimit, altitudeUnit)}`;
                   >
                     <Tooltip
                       direction="top"
-                      offset={[0, -10]}
+                      offset={[0, -5]}
                       opacity={0.9}
-                      className="airspace-tooltip"
+                      permanent={false}
+                      className="custom-dark-tooltip"
                     >
-                      <div className="text-sm whitespace-pre-line">
-                        {tooltipText}
+                      <div className="bg-gray-900 p-3 rounded-lg shadow-lg min-w-[200px]">
+                        <div className="flex items-center gap-2 mb-2">
+                          <div
+                            className="w-3 h-3 rounded-full border"
+                            style={{ backgroundColor: colorConfig.fillColor, borderColor: colorConfig.color }}
+                          />
+                          <h3 className="font-semibold text-white text-sm">
+                            {airspace.name || 'Unnamed Airspace'}
+                          </h3>
+                        </div>
+                        <p className="text-xs text-gray-300 mb-2">{colorConfig.name}</p>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <span className="text-gray-400">Lower: </span>
+                            <span className="font-medium text-white">{formatAltitude(airspace.lowerLimit)}</span>
+                          </div>
+                          <div>
+                            <span className="text-gray-400">Upper: </span>
+                            <span className="font-medium text-white">{formatAltitude(airspace.upperLimit)}</span>
+                          </div>
+                        </div>
                       </div>
                     </Tooltip>
                   </Polygon>

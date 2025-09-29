@@ -778,4 +778,91 @@ body {
   background: linear-gradient(to right, var(--button-hover), #1d4ed8) !important;
 }
 
+/* Enhanced Airspace Tooltip Styles */
+.enhanced-airspace-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  min-width: auto !important;
+  z-index: 1000 !important;
+}
+
+.enhanced-airspace-tooltip .leaflet-tooltip-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Override default Leaflet tooltip styles for our enhanced tooltips */
+.leaflet-tooltip.enhanced-airspace-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  z-index: 1000 !important;
+}
+
+.leaflet-tooltip.enhanced-airspace-tooltip::before {
+  display: none !important;
+}
+
+/* Custom Dark Tooltip Styles */
+.custom-dark-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  z-index: 1000 !important;
+}
+
+.custom-dark-tooltip .leaflet-tooltip-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leaflet-tooltip.custom-dark-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  z-index: 1000 !important;
+}
+
+.leaflet-tooltip.custom-dark-tooltip::before {
+  display: none !important;
+}
+
+/* Responsive tooltip sizing */
+@media (max-width: 768px) {
+  .enhanced-airspace-tooltip {
+    transform: scale(0.9) !important;
+    transform-origin: center top !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .enhanced-airspace-tooltip {
+    transform: scale(0.85) !important;
+    max-width: 280px !important;
+  }
+}
+
+/* Ensure tooltip content is properly styled */
+.enhanced-airspace-tooltip div {
+  line-height: 1.4 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
 

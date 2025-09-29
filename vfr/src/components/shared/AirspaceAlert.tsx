@@ -33,12 +33,13 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   analyzeRouteWarnings,
   onDismiss,
 }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
   const warningAnalysis = analyzeRouteWarnings(waypoints);
 
+  // Reset dismissed state when new warnings appear
   useEffect(() => {
     if (warningAnalysis.hasViolations || warningAnalysis.hasRestrictedAirspaceIntersections) {
-      setIsVisible(true);
+      setIsDismissed(false);
     }
   }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections]);
 
@@ -46,12 +47,16 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
     return null;
   }
 
+  if (isDismissed) {
+    return null;
+  }
+
   const violationWarnings = warningAnalysis.warnings.filter(w => w.hasViolation);
   const informationalWarnings = warningAnalysis.warnings.filter(w => !w.hasViolation);
 
   const handleDismiss = () => {
-    setIsVisible(false);
-    setTimeout(() => onDismiss?.(), 300);
+    setIsDismissed(true);
+    onDismiss?.();
   };
 
   return (
@@ -62,17 +67,16 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
           ? 'bg-gradient-to-r from-red-600 to-red-700 border-red-800 text-white shadow-red-500/60'
           : 'bg-gradient-to-r from-yellow-500 to-yellow-600 border-yellow-700 text-white shadow-yellow-500/60'
         }
-        ${isVisible ? 'animate-bounce' : 'opacity-0 translate-y-[-20px]'}
         backdrop-blur-sm
-        transform transition-all duration-500 hover:scale-105
         ring-4 ring-white/20
         relative
-        before:absolute before:inset-0 before:rounded-xl before:bg-white/10 before:animate-pulse
+        opacity-100
+        transform transition-all duration-300 hover:scale-[1.02]
       `}>
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-2">
             <AlertTriangle
-              className="w-6 h-6 text-white animate-pulse"
+              className="w-6 h-6 text-white"
             />
             <div className="flex-1">
               <h3 className="font-bold text-base sm:text-lg text-white">

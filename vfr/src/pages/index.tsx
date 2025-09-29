@@ -125,11 +125,31 @@ export default function Home() {
 
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
+  const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
 
-  // Reset alert dismissal when waypoints change
+  // Reset alert dismissal only when new violations appear
   useEffect(() => {
-    setAlertDismissed(false);
-  }, [waypoints]);
+    if (waypoints.length > 0) {
+      const analysis = analyzeRouteWarnings(waypoints);
+      const currentState = {
+        hasViolations: analysis.hasViolations,
+        totalWarnings: analysis.totalWarnings
+      };
+
+      // Only reset dismissal if there are new violations or more warnings than before
+      if (lastWarningState &&
+          ((!lastWarningState.hasViolations && currentState.hasViolations) ||
+           (currentState.totalWarnings > lastWarningState.totalWarnings))) {
+        setAlertDismissed(false);
+      }
+
+      setLastWarningState(currentState);
+    } else {
+      // Reset when no waypoints
+      setAlertDismissed(false);
+      setLastWarningState(null);
+    }
+  }, [waypoints, analyzeRouteWarnings, lastWarningState]);
 
   // Enhanced clear alerts function that also dismisses page-level alerts
   const handleClearAllAlerts = () => {
