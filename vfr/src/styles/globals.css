@@ -750,9 +750,15 @@ body {
   text-shadow: none !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  line-height: 1 !important;
+  line-height: 1.2 !important;
   display: inline-block !important;
   cursor: pointer !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  margin: 0 !important;
+  vertical-align: baseline !important;
 }
 
 .theme-dark .introjs-skipbutton:hover {
@@ -839,6 +845,12 @@ body {
   -webkit-appearance: none !important;
   -moz-appearance: none !important;
   appearance: none !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  margin: 0 !important;
+  vertical-align: baseline !important;
 }
 
 /* Fix button text positioning and prevent duplication */

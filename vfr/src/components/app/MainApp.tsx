@@ -274,6 +274,7 @@ export default function MainApp() {
             warningAlerts={warningAlerts}
             clearWarningAlerts={handleClearAllAlerts}
             set_gal_liter={set_gal_liter}
+            aviationLayers={aviationLayers}
           />
 
           <div className="relative flex-1 h-full">

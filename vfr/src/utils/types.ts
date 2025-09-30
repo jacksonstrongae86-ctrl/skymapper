@@ -190,6 +190,14 @@ export interface SidebarProps {
   };
   warningAlerts?: string[];
   clearWarningAlerts?: () => void;
+  aviationLayers?: {
+    airports: boolean;
+    airspaces: boolean;
+    navigation: boolean;
+    obstacles: boolean;
+    hotspots: boolean;
+    reportingpoints: boolean;
+  };
 }
 
 export interface MapControlsProps {

@@ -53,16 +53,16 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
               : "max-h-0 opacity-0"
           }
           ${`gradient-${theme}`}
-          overflowhidden
+          overflow-hidden
         `}
         >
-          <div className="h-full overflow-y-auto custom-scrollbar p-4">
+          <div className="h-full overflow-y-auto custom-scrollbar p-4 pb-6">
             <div
               className={`
               ${
                 isFullScreen
                   ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                  : "space-y-4"
+                  : "space-y-6"
               }
             `}
             >

@@ -35,6 +35,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
+  aviationLayers,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
@@ -132,10 +133,12 @@ const Sidebar: React.FC<SidebarProps> = ({
             <AltitudeUnitSelector />
           </div>
 
-          {/* Airspace Legend */}
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <AirspaceLegend />
-          </div>
+          {/* Airspace Legend - Only show when airspaces are active */}
+          {aviationLayers?.airspaces && (
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <AirspaceLegend />
+            </div>
+          )}
 
           <ScrollableContent
             isWaypointsVisible={isWaypointsVisible}
