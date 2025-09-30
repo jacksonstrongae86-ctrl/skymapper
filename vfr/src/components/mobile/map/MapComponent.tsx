@@ -310,6 +310,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
                 key={absoluteIndex}
                 position={waypoint.position}
                 draggable={true}
+                zIndexOffset={500} // Lower than aviation markers
                 icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
                 eventHandlers={{
                   dragend: (e) => {
@@ -501,7 +502,6 @@ const MapEvents: React.FC<{
       }
     },
   });
-
   return null;
 };
 

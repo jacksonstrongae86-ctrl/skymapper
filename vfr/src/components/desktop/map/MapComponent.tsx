@@ -116,14 +116,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
     if (mapRef.current) {
       const newCenter = getCountryCenter(selectedCountry);
       mapRef.current.setView(newCenter, 6);
-      // console.log(
-      //   "Desktop map center updated to:",
-      //   newCenter,
-      //   "for country:",
-      //   selectedCountry
-      // );
     }
   }, [selectedCountry]);
+
+  // Remove all custom event handling for now
   // Load aviation data
   const {
     airports,
@@ -269,6 +265,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
               position={waypoint.position}
               icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
               draggable={true}
+              zIndexOffset={500} // Lower than aviation markers
               eventHandlers={{
                 dragend: (e) => {
                   const newPosition: [number, number] = [

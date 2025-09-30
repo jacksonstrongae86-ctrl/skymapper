@@ -167,6 +167,7 @@ export default function Home() {
     }));
   };
 
+
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
