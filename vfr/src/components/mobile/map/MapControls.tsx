@@ -12,7 +12,6 @@ import {
   Loader2,
   AlertCircle,
   Plane,
-  Shield,
   Radio,
   AlertTriangle,
   Flame,

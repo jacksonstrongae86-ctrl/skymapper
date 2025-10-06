@@ -136,13 +136,6 @@ export default function MainApp() {
     const consentsGiven = localStorage.getItem("skymapper-consents");
     const triviaShown = sessionStorage.getItem("skymapper-trivia-shown");
 
-    console.log("🎯 Trivia check:", {
-      tutorialCompleted,
-      hasConsents: !!consentsGiven,
-      triviaShown,
-      consentsValue: consentsGiven
-    });
-
     // Show popup if:
     // 1. Tutorial is completed (localStorage: skymapper-tutorial-completed = "true") OR tutorial was skipped
     // 2. Consent has been given (localStorage: skymapper-consents exists)
@@ -152,22 +145,12 @@ export default function MainApp() {
     const tutorialConditionMet = tutorialCompleted || consentsGiven;
     const shouldShow = tutorialConditionMet && consentsGiven && !triviaShown;
 
-    console.log("🎯 Should show trivia:", shouldShow);
-
     if (shouldShow) {
-      console.log("✅ All conditions met - showing trivia popup in 2 seconds");
       const timer = setTimeout(() => {
-        console.log("✅ NOW SHOWING TRIVIA POPUP");
         setShowTriviaPopup(true);
         sessionStorage.setItem("skymapper-trivia-shown", "true");
       }, 2000);
       return () => clearTimeout(timer);
-    } else {
-      console.log("❌ Conditions not met:", {
-        needsTutorial: !tutorialCompleted,
-        needsConsent: !consentsGiven,
-        alreadyShown: !!triviaShown
-      });
     }
   }, []);
 
