@@ -12,6 +12,7 @@ import MapControls from "../desktop/map/MapControls";
 import BottomSidebar from "../desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../mobile/sidebar/BottomSidebar";
 import AirspaceAlert from "../shared/AirspaceAlert";
+import TriviaPopup from "../shared/TriviaPopup";
 
 const MapComponent = dynamic(
   () => import("../desktop/map/MapComponent"),
@@ -114,7 +115,7 @@ export default function MainApp() {
   // OpenAIP
   const [showAviationData, setShowAviationData] = useState(true);
   const [aviationLayers, setAviationLayers] = useState({
-    airports: true,
+    airports: false,
     airspaces: false,
     navigation: false,
     obstacles: false,
@@ -125,6 +126,25 @@ export default function MainApp() {
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
   const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
+
+  // Trivia popup - only show on first load after tutorial and consent are complete
+  const [showTriviaPopup, setShowTriviaPopup] = useState(false);
+
+  useEffect(() => {
+    // Check if tutorial is completed and consent is given
+    const tutorialCompleted = localStorage.getItem("skymapper-tutorial-completed") === "true";
+    const consentsGiven = localStorage.getItem("skymapper-consents");
+    const triviaShown = sessionStorage.getItem("skymapper-trivia-shown");
+
+    if (tutorialCompleted && consentsGiven && !triviaShown) {
+      // Show trivia popup after a short delay
+      const timer = setTimeout(() => {
+        setShowTriviaPopup(true);
+        sessionStorage.setItem("skymapper-trivia-shown", "true");
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   // Reset alert dismissal only when new violations appear
   useEffect(() => {
@@ -176,6 +196,15 @@ export default function MainApp() {
           waypoints={waypoints}
           analyzeRouteWarnings={analyzeRouteWarnings}
           onDismiss={() => setAlertDismissed(true)}
+        />
+      )}
+
+      {/* Trivia Popup - shows once per session after tutorial and consent */}
+      {showTriviaPopup && (
+        <TriviaPopup
+          onClose={() => setShowTriviaPopup(false)}
+          autoRotate={true}
+          rotateInterval={20000}
         />
       )}
 
