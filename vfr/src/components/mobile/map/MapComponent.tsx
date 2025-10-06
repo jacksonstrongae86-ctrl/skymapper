@@ -7,10 +7,8 @@ import {
   Polyline,
   useMapEvents,
   Circle,
-  Polygon,
-  Tooltip,
 } from "react-leaflet";
-import { Airspace, getCountryCenter, Waypoint } from "../../../utils/types";
+import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useMapHandlers } from "../../../hooksMobile/index/useMapHandlers";
@@ -22,16 +20,11 @@ import MobileMapControls from "@/src/components/mobile/map/MapControls";
 import {
   AviationMarker,
   convertAviationDataToMarkers,
-  extractPolygonCoordinates,
 } from "@/src/utils/aviationUtils";
-import { getAirspaceColor } from "@/src/utils/airspaceColors";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
-import { formatElevation } from "@/src/utils/unitConversions";
-import { Elevation } from "@/src/utils/types";
-import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -110,7 +103,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
-  const { altitudeUnit } = useAltitudeUnit();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
@@ -296,6 +288,14 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
         />
 
+        {/* OpenAIP Tile Layer */}
+        <TileLayer
+          url="https://api.tiles.openaip.net/api/data/openaip/{z}/{x}/{y}.png?apiKey=5846be4e9efd4349db50e590d1e85a0c"
+          attribution='&copy; <a href="https://www.openaip.net/">OpenAIP</a> contributors'
+          maxZoom={14}
+          opacity={1}
+        />
+
         {waypoints
           .filter((wp) => wp.visible !== false)
           .map((waypoint, absoluteIndex) => {
@@ -336,10 +336,10 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           />
         )}
 
-        {/* Keep the non-clustered elements like circles and polygons */}
+        {/* Keep the non-clustered elements like circles (excluding airspace polygons) */}
         {showAviationData &&
           aviationMarkers.map((marker: AviationMarker) => {
-            const { data, type, position } = marker;
+            const { type, position } = marker;
 
             switch (type) {
               case "airport":
@@ -357,65 +357,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
                     }}
                   />
                 );
-
-              case "airspace":
-                const airspace = data as Airspace;
-                const polygonCoords = extractPolygonCoordinates(
-                  airspace.geometry
-                );
-
-                if (polygonCoords) {
-                  const colorConfig = getAirspaceColor(airspace);
-                  const formatAltitude = (elevation: Elevation | null | undefined) => {
-                    if (!elevation) return 'N/A';
-                    return formatElevation(elevation, altitudeUnit);
-                  };
-
-                  return (
-                    <Polygon
-                      key={`polygon-${marker.id}`}
-                      positions={polygonCoords}
-                      pathOptions={{
-                        color: colorConfig.color,
-                        fillColor: colorConfig.fillColor,
-                        fillOpacity: colorConfig.fillOpacity,
-                        weight: colorConfig.weight,
-                      }}
-                    >
-                      <Tooltip
-                        direction="top"
-                        offset={[0, -5]}
-                        opacity={0.9}
-                        permanent={false}
-                        className="custom-dark-tooltip"
-                      >
-                        <div className="bg-gray-900 p-2 rounded shadow-lg min-w-[180px]">
-                          <div className="flex items-center gap-2 mb-1">
-                            <div
-                              className="w-2 h-2 rounded-full border"
-                              style={{ backgroundColor: colorConfig.fillColor, borderColor: colorConfig.color }}
-                            />
-                            <h3 className="font-semibold text-white text-xs">
-                              {airspace.name || 'Unnamed Airspace'}
-                            </h3>
-                          </div>
-                          <p className="text-xs text-gray-300 mb-1">{colorConfig.name}</p>
-                          <div className="grid grid-cols-2 gap-1 text-xs">
-                            <div>
-                              <span className="text-gray-400">Lower: </span>
-                              <span className="font-medium text-white">{formatAltitude(airspace.lowerLimit)}</span>
-                            </div>
-                            <div>
-                              <span className="text-gray-400">Upper: </span>
-                              <span className="font-medium text-white">{formatAltitude(airspace.upperLimit)}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </Tooltip>
-                    </Polygon>
-                  );
-                }
-                break;
 
               case "navigation":
                 return (

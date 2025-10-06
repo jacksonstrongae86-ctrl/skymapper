@@ -530,25 +530,6 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
 
                       <button
                         onClick={() =>
-                          onLayerToggle("airspaces", !aviationLayers.airspaces)
-                        }
-                        className={`
-                    px-3 py-2 rounded-lg text-sm
-                    flex items-center gap-2
-                    transition-all duration-200
-                    ${
-                      aviationLayers.airspaces
-                        ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
-                    }
-                  `}
-                      >
-                        <Shield size={14} />
-                        <span className="truncate">Airspaces</span>
-                      </button>
-
-                      <button
-                        onClick={() =>
                           onLayerToggle(
                             "navigation",
                             !aviationLayers.navigation
