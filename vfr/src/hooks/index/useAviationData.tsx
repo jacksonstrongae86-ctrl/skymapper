@@ -47,7 +47,7 @@ export const useAviationData = (country: string = "es") => {
     }));
 
     try {
-      const dataTypes = ["apt", "asp", "nav", "obs", "hot", "rpp"];
+      const dataTypes = ["apt", "asp", "nav", "obs", "rpp"];
 
       const promises = dataTypes.map((type) =>
         // Use your API instead of direct file access

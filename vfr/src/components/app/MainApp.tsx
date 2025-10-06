@@ -131,18 +131,43 @@ export default function MainApp() {
   const [showTriviaPopup, setShowTriviaPopup] = useState(false);
 
   useEffect(() => {
-    // Check if tutorial is completed and consent is given
+    // Check localStorage values
     const tutorialCompleted = localStorage.getItem("skymapper-tutorial-completed") === "true";
     const consentsGiven = localStorage.getItem("skymapper-consents");
     const triviaShown = sessionStorage.getItem("skymapper-trivia-shown");
 
-    if (tutorialCompleted && consentsGiven && !triviaShown) {
-      // Show trivia popup after a short delay
+    console.log("🎯 Trivia check:", {
+      tutorialCompleted,
+      hasConsents: !!consentsGiven,
+      triviaShown,
+      consentsValue: consentsGiven
+    });
+
+    // Show popup if:
+    // 1. Tutorial is completed (localStorage: skymapper-tutorial-completed = "true") OR tutorial was skipped
+    // 2. Consent has been given (localStorage: skymapper-consents exists)
+    // 3. Not shown in this session yet (sessionStorage: skymapper-trivia-shown)
+
+    // Check if tutorial was completed OR if consent was given (which means user interacted with the app)
+    const tutorialConditionMet = tutorialCompleted || consentsGiven;
+    const shouldShow = tutorialConditionMet && consentsGiven && !triviaShown;
+
+    console.log("🎯 Should show trivia:", shouldShow);
+
+    if (shouldShow) {
+      console.log("✅ All conditions met - showing trivia popup in 2 seconds");
       const timer = setTimeout(() => {
+        console.log("✅ NOW SHOWING TRIVIA POPUP");
         setShowTriviaPopup(true);
         sessionStorage.setItem("skymapper-trivia-shown", "true");
-      }, 1000);
+      }, 2000);
       return () => clearTimeout(timer);
+    } else {
+      console.log("❌ Conditions not met:", {
+        needsTutorial: !tutorialCompleted,
+        needsConsent: !consentsGiven,
+        alreadyShown: !!triviaShown
+      });
     }
   }, []);
 

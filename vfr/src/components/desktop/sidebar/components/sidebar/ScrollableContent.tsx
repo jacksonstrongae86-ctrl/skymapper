@@ -17,7 +17,7 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
   const { theme } = useTheme();
   return (
     <div className="flex-1 px-4 pb-6 overflow-hidden">
-      <div className="border border-[var(--sidebar-border)] rounded-xl h-full flex flex-col shadow-lg">
+      <div className="border border-[var(--sidebar-border)]  rounded-xl h-full flex flex-col mt-2 shadow-lg">
         <button
           onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
           className={`
