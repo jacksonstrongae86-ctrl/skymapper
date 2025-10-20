@@ -13,7 +13,7 @@ export const LandingContext = createContext<{
 });
 
 export default function Home() {
-  const [showLanding, setShowLanding] = useState(true);
+  const [showLanding, setShowLanding] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   // Check if user has visited before
