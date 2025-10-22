@@ -134,7 +134,7 @@ export default function MobileLandingPage() {
             Plan your VFR routes in seconds
           </h1>
           <p className="mt-2 text-base font-light text-slate-300 px-4">
-            Click to unmute and see how easy it is!
+            Click and learn!
           </p>
         </div>
 
