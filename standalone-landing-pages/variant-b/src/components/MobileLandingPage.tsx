@@ -1,34 +1,21 @@
 import Image from 'next/image';
-import { Plane, MapPin, VolumeX } from 'lucide-react';
-import { useRef, useEffect, useState } from 'react';
+import { Plane, MapPin, Play } from 'lucide-react';
+import { useRef, useState } from 'react';
 
 export default function MobileLandingPage() {
   // Get redirect URL from environment variable, fallback to current domain
   const skymapperUrl = process.env.NEXT_PUBLIC_SKYMAPPER_URL || (typeof window !== 'undefined' ? window.location.origin : '');
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [isUnmuted, setIsUnmuted] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
 
-  // Auto-unmute video on first user interaction
-  useEffect(() => {
-    const unmuteVideo = () => {
-      if (videoRef.current && !isUnmuted) {
-        videoRef.current.muted = false;
-        setIsUnmuted(true);
-      }
-    };
-
-    // Listen for any user interaction
-    const events = ['click', 'touchstart', 'scroll', 'keydown'];
-    events.forEach(event => {
-      document.addEventListener(event, unmuteVideo, { once: true });
-    });
-
-    return () => {
-      events.forEach(event => {
-        document.removeEventListener(event, unmuteVideo);
-      });
-    };
-  }, [isUnmuted]);
+  // Play video with sound when user clicks play button
+  const handlePlayVideo = () => {
+    if (videoRef.current) {
+      videoRef.current.muted = false;
+      videoRef.current.play();
+      setIsPlaying(true);
+    }
+  };
 
   const handleStartPlanning = () => {
     // Track conversion if analytics is set up
@@ -131,10 +118,10 @@ export default function MobileLandingPage() {
             className="mb-3 w-20 h-20"
           />
           <h1 className="text-2xl font-bold tracking-tight text-white px-2">
-            Planifica tus rutas VFR en segundos
+            Plan your VFR routes in seconds
           </h1>
           <p className="mt-2 text-base font-light text-slate-300 px-4">
-            ¡Haz clic para activar el audio y descubre lo fácil que es!
+            Click play to watch and learn how easy it is!
           </p>
         </div>
 
@@ -146,17 +133,20 @@ export default function MobileLandingPage() {
               id="tutorial-video"
               className="w-full h-full object-cover"
               src="/videos/tutorial.mp4"
-              autoPlay
-              muted
               loop
               playsInline
-              controls={isUnmuted}
+              controls={isPlaying}
               style={{ aspectRatio: '9/16' }}
             />
-            {/* Audio indicator - shows until user interacts */}
-            {!isUnmuted && (
-              <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-full p-4 shadow-2xl animate-pulse cursor-pointer hover:scale-110 transition-transform">
-                <VolumeX className="w-8 h-8 text-blue-600" />
+            {/* Play button - shows until user clicks play */}
+            {!isPlaying && (
+              <div
+                onClick={handlePlayVideo}
+                className="absolute inset-0 flex items-center justify-center bg-black/30 backdrop-blur-sm cursor-pointer hover:bg-black/40 transition-all"
+              >
+                <div className="bg-white/95 backdrop-blur-sm rounded-full p-6 shadow-2xl hover:scale-110 transition-transform">
+                  <Play className="w-12 h-12 text-blue-600" />
+                </div>
               </div>
             )}
           </div>
@@ -168,7 +158,7 @@ export default function MobileLandingPage() {
           className="mb-8 bg-gradient-to-r from-white to-blue-50 text-blue-700 px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-3xl border-2 border-white/20 hover:border-white/40 active:border-white/60 relative overflow-hidden group w-full max-w-sm"
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
-            <span className="text-center leading-tight">Comienza a Planificar tu Vuelo</span>
+            <span className="text-center leading-tight">Start Planning Your Flight</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -179,7 +169,7 @@ export default function MobileLandingPage() {
 
       {/* --- FOOTER --- */}
       <footer className="mt-auto pt-6 text-xs text-blue-200 text-center px-4">
-        &copy; {new Date().getFullYear()} Skymapper. Todos los derechos reservados.
+        &copy; {new Date().getFullYear()} Skymapper. All rights reserved.
       </footer>
     </main>
   );
