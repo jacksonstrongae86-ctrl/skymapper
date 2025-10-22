@@ -150,6 +150,7 @@ export default function MobileLandingPage() {
               muted
               loop
               playsInline
+              controls={isUnmuted}
               style={{ aspectRatio: '9/16' }}
             />
             {/* Audio indicator - shows until user interacts */}

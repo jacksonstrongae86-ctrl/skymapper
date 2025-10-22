@@ -131,10 +131,10 @@ export default function MobileLandingPage() {
             className="mb-3 w-20 h-20"
           />
           <h1 className="text-2xl font-bold tracking-tight text-white px-2">
-            Plan your VFR routes in seconds
+            Planifica tus rutas VFR en segundos
           </h1>
           <p className="mt-2 text-base font-light text-slate-300 px-4">
-            Click to unmute and see how easy it is!
+            ¡Haz clic para activar el audio y descubre lo fácil que es!
           </p>
         </div>
 
@@ -150,6 +150,7 @@ export default function MobileLandingPage() {
               muted
               loop
               playsInline
+              controls={isUnmuted}
               style={{ aspectRatio: '9/16' }}
             />
             {/* Audio indicator - shows until user interacts */}
@@ -167,7 +168,7 @@ export default function MobileLandingPage() {
           className="mb-8 bg-gradient-to-r from-white to-blue-50 text-blue-700 px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-3xl border-2 border-white/20 hover:border-white/40 active:border-white/60 relative overflow-hidden group w-full max-w-sm"
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
-            <span className="text-center leading-tight">Start Planning Your Flight</span>
+            <span className="text-center leading-tight">Comienza a Planificar tu Vuelo</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
@@ -178,7 +179,7 @@ export default function MobileLandingPage() {
 
       {/* --- FOOTER --- */}
       <footer className="mt-auto pt-6 text-xs text-blue-200 text-center px-4">
-        &copy; {new Date().getFullYear()} Skymapper. All rights reserved.
+        &copy; {new Date().getFullYear()} Skymapper. Todos los derechos reservados.
       </footer>
     </main>
   );
