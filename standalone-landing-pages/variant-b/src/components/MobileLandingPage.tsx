@@ -1,9 +1,34 @@
 import Image from 'next/image';
-import { Plane, MapPin } from 'lucide-react';
+import { Plane, MapPin, Volume2 } from 'lucide-react';
+import { useRef, useEffect, useState } from 'react';
 
 export default function MobileLandingPage() {
   // Get redirect URL from environment variable, fallback to current domain
   const skymapperUrl = process.env.NEXT_PUBLIC_SKYMAPPER_URL || (typeof window !== 'undefined' ? window.location.origin : '');
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isUnmuted, setIsUnmuted] = useState(false);
+
+  // Auto-unmute video on first user interaction
+  useEffect(() => {
+    const unmuteVideo = () => {
+      if (videoRef.current && !isUnmuted) {
+        videoRef.current.muted = false;
+        setIsUnmuted(true);
+      }
+    };
+
+    // Listen for any user interaction
+    const events = ['click', 'touchstart', 'scroll', 'keydown'];
+    events.forEach(event => {
+      document.addEventListener(event, unmuteVideo, { once: true });
+    });
+
+    return () => {
+      events.forEach(event => {
+        document.removeEventListener(event, unmuteVideo);
+      });
+    };
+  }, [isUnmuted]);
 
   const handleStartPlanning = () => {
     // Track conversion if analytics is set up
@@ -117,6 +142,7 @@ export default function MobileLandingPage() {
         <div className="relative mb-10 w-full max-w-xs mx-auto">
           <div className="relative w-full rounded-3xl overflow-hidden bg-slate-900 shadow-2xl border border-blue-400/20">
             <video
+              ref={videoRef}
               id="tutorial-video"
               className="w-full h-full object-cover"
               src="/videos/tutorial.mp4"
@@ -126,6 +152,12 @@ export default function MobileLandingPage() {
               playsInline
               style={{ aspectRatio: '9/16' }}
             />
+            {/* Audio indicator - shows until user interacts */}
+            {!isUnmuted && (
+              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg animate-pulse">
+                <Volume2 className="w-5 h-5 text-emerald-600" />
+              </div>
+            )}
           </div>
         </div>
 
