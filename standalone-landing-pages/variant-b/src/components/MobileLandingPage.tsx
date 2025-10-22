@@ -131,7 +131,7 @@ export default function MobileLandingPage() {
             className="mb-3 w-20 h-20"
           />
           <h1 className="text-2xl font-bold tracking-tight text-white px-2">
-            Your flight plan, simplified
+            Plan your VFR routes in seconds
           </h1>
           <p className="mt-2 text-base font-light text-slate-300 px-4">
             Click to unmute and see how easy it is!
@@ -155,7 +155,7 @@ export default function MobileLandingPage() {
             {/* Audio indicator - shows until user interacts */}
             {!isUnmuted && (
               <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-full p-4 shadow-2xl animate-pulse cursor-pointer hover:scale-110 transition-transform">
-                <VolumeX className="w-8 h-8 text-emerald-600" />
+                <VolumeX className="w-8 h-8 text-blue-600" />
               </div>
             )}
           </div>
@@ -164,15 +164,15 @@ export default function MobileLandingPage() {
         {/* --- CALL TO ACTION BUTTON --- */}
         <button
           onClick={handleStartPlanning}
-          className="mb-8 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-3xl border-2 border-emerald-400/40 hover:border-emerald-300/60 active:border-emerald-300/80 relative overflow-hidden group w-full max-w-sm"
+          className="mb-8 bg-gradient-to-r from-white to-blue-50 text-blue-700 px-8 py-4 text-lg font-bold rounded-full shadow-2xl transition-all duration-300 ease-in-out hover:scale-105 active:scale-95 hover:shadow-3xl border-2 border-white/20 hover:border-white/40 active:border-white/60 relative overflow-hidden group w-full max-w-sm"
         >
           <span className="relative z-10 flex items-center justify-center gap-2">
-            <span className="text-center leading-tight">Get Started Now</span>
+            <span className="text-center leading-tight">Start Planning Your Flight</span>
             <svg className="w-5 h-5 transition-transform group-hover:translate-x-1 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
             </svg>
           </span>
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-400 to-emerald-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-white opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
       </div>
 
