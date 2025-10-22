@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Plane, MapPin, Volume2 } from 'lucide-react';
+import { Plane, MapPin, VolumeX } from 'lucide-react';
 import { useRef, useEffect, useState } from 'react';
 
 export default function MobileLandingPage() {
@@ -134,7 +134,7 @@ export default function MobileLandingPage() {
             Plan your VFR routes in seconds
           </h1>
           <p className="mt-2 text-base font-light text-slate-300 px-4">
-            Learn how to do it in this short video
+            Click to unmute and see how easy it is!
           </p>
         </div>
 
@@ -154,8 +154,8 @@ export default function MobileLandingPage() {
             />
             {/* Audio indicator - shows until user interacts */}
             {!isUnmuted && (
-              <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-full p-2 shadow-lg animate-pulse">
-                <Volume2 className="w-5 h-5 text-blue-600" />
+              <div className="absolute bottom-6 right-6 bg-white/95 backdrop-blur-sm rounded-full p-4 shadow-2xl animate-pulse cursor-pointer hover:scale-110 transition-transform">
+                <VolumeX className="w-8 h-8 text-blue-600" />
               </div>
             )}
           </div>
