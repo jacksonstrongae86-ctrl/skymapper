@@ -316,17 +316,19 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         className={`
           fixed top-4 left-4 z-[1001]
-          w-8 h-8 rounded-lg
+          w-16 h-16 rounded-xl
           ${`button-gradient-${theme}`}
           text-[var(--button-text)]
-          hover:opacity-90
+          hover:opacity-90 hover:scale-105
+          active:scale-95
           transition-all duration-200
           flex items-center justify-center
-          shadow-lg
-          ${isOpen ? "opacity-75" : ""}
+          shadow-2xl
+          border-2 border-white/20
+          ${isOpen ? "opacity-75 scale-95" : ""}
         `}
       >
-        <Menu size={20} />
+        <Menu size={32} strokeWidth={3} />
       </button>
 
       {isOpen && (
@@ -347,9 +349,9 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
               </h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
+                className="p-2 rounded-xl hover:bg-[var(--button-hover)] transition-all duration-200 hover:scale-110 active:scale-95"
               >
-                <XCircle size={20} className="text-[var(--sidebar-text)]" />
+                <XCircle size={26} strokeWidth={2.5} className="text-[var(--sidebar-text)]" />
               </button>
             </div>
             {/* Scrollable Content */}

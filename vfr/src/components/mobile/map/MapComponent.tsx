@@ -399,9 +399,9 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               setIsExpanded(false);
             }}
             id="mobile-map-close-button"
-            className={`fixed top-4 right-4 z-[1000] ${`button-gradient-${theme}`} text-white px-1 py-1 rounded-full`}
+            className={`fixed top-4 right-4 z-[1000] w-14 h-14 rounded-full ${`button-gradient-${theme}`} text-white shadow-2xl border-2 border-white/20 hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center`}
           >
-            <X size={20} />
+            <X size={30} strokeWidth={3} />
           </button>
           <div className="fixed top-0 left-1 z-[999] text-white">
             <MobileMapControls
