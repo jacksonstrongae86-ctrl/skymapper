@@ -24,6 +24,7 @@ import {
   X,
   Share2,
   MapPin,
+  MoreVertical,
 } from "lucide-react";
 import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
@@ -99,6 +100,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   const [saveName, setSaveName] = useState("");
   const [renameId, setRenameId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
+  const [activeRouteMenu, setActiveRouteMenu] = useState<string | null>(null);
   const routeManagerRef = useRef<HTMLDivElement>(null);
 
   const themeSelectorRef = useRef<HTMLDivElement>(null);
@@ -138,13 +140,15 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         setShowRouteManager(false);
         setRenameId(null);
       }
+
     };
 
     if (
       isThemeSelectorOpen ||
       isMapSelectorOpen ||
       isSearchOpen ||
-      isAviationOpen
+      isAviationOpen ||
+      activeRouteMenu
     ) {
       document.addEventListener("mousedown", handleClickOutside);
     }
@@ -158,6 +162,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
     isSearchOpen,
     isAviationOpen,
     showRouteManager,
+    activeRouteMenu,
   ]);
 
   // Search function using fetch directly
@@ -879,19 +884,14 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   .map((route) => (
                     <div
                       key={route.id}
-                      className={`
-        group relative flex items-center justify-between px-1 py-2 rounded
-        transition-all duration-200
-        hover:${`button-gradient-${theme}`}
-        cursor-pointer
-      `}
+                      className="route-item"
                     >
                       {renameId === route.id ? (
-                        <>
+                        <div className="flex items-center gap-2 px-2 py-2 rounded bg-gray-800 border border-gray-600">
                           <input
                             value={renameValue}
                             onChange={(e) => setRenameValue(e.target.value)}
-                            className="rounded px-2 py-1 text-sm border w-32"
+                            className="rounded px-3 py-1.5 text-sm border flex-1 bg-gray-700 text-white"
                             autoFocus
                             onKeyDown={(e) => {
                               if (e.key === "Enter") {
@@ -906,104 +906,127 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                               renameRoute(route.id, renameValue.trim());
                               setRenameId(null);
                             }}
-                            className="ml-2 text-green-600"
+                            className="text-green-600 p-1"
                             title="Confirm"
                           >
-                            <Check size={16} />
+                            <Check size={18} />
                           </button>
                           <button
                             onClick={() => setRenameId(null)}
-                            className="ml-1 text-gray-400"
+                            className="text-gray-400 p-1"
                             title="Cancel"
                           >
-                            <X size={16} />
+                            <X size={18} />
                           </button>
-                        </>
+                        </div>
                       ) : (
-                        <>
-                          <span
-                            className="font-medium overflow-hidden text-ellipsis whitespace-nowrap max-w-[115px]"
-                            title={route.name}
-                          >
-                            {route.name}
-                          </span>
-                          <span className="text-xs text-gray-400 ml-2">
-                            {new Date(route.lastModified).toLocaleString()}
-                          </span>
-                          <div className="flex ml-2 gap-1 items-center justify-end">
-                            <button
-                              onClick={() => {
-                                loadRoute(route.id);
-                                setIsRouteManagerOpen(false);
-                              }}
-                              title="Load"
-                              className={`
-                p-1 relative
-                transition-transform duration-150
-                transform
-                group-hover:scale-110
-              `}
-                              style={{ transitionProperty: "color, transform" }}
+                        <div className="flex items-center justify-between px-2 py-2 rounded hover:bg-gray-800 transition-all duration-200 group">
+                          <div className="flex-1 min-w-0 pr-3">
+                            <div
+                              className="font-semibold text-white break-words"
+                              title={route.name}
                             >
-                              <FolderOpen
-                                size={16}
-                                className={`
-                  transition-colors duration-200
-                  text-blue-600
-                  group-hover:text-white
-                `}
-                              />
-                            </button>
-                            <button
-                              onClick={() => {
-                                setRenameId(route.id);
-                                setRenameValue(route.name);
-                              }}
-                              title="Rename"
-                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
-                            >
-                              <Edit size={15} className="text-yellow-700" />
-                            </button>
-                            <button
-                              onClick={() => {
-                                if (
-                                  window.confirm(
-                                    "Overwrite this route with your current waypoints?"
-                                  )
-                                )
-                                  overwriteRoute(route.id);
-                              }}
-                              title="Overwrite"
-                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
-                            >
-                              <Save size={15} className="text-orange-700" />
-                            </button>
-                            <button
-                              onClick={() => {
-                                if (window.confirm("Delete this route?"))
-                                  deleteRoute(route.id);
-                              }}
-                              title="Delete"
-                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
-                            >
-                              <Trash size={15} className="text-red-600" />
-                            </button>
-                            <button
-                              onClick={() => handleCopyLink(route)}
-                              title="Copy Share Link"
-                              className="p-1 transition-transform duration-150 transform group-hover:scale-110"
-                            >
-                              <Share2
-                                size={15}
-                                className="text-teal-600 hover:text-teal-400"
-                              />
-                            </button>
+                              {route.name}
+                            </div>
+                            <div className="text-xs text-gray-400">
+                              {new Date(route.lastModified).toLocaleDateString()} {new Date(route.lastModified).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            </div>
                           </div>
-                        </>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveRouteMenu(activeRouteMenu === route.id ? null : route.id);
+                            }}
+                            className="p-1.5 hover:bg-gray-700 rounded transition-all flex-shrink-0"
+                            title="Options"
+                          >
+                            <MoreVertical size={18} className="text-gray-300" />
+                          </button>
+                        </div>
                       )}
                     </div>
                   ))}
               </div>
+
+              {/* Route Actions Modal - Fixed Position */}
+              {activeRouteMenu && (
+                <>
+                  {/* Backdrop */}
+                  <div
+                    className="fixed inset-0 bg-black/50 z-[60]"
+                    onClick={() => setActiveRouteMenu(null)}
+                  />
+
+                  {/* Modal */}
+                  <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[61] w-[90vw] max-w-md bg-gray-800 border border-gray-600 rounded-xl shadow-2xl overflow-hidden">
+                    <div className="p-4 border-b border-gray-600">
+                      <h3 className="font-semibold text-white">Route Actions</h3>
+                      <p className="text-sm text-gray-400 mt-1 truncate">
+                        {listSavedRoutes().find(r => r.id === activeRouteMenu)?.name}
+                      </p>
+                    </div>
+
+                    <div className="p-2">
+                      <button
+                        onClick={() => {
+                          loadRoute(activeRouteMenu);
+                          setIsRouteManagerOpen(false);
+                          setActiveRouteMenu(null);
+                        }}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-all text-left rounded-lg"
+                      >
+                        <FolderOpen size={18} className="text-blue-500" />
+                        <span className="text-white font-medium">Load Route</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          setRenameId(activeRouteMenu);
+                          setRenameValue(listSavedRoutes().find(r => r.id === activeRouteMenu)?.name || "");
+                          setActiveRouteMenu(null);
+                        }}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-all text-left rounded-lg"
+                      >
+                        <Edit size={18} className="text-yellow-500" />
+                        <span className="text-white font-medium">Rename</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Overwrite this route with your current waypoints?"))
+                            overwriteRoute(activeRouteMenu);
+                          setActiveRouteMenu(null);
+                        }}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-all text-left rounded-lg"
+                      >
+                        <Save size={18} className="text-orange-500" />
+                        <span className="text-white font-medium">Overwrite</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          const route = listSavedRoutes().find(r => r.id === activeRouteMenu);
+                          if (route) handleCopyLink(route);
+                          setActiveRouteMenu(null);
+                        }}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-gray-700 transition-all text-left rounded-lg"
+                      >
+                        <Share2 size={18} className="text-teal-500" />
+                        <span className="text-white font-medium">Share Link</span>
+                      </button>
+                      <button
+                        onClick={() => {
+                          if (window.confirm("Delete this route?"))
+                            deleteRoute(activeRouteMenu);
+                          setActiveRouteMenu(null);
+                        }}
+                        className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-900/30 transition-all text-left rounded-lg border-t border-gray-700 mt-2"
+                      >
+                        <Trash size={18} className="text-red-500" />
+                        <span className="text-red-400 font-medium">Delete Route</span>
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
+
               <div className="mt-4">
                 <div className="mb-2 font-medium">
                   Save current route as new:

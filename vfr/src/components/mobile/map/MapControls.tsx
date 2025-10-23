@@ -23,6 +23,7 @@ import {
   X,
   Share2,
   MapPin,
+  MoreVertical,
 } from "lucide-react";
 import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
@@ -101,6 +102,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
   const [saveName, setSaveName] = useState("");
   const [renameId, setRenameId] = useState<string | null>(null);
   const [renameValue, setRenameValue] = useState("");
+  const [activeRouteMenu, setActiveRouteMenu] = useState<string | null>(null);
 
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -119,16 +121,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
           setIsOpen(false);
         }
       }
+
     };
 
-    if (isOpen) {
+    if (isOpen || activeRouteMenu) {
       document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, activeRouteMenu]);
 
   // Prevent body scroll when modal is open
   useEffect(() => {
@@ -568,14 +571,14 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         .map((route) => (
                           <div
                             key={route.id}
-                            className="group relative flex items-center justify-between px-3 py-3 rounded-lg bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)] transition-all duration-200"
+                            className="relative"
                           >
                             {renameId === route.id ? (
-                              <div className="flex items-center w-full gap-2">
+                              <div className="flex items-center w-full gap-2 px-3 py-3 rounded-lg bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)]">
                                 <input
                                   value={renameValue}
                                   onChange={(e) => setRenameValue(e.target.value)}
-                                  className="rounded px-2 py-1 text-sm border flex-1 bg-[var(--input-bg)] text-[var(--sidebar-text)]"
+                                  className="rounded px-3 py-2 text-sm border flex-1 bg-[var(--input-bg)] text-[var(--sidebar-text)]"
                                   autoFocus
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
@@ -586,67 +589,129 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                                   }}
                                 />
                                 <button
-                                  className="text-green-600 p-1"
+                                  className="text-green-600 p-2"
                                   title="Save"
                                   onClick={() => {
                                     renameRoute(route.id, renameValue.trim());
                                     setRenameId(null);
                                   }}
                                 >
-                                  <Check size={18} />
+                                  <Check size={20} />
                                 </button>
                                 <button
-                                  className="text-gray-400 p-1"
+                                  className="text-gray-400 p-2"
                                   title="Cancel"
                                   onClick={() => setRenameId(null)}
                                 >
-                                  <X size={18} />
+                                  <X size={20} />
                                 </button>
                               </div>
                             ) : (
-                              <>
-                                <div className="min-w-0 flex-1">
-                                  <span
-                                    className="font-medium truncate block text-[var(--sidebar-text)]"
+                              <div className="flex items-center justify-between px-3 py-3 rounded-lg bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)] transition-all duration-200">
+                                <div className="min-w-0 flex-1 pr-3">
+                                  <div
+                                    className="font-semibold text-[var(--sidebar-text)] mb-1 break-words"
                                     title={route.name}
                                   >
                                     {route.name}
-                                  </span>
-                                  <span className="text-xs text-[var(--sidebar-text-muted)]">
-                                    {new Date(route.lastModified).toLocaleString()}
-                                  </span>
+                                  </div>
+                                  <div className="text-xs text-[var(--sidebar-text-muted)]">
+                                    {new Date(route.lastModified).toLocaleDateString()} {new Date(route.lastModified).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                                  </div>
                                 </div>
-                                <div className="flex gap-1 ml-2">
-                                  <button
-                                    onClick={() => loadRoute(route.id)}
-                                    title="Load"
-                                    className="p-2 hover:bg-blue-600/20 rounded-lg transition-all"
-                                  >
-                                    <FolderOpen size={18} className="text-blue-500" />
-                                  </button>
-                                  <button
-                                    onClick={() => handleCopyLink(route)}
-                                    title="Share"
-                                    className="p-2 hover:bg-teal-600/20 rounded-lg transition-all"
-                                  >
-                                    <Share2 size={18} className="text-teal-500" />
-                                  </button>
-                                  <button
-                                    onClick={() => {
-                                      if (window.confirm("Delete this route?"))
-                                        deleteRoute(route.id);
-                                    }}
-                                    title="Delete"
-                                    className="p-2 hover:bg-red-600/20 rounded-lg transition-all"
-                                  >
-                                    <Trash size={18} className="text-red-500" />
-                                  </button>
-                                </div>
-                              </>
+                                <button
+                                  onClick={(e) => {
+                                    e.stopPropagation();
+                                    setActiveRouteMenu(activeRouteMenu === route.id ? null : route.id);
+                                  }}
+                                  className="p-2 hover:bg-[var(--button-hover)] rounded-lg transition-all flex-shrink-0"
+                                  title="Options"
+                                >
+                                  <MoreVertical size={20} className="text-[var(--sidebar-text)]" />
+                                </button>
+                              </div>
                             )}
                           </div>
                         ))}
                     </div>
+
+                    {/* Route Actions Modal - Fixed Position */}
+                    {activeRouteMenu && (
+                      <>
+                        {/* Backdrop */}
+                        <div
+                          className="fixed inset-0 bg-black/50 z-[60]"
+                          onClick={() => setActiveRouteMenu(null)}
+                        />
+
+                        {/* Modal */}
+                        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[61] w-[80vw] max-w-sm bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] rounded-xl shadow-2xl overflow-hidden">
+                          <div className="p-4 border-b border-[var(--sidebar-border)]">
+                            <h3 className="font-semibold text-[var(--sidebar-text)]">Route Actions</h3>
+                            <p className="text-sm text-[var(--sidebar-text-muted)] mt-1 truncate">
+                              {listSavedRoutes().find(r => r.id === activeRouteMenu)?.name}
+                            </p>
+                          </div>
+
+                          <div className="p-2">
+                            <button
+                              onClick={() => {
+                                loadRoute(activeRouteMenu);
+                                setActiveRouteMenu(null);
+                              }}
+                              className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
+                            >
+                              <FolderOpen size={20} className="text-blue-500" />
+                              <span className="text-[var(--sidebar-text)] font-medium">Load Route</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                setRenameId(activeRouteMenu);
+                                setRenameValue(listSavedRoutes().find(r => r.id === activeRouteMenu)?.name || "");
+                                setActiveRouteMenu(null);
+                              }}
+                              className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
+                            >
+                              <Edit size={20} className="text-yellow-500" />
+                              <span className="text-[var(--sidebar-text)] font-medium">Rename</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (window.confirm("Overwrite this route with your current waypoints?"))
+                                  overwriteRoute(activeRouteMenu);
+                                setActiveRouteMenu(null);
+                              }}
+                              className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
+                            >
+                              <Save size={20} className="text-orange-500" />
+                              <span className="text-[var(--sidebar-text)] font-medium">Overwrite</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                const route = listSavedRoutes().find(r => r.id === activeRouteMenu);
+                                if (route) handleCopyLink(route);
+                                setActiveRouteMenu(null);
+                              }}
+                              className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
+                            >
+                              <Share2 size={20} className="text-teal-500" />
+                              <span className="text-[var(--sidebar-text)] font-medium">Share Link</span>
+                            </button>
+                            <button
+                              onClick={() => {
+                                if (window.confirm("Delete this route?"))
+                                  deleteRoute(activeRouteMenu);
+                                setActiveRouteMenu(null);
+                              }}
+                              className="w-full px-4 py-3 flex items-center gap-3 hover:bg-red-600/20 transition-all text-left rounded-lg border-t border-[var(--sidebar-border)] mt-2"
+                            >
+                              <Trash size={20} className="text-red-500" />
+                              <span className="text-red-400 font-medium">Delete Route</span>
+                            </button>
+                          </div>
+                        </div>
+                      </>
+                    )}
 
                     <div className="mt-4 pt-4 border-t border-[var(--sidebar-border)]">
                       <h4 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
