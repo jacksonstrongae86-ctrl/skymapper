@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { CustomDatePicker } from "../../../../CustomDatePicker";
-import { Settings, ChevronDown, ChevronUp, Fuel, Clock, RefreshCw } from "lucide-react";
+import { Settings, ChevronDown, ChevronUp, Fuel, Clock, RefreshCw, Ruler } from "lucide-react";
+import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
+import { AltitudeUnit } from "@/src/utils/unitConversions";
 
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
@@ -27,6 +29,8 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   set_gal_liter,
 }) => {
   const { theme } = useTheme();
+  const { altitudeUnit, setAltitudeUnit } = useAltitudeUnit();
+  const units: AltitudeUnit[] = ['ft', 'm', 'fl'];
 
   // Local state for fuel consumption display value
   const [fuelDisplayValue, setFuelDisplayValue] = useState(
@@ -142,6 +146,33 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   showTimeSelect={true}
                   placeholder="Select flight date and time"
                 />
+              </label>
+
+              {/* Altitude Unit Selector */}
+              <label className="block">
+                <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-2">
+                  <Ruler size={16} className="text-[var(--sidebar-text)]" />
+                  Altitude Display Units:
+                </span>
+                <div className="flex gap-1 bg-[var(--sidebar-bg)] rounded-lg p-1 border border-[var(--sidebar-border)]">
+                  {units.map((unit) => (
+                    <button
+                      key={unit}
+                      type="button"
+                      onClick={() => setAltitudeUnit(unit)}
+                      className={`
+                        flex-1 px-3 py-2 text-xs font-medium rounded-md transition-all duration-200
+                        ${
+                          altitudeUnit === unit
+                            ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                            : 'text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]'
+                        }
+                      `}
+                    >
+                      {unit.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
               </label>
             </div>
           </div>

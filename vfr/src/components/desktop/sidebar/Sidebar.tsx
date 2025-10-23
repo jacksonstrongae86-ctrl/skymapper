@@ -4,9 +4,8 @@ import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
-import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
+import { AirspaceWarnings } from "./components/sidebar/AirspaceWarnings";
 import AirspaceLegend from "../../shared/AirspaceLegend";
-import AltitudeUnitSelector from "../../shared/AltitudeUnitSelector";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
@@ -39,7 +38,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  const [showWarningPanel, setShowWarningPanel] = useState(true);
+  const [isWarningsVisible, setIsWarningsVisible] = useState(true);
 
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,
@@ -95,43 +94,18 @@ const Sidebar: React.FC<SidebarProps> = ({
             set_gal_liter={set_gal_liter}
           />
 
-          {/* Airspace Warnings Toggle */}
-          <div className="border-b border-gray-200 dark:border-gray-700 p-4">
-            <button
-              onClick={() => setShowWarningPanel(!showWarningPanel)}
-              className="flex items-center justify-between w-full text-left text-sm font-medium text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
-            >
-              <span>Airspace Warnings</span>
-              <svg
-                className={`w-4 h-4 transform transition-transform ${
-                  showWarningPanel ? 'rotate-180' : ''
-                }`}
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-          </div>
-
-          {/* Airspace Warning Panel */}
-          {showWarningPanel && analyzeRouteWarnings && (
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 max-h-96 overflow-y-auto">
-              <AirspaceWarningPanel
-                waypoints={waypoints}
-                airspaces={airspaces}
-                warningAlerts={warningAlerts}
-                onClearAlerts={clearWarningAlerts || (() => {})}
-                analyzeRouteWarnings={analyzeRouteWarnings}
-              />
-            </div>
+          {/* Airspace Warnings */}
+          {analyzeRouteWarnings && (
+            <AirspaceWarnings
+              isWarningsVisible={isWarningsVisible}
+              setIsWarningsVisible={setIsWarningsVisible}
+              waypoints={waypoints}
+              airspaces={airspaces}
+              warningAlerts={warningAlerts}
+              onClearAlerts={clearWarningAlerts || (() => {})}
+              analyzeRouteWarnings={analyzeRouteWarnings}
+            />
           )}
-
-          {/* Altitude Unit Selector */}
-          <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-            <AltitudeUnitSelector />
-          </div>
 
           {/* Airspace Legend - Only show when airspaces are active */}
           {aviationLayers?.airspaces && (

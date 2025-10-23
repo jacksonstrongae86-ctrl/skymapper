@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
 import { Waypoint, Airspace } from '@/src/utils/types';
 
@@ -34,14 +34,37 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   onDismiss,
 }) => {
   const [isDismissed, setIsDismissed] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const warningAnalysis = analyzeRouteWarnings(waypoints);
 
-  // Reset dismissed state when new warnings appear
+  // Reset dismissed state and auto-dismiss timer when new warnings appear
   useEffect(() => {
     if (warningAnalysis.hasViolations || warningAnalysis.hasRestrictedAirspaceIntersections) {
       setIsDismissed(false);
+      setIsVisible(true);
+
+      // Clear existing timeout
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+
+      // Auto-dismiss after 2 seconds
+      timeoutRef.current = setTimeout(() => {
+        setIsVisible(false);
+        setTimeout(() => {
+          setIsDismissed(true);
+          onDismiss?.();
+        }, 300); // Wait for fade-out animation
+      }, 2000);
     }
-  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections]);
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections, warningAnalysis.totalWarnings, onDismiss]);
 
   if (!warningAnalysis.hasViolations && !warningAnalysis.hasRestrictedAirspaceIntersections) {
     return null;
@@ -55,34 +78,54 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   const informationalWarnings = warningAnalysis.warnings.filter(w => !w.hasViolation);
 
   const handleDismiss = () => {
-    setIsDismissed(true);
-    onDismiss?.();
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+    setIsVisible(false);
+    setTimeout(() => {
+      setIsDismissed(true);
+      onDismiss?.();
+    }, 300); // Wait for fade-out animation
   };
 
   return (
-    <div className="fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] w-full max-w-lg px-4 sm:px-6">
+    <div
+      className={`
+        fixed top-4 left-1/2 transform -translate-x-1/2 z-[100] w-full max-w-lg px-4 sm:px-6
+        transition-all duration-300
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4 pointer-events-none'}
+      `}
+    >
       <div className={`
-        rounded-xl shadow-2xl border-2 p-4 sm:p-5
+        rounded-xl shadow-2xl border p-4 sm:p-5
         ${warningAnalysis.hasViolations
-          ? 'bg-gradient-to-r from-red-600 to-red-700 border-red-800 text-white shadow-red-500/60'
-          : 'bg-gradient-to-r from-yellow-500 to-yellow-600 border-yellow-700 text-white shadow-yellow-500/60'
+          ? 'bg-[var(--sidebar-bg)] border-red-600/30'
+          : 'bg-[var(--sidebar-bg)] border-orange-600/30'
         }
-        backdrop-blur-sm
-        ring-4 ring-white/20
+        backdrop-blur-md
         relative
-        opacity-100
-        transform transition-all duration-300 hover:scale-[1.02]
+        transform transition-all duration-200 hover:scale-[1.02]
       `}>
-        <div className="flex items-start justify-between">
-          <div className="flex items-center space-x-2">
-            <AlertTriangle
-              className="w-6 h-6 text-white"
-            />
-            <div className="flex-1">
-              <h3 className="font-bold text-base sm:text-lg text-white">
-                {warningAnalysis.hasViolations ? '⚠️ ALTITUDE VIOLATIONS!' : '⚠️ AIRSPACE CAUTION'}
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex items-start gap-3 flex-1 min-w-0">
+            <div className={`
+              p-2 rounded-lg flex-shrink-0
+              ${warningAnalysis.hasViolations
+                ? 'bg-red-600/20 border border-red-600/30'
+                : 'bg-orange-600/20 border border-orange-600/30'
+              }
+            `}>
+              <AlertTriangle className={`w-5 h-5 sm:w-6 sm:h-6 ${
+                warningAnalysis.hasViolations ? 'text-red-400' : 'text-orange-400'
+              }`} />
+            </div>
+            <div className="flex-1 min-w-0">
+              <h3 className={`font-bold text-sm sm:text-base mb-1 ${
+                warningAnalysis.hasViolations ? 'text-red-300' : 'text-orange-300'
+              }`}>
+                {warningAnalysis.hasViolations ? 'Altitude Violations' : 'Airspace Caution'}
               </h3>
-              <p className="text-xs sm:text-sm mt-1 text-white font-medium">
+              <p className="text-xs sm:text-sm text-[var(--sidebar-text)] font-medium">
                 {violationWarnings.length > 0 && (
                   <>
                     {violationWarnings.length} violation{violationWarnings.length !== 1 ? 's' : ''} detected
@@ -93,15 +136,15 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
                   `${informationalWarnings.length} airspace intersection${informationalWarnings.length !== 1 ? 's' : ''} detected`
                 )}
               </p>
-              <p className="text-xs sm:text-sm mt-2 text-white/90 font-medium">
-                📋 Check the sidebar for details
+              <p className="text-xs text-[var(--sidebar-text-muted)] mt-1.5">
+                Check the sidebar for details
               </p>
             </div>
           </div>
           {onDismiss && (
             <button
               onClick={handleDismiss}
-              className="p-1 sm:p-2 rounded-full hover:bg-white/20 text-white transition-colors duration-200 ml-2 flex-shrink-0"
+              className="p-1.5 sm:p-2 rounded-lg flex-shrink-0 hover:bg-[var(--button-hover)] text-[var(--sidebar-text)] transition-all duration-200"
               title="Dismiss alert"
             >
               <X className="w-4 h-4 sm:w-5 sm:h-5" />

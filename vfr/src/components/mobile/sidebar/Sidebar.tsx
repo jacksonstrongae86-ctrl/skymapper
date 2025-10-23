@@ -9,7 +9,6 @@ import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
-import AltitudeUnitSelector from "../../shared/AltitudeUnitSelector";
 import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
 
 const Sidebar: React.FC<SidebarProps> = ({
@@ -165,10 +164,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 gal_liter={gal_liter}
                 set_gal_liter={set_gal_liter}
               />
-              {/* Altitude Unit Selector */}
-              <div className="p-4 border-t border-[var(--sidebar-border)]">
-                <AltitudeUnitSelector />
-              </div>
             </div>
           ) : activeTab === "waypoints" ? (
             <ScrollableContent
