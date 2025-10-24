@@ -42,7 +42,7 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,
-    minWidth: 300,
+    minWidth: 378,
     maxWidth: typeof window !== "undefined" ? window.innerWidth * 0.8 : 800,
   });
 
@@ -66,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         backgroundColor: "var(--background)",
         color: "var(--foreground)",
         width: `${sidebarWidth}px`,
-        minWidth: isMinimized ? "48px" : "300px",
+        minWidth: isMinimized ? "48px" : "378px",
       }}
     >
       {isMinimized ? (
