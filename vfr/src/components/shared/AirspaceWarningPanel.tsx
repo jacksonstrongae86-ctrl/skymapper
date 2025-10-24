@@ -130,29 +130,34 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
               </div>
             ) : (
               <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
-                {violationWarnings.map((warning) => (
-                  <div key={`${warning.waypointIndex}-violation`} className="p-3 bg-red-600/10 rounded-lg border-l-2 border-red-500">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-[var(--sidebar-text)]">
-                        WP {warning.waypointIndex + 1}
-                      </span>
-                      <span className="text-xs px-2 py-0.5 bg-red-600/20 text-red-300 rounded">
-                        {warning.altitude}ft
-                      </span>
-                    </div>
-                    <p className="text-xs text-[var(--sidebar-text-muted)] leading-relaxed">
-                      {warning.warning.message}
-                    </p>
-                    {warning.warning.suggestedAltitude && (
-                      <div className="mt-2 p-2 bg-green-600/10 rounded text-xs">
-                        <span className="text-green-300 flex items-center gap-1">
-                          <Info className="w-3 h-3" />
-                          Suggested: {warning.warning.suggestedAltitude}ft
+                {violationWarnings.map((warning) => {
+                  const waypoint = waypoints[warning.waypointIndex];
+                  const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
+
+                  return (
+                    <div key={`${warning.waypointIndex}-violation`} className="p-3 bg-red-600/10 rounded-lg border-l-2 border-red-500">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs font-semibold text-[var(--sidebar-text)]">
+                          {waypointName}
+                        </span>
+                        <span className="text-xs px-2 py-0.5 bg-red-600/20 text-red-300 rounded">
+                          {warning.altitude.toFixed(2)}ft
                         </span>
                       </div>
-                    )}
-                  </div>
-                ))}
+                      <p className="text-xs text-[var(--sidebar-text-muted)] leading-relaxed">
+                        {warning.warning.message}
+                      </p>
+                      {warning.warning.suggestedAltitude && (
+                        <div className="mt-2 p-2 bg-green-600/10 rounded text-xs">
+                          <span className="text-green-300 flex items-center gap-1">
+                            <Info className="w-3 h-3" />
+                            Suggested: {warning.warning.suggestedAltitude.toFixed(2)}ft
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -168,21 +173,26 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
               </div>
             ) : (
               <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
-                {informationalWarnings.map((warning) => (
-                  <div key={`${warning.waypointIndex}-info`} className="p-3 bg-orange-600/10 rounded-lg border-l-2 border-orange-500">
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="text-xs font-semibold text-[var(--sidebar-text)]">
-                        WP {warning.waypointIndex + 1}
-                      </span>
-                      <span className="text-xs px-2 py-0.5 bg-orange-600/20 text-orange-300 rounded">
-                        {warning.altitude}ft
-                      </span>
+                {informationalWarnings.map((warning) => {
+                  const waypoint = waypoints[warning.waypointIndex];
+                  const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
+
+                  return (
+                    <div key={`${warning.waypointIndex}-info`} className="p-3 bg-orange-600/10 rounded-lg border-l-2 border-orange-500">
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-xs font-semibold text-[var(--sidebar-text)]">
+                          {waypointName}
+                        </span>
+                        <span className="text-xs px-2 py-0.5 bg-orange-600/20 text-orange-300 rounded">
+                          {warning.altitude.toFixed(2)}ft
+                        </span>
+                      </div>
+                      <p className="text-xs text-[var(--sidebar-text-muted)] leading-relaxed">
+                        {warning.warning.message}
+                      </p>
                     </div>
-                    <p className="text-xs text-[var(--sidebar-text-muted)] leading-relaxed">
-                      {warning.warning.message}
-                    </p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             )}
           </div>

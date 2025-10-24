@@ -5,11 +5,16 @@ import {
   PlaneTakeoff,
   MoveUp,
   MoveDown,
-  PlaneLanding
+  PlaneLanding,
+  AlertTriangle
 } from 'lucide-react';
 
 export const createWaypointIcon = (type: string, theme: string, hasViolation?: boolean) => {
   const getIcon = () => {
+    if (hasViolation) {
+      return <AlertTriangle size={20} color="currentColor" />;
+    }
+
     switch (type) {
       case 'BOC':
         return <PlaneTakeoff size={20} color="currentColor" />;
@@ -29,10 +34,7 @@ export const createWaypointIcon = (type: string, theme: string, hasViolation?: b
       w-8 h-8
       flex items-center justify-center
       rounded-full
-      ${hasViolation
-        ? 'bg-red-600 border-red-800 text-white animate-pulse shadow-red-500/50'
-        : `button-gradient-${theme} text-[var(--button-text)] border-[var(--sidebar-border)]`
-      }
+      ${`button-gradient-${theme} text-[var(--button-text)] border-[var(--sidebar-border)]`}
       border-2
       shadow-lg
     `}>

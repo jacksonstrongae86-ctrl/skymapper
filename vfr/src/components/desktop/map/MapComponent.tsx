@@ -264,17 +264,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
               key={absoluteIndex}
               position={waypoint.position}
               icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
-              draggable={true}
+              draggable={false}
               zIndexOffset={500} // Lower than aviation markers
-              eventHandlers={{
-                dragend: (e) => {
-                  const newPosition: [number, number] = [
-                    e.target.getLatLng().lat,
-                    e.target.getLatLng().lng,
-                  ];
-                  onWaypointDrag(absoluteIndex, newPosition);
-                },
-              }}
             />
           );
         })}
