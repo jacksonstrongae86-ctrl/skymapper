@@ -41,8 +41,11 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   // Reset dismissed state and auto-dismiss timer when new warnings appear
   useEffect(() => {
     if (warningAnalysis.hasViolations || warningAnalysis.hasRestrictedAirspaceIntersections) {
-      setIsDismissed(false);
-      setIsVisible(true);
+      // Only reset if currently dismissed
+      if (isDismissed) {
+        setIsDismissed(false);
+        setIsVisible(true);
+      }
 
       // Clear existing timeout
       if (timeoutRef.current) {
@@ -57,6 +60,10 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
           onDismiss?.();
         }, 300); // Wait for fade-out animation
       }, 2000);
+    } else {
+      // No warnings, dismiss immediately
+      setIsDismissed(true);
+      setIsVisible(false);
     }
 
     return () => {
@@ -64,7 +71,7 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
         clearTimeout(timeoutRef.current);
       }
     };
-  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections, warningAnalysis.totalWarnings, onDismiss]);
+  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections, onDismiss, isDismissed]);
 
   if (!warningAnalysis.hasViolations && !warningAnalysis.hasRestrictedAirspaceIntersections) {
     return null;
