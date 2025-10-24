@@ -76,14 +76,9 @@ export function useAltitudeCompliance(airspaces: Airspace[] = []) {
         lng: waypoint.position[1]
       };
 
-      console.log('Checking waypoint warning for:', waypoint.position, 'altitude:', waypoint.altitude, 'airspaces available:', airspaces.length);
-
       const compliance = checkAltitudeCompliance(waypoint.altitude, point, airspaces);
 
-      console.log('Compliance check result:', compliance);
-
       if (compliance.isInRestrictedAirspace) {
-        console.log('Waypoint is in restricted airspace, returning warning');
         return {
           waypointIndex: -1, // Will be set by caller
           position: waypoint.position,
@@ -94,7 +89,6 @@ export function useAltitudeCompliance(airspaces: Airspace[] = []) {
         };
       }
 
-      console.log('Waypoint is not in restricted airspace');
       return null;
     },
     [airspaces]

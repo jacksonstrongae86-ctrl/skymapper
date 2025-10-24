@@ -215,13 +215,12 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
             )
           }
         >
-          {typeOptions.map(({ value, label, icon: Icon }) => (
+          {typeOptions.map(({ value, label }) => (
             <option
               key={value}
               value={value}
-              className="flex items-center gap-2"
             >
-              <Icon size={14} className="inline-block mr-2" /> {label}
+              {label}
             </option>
           ))}
         </select>

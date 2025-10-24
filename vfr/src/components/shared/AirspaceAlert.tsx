@@ -34,34 +34,46 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   onDismiss,
 }) => {
   const [isDismissed, setIsDismissed] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const fadeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hasStartedTimerRef = useRef(false);
   const warningAnalysis = analyzeRouteWarnings(waypoints);
 
   // Reset dismissed state and auto-dismiss timer when new warnings appear
   useEffect(() => {
-    if (warningAnalysis.hasViolations || warningAnalysis.hasRestrictedAirspaceIntersections) {
-      // Only reset if currently dismissed
-      if (isDismissed) {
+    const hasWarnings = warningAnalysis.hasViolations || warningAnalysis.hasRestrictedAirspaceIntersections;
+
+    if (hasWarnings) {
+      // Only start timer once when warnings first appear
+      if (!hasStartedTimerRef.current) {
         setIsDismissed(false);
         setIsVisible(true);
-      }
+        hasStartedTimerRef.current = true;
 
-      // Clear existing timeout
+        // Auto-dismiss after 2 seconds
+        timeoutRef.current = setTimeout(() => {
+          setIsVisible(false);
+
+          // Wait for fade-out animation
+          fadeTimeoutRef.current = setTimeout(() => {
+            setIsDismissed(true);
+            hasStartedTimerRef.current = false;
+            onDismiss?.();
+          }, 300);
+        }, 2000);
+      }
+    } else {
+      // No warnings, reset everything
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
       }
-
-      // Auto-dismiss after 2 seconds
-      timeoutRef.current = setTimeout(() => {
-        setIsVisible(false);
-        setTimeout(() => {
-          setIsDismissed(true);
-          onDismiss?.();
-        }, 300); // Wait for fade-out animation
-      }, 2000);
-    } else {
-      // No warnings, dismiss immediately
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current);
+        fadeTimeoutRef.current = null;
+      }
+      hasStartedTimerRef.current = false;
       setIsDismissed(true);
       setIsVisible(false);
     }
@@ -70,8 +82,11 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
+      if (fadeTimeoutRef.current) {
+        clearTimeout(fadeTimeoutRef.current);
+      }
     };
-  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections, onDismiss, isDismissed]);
+  }, [warningAnalysis.hasViolations, warningAnalysis.hasRestrictedAirspaceIntersections, onDismiss]);
 
   if (!warningAnalysis.hasViolations && !warningAnalysis.hasRestrictedAirspaceIntersections) {
     return null;

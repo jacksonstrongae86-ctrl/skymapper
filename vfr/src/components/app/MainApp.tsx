@@ -164,19 +164,20 @@ export default function MainApp() {
       };
 
       // Only reset dismissal if there are new violations or more warnings than before
-      if (lastWarningState &&
-          ((!lastWarningState.hasViolations && currentState.hasViolations) ||
-           (currentState.totalWarnings > lastWarningState.totalWarnings))) {
-        setAlertDismissed(false);
-      }
-
-      setLastWarningState(currentState);
+      setLastWarningState((prevState) => {
+        if (prevState &&
+            ((!prevState.hasViolations && currentState.hasViolations) ||
+             (currentState.totalWarnings > prevState.totalWarnings))) {
+          setAlertDismissed(false);
+        }
+        return currentState;
+      });
     } else {
       // Reset when no waypoints
       setAlertDismissed(false);
       setLastWarningState(null);
     }
-  }, [waypoints, analyzeRouteWarnings, lastWarningState]);
+  }, [waypoints, analyzeRouteWarnings]);
 
   // Enhanced clear alerts function that also dismisses page-level alerts
   const handleClearAllAlerts = () => {

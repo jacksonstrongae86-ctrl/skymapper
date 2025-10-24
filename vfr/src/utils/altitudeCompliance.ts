@@ -15,8 +15,6 @@ export function validateAirspaceLimits(airspace: Airspace): Airspace {
 
   // If upper limit is lower than lower limit, swap them
   if (upperFeet < lowerFeet) {
-    console.warn(`Airspace ${airspace.name || airspace._id} has inverted limits: upper=${upperFeet}ft, lower=${lowerFeet}ft. Swapping them.`);
-
     return {
       ...airspace,
       upperLimit: airspace.lowerLimit, // Swap: assign original lower to upper
