@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { CustomDatePicker } from "../../../../CustomDatePicker";
-import { Settings, ChevronDown, ChevronUp, Fuel, Clock, RefreshCw, Ruler } from "lucide-react";
+import { Settings, ChevronDown, ChevronUp, Fuel, Clock, Ruler } from "lucide-react";
 import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
 import { AltitudeUnit } from "@/src/utils/unitConversions";
 
@@ -12,8 +12,6 @@ interface FlightSettingsProps {
   setFuelConsumption: (value: number) => void;
   selectedDateTime: string;
   setSelectedDateTime: (value: string) => void;
-  fetchWindData: () => void;
-  updateCalculations: () => void;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
 }

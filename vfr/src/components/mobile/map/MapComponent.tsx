@@ -11,7 +11,6 @@ import {
 import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useMapHandlers } from "../../../hooksMobile/index/useMapHandlers";
 import { createWaypointIcon } from "../../../components/mobile/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { useState } from "react";
@@ -105,7 +104,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
-  const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
 

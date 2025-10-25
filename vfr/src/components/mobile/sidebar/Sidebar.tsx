@@ -16,8 +16,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
   waypoints,
   onWaypointUpdate,
   onDeleteWaypoint,
@@ -159,8 +157,6 @@ const Sidebar: React.FC<SidebarProps> = ({
                 setFuelConsumption={setFuelConsumption}
                 selectedDateTime={selectedDateTime}
                 setSelectedDateTime={setSelectedDateTime}
-                fetchWindData={fetchWindData}
-                updateCalculations={updateCalculations}
                 gal_liter={gal_liter}
                 set_gal_liter={set_gal_liter}
               />

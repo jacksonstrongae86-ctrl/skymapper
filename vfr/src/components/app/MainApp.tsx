@@ -125,6 +125,7 @@ export default function MainApp() {
 
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
 
   // Trivia popup - only show on first load after tutorial and consent are complete

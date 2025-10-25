@@ -7,7 +7,6 @@ import {
   ChevronUp,
   Fuel,
   Clock,
-  RefreshCw,
   Ruler,
 } from "lucide-react";
 import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
@@ -20,8 +19,6 @@ interface FlightSettingsProps {
   setFuelConsumption: (value: number) => void;
   selectedDateTime: string;
   setSelectedDateTime: (value: string) => void;
-  fetchWindData: () => void;
-  updateCalculations: () => void;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
 }
@@ -33,8 +30,6 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
   gal_liter,
   set_gal_liter,
 }) => {
