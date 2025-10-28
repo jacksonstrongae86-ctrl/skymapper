@@ -110,10 +110,6 @@ export async function fetchECMWFWindData(
       return currentDiff < bestDiff ? idx : bestIdx;
     }, 0);
 
-    console.log(`🕒 Target time: ${timestamp.toISOString()}`);
-    console.log(`🕒 Matched time: ${new Date(times[closestTimeIndex] * 1000).toISOString()}`);
-    console.log(`⏰ Time difference: ${Math.abs(times[closestTimeIndex] - targetTime)} seconds`);
-
     const results = altitudesFt.map((altitude, i) => {
       const targetPressure = actualPressures[i];
 
@@ -138,18 +134,12 @@ export async function fetchECMWFWindData(
 
         speed = interpolated.speed;
         direction = interpolated.direction;
-
-        console.log(`🔄 Interpolated ${altitude}ft (${targetPressure.toFixed(1)}hPa) between ${lowerLevel}hPa and ${upperLevel}hPa`);
-        console.log(`   Lower: ${lowerSpeed.toFixed(1)}kts @${lowerDirection}°, Upper: ${upperSpeed.toFixed(1)}kts @${upperDirection}°`);
-        console.log(`   Result: ${speed.toFixed(1)}kts @${direction.toFixed(0)}°`);
       } else {
         // Use exact level or closest available
         const useLevel = lowerLevel || upperLevel || availableLevels[0];
         const rawSpeed = data.hourly[`windspeed_${useLevel}hPa`]?.[closestTimeIndex] || 0;
         speed = rawSpeed * 0.539957;
         direction = data.hourly[`winddirection_${useLevel}hPa`]?.[closestTimeIndex] || 0;
-
-        console.log(`🎯 Exact match ${altitude}ft using ${useLevel}hPa: ${speed.toFixed(1)}kts @${direction.toFixed(0)}°`);
       }
 
       return {

@@ -137,3 +137,5 @@ dist
 
 
 /data/*
+/.claude
+CLAUDE.md

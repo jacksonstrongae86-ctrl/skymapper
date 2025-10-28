@@ -9,14 +9,13 @@ import { ScrollableContent } from "./components/sidebar/ScrollableContent";
 import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
+import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
   waypoints,
   onWaypointUpdate,
   onDeleteWaypoint,
@@ -29,9 +28,14 @@ const Sidebar: React.FC<SidebarProps> = ({
   bottomSidebarHeight = 0, // Default to 0 if not provided
   gal_liter,
   set_gal_liter,
+  // Airspace warning props
+  airspaces = [],
+  analyzeRouteWarnings,
+  warningAlerts = [],
+  clearWarningAlerts,
 }) => {
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"settings" | "waypoints">(
+  const [activeTab, setActiveTab] = useState<"settings" | "waypoints" | "warnings">(
     "settings"
   );
 
@@ -112,18 +116,18 @@ const Sidebar: React.FC<SidebarProps> = ({
         <div className="flex border-b border-[var(--sidebar-border)]">
           <button
             onClick={() => setActiveTab("settings")}
-            className={`flex-1 text-sm py-2 transition-all ${
+            className={`flex-1 text-xs py-2 transition-all ${
               activeTab === "settings"
                 ? "bg-[var(--sidebar-bg)] font-semibold"
                 : "bg-transparent text-[var(--text-muted)]"
             }`}
           >
-            Flight Settings
+            Settings
           </button>
           <button
             onClick={() => setActiveTab("waypoints")}
             id = "waypoints-tab"
-            className={`flex-1 text-sm py-2 transition-all ${
+            className={`flex-1 text-xs py-2 transition-all ${
               activeTab === "waypoints"
                 ? "bg-[var(--sidebar-bg)] font-semibold"
                 : "bg-transparent text-[var(--text-muted)]"
@@ -131,23 +135,33 @@ const Sidebar: React.FC<SidebarProps> = ({
           >
             Waypoints
           </button>
+          <button
+            onClick={() => setActiveTab("warnings")}
+            className={`flex-1 text-xs py-2 transition-all ${
+              activeTab === "warnings"
+                ? "bg-[var(--sidebar-bg)] font-semibold"
+                : "bg-transparent text-[var(--text-muted)]"
+            }`}
+          >
+            Warnings
+          </button>
         </div>
 
         <div className="flex-1 flex flex-col">
           {activeTab === "settings" ? (
-            <FlightSettings
-              isSettingsVisible={true}
-              setIsSettingsVisible={() => {}}
-              fuelConsumption={fuelConsumption}
-              setFuelConsumption={setFuelConsumption}
-              selectedDateTime={selectedDateTime}
-              setSelectedDateTime={setSelectedDateTime}
-              fetchWindData={fetchWindData}
-              updateCalculations={updateCalculations}
-              gal_liter={gal_liter}
-              set_gal_liter={set_gal_liter}
-            />
-          ) : (
+            <div className="flex-1 flex flex-col">
+              <FlightSettings
+                isSettingsVisible={true}
+                setIsSettingsVisible={() => {}}
+                fuelConsumption={fuelConsumption}
+                setFuelConsumption={setFuelConsumption}
+                selectedDateTime={selectedDateTime}
+                setSelectedDateTime={setSelectedDateTime}
+                gal_liter={gal_liter}
+                set_gal_liter={set_gal_liter}
+              />
+            </div>
+          ) : activeTab === "waypoints" ? (
             <ScrollableContent
               isWaypointsVisible={true}
               setIsWaypointsVisible={() => {}}
@@ -158,7 +172,19 @@ const Sidebar: React.FC<SidebarProps> = ({
               handleNumericInput={handleNumericInput}
               gal_liter={gal_liter}
             />
-          )}
+          ) : activeTab === "warnings" ? (
+            <div className="flex-1 flex flex-col p-2">
+              {analyzeRouteWarnings && (
+                <AirspaceWarningPanel
+                  waypoints={waypoints}
+                  airspaces={airspaces}
+                  warningAlerts={warningAlerts}
+                  onClearAlerts={clearWarningAlerts || (() => {})}
+                  analyzeRouteWarnings={analyzeRouteWarnings}
+                />
+              )}
+            </div>
+          ) : null}
         </div>
       </div>
       </div>

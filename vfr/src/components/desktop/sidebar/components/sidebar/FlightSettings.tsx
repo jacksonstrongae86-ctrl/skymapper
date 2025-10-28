@@ -7,9 +7,10 @@ import {
   ChevronUp,
   Fuel,
   Clock,
-  Wind,
-  RefreshCw,
+  Ruler,
 } from "lucide-react";
+import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
+import { AltitudeUnit } from "@/src/utils/unitConversions";
 
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
@@ -18,8 +19,6 @@ interface FlightSettingsProps {
   setFuelConsumption: (value: number) => void;
   selectedDateTime: string;
   setSelectedDateTime: (value: string) => void;
-  fetchWindData: () => void;
-  updateCalculations: () => void;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
 }
@@ -31,12 +30,12 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
   gal_liter,
   set_gal_liter,
 }) => {
   const { theme } = useTheme();
+  const { altitudeUnit, setAltitudeUnit } = useAltitudeUnit();
+  const units: AltitudeUnit[] = ['ft', 'm', 'fl'];
 
   // Local state for fuel consumption display value
   const [fuelDisplayValue, setFuelDisplayValue] = useState(
@@ -105,35 +104,41 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
               <label className="block">
                 <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-1">
                   <Fuel size={16} className="text-[var(--sidebar-text)]" />
-                  Fuel Consumption ({gal_liter}/hr):
+                  Fuel Consumption:
                 </span>
-                <input
-                  type="number"
-                  className="w-full mt-1 p-2 rounded-lg border border-[var(--sidebar-border)]
-                    bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
-                    focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
-                    transition-all duration-200"
-                  value={fuelDisplayValue}
-                  onChange={(e) => handleFuelInputChange(e.target.value)}
-                  min="0"
-                  step="0.1"
-                  placeholder="Enter fuel consumption..."
-                />
-                <button
-                  type="button"
-                  className="ml-2 p-1 rounded hover:bg-[var(--button-bg)] transition"
-                  onClick={() =>
-                    set_gal_liter(gal_liter === "Gal" ? "Liter" : "Gal")
-                  }
-                  title={`Switch to ${
-                    gal_liter === "Gal/hr" ? "Liter/hr" : "Gal/hr"
-                  }`}
-                >
-                  <RefreshCw
-                    size={16}
-                    className="inline text-[var(--button-text)]"
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="number"
+                    className="mt-1 p-2 rounded-lg border border-[var(--sidebar-border)]
+                      bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                      focus:ring-2 focus:ring-[var(--button-bg)] focus:outline-none
+                      transition-all duration-200 max-w-[60%]"
+                    value={fuelDisplayValue}
+                    onChange={(e) => handleFuelInputChange(e.target.value)}
+                    min="0"
+                    step="0.1"
+                    placeholder="Enter..."
                   />
-                </button>
+                  <button
+                    type="button"
+                    className={`
+                      mt-1 px-3 py-2 rounded-lg border border-[var(--sidebar-border)]
+                      bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                      hover:bg-[var(--button-bg)] hover:text-[var(--button-text)]
+                      transition-all duration-200
+                      text-sm font-medium whitespace-nowrap
+                      flex-shrink-0
+                    `}
+                    onClick={() =>
+                      set_gal_liter(gal_liter === "Gal" ? "Liter" : "Gal")
+                    }
+                    title={`Switch to ${
+                      gal_liter === "Gal" ? "Liter/hr" : "Gal/hr"
+                    }`}
+                  >
+                    {gal_liter}/hr
+                  </button>
+                </div>
               </label>
 
               <label className="grid grid-cols-1 gap-2">
@@ -152,41 +157,33 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   placeholder="Select flight date and time"
                 />
               </label>
-            </div>
 
-            {/* Action Buttons */}
-            <div className="space-y-2 pt-2">
-              <button
-                type="button"
-                className={`
-                  w-full py-2 px-4 rounded-lg
-                  ${`button-gradient-${theme}`}
-                  text-[var(--button-text)]
-                  transition-all duration-200
-                  flex items-center justify-center gap-2
-                  hover:opacity-90
-                `}
-                onClick={fetchWindData}
-              >
-                <Wind size={18} className="text-[var(--button-text)]" />
-                <span>Fetch Wind Data</span>
-              </button>
-
-              <button
-                type="button"
-                className={`
-                  w-full py-2 px-4 rounded-lg
-                  ${`button-gradient-${theme}`}
-                  text-[var(--button-text)]
-                  transition-all duration-200
-                  flex items-center justify-center gap-2
-                  hover:opacity-90
-                `}
-                onClick={updateCalculations}
-              >
-                <RefreshCw size={18} className="text-[var(--button-text)]" />
-                <span>Update Info</span>
-              </button>
+              {/* Altitude Unit Selector */}
+              <label className="block">
+                <span className="flex items-center gap-2 text-sm font-medium text-[var(--sidebar-text)] mb-2">
+                  <Ruler size={16} className="text-[var(--sidebar-text)]" />
+                  Altitude Display Units:
+                </span>
+                <div className="flex gap-1 bg-[var(--sidebar-bg)] rounded-lg p-1 border border-[var(--sidebar-border)]">
+                  {units.map((unit) => (
+                    <button
+                      key={unit}
+                      type="button"
+                      onClick={() => setAltitudeUnit(unit)}
+                      className={`
+                        flex-1 px-3 py-2 text-xs font-medium rounded-md transition-all duration-200
+                        ${
+                          altitudeUnit === unit
+                            ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                            : 'text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]'
+                        }
+                      `}
+                    >
+                      {unit.toUpperCase()}
+                    </button>
+                  ))}
+                </div>
+              </label>
             </div>
           </div>
         </div>

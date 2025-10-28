@@ -419,10 +419,12 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         zIndex: 99999,
       }
     : {
-        top: `${dropdownPosition.top - 200}px`,
+        top: `${dropdownPosition.top}px`,
         left: `${dropdownPosition.left}px`,
-        minWidth: `320px`,
-        maxWidth: `600px`,
+        minWidth: `280px`,
+        maxWidth: `360px`,
+        position: "fixed" as const,
+        zIndex: 99999,
       };
 
     return createPortal(
@@ -433,14 +435,13 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
           ${`gradient-${theme}`}
           border border-white
           rounded-xl shadow-2xl
-          min-w-[320px]
-          max-w-[600px]
           transform transition-all duration-200
+          ${isMobile ? 'min-w-[320px] max-w-[600px]' : 'min-w-[280px] max-w-[360px]'}
         `}
         style={mobileStyle}
       >
         {/* Header */}
-        <div className="p-4 border-b border-white">
+        <div className={`border-b border-white ${isMobile ? 'p-4' : 'p-2'}`}>
           <div className="flex items-center justify-between">
             <button
               onClick={() => navigateMonth("prev")}
@@ -450,7 +451,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               <ChevronLeft size={16} />
             </button>
 
-            <h3 className="font-semibold text-white">
+            <h3 className={`font-semibold text-white ${isMobile ? 'text-base' : 'text-sm'}`}>
               {currentMonth.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
             </h3>
 
@@ -465,7 +466,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         </div>
 
         {/* Calendar Grid */}
-        <div className="p-4">
+        <div className={isMobile ? 'p-4' : 'p-2'}>
           {renderCalendar()}
         </div>
 
@@ -473,7 +474,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
         {renderTimePicker()}
 
         {/* Footer Actions */}
-        <div className="p-4 border-t border-white flex gap-2">
+        <div className={`border-t border-white flex gap-2 ${isMobile ? 'p-4' : 'p-2'}`}>
           <button
             onClick={() => {
               const todayDate = new Date();
@@ -484,11 +485,12 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               setIsOpen(false);
             }}
             className={`
-              px-3 py-2 rounded-lg text-sm
+              rounded-lg
               ${`button-gradient-${theme}`}
               text-white
               hover:opacity-90 transition-opacity duration-200
               flex-1
+              ${isMobile ? 'px-3 py-2 text-sm' : 'px-2 py-1 text-xs'}
             `}
           >
             Today
@@ -499,11 +501,14 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               onChange(null);
               setIsOpen(false);
             }}
-            className="px-3 py-2 rounded-lg text-sm
+            className={`
+              rounded-lg
               border border-white
               text-white
               hover:bg-[var(--sidebar-border)] transition-colors duration-200
-              flex-1"
+              flex-1
+              ${isMobile ? 'px-3 py-2 text-sm' : 'px-2 py-1 text-xs'}
+            `}
           >
             Clear
           </button>
@@ -512,11 +517,12 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
             <button
               onClick={() => setIsOpen(false)}
               className={`
-                px-3 py-2 rounded-lg text-sm
+                rounded-lg
                 ${`button-gradient-${theme}`}
                 text-white
                 hover:opacity-90 transition-opacity duration-200
                 flex-1
+                ${isMobile ? 'px-3 py-2 text-sm' : 'px-2 py-1 text-xs'}
               `}
             >
               Done

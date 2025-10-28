@@ -126,6 +126,20 @@ export interface LatLng {
   lng: number;
 }
 
+export interface AnalyzeRouteCompliance  {
+    waypointCompliance: Array<{
+      index: number;
+      compliant: boolean;
+      adjustedAltitude: number | null;
+      violation: {
+        type: 'above_upper_limit' | 'below_lower_limit' | null;
+        limit: number | null;
+        airspaces: Airspace[];
+      };
+    }>;
+    overallCompliant: boolean;
+  }
+
 export interface SidebarProps {
   fuelConsumption: number;
   setFuelConsumption: (consumption: number) => void;
@@ -151,6 +165,39 @@ export interface SidebarProps {
   bottomSidebarHeight?: number;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
+  // Airspace warning properties
+  airspaces?: Airspace[];
+  showWarnings?: boolean;
+  setShowWarnings?: (enabled: boolean) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => {
+    warnings: Array<{
+      waypointIndex: number;
+      position: [number, number];
+      altitude: number;
+      isInRestrictedAirspace: boolean;
+      hasViolation: boolean;
+      warning: {
+        type: 'above_upper_limit' | 'below_lower_limit' | 'in_restricted_airspace' | null;
+        message: string;
+        limit: number | null;
+        suggestedAltitude: number | null;
+        airspaces: Airspace[];
+      };
+    }>;
+    hasViolations: boolean;
+    hasRestrictedAirspaceIntersections: boolean;
+    totalWarnings: number;
+  };
+  warningAlerts?: string[];
+  clearWarningAlerts?: () => void;
+  aviationLayers?: {
+    airports: boolean;
+    airspaces: boolean;
+    navigation: boolean;
+    obstacles: boolean;
+    hotspots: boolean;
+    reportingpoints: boolean;
+  };
 }
 
 export interface MapControlsProps {

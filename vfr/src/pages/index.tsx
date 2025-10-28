@@ -1,259 +1,53 @@
-import React, { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
-import { useWaypoints } from "../hooks/index/useWaypoints";
-import { useFlightCalculations } from "../hooks/index/useFlightCalculations";
-import { useUIState } from "../hooks/index/useUIState";
-import { useWindData } from "../hooks/index/useWindData";
-import { useIsMobile } from "../hooksMobile/useIsMobile";
-import Sidebar from "../components/desktop/sidebar/Sidebar";
-import MobileSidebar from "../components/mobile/sidebar/Sidebar";
-import MapControls from "../components/desktop/map/MapControls";
-import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
-import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
+import React, { useState, useEffect, createContext } from "react";
+import LandingPage from "../components/landing/LandingPage";
+import MainApp from "../components/app/MainApp";
 import "intro.js/introjs.css";
 
-const MapComponent = dynamic(
-  () => import("../components/desktop/map/MapComponent"),
-  {
-    ssr: false,
-  }
-);
-
-const MobileMapComponent = dynamic(
-  () => import("../components/mobile/map/MapComponent"),
-  {
-    ssr: false,
-  }
-);
+// Create context to share landing state with _app.tsx
+export const LandingContext = createContext<{
+  showLanding: boolean;
+  setShowLanding: (value: boolean) => void;
+}>({
+  showLanding: true,
+  setShowLanding: () => {},
+});
 
 export default function Home() {
-  const defaultTAS = 100;
-  const [gal_liter, set_gal_liter] = useState<string>("Gal");
-  const [fuelConsumption, setFuelConsumption] = useState<number>(8);
-  const { legCalculations, updateCalculations } = useFlightCalculations();
-  const uiState = useUIState();
-  const {
-    storedWindData,
-    selectedDateTime,
-    setSelectedDateTime,
-    fetchWindData,
-  } = useWindData();
-  const {
-    waypoints,
-    handleWaypointUpdate,
-    handleDeleteWaypoint,
-    handleMapClick,
-    handleDeleteLastWaypoint,
-    onAddSearchWaypoint,
-    handleClearWaypoints,
-    listSavedRoutes,
-    saveNewRoute,
-    overwriteRoute,
-    loadRoute,
-    deleteRoute,
-    renameRoute,
-    loadRouteFromSerialized,
-  } = useWaypoints(defaultTAS, fuelConsumption, storedWindData ?? []);
+  const [showLanding, setShowLanding] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
+  // Check if user has visited before
   useEffect(() => {
-    const serialized = new URLSearchParams(window.location.search).get(
-      "importRoute"
-    );
-    if (serialized) {
-      try {
-        loadRouteFromSerialized(serialized);
-        // Optionally, clear the param to avoid reimport on reload
-        const url = new URL(window.location.href);
-        url.searchParams.delete("importRoute");
-        window.history.replaceState(null, "", url.toString());
-      } catch {
-        // ignore or show an error
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      const hasVisited = localStorage.getItem('skymapper-has-visited');
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceApp = urlParams.get('app') === 'true';
+      const forceLanding = urlParams.get('landing') === 'true';
+
+      if (forceApp || (hasVisited && !forceLanding)) {
+        setShowLanding(false);
+      } else {
+        setShowLanding(true);
       }
+      setIsLoading(false);
     }
-  }, [loadRouteFromSerialized]);
+  }, []);
 
-  const isMobile = useIsMobile();
-  // Shared state for both sidebar heights
-  const [topSidebarHeight, setTopSidebarHeight] = useState(25);
-  const [bottomSidebarHeight, setBottomSidebarHeight] = useState(25);
+  // Show loading state during SSR and initial client load
+  if (isLoading) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-gradient-to-r from-blue-600 to-blue-800">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
-  // Handler for top sidebar height changes
-  const handleTopSidebarHeightChange = (height: number) => {
-    setTopSidebarHeight(height);
-  };
+  // Show landing page for first-time visitors
+  if (showLanding) {
+    return <LandingPage />;
+  }
 
-  // Handler for bottom sidebar height changes
-  const handleBottomSidebarHeightChange = (height: number) => {
-    setBottomSidebarHeight(height);
-  };
-  useEffect(() => {
-    if (waypoints.length > 0) {
-      fetchWindData(waypoints);
-    }
-  }, [waypoints, selectedDateTime, fetchWindData]);
-
-  useEffect(() => {
-    if (waypoints.length > 0 && storedWindData) {
-      updateCalculations(waypoints, storedWindData, fuelConsumption);
-    }
-  }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
-
-  // OpenAIP
-  const [showAviationData, setShowAviationData] = useState(true);
-  const [aviationLayers, setAviationLayers] = useState({
-    airports: true,
-    airspaces: false,
-    navigation: false,
-    obstacles: false,
-    hotspots: false,
-    reportingpoints:false,
-  });
-
-  const handleLayerToggle = (
-    layer: keyof typeof aviationLayers,
-    enabled: boolean
-  ) => {
-    setAviationLayers((prev) => ({
-      ...prev,
-      [layer]: enabled,
-    }));
-  };
-
-  const [selectedCountry, setSelectedCountry] = useState("es");
-  return (
-    <div className="relative h-screen flex flex-col">
-      <title>Skymapper - Plan your VFR flight routes with ease</title>
-      <meta></meta>
-      {isMobile ? (
-        <div className="flex flex-col h-full">
-          <div id="mobile-top-sidebar" className="flex-none">
-            <MobileSidebar
-              results={undefined}
-              {...uiState}
-              fuelConsumption={fuelConsumption}
-              setFuelConsumption={setFuelConsumption}
-              selectedDateTime={selectedDateTime}
-              setSelectedDateTime={setSelectedDateTime}
-              fetchWindData={() => fetchWindData(waypoints)}
-              updateCalculations={() =>
-                updateCalculations(waypoints, storedWindData, fuelConsumption)
-              }
-              waypoints={waypoints}
-              onWaypointUpdate={handleWaypointUpdate}
-              onDeleteWaypoint={handleDeleteWaypoint}
-              onHeightChange={handleTopSidebarHeightChange}
-              bottomSidebarHeight={bottomSidebarHeight}
-              gal_liter={gal_liter}
-              set_gal_liter={set_gal_liter}
-            />
-          </div>
-          <div id="map-container" className="flex-1 relative mt-0">
-            <MobileMapComponent
-              onMapClick={handleMapClick}
-              waypoints={waypoints}
-              mapType={uiState.mapType}
-              onWaypointUpdate={handleWaypointUpdate}
-              onDeleteLastWaypoint={handleDeleteLastWaypoint}
-              onClearWaypoints={handleClearWaypoints}
-              setMapType={uiState.setMapType}
-              onAddSearchWaypoint={onAddSearchWaypoint}
-              showAviationData={showAviationData}
-              onToggleAviationData={setShowAviationData}
-              aviationLayers={aviationLayers}
-              onLayerToggle={handleLayerToggle}
-              selectedCountry={selectedCountry}
-              onCountryChange={setSelectedCountry}
-              listSavedRoutes={listSavedRoutes}
-              saveNewRoute={saveNewRoute}
-              overwriteRoute={overwriteRoute}
-              loadRoute={loadRoute}
-              deleteRoute={deleteRoute}
-              renameRoute={renameRoute}
-            />
-          </div>
-
-          <div id="mobile-bottom-sidebar" className="flex-none">
-            <MobileBottomSidebar
-              waypoints={waypoints}
-              storedWindData={storedWindData}
-              fuelConsumption={fuelConsumption}
-              legCalculations={legCalculations}
-              {...uiState}
-              onHeightChange={handleBottomSidebarHeightChange}
-              topSidebarHeight={topSidebarHeight}
-              gal_liter={gal_liter}
-              set_gal_liter={set_gal_liter}
-            />
-          </div>
-        </div>
-      ) : (
-        <>
-          <Sidebar
-            results={undefined}
-            {...uiState}
-            fuelConsumption={fuelConsumption}
-            setFuelConsumption={setFuelConsumption}
-            selectedDateTime={selectedDateTime}
-            setSelectedDateTime={setSelectedDateTime}
-            fetchWindData={() => fetchWindData(waypoints)}
-            updateCalculations={() =>
-              updateCalculations(waypoints, storedWindData, fuelConsumption)
-            }
-            waypoints={waypoints}
-            onWaypointUpdate={handleWaypointUpdate}
-            onDeleteWaypoint={handleDeleteWaypoint}
-            gal_liter={gal_liter}
-            set_gal_liter={set_gal_liter}
-          />
-
-          <div className="relative flex-1 h-full">
-            <div className="absolute inset-0 z-20">
-              <MapComponent
-                onMapClick={handleMapClick}
-                waypoints={waypoints}
-                mapType={uiState.mapType}
-                onWaypointUpdate={handleWaypointUpdate}
-                showAviationData={showAviationData}
-                aviationLayers={aviationLayers}
-                selectedCountry={selectedCountry}
-                onCountryChange={setSelectedCountry}
-              />
-            </div>
-            <div className="absolute top-4 right-4 z-30">
-              <MapControls
-                mapType={uiState.mapType}
-                setMapType={uiState.setMapType}
-                onDeleteLastWaypoint={handleDeleteLastWaypoint}
-                onClearWaypoints={handleClearWaypoints}
-                onAddSearchWaypoint={onAddSearchWaypoint}
-                showAviationData={showAviationData}
-                onToggleAviationData={setShowAviationData}
-                aviationLayers={aviationLayers}
-                onLayerToggle={handleLayerToggle}
-                selectedCountry={selectedCountry}
-                onCountryChange={setSelectedCountry}
-                waypoints={waypoints}
-                listSavedRoutes={listSavedRoutes}
-                saveNewRoute={saveNewRoute}
-                overwriteRoute={overwriteRoute}
-                loadRoute={loadRoute}
-                deleteRoute={deleteRoute}
-                renameRoute={renameRoute}
-              />
-            </div>
-          </div>
-
-          <BottomSidebar
-            waypoints={waypoints}
-            storedWindData={storedWindData}
-            fuelConsumption={fuelConsumption}
-            legCalculations={legCalculations}
-            {...uiState}
-            gal_liter={gal_liter}
-            set_gal_liter={set_gal_liter}
-          />
-        </>
-      )}
-    </div>
-  );
+  // Show main app for returning users
+  return <MainApp />;
 }

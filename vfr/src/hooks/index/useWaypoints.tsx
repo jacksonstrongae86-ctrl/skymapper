@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { LeafletMouseEvent } from "leaflet";
-import { Waypoint, WindDataArray } from "@/src/utils/types";
+import { Waypoint, WindDataArray, Airspace } from "@/src/utils/types";
 import {
   IAStoTAS,
   getBearing,
   getGroundSpeed,
   calculateTransitionWaypoint,
 } from "@/src/utils/logic";
+import { useAltitudeCompliance } from "./useAltitudeCompliance";
 
 import { getLocationNameWithRateLimit } from "@/src/utils/geocoding";
 import { v4 as uuidv4 } from "uuid";
@@ -150,12 +151,25 @@ export function importRouteFromUrl() {
 export function useWaypoints(
   defaultTAS: number = 100,
   fuelConsumption: number = 8,
-  storedWindData: WindDataArray = []
+  storedWindData: WindDataArray = [],
+  airspaces: Airspace[] = []
 ) {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
   const [geocodingErrors, setGeocodingErrors] = useState<Map<number, string>>(
     new Map()
   );
+
+  // Initialize altitude compliance hook for warnings (airspaces are already validated in useAviationData)
+  const {
+    showWarnings,
+    setShowWarnings,
+    analyzeRouteWarnings,
+    checkWaypointWarning,
+    getAltitudeLimits,
+    warningAlerts,
+    addWarningAlert,
+    clearWarningAlerts
+  } = useAltitudeCompliance(airspaces);
   const updateWaypointName = useCallback(
   async (index: number, lat: number, lng: number): Promise<void> => {
     try {
@@ -293,6 +307,16 @@ export function useWaypoints(
           ) {
             updated[index] = { ...updated[index], position: newPosition };
 
+            // Check for airspace warnings at new position
+            if (showWarnings) {
+              const warning = checkWaypointWarning(updated[index]);
+              if (warning) {
+                addWarningAlert(
+                  `Waypoint ${index + 1}: ${warning.warning.message}`
+                );
+              }
+            }
+
             // Only auto-update if name wasn't manually set
             if (!updated[index].isManualName) {
               updateWaypointName(index, newPosition[0], newPosition[1]);
@@ -302,18 +326,40 @@ export function useWaypoints(
         }
 
         /* ───────────────────────────────────────────────────────────────
-         1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route
+         1.  ALTITUDE/ALTITUDE-CHANGE EDIT  →  cascade through route + compliance check
       ──────────────────────────────────────────────────────────────── */
         if (field === "altitude" || field === "altitudeChange") {
           // update the edited waypoint first …
           updated[index] = { ...updated[index], [field]: value };
 
+          // Check for airspace warnings on altitude changes
+          if (showWarnings && field === "altitude") {
+            const warning = checkWaypointWarning(updated[index]);
+            if (warning) {
+              addWarningAlert(
+                `Waypoint ${index + 1}: ${warning.warning.message}`
+              );
+            }
+          }
+
           // … then copy its exit altitude into every following waypoint
           for (let i = index + 1; i < updated.length; i++) {
+            const newAltitude = exitAltitude(updated[i - 1]);
+
             updated[i] = {
               ...updated[i],
-              altitude: exitAltitude(updated[i - 1]),
+              altitude: newAltitude,
             };
+
+            // Check for warnings on cascade altitude changes
+            if (showWarnings) {
+              const warning = checkWaypointWarning(updated[i]);
+              if (warning) {
+                addWarningAlert(
+                  `Waypoint ${i + 1}: ${warning.warning.message}`
+                );
+              }
+            }
           }
         } else {
           // any other field: simple patch
@@ -484,7 +530,7 @@ export function useWaypoints(
         return updated;
       });
     },
-    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName]
+    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName, showWarnings, checkWaypointWarning, addWarningAlert]
   );
 
   const handleMapClick = useCallback(
@@ -493,7 +539,7 @@ export function useWaypoints(
 
       setWaypoints((prev) => {
         const newIndex = prev.length;
-        const newWaypoint = {
+        const newWaypoint: Waypoint = {
           position: [lat, lng] as [number, number],
           type: "waypoint" as const,
           altitude: lastRouteAltitude(prev),
@@ -506,12 +552,22 @@ export function useWaypoints(
           name: "Loading...",
         };
 
+        // Check for airspace warnings on new waypoint
+        if (showWarnings) {
+          const warning = checkWaypointWarning(newWaypoint);
+          if (warning) {
+            addWarningAlert(
+              `New waypoint: ${warning.warning.message}`
+            );
+          }
+        }
+
         updateWaypointName(newIndex, lat, lng);
 
         return [...prev, newWaypoint];
       });
     },
-    [defaultTAS, fuelConsumption, lastRouteAltitude, updateWaypointName]
+    [defaultTAS, fuelConsumption, lastRouteAltitude, updateWaypointName, showWarnings, checkWaypointWarning, addWarningAlert]
   );
 
   const handleDeleteWaypoint = useCallback(
@@ -669,6 +725,7 @@ export function useWaypoints(
     [loadWaypointsSequentially]
   );
 
+
   return {
     waypoints,
     setWaypoints,
@@ -687,5 +744,12 @@ export function useWaypoints(
     deleteRoute,
     renameRoute,
     loadRouteFromSerialized,
+    // Airspace warning functions
+    showWarnings,
+    setShowWarnings,
+    analyzeRouteWarnings,
+    getAltitudeLimits,
+    warningAlerts,
+    clearWarningAlerts,
   };
 }

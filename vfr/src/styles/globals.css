@@ -487,6 +487,16 @@
 body {
   background-color: var(--background);
   color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@keyframes pulse-bright {
+  70% {
+    box-shadow: 0 0 0 15px rgba(34, 211, 238, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 211, 238, 0.5);
+  }
 }
 
 .custom-scrollbar {
@@ -712,10 +722,19 @@ body {
   font-weight: 500 !important;
   margin-left: 8px !important;
   transition: background-color 0.2s ease !important;
+  text-align: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  display: inline-block !important;
+  cursor: pointer !important;
 }
 
 .theme-dark .introjs-button:hover {
   background: var(--button-hover) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /* Dark theme skip button */
@@ -727,10 +746,25 @@ body {
   padding: 6px 12px !important;
   border-radius: 4px !important;
   transition: background-color 0.2s ease !important;
+  text-align: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  margin: 0 !important;
+  vertical-align: baseline !important;
 }
 
 .theme-dark .introjs-skipbutton:hover {
   background: var(--results-hover) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 /* Dark theme progress bar */
@@ -772,10 +806,405 @@ body {
 
 .theme-dark .introjs-button {
   background: linear-gradient(to right, var(--button-bg), var(--button-hover)) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
 }
 
 .theme-dark .introjs-button:hover {
   background: linear-gradient(to right, var(--button-hover), #1d4ed8) !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Global Intro.js button fixes for all themes */
+.introjs-button {
+  text-align: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  outline: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+}
+
+.introjs-skipbutton {
+  text-align: center !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  line-height: 1.2 !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  font-family: inherit !important;
+  outline: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  appearance: none !important;
+  position: relative !important;
+  top: 0 !important;
+  left: 0 !important;
+  transform: none !important;
+  margin: 0 !important;
+  vertical-align: baseline !important;
+}
+
+/* Fix button text positioning and prevent duplication */
+.introjs-button:before,
+.introjs-button:after,
+.introjs-skipbutton:before,
+.introjs-skipbutton:after {
+  display: none !important;
+}
+
+.introjs-button span,
+.introjs-skipbutton span {
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+/* Enhanced Airspace Tooltip Styles */
+.enhanced-airspace-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  max-width: none !important;
+  min-width: auto !important;
+  z-index: 1000 !important;
+}
+
+.enhanced-airspace-tooltip .leaflet-tooltip-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Override default Leaflet tooltip styles for our enhanced tooltips */
+.leaflet-tooltip.enhanced-airspace-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  z-index: 1000 !important;
+}
+
+.leaflet-tooltip.enhanced-airspace-tooltip::before {
+  display: none !important;
+}
+
+/* Custom Dark Tooltip Styles */
+.custom-dark-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  z-index: 1000 !important;
+}
+
+.custom-dark-tooltip .leaflet-tooltip-content {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leaflet-tooltip.custom-dark-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  z-index: 1000 !important;
+}
+
+.leaflet-tooltip.custom-dark-tooltip::before {
+  display: none !important;
+}
+
+/* Header Trivia Carousel Animation */
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(0);
+  }
+  75% {
+    transform: translateX(-50%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  animation: scroll-text 6s linear infinite;
+  animation-delay: 1s;
+}
+
+/* Airport Popup Styling */
+.aviation-popup.themed-popup {
+  background: rgba(30, 41, 59, 0.95);
+  border: none !important;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  backdrop-filter: blur(10px);
+}
+
+.popup-header {
+  background: rgba(59, 130, 246, 0.9);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 8px 8px 0 0;
+}
+
+.popup-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.popup-subtitle {
+  font-size: 0.875rem;
+  opacity: 0.9;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.popup-content {
+  padding: 12px 16px;
+  color: #e2e8f0;
+}
+
+.info-section {
+  margin-bottom: 12px;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 0;
+  padding: 2px 0;
+}
+
+.info-label {
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: #cbd5e1;
+}
+
+.info-value {
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+.ppr-warning {
+  background: rgba(239, 68, 68, 0.1);
+  color: #dc2626;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  margin-top: 8px;
+  border-left: 3px solid #dc2626;
+}
+
+.section {
+  margin-bottom: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  padding-top: 8px;
+}
+
+.section-title {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #60a5fa;
+}
+
+.runways-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.runway-item {
+  background: rgba(51, 65, 85, 0.6);
+  border: none;
+  border-left: 2px solid #60a5fa;
+  border-radius: 4px;
+  padding: 8px 10px;
+  transition: background-color 0.2s;
+}
+
+.runway-item:hover {
+  background: rgba(71, 85, 105, 0.8);
+}
+
+.runway-designator {
+  font-weight: 600;
+  color: #60a5fa;
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}
+
+.runway-details {
+  font-size: 0.8rem;
+  color: #cbd5e1;
+  line-height: 1.3;
+}
+
+.runway-dimension {
+  font-weight: 500;
+  color: #e2e8f0;
+}
+
+.runway-surface, .runway-heading {
+  margin-top: 1px;
+}
+
+.runway-restriction {
+  color: #fca5a5;
+  font-weight: 500;
+  margin-top: 3px;
+}
+
+.frequencies-container {
+  background: rgba(51, 65, 85, 0.6);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+.frequencies-container div {
+  margin: 2px 0;
+  color: #cbd5e1;
+}
+
+.actions-section {
+  border-top: 1px solid rgba(148, 163, 184, 0.3);
+  padding-top: 12px;
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.action-button {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 120px;
+  justify-content: center;
+}
+
+.start-button {
+  background: rgba(16, 185, 129, 0.8);
+  color: white;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.2);
+}
+
+.start-button:hover {
+  background: rgba(16, 185, 129, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.end-button {
+  background: rgba(239, 68, 68, 0.8);
+  color: white;
+  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.2);
+}
+
+.end-button:hover {
+  background: rgba(239, 68, 68, 1);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.no-data {
+  color: var(--sidebar-text, #6b7280);
+  font-style: italic;
+  text-align: center;
+  padding: 12px;
+  background: var(--results-bg2, #f8fafc);
+  border-radius: 6px;
+}
+
+/* Override Leaflet popup defaults */
+.leaflet-popup-content-wrapper {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.leaflet-popup-tip {
+  background: rgba(30, 41, 59, 0.95) !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.leaflet-popup-close-button {
+  color: white !important;
+  font-size: 18px !important;
+  font-weight: bold !important;
+  right: 8px !important;
+  top: 8px !important;
+}
+
+.leaflet-popup-close-button:hover {
+  color: #fca5a5 !important;
+}
+
+/* Responsive tooltip sizing */
+@media (max-width: 768px) {
+  .enhanced-airspace-tooltip {
+    transform: scale(0.9) !important;
+    transform-origin: center top !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .enhanced-airspace-tooltip {
+    transform: scale(0.85) !important;
+    max-width: 280px !important;
+  }
+}
+
+/* Ensure tooltip content is properly styled */
+.enhanced-airspace-tooltip div {
+  line-height: 1.4 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 

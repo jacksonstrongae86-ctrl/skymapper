@@ -3,20 +3,25 @@ import { ConsentManager } from "@/src/components/legal/ConsentManager";
 import { ConsentState } from "@/src/utils/consentManager";
 import type { AppProps } from "next/app";
 import { ThemeProvider } from "../utils/ThemeContext";
+import { AltitudeUnitProvider } from "../utils/AltitudeUnitContext";
 import { useEffect, useState, useCallback } from "react";
 import posthog from "posthog-js";
 import { PostHogProvider } from "posthog-js/react";
 import LoadingPage from "../components/LoadingPage";
 import "intro.js/introjs.css";
 import { useIsMobile } from "../hooksMobile/useIsMobile";
+import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [initialized, setInitialized] = useState(false);
   const [tutorialType, setTutorialType] = useState<"desktop" | "mobile" | null>(
     null
   );
+  const [showLanding, setShowLanding] = useState(true);
+  const [isCheckingLanding, setIsCheckingLanding] = useState(true);
 
   const isMobile = useIsMobile();
+  const router = useRouter();
   // Función para aplicar estado de consentimiento a PostHog
   const applyConsent = useCallback((consents: ConsentState) => {
     if (consents.analytics) {
@@ -52,6 +57,28 @@ export default function App({ Component, pageProps }: AppProps) {
       localStorage.setItem("skymapper-tutorial-candidate", "true");
     }
   }, []);
+
+  // Check if we should show landing page (only on index route)
+  useEffect(() => {
+    if (router.pathname === '/') {
+      if (typeof window !== 'undefined') {
+        const hasVisited = localStorage.getItem('skymapper-has-visited');
+        const urlParams = new URLSearchParams(window.location.search);
+        const forceApp = urlParams.get('app') === 'true';
+        const forceLanding = urlParams.get('landing') === 'true';
+
+        if (forceApp || (hasVisited && !forceLanding)) {
+          setShowLanding(false);
+        } else {
+          setShowLanding(true);
+        }
+      }
+    } else {
+      // For all other routes, don't show landing
+      setShowLanding(false);
+    }
+    setIsCheckingLanding(false);
+  }, [router.pathname]);
 
   useEffect(() => {
     if (!process.env.NEXT_PUBLIC_POSTHOG_KEY) {
@@ -90,8 +117,10 @@ export default function App({ Component, pageProps }: AppProps) {
           try {
             const parsedConsents = JSON.parse(savedConsents);
             applyConsent(parsedConsents);
-            // ✅ Also check tutorial eligibility when loading saved consents
-            checkTutorialEligibility(parsedConsents);
+            // ✅ Also check tutorial eligibility when loading saved consents (only if not on landing page)
+            if (!showLanding) {
+              checkTutorialEligibility(parsedConsents);
+            }
           } catch (error) {
             console.error("Error parsing saved consents:", error);
           }
@@ -108,37 +137,39 @@ export default function App({ Component, pageProps }: AppProps) {
       .catch((error) =>
         console.error("Failed to initialize sync service:", error)
       );
-  }, [applyConsent, checkTutorialEligibility]);
+  }, [applyConsent, checkTutorialEligibility, showLanding]);
 
   const handleConsentChange = (consents: ConsentState) => {
     applyConsent(consents);
-    // ✅ Check tutorial eligibility when consent changes
-    checkTutorialEligibility(consents);
-    console.log(
-      "complete",
-      localStorage.getItem("skymapper-tutorial-completed")
-    );
-    console.log(
-      "candidate",
-      localStorage.getItem("skymapper-tutorial-candidate")
-    );
-    if (
-      consents.analytics &&
-      localStorage.getItem("skymapper-tutorial-completed") == null &&
-      initialized &&
-      tutorialType
-    ) {
-      localStorage.removeItem("skymapper-tutorial-candidate");
-      import("intro.js").then((introModule) => {
-        const introJs = introModule.default;
-        setTimeout(() => {
-          if (tutorialType === "mobile") {
-            mobileTutorial(introJs);
-          } else {
-            desktopTutorial(introJs);
-          }
-        }, 1000);
-      });
+    // ✅ Check tutorial eligibility when consent changes (only if not on landing page)
+    if (!showLanding) {
+      checkTutorialEligibility(consents);
+      console.log(
+        "complete",
+        localStorage.getItem("skymapper-tutorial-completed")
+      );
+      console.log(
+        "candidate",
+        localStorage.getItem("skymapper-tutorial-candidate")
+      );
+      if (
+        consents.analytics &&
+        localStorage.getItem("skymapper-tutorial-completed") == null &&
+        initialized &&
+        tutorialType
+      ) {
+        localStorage.removeItem("skymapper-tutorial-candidate");
+        import("intro.js").then((introModule) => {
+          const introJs = introModule.default;
+          setTimeout(() => {
+            if (tutorialType === "mobile") {
+              mobileTutorial(introJs);
+            } else {
+              desktopTutorial(introJs);
+            }
+          }, 1000);
+        });
+      }
     }
   };
 
@@ -459,9 +490,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, [initialized, isMobile]);
 
-  // Only after initialized and tutorialType is set, lazy-load intro.js and run tutorial
+  // Only after initialized and tutorialType is set, lazy-load intro.js and run tutorial (but not on landing page)
   useEffect(() => {
-    if (initialized && tutorialType) {
+    if (initialized && tutorialType && !showLanding) {
       console.log(
         "candidate: ",
         localStorage.getItem("skymapper-tutorial-candidate")
@@ -487,24 +518,30 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [
     initialized,
     tutorialType,
+    showLanding,
     mobileTutorial,
     mobile2ndTutorial,
     desktopTutorial,
   ]);
 
-  if (!initialized) {
+  if (!initialized || isCheckingLanding) {
     return <LoadingPage />;
   }
 
   return (
     <PostHogProvider client={posthog}>
       <ThemeProvider>
-        <Component {...pageProps} />
-        <ConsentManager
-          showInitialModal={true}
-          position="center"
-          onConsentChange={handleConsentChange}
-        />
+        <AltitudeUnitProvider>
+          <Component {...pageProps} />
+          {/* Only show consent manager when not on landing page */}
+          {!showLanding && (
+            <ConsentManager
+              showInitialModal={true}
+              position="center"
+              onConsentChange={handleConsentChange}
+            />
+          )}
+        </AltitudeUnitProvider>
       </ThemeProvider>
     </PostHogProvider>
   );

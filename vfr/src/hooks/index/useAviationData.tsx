@@ -8,6 +8,7 @@ import {
   Hotspot,
   ReportingPoint,
 } from "../../utils/types";
+import { validateAirspacesLimits } from "../../utils/altitudeCompliance";
 
 export interface AviationDataState {
   airports: Airport[];
@@ -46,7 +47,7 @@ export const useAviationData = (country: string = "es") => {
     }));
 
     try {
-      const dataTypes = ["apt", "asp", "nav", "obs", "hot", "rpp"];
+      const dataTypes = ["apt", "asp", "nav", "obs", "rpp"];
 
       const promises = dataTypes.map((type) =>
         // Use your API instead of direct file access
@@ -79,10 +80,14 @@ export const useAviationData = (country: string = "es") => {
         reportingpointData,
       ] = await Promise.all(promises);
 
+      // Validate airspace limits before storing them
+      const rawAirspaces = airspaceData?.data?.items || [];
+      const validatedAirspaces = validateAirspacesLimits(rawAirspaces);
+
       setState((prev) => ({
         ...prev,
         airports: airportData?.data?.items || [],
-        airspaces: airspaceData?.data?.items || [],
+        airspaces: validatedAirspaces,
         navigation: navigationData?.data?.items || [],
         obstacles: obstacleData?.data?.items || [],
         hotspots: hotspotData?.data?.items || [],

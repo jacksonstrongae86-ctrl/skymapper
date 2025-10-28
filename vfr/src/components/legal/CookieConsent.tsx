@@ -233,70 +233,74 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex flex-wrap gap-3 items-center">
+                <div className="flex flex-col gap-3 items-start">
+                  {/* Primary button */}
                   <button
                     onClick={handleAcceptAll}
                     disabled={isAnimating}
                     className={`
-                      px-5 py-2.5 rounded-lg font-medium transition-all duration-200 flex items-center gap-2
+                      px-8 py-3.5 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center gap-2
                       ${`button-gradient-${theme}`} text-[var(--button-text)]
                       hover:opacity-90 hover:shadow-lg transform hover:scale-105
                       disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
                     `}
                   >
-                    <Check size={16} />
+                    <Check size={20} />
                     Accept All Cookies
                   </button>
 
-                  <button
-                    onClick={handleAcceptNecessary}
-                    disabled={isAnimating}
-                    className="
-                      px-4 py-2.5 rounded-lg border border-[var(--sidebar-border)]
-                      bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
-                      hover:bg-opacity-80 transition-all duration-200 flex items-center gap-2
-                      font-medium disabled:opacity-50 disabled:cursor-not-allowed
-                    "
-                  >
-                    <X size={16} />
-                    Necessary Only
-                  </button>
+                  {/* Secondary buttons row */}
+                  <div className="flex flex-wrap gap-3 items-center">
+                    <button
+                      onClick={handleAcceptNecessary}
+                      disabled={isAnimating}
+                      className="
+                        px-3 py-1.5 rounded-lg border border-[var(--sidebar-border)]
+                        bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                        hover:bg-opacity-80 transition-all duration-200 flex items-center gap-1.5
+                        text-sm disabled:opacity-50 disabled:cursor-not-allowed
+                      "
+                    >
+                      <X size={14} />
+                      Necessary Only
+                    </button>
 
-                  <button
-                    onClick={onOpenSettings}
-                    disabled={isAnimating}
-                    className="
-                      px-4 py-2.5 rounded-lg border border-[var(--sidebar-border)]
-                      bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
-                      hover:bg-opacity-80 transition-all duration-200 flex items-center gap-2
-                      font-medium disabled:opacity-50 disabled:cursor-not-allowed
-                    "
-                  >
-                    <Settings size={16} />
-                    Customize
-                  </button>
+                    <button
+                      onClick={onOpenSettings}
+                      disabled={isAnimating}
+                      className="
+                        px-3 py-1.5 rounded-lg border border-[var(--sidebar-border)]
+                        bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
+                        hover:bg-opacity-80 transition-all duration-200 flex items-center gap-1.5
+                        text-sm disabled:opacity-50 disabled:cursor-not-allowed
+                      "
+                    >
+                      <Settings size={14} />
+                      Customize
+                    </button>
 
-                  {/* View Details Toggle */}
-                  <button
-                    onClick={() => setIsExpanded(!isExpanded)}
-                    className="
-                      px-3 py-2.5 rounded-lg text-[var(--button-bg)]
-                      hover:bg-[var(--button-bg)] hover:bg-opacity-10
-                      transition-all duration-200 flex items-center gap-1 text-sm
-                    "
-                  >
-                    {isExpanded ? (
-                      <>
-                        <ChevronUp size={16} />
-                        Less Details
-                      </>
-                    ) : (
-                      <>
-                        <ChevronDown size={16} />
-                        More Details
-                      </>
-                    )}
-                  </button>
+                    {/* View Details Toggle */}
+                    <button
+                      onClick={() => setIsExpanded(!isExpanded)}
+                      className="
+                        px-3 py-2.5 text-[var(--sidebar-text)] opacity-75
+                        hover:underline hover:scale-105
+                        transition-all duration-200 flex items-center gap-1 text-sm
+                      "
+                    >
+                      {isExpanded ? (
+                        <>
+                          <ChevronUp size={16} />
+                          Less Details
+                        </>
+                      ) : (
+                        <>
+                          <ChevronDown size={16} />
+                          More Details
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
 
                 {/* Policy Links */}

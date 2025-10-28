@@ -7,24 +7,21 @@ import {
   Polyline,
   useMapEvents,
   Circle,
-  Polygon,
 } from "react-leaflet";
 import { useRef } from "react";
 import { Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
-import { useMapHandlers } from "../../../hooks/index/useMapHandlers";
 import { createWaypointIcon } from "../../../components/desktop/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { useAviationData } from "../../../hooks/index/useAviationData";
 import {
   convertAviationDataToMarkers,
-  extractPolygonCoordinates,
 } from "../../../utils/aviationUtils";
-import { Airspace } from "../../../utils/types";
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
+import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -46,6 +43,7 @@ type MapComponentProps = {
   };
   selectedCountry: string;
   onCountryChange: (country: string) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -64,13 +62,21 @@ const MapComponent: React.FC<MapComponentProps> = ({
   },
   selectedCountry,
   onCountryChange,
+  analyzeRouteWarnings,
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
-  const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Analyze route warnings to get violation information for waypoints
+  const routeWarnings = useMemo(() => {
+    if (analyzeRouteWarnings && waypoints.length > 0) {
+      return analyzeRouteWarnings(waypoints);
+    }
+    return { warnings: [] };
+  }, [analyzeRouteWarnings, waypoints]);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
@@ -100,14 +106,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
     if (mapRef.current) {
       const newCenter = getCountryCenter(selectedCountry);
       mapRef.current.setView(newCenter, 6);
-      // console.log(
-      //   "Desktop map center updated to:",
-      //   newCenter,
-      //   "for country:",
-      //   selectedCountry
-      // );
     }
   }, [selectedCountry]);
+
+  // Remove all custom event handling for now
   // Load aviation data
   const {
     airports,
@@ -235,28 +237,46 @@ const MapComponent: React.FC<MapComponentProps> = ({
         subdomains={["mt0", "mt1", "mt2", "mt3"]}
       />
 
+      {/* OpenAIP Tile Layer */}
+      <TileLayer
+        url="https://api.tiles.openaip.net/api/data/openaip/{z}/{x}/{y}.png?apiKey=5846be4e9efd4349db50e590d1e85a0c"
+        attribution='&copy; <a href="https://www.openaip.net/">OpenAIP</a> contributors'
+        maxZoom={14}
+        opacity={1}
+      />
+
       <MapEvents onMapClick={onMapClick} />
 
       {/* Waypoint markers */}
       {waypoints
         .filter((wp) => wp.visible !== false)
-        .map((waypoint, absoluteIndex) => (
-          <Marker
-            key={absoluteIndex}
-            position={waypoint.position}
-            icon={createWaypointIcon(waypoint.type, theme)}
-            draggable={true}
-            eventHandlers={{
-              dragend: (e) => {
-                const newPosition: [number, number] = [
-                  e.target.getLatLng().lat,
-                  e.target.getLatLng().lng,
-                ];
-                onWaypointDrag(absoluteIndex, newPosition);
-              },
-            }}
-          />
-        ))}
+        .map((waypoint, absoluteIndex) => {
+          // Find if this waypoint has a violation
+          const waypointWarning = routeWarnings.warnings?.find(
+            (warning) => warning.waypointIndex === absoluteIndex
+          );
+          const hasViolation = waypointWarning?.hasViolation || false;
+
+          return (
+            <Marker
+              key={absoluteIndex}
+              position={waypoint.position}
+              icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
+              draggable={true}
+              zIndexOffset={500} // Lower than aviation markers
+              eventHandlers={{
+                dragend: (e) => {
+                  const marker = e.target;
+                  const position = marker.getLatLng();
+                  onWaypointUpdate(absoluteIndex, "position", [
+                    position.lat,
+                    position.lng,
+                  ]);
+                },
+              }}
+            />
+          );
+        })}
 
       {/* Aviation data with clustering */}
       {showAviationData && (
@@ -270,10 +290,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
         />
       )}
 
-      {/* Keep the non-clustered elements like circles and polygons */}
+      {/* Keep the non-clustered elements like circles (excluding airspace polygons) */}
       {showAviationData &&
         aviationMarkers.map((marker) => {
-          const { data, type, position } = marker;
+          const { type, position } = marker;
 
           switch (type) {
             case "airport":
@@ -291,28 +311,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
                   }}
                 />
               );
-
-            case "airspace":
-              const airspace = data as Airspace;
-              const polygonCoords = extractPolygonCoordinates(
-                airspace.geometry
-              );
-
-              if (polygonCoords) {
-                return (
-                  <Polygon
-                    key={`polygon-${marker.id}`}
-                    positions={polygonCoords}
-                    pathOptions={{
-                      color: "#dc2626",
-                      fillColor: "#dc2626",
-                      fillOpacity: 0.1,
-                      weight: 2,
-                    }}
-                  />
-                );
-              }
-              break;
 
             case "navigation":
               return (

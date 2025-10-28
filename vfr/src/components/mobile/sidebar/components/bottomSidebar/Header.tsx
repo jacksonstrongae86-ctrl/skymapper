@@ -35,13 +35,13 @@ export const Header: React.FC<HeaderProps> = ({ waypoints, handlePrint }) => {
       `}
       >
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-3">
-            <h2 className="text-xl font-bold text-[var(--sidebar-text)]">
+          <div className="flex items-center gap-2">
+            <h2 className="text-lg font-bold text-[var(--sidebar-text)] whitespace-nowrap">
               Flight Results
             </h2>
             <span
               className={`
-            px-3 py-1 rounded-full text-sm font-medium
+            px-2 py-1 rounded-full text-xs font-medium whitespace-nowrap
             ${`button-gradient-${theme}`}
             text-[var(--button-text)]
           `}
@@ -60,6 +60,7 @@ export const Header: React.FC<HeaderProps> = ({ waypoints, handlePrint }) => {
             </button>
           </div>
         </div>
+
       </div>
     </div>
   );

@@ -7,12 +7,10 @@ import {
   Polyline,
   useMapEvents,
   Circle,
-  Polygon,
 } from "react-leaflet";
-import { Airspace, getCountryCenter, Waypoint } from "../../../utils/types";
+import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useMapHandlers } from "../../../hooksMobile/index/useMapHandlers";
 import { createWaypointIcon } from "../../../components/mobile/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { useState } from "react";
@@ -21,11 +19,11 @@ import MobileMapControls from "@/src/components/mobile/map/MapControls";
 import {
   AviationMarker,
   convertAviationDataToMarkers,
-  extractPolygonCoordinates,
 } from "@/src/utils/aviationUtils";
 import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
+import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -76,6 +74,7 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   loadRoute: (id: string) => void;
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
+  analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -99,14 +98,22 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   loadRoute,
   deleteRoute,
   renameRoute,
+  analyzeRouteWarnings,
 }) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
-  const { onWaypointDrag } = useMapHandlers(onWaypointUpdate);
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Analyze route warnings to get violation information for waypoints
+  const routeWarnings = useMemo(() => {
+    if (analyzeRouteWarnings && waypoints.length > 0) {
+      return analyzeRouteWarnings(waypoints);
+    }
+    return { warnings: [] };
+  }, [analyzeRouteWarnings, waypoints]);
   useEffect(() => {
     const detectAndSetCountry = async () => {
       if (!countryDetected) {
@@ -279,22 +286,38 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           subdomains={["mt0", "mt1", "mt2", "mt3"]}
         />
 
+        {/* OpenAIP Tile Layer */}
+        <TileLayer
+          url="https://api.tiles.openaip.net/api/data/openaip/{z}/{x}/{y}.png?apiKey=5846be4e9efd4349db50e590d1e85a0c"
+          attribution='&copy; <a href="https://www.openaip.net/">OpenAIP</a> contributors'
+          maxZoom={14}
+          opacity={1}
+        />
+
         {waypoints
           .filter((wp) => wp.visible !== false)
           .map((waypoint, absoluteIndex) => {
+            // Find if this waypoint has a violation
+            const waypointWarning = routeWarnings.warnings?.find(
+              (warning) => warning.waypointIndex === absoluteIndex
+            );
+            const hasViolation = waypointWarning?.hasViolation || false;
+
             return (
               <Marker
                 key={absoluteIndex}
                 position={waypoint.position}
                 draggable={true}
-                icon={createWaypointIcon(waypoint.type, theme)}
+                zIndexOffset={500} // Lower than aviation markers
+                icon={createWaypointIcon(waypoint.type, theme, hasViolation)}
                 eventHandlers={{
                   dragend: (e) => {
-                    const newPosition: [number, number] = [
-                      e.target.getLatLng().lat,
-                      e.target.getLatLng().lng,
-                    ];
-                    onWaypointDrag(absoluteIndex, newPosition);
+                    const marker = e.target;
+                    const position = marker.getLatLng();
+                    onWaypointUpdate(absoluteIndex, "position", [
+                      position.lat,
+                      position.lng,
+                    ]);
                   },
                 }}
               />
@@ -312,10 +335,10 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           />
         )}
 
-        {/* Keep the non-clustered elements like circles and polygons */}
+        {/* Keep the non-clustered elements like circles (excluding airspace polygons) */}
         {showAviationData &&
           aviationMarkers.map((marker: AviationMarker) => {
-            const { data, type, position } = marker;
+            const { type, position } = marker;
 
             switch (type) {
               case "airport":
@@ -333,28 +356,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
                     }}
                   />
                 );
-
-              case "airspace":
-                const airspace = data as Airspace;
-                const polygonCoords = extractPolygonCoordinates(
-                  airspace.geometry
-                );
-
-                if (polygonCoords) {
-                  return (
-                    <Polygon
-                      key={`polygon-${marker.id}`}
-                      positions={polygonCoords}
-                      pathOptions={{
-                        color: "#dc2626",
-                        fillColor: "#dc2626",
-                        fillOpacity: 0.1,
-                        weight: 2,
-                      }}
-                    />
-                  );
-                }
-                break;
 
               case "navigation":
                 return (
@@ -397,9 +398,9 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               setIsExpanded(false);
             }}
             id="mobile-map-close-button"
-            className={`fixed top-4 right-4 z-[1000] ${`button-gradient-${theme}`} text-white px-1 py-1 rounded-full`}
+            className={`fixed top-4 right-4 z-[1000] w-14 h-14 rounded-full ${`button-gradient-${theme}`} text-white shadow-2xl border-2 border-white/20 hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center`}
           >
-            <X size={20} />
+            <X size={30} strokeWidth={3} />
           </button>
           <div className="fixed top-0 left-1 z-[999] text-white">
             <MobileMapControls
@@ -441,7 +442,6 @@ const MapEvents: React.FC<{
       }
     },
   });
-
   return null;
 };
 

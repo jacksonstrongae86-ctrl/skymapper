@@ -4,6 +4,8 @@ import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
+import { AirspaceWarnings } from "./components/sidebar/AirspaceWarnings";
+import AirspaceLegend from "../../shared/AirspaceLegend";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
@@ -14,8 +16,6 @@ const Sidebar: React.FC<SidebarProps> = ({
   setFuelConsumption,
   selectedDateTime,
   setSelectedDateTime,
-  fetchWindData,
-  updateCalculations,
   waypoints,
   onWaypointUpdate,
   onDeleteWaypoint,
@@ -27,13 +27,20 @@ const Sidebar: React.FC<SidebarProps> = ({
   setIsFullScreen,
   gal_liter,
   set_gal_liter,
+  // Airspace warning props
+  airspaces = [],
+  analyzeRouteWarnings,
+  warningAlerts = [],
+  clearWarningAlerts,
+  aviationLayers,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
+  const [isWarningsVisible, setIsWarningsVisible] = useState(true);
 
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,
-    minWidth: 300,
+    minWidth: 378,
     maxWidth: typeof window !== "undefined" ? window.innerWidth * 0.8 : 800,
   });
 
@@ -57,7 +64,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         backgroundColor: "var(--background)",
         color: "var(--foreground)",
         width: `${sidebarWidth}px`,
-        minWidth: isMinimized ? "48px" : "300px",
+        minWidth: isMinimized ? "48px" : "378px",
       }}
     >
       {isMinimized ? (
@@ -79,8 +86,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             setFuelConsumption={setFuelConsumption}
             selectedDateTime={selectedDateTime}
             setSelectedDateTime={setSelectedDateTime}
-            fetchWindData={fetchWindData}
-            updateCalculations={updateCalculations}
             gal_liter={gal_liter}
             set_gal_liter={set_gal_liter}
           />
@@ -95,6 +100,26 @@ const Sidebar: React.FC<SidebarProps> = ({
             onDeleteWaypoint={onDeleteWaypoint}
             gal_liter={gal_liter}
           />
+
+          {/* Airspace Warnings */}
+          {analyzeRouteWarnings && (
+            <AirspaceWarnings
+              isWarningsVisible={isWarningsVisible}
+              setIsWarningsVisible={setIsWarningsVisible}
+              waypoints={waypoints}
+              airspaces={airspaces}
+              warningAlerts={warningAlerts}
+              onClearAlerts={clearWarningAlerts || (() => {})}
+              analyzeRouteWarnings={analyzeRouteWarnings}
+            />
+          )}
+
+          {/* Airspace Legend - Only show when airspaces are active */}
+          {aviationLayers?.airspaces && (
+            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+              <AirspaceLegend />
+            </div>
+          )}
         </div>
       )}
 
