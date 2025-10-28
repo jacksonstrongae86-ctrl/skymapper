@@ -372,17 +372,6 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 Waypoints
               </button>
               <button
-                onClick={() => setActiveTab("search")}
-                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
-                  activeTab === "search"
-                    ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
-                }`}
-              >
-                <MapPin size={16} />
-                Search
-              </button>
-              <button
                 onClick={() => setActiveTab("routes")}
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "routes"
@@ -392,6 +381,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
               >
                 <Save size={16} />
                 Routes
+              </button>
+              <button
+                onClick={() => setActiveTab("search")}
+                className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
+                  activeTab === "search"
+                    ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                }`}
+              >
+                <MapPin size={16} />
+                Search
               </button>
               <button
                 onClick={() => setActiveTab("map")}

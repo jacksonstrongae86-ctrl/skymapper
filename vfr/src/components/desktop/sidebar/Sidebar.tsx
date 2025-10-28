@@ -90,6 +90,17 @@ const Sidebar: React.FC<SidebarProps> = ({
             set_gal_liter={set_gal_liter}
           />
 
+          <ScrollableContent
+            isWaypointsVisible={isWaypointsVisible}
+            setIsWaypointsVisible={setIsWaypointsVisible}
+            waypoints={waypoints}
+            onWaypointUpdate={onWaypointUpdate}
+            isFullScreen={isFullScreen}
+            handleNumericInput={handleNumericInput}
+            onDeleteWaypoint={onDeleteWaypoint}
+            gal_liter={gal_liter}
+          />
+
           {/* Airspace Warnings */}
           {analyzeRouteWarnings && (
             <AirspaceWarnings
@@ -109,17 +120,6 @@ const Sidebar: React.FC<SidebarProps> = ({
               <AirspaceLegend />
             </div>
           )}
-
-          <ScrollableContent
-            isWaypointsVisible={isWaypointsVisible}
-            setIsWaypointsVisible={setIsWaypointsVisible}
-            waypoints={waypoints}
-            onWaypointUpdate={onWaypointUpdate}
-            isFullScreen={isFullScreen}
-            handleNumericInput={handleNumericInput}
-            onDeleteWaypoint={onDeleteWaypoint}
-            gal_liter={gal_liter}
-          />
         </div>
       )}
 
