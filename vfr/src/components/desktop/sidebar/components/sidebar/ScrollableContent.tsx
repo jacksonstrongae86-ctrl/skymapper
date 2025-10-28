@@ -16,8 +16,8 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
 }) => {
   const { theme } = useTheme();
   return (
-    <div className="flex-1 px-4 pb-6 overflow-hidden">
-      <div className="border border-[var(--sidebar-border)]  rounded-xl h-full flex flex-col mt-2 shadow-lg">
+    <div className="flex-1 px-4 mb-4 overflow-hidden">
+      <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden h-full flex flex-col shadow-lg">
         <button
           onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
           className={`
@@ -56,13 +56,13 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
           overflow-hidden
         `}
         >
-          <div className="h-full overflow-y-auto custom-scrollbar p-4 pb-6">
+          <div className="h-full overflow-y-auto custom-scrollbar p-4">
             <div
               className={`
               ${
                 isFullScreen
                   ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                  : "space-y-6"
+                  : "space-y-4"
               }
             `}
             >

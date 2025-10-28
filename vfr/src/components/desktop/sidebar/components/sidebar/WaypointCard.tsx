@@ -122,7 +122,7 @@ export const WaypointCard: React.FC<WaypointCardProps> = ({
       className={`
       ${`gradient-${theme}`}
       p-4 rounded-xl
-      shadow-lg
+      shadow-md
       border border-[var(--sidebar-border)]
       transition-all duration-200
     `}
