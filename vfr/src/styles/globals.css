@@ -737,28 +737,41 @@ body {
   box-shadow: none !important;
 }
 
-/* Dark theme skip button */
+/* Dark theme skip button - match next/back button style */
 .theme-dark .introjs-skipbutton {
   background: var(--results-bg2) !important;
   color: var(--results-text) !important;
-  border: 1px solid var(--results-border) !important;
-  font-size: 12px !important;
-  padding: 6px 12px !important;
-  border-radius: 4px !important;
+  border: none !important;
+  font-size: 14px !important;
+  padding: 10px 18px !important;
+  border-radius: 6px !important;
   transition: background-color 0.2s ease !important;
   text-align: center !important;
   text-shadow: none !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  line-height: 1.2 !important;
-  display: inline-block !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   cursor: pointer !important;
   position: relative !important;
   top: 0 !important;
   left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
   transform: none !important;
   margin: 0 !important;
+  margin-right: auto !important;
   vertical-align: baseline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 1 !important;
+  font-weight: 500 !important;
+  min-height: auto !important;
+  white-space: nowrap !important;
+  height: auto !important;
 }
 
 .theme-dark .introjs-skipbutton:hover {
@@ -822,8 +835,10 @@ body {
   text-shadow: none !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  line-height: 1.2 !important;
-  display: inline-block !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   cursor: pointer !important;
   font-family: inherit !important;
   outline: none !important;
@@ -837,8 +852,10 @@ body {
   text-shadow: none !important;
   box-shadow: none !important;
   text-decoration: none !important;
-  line-height: 1.2 !important;
-  display: inline-block !important;
+  line-height: 1 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   cursor: pointer !important;
   font-family: inherit !important;
   outline: none !important;
@@ -848,9 +865,52 @@ body {
   position: relative !important;
   top: 0 !important;
   left: 0 !important;
+  right: auto !important;
+  bottom: auto !important;
   transform: none !important;
   margin: 0 !important;
+  margin-right: auto !important;
   vertical-align: baseline !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  z-index: 1 !important;
+  min-height: auto !important;
+  white-space: nowrap !important;
+  height: auto !important;
+}
+
+/* Fix button container layout */
+.introjs-tooltipbuttons {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  margin-top: 16px !important;
+  flex-wrap: wrap !important;
+}
+
+/* Skip button on top left - takes full width on first row */
+.introjs-tooltipbuttons .introjs-skipbutton {
+  order: -1 !important;
+  flex-basis: 100% !important;
+  width: auto !important;
+  margin-right: 0 !important;
+  margin-bottom: 8px !important;
+}
+
+/* Back button on bottom left */
+.introjs-tooltipbuttons .introjs-prevbutton {
+  order: 1 !important;
+  margin-right: auto !important;
+  margin-left: 0 !important;
+}
+
+/* Next/Done button on bottom right */
+.introjs-tooltipbuttons .introjs-nextbutton,
+.introjs-tooltipbuttons .introjs-donebutton {
+  order: 2 !important;
+  margin-left: auto !important;
 }
 
 /* Fix button text positioning and prevent duplication */
