@@ -499,6 +499,26 @@ body {
   }
 }
 
+/* Alert animations */
+@keyframes ping-slow {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(1.15);
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
+}
+
+.animate-ping-slow {
+  animation: ping-slow 2.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
 .custom-scrollbar {
   /* Webkit browsers (Chrome, Safari, Edge) */
   &::-webkit-scrollbar {
@@ -529,6 +549,20 @@ body {
     background: linear-gradient(to right, #0f172a, #1e293b); /* gradient-dark equivalent */
     border-radius: 8px;
   }
+}
+
+/* Hide scrollbar completely for wheel pickers */
+.hide-scrollbar {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE and Edge legacy */
+  -ms-overflow-style: none;
 }
 
 

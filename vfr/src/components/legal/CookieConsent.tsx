@@ -165,8 +165,8 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
         >
           {/* Aviation Warning Banner */}
           <div className="bg-blue-700 text-white px-4 py-2 rounded-t-xl">
-            <div className="flex items-center gap-2 text-sm">
-              <AlertTriangle size={16} />
+            <div className="flex items-center gap-2 text-xs">
+              <AlertTriangle size={14} className="flex-shrink-0" />
               <span className="font-medium">
                 SkyMapper is for flight planning only - not approved for actual
                 navigation
@@ -174,19 +174,19 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
             </div>
           </div>
 
-          <div className="p-6">
-            <div className="flex items-start gap-4">
+          <div className="p-4">
+            <div className="flex items-start gap-3">
               <Cookie
-                size={28}
+                size={22}
                 className="text-[var(--button-text)] flex-shrink-0 mt-1"
               />
 
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-[var(--sidebar-text)] mb-2">
+                <h3 className="text-base font-bold text-[var(--sidebar-text)] mb-2">
                   We use cookies to enhance your flight planning experience
                 </h3>
 
-                <p className="text-[var(--sidebar-text)] text-sm mb-4 leading-relaxed">
+                <p className="text-[var(--sidebar-text)] text-xs mb-3 leading-relaxed">
                   SkyMapper uses cookies and similar technologies to provide
                   essential functionality, analyze usage patterns, and deliver
                   personalized content. You can customize your preferences or
@@ -233,24 +233,24 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                 )}
 
                 {/* Action Buttons */}
-                <div className="flex flex-col gap-3 items-start">
+                <div className="flex flex-col gap-2 items-start">
                   {/* Primary button */}
                   <button
                     onClick={handleAcceptAll}
                     disabled={isAnimating}
                     className={`
-                      px-8 py-3.5 rounded-lg font-semibold text-lg transition-all duration-200 flex items-center gap-2
+                      px-4 py-2 rounded-lg font-semibold text-sm transition-all duration-200 flex items-center gap-2
                       ${`button-gradient-${theme}`} text-[var(--button-text)]
                       hover:opacity-90 hover:shadow-lg transform hover:scale-105
                       disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none
                     `}
                   >
-                    <Check size={20} />
+                    <Check size={16} />
                     Accept All Cookies
                   </button>
 
                   {/* Secondary buttons row */}
-                  <div className="flex flex-wrap gap-3 items-center">
+                  <div className="flex flex-wrap gap-2 items-center">
                     <button
                       onClick={handleAcceptNecessary}
                       disabled={isAnimating}
@@ -258,7 +258,7 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                         px-3 py-1.5 rounded-lg border border-[var(--sidebar-border)]
                         bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
                         hover:bg-opacity-80 transition-all duration-200 flex items-center gap-1.5
-                        text-sm disabled:opacity-50 disabled:cursor-not-allowed
+                        text-xs disabled:opacity-50 disabled:cursor-not-allowed
                       "
                     >
                       <X size={14} />
@@ -272,7 +272,7 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                         px-3 py-1.5 rounded-lg border border-[var(--sidebar-border)]
                         bg-[var(--sidebar-bg)] text-[var(--sidebar-text)]
                         hover:bg-opacity-80 transition-all duration-200 flex items-center gap-1.5
-                        text-sm disabled:opacity-50 disabled:cursor-not-allowed
+                        text-xs disabled:opacity-50 disabled:cursor-not-allowed
                       "
                     >
                       <Settings size={14} />
@@ -283,19 +283,19 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                     <button
                       onClick={() => setIsExpanded(!isExpanded)}
                       className="
-                        px-3 py-2.5 text-[var(--sidebar-text)] opacity-75
+                        px-3 py-1.5 text-[var(--sidebar-text)] opacity-75
                         hover:underline hover:scale-105
-                        transition-all duration-200 flex items-center gap-1 text-sm
+                        transition-all duration-200 flex items-center gap-1 text-xs
                       "
                     >
                       {isExpanded ? (
                         <>
-                          <ChevronUp size={16} />
+                          <ChevronUp size={14} />
                           Less Details
                         </>
                       ) : (
                         <>
-                          <ChevronDown size={16} />
+                          <ChevronDown size={14} />
                           More Details
                         </>
                       )}
@@ -304,27 +304,27 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
                 </div>
 
                 {/* Policy Links */}
-                <div className="mt-4 pt-3 border-t border-[var(--sidebar-border)] border-opacity-30">
-                  <div className="flex flex-wrap gap-4 text-sm">
+                <div className="mt-3 pt-2 border-t border-[var(--sidebar-border)] border-opacity-30">
+                  <div className="flex flex-wrap gap-3 text-xs">
                     <button
                       onClick={() => onOpenPolicy?.("privacy")}
                       className="text-[var(--button-bg)] hover:opacity-75 transition-opacity flex items-center gap-1"
                     >
-                      <Eye size={14} />
+                      <Eye size={12} />
                       Privacy Policy
                     </button>
                     <button
                       onClick={() => onOpenPolicy?.("cookie")}
                       className="text-[var(--button-bg)] hover:opacity-75 transition-opacity flex items-center gap-1"
                     >
-                      <Eye size={14} />
+                      <Eye size={12} />
                       Cookie Policy
                     </button>
                     <button
                       onClick={() => onOpenPolicy?.("terms")}
                       className="text-[var(--button-bg)] hover:opacity-75 transition-opacity flex items-center gap-1"
                     >
-                      <Eye size={14} />
+                      <Eye size={12} />
                       Terms of Service
                     </button>
                   </div>

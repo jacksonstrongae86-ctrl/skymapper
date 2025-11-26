@@ -4,7 +4,7 @@ import { useTheme } from "../../../utils/ThemeContext";
 import {
   Layers,
   Trash2,
-  XCircle,
+  Undo2,
   Search,
   Map,
   Satellite,
@@ -819,7 +819,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
           onClick={onDeleteLastWaypoint}
           title="Delete Last Waypoint"
         >
-          <Trash2 size={18} className="text-[var(--button-text)]" />
+          <Undo2 size={18} className="text-[var(--button-text)]" />
         </button>
 
         <button
@@ -828,7 +828,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
           onClick={onClearWaypoints}
           title="Clear All Waypoints"
         >
-          <XCircle size={18} className="text-[var(--button-text)]" />
+          <Trash2 size={18} className="text-[var(--button-text)]" />
         </button>
         <div className="grid grid-cols-2 gap-3 justify-end">
           <div></div>

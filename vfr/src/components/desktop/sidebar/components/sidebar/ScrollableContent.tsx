@@ -16,8 +16,8 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
 }) => {
   const { theme } = useTheme();
   return (
-    <div className="flex-1 px-4 mb-4 overflow-hidden">
-      <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden h-full flex flex-col shadow-lg">
+    <div className="px-4 mb-4">
+      <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden shadow-lg">
         <button
           onClick={() => setIsWaypointsVisible(!isWaypointsVisible)}
           className={`
@@ -28,11 +28,10 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
             transition-all duration-200
             font-semibold
             flex items-center justify-between
-            rounded-t-xl
           `}
         >
           <span className="flex items-center gap-2">
-            <MapPin size={20} className="text-primary" />
+            <MapPin size={18} className="text-[var(--button-text)]" />
             <span>Waypoints</span>
           </span>
           {isWaypointsVisible ? (
@@ -45,48 +44,45 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
         <div
           id="waypoints-section"
           className={`
-          transition-all duration-300
-          ease-in-out overflow-hidden flex-1
-          ${
-            isWaypointsVisible
-              ? "max-h-[calc(100vh-200px)] opacity-100"
-              : "max-h-0 opacity-0"
-          }
-          ${`gradient-${theme}`}
-          overflow-hidden
-        `}
+            transition-all duration-300 ease-in-out
+            ${isWaypointsVisible ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}
+            ${`gradient-${theme}`}
+            overflow-hidden
+          `}
         >
-          <div className="h-full overflow-y-auto custom-scrollbar p-4">
-            <div
-              className={`
-              ${
-                isFullScreen
-                  ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
-                  : "space-y-4"
-              }
-            `}
-            >
-              {waypoints.map((waypoint, absoluteIndex) => {
-                if (!waypoint.visible) return null;
-                const visibleIndex = waypoints
-                  .slice(0, absoluteIndex)
-                  .filter((wp) => wp.visible).length;
+          {isWaypointsVisible && (
+            <div className="p-4">
+              <div
+                className={`
+                ${
+                  isFullScreen
+                    ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+                    : "space-y-4"
+                }
+              `}
+              >
+                {waypoints.map((waypoint, absoluteIndex) => {
+                  if (!waypoint.visible) return null;
+                  const visibleIndex = waypoints
+                    .slice(0, absoluteIndex)
+                    .filter((wp) => wp.visible).length;
 
-                return (
-                  <WaypointCard
-                    key={absoluteIndex}
-                    waypoint={waypoint}
-                    absoluteIndex={absoluteIndex}
-                    visibleIndex={visibleIndex}
-                    onWaypointUpdate={onWaypointUpdate}
-                    handleNumericInput={handleNumericInput}
-                    onDeleteWaypoint={onDeleteWaypoint}
-                    gal_liter={gal_liter}
-                  />
-                );
-              })}
+                  return (
+                    <WaypointCard
+                      key={absoluteIndex}
+                      waypoint={waypoint}
+                      absoluteIndex={absoluteIndex}
+                      visibleIndex={visibleIndex}
+                      onWaypointUpdate={onWaypointUpdate}
+                      handleNumericInput={handleNumericInput}
+                      onDeleteWaypoint={onDeleteWaypoint}
+                      gal_liter={gal_liter}
+                    />
+                  );
+                })}
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>
