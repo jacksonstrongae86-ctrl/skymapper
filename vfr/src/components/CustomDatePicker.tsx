@@ -29,7 +29,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
       const selectedIndex = options.findIndex(opt => opt.value === value);
       if (selectedIndex !== -1) {
         const itemHeight = 36;
-        const scrollTop = selectedIndex * itemHeight - itemHeight;
+        const scrollTop = selectedIndex * itemHeight;
         scrollRef.current.scrollTop = scrollTop;
       }
     }
@@ -39,7 +39,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
     if (scrollRef.current) {
       const itemHeight = 36;
       const scrollTop = scrollRef.current.scrollTop;
-      const centerIndex = Math.round((scrollTop + itemHeight) / itemHeight);
+      const centerIndex = Math.round(scrollTop / itemHeight);
       const selectedOption = options[centerIndex];
       if (selectedOption && selectedOption.value !== value) {
         onChange(selectedOption.value);
