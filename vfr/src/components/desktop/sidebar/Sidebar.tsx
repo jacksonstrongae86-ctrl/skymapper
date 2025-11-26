@@ -72,54 +72,56 @@ const Sidebar: React.FC<SidebarProps> = ({
           handleMinimizeMaximize={handleMinimizeMaximize}
         />
       ) : (
-        <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full w-full">
           <Header
             handleFullScreen={handleFullScreen}
             handleMinimizeMaximize={handleMinimizeMaximize}
             isFullScreen={isFullScreen}
           />
 
-          <FlightSettings
-            isSettingsVisible={isSettingsVisible}
-            setIsSettingsVisible={setIsSettingsVisible}
-            fuelConsumption={fuelConsumption}
-            setFuelConsumption={setFuelConsumption}
-            selectedDateTime={selectedDateTime}
-            setSelectedDateTime={setSelectedDateTime}
-            gal_liter={gal_liter}
-            set_gal_liter={set_gal_liter}
-          />
-
-          <ScrollableContent
-            isWaypointsVisible={isWaypointsVisible}
-            setIsWaypointsVisible={setIsWaypointsVisible}
-            waypoints={waypoints}
-            onWaypointUpdate={onWaypointUpdate}
-            isFullScreen={isFullScreen}
-            handleNumericInput={handleNumericInput}
-            onDeleteWaypoint={onDeleteWaypoint}
-            gal_liter={gal_liter}
-          />
-
-          {/* Airspace Warnings */}
-          {analyzeRouteWarnings && (
-            <AirspaceWarnings
-              isWarningsVisible={isWarningsVisible}
-              setIsWarningsVisible={setIsWarningsVisible}
-              waypoints={waypoints}
-              airspaces={airspaces}
-              warningAlerts={warningAlerts}
-              onClearAlerts={clearWarningAlerts || (() => {})}
-              analyzeRouteWarnings={analyzeRouteWarnings}
+          <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+            <FlightSettings
+              isSettingsVisible={isSettingsVisible}
+              setIsSettingsVisible={setIsSettingsVisible}
+              fuelConsumption={fuelConsumption}
+              setFuelConsumption={setFuelConsumption}
+              selectedDateTime={selectedDateTime}
+              setSelectedDateTime={setSelectedDateTime}
+              gal_liter={gal_liter}
+              set_gal_liter={set_gal_liter}
             />
-          )}
 
-          {/* Airspace Legend - Only show when airspaces are active */}
-          {aviationLayers?.airspaces && (
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-              <AirspaceLegend />
-            </div>
-          )}
+            <ScrollableContent
+              isWaypointsVisible={isWaypointsVisible}
+              setIsWaypointsVisible={setIsWaypointsVisible}
+              waypoints={waypoints}
+              onWaypointUpdate={onWaypointUpdate}
+              isFullScreen={isFullScreen}
+              handleNumericInput={handleNumericInput}
+              onDeleteWaypoint={onDeleteWaypoint}
+              gal_liter={gal_liter}
+            />
+
+            {/* Airspace Warnings */}
+            {analyzeRouteWarnings && (
+              <AirspaceWarnings
+                isWarningsVisible={isWarningsVisible}
+                setIsWarningsVisible={setIsWarningsVisible}
+                waypoints={waypoints}
+                airspaces={airspaces}
+                warningAlerts={warningAlerts}
+                onClearAlerts={clearWarningAlerts || (() => {})}
+                analyzeRouteWarnings={analyzeRouteWarnings}
+              />
+            )}
+
+            {/* Airspace Legend - Only show when airspaces are active */}
+            {aviationLayers?.airspaces && (
+              <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+                <AirspaceLegend />
+              </div>
+            )}
+          </div>
         </div>
       )}
 
