@@ -76,17 +76,16 @@ export const AirspaceWarnings: React.FC<AirspaceWarningsProps> = ({
             transition-all duration-300 ease-in-out
             ${isWarningsVisible ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}
             ${`gradient-${theme}`}
+            overflow-hidden
           `}
         >
-          <div className="p-4">
-            <AirspaceWarningPanel
-              waypoints={waypoints}
-              airspaces={airspaces}
-              warningAlerts={warningAlerts}
-              onClearAlerts={onClearAlerts}
-              analyzeRouteWarnings={analyzeRouteWarnings}
-            />
-          </div>
+          <AirspaceWarningPanel
+            waypoints={waypoints}
+            airspaces={airspaces}
+            warningAlerts={warningAlerts}
+            onClearAlerts={onClearAlerts}
+            analyzeRouteWarnings={analyzeRouteWarnings}
+          />
         </div>
       </div>
     </div>
