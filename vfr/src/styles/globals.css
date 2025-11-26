@@ -531,6 +531,20 @@ body {
   }
 }
 
+/* Hide scrollbar completely for wheel pickers */
+.hide-scrollbar {
+  /* Webkit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Firefox */
+  scrollbar-width: none;
+
+  /* IE and Edge legacy */
+  -ms-overflow-style: none;
+}
+
 
 
 
