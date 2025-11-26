@@ -14,7 +14,7 @@ import "leaflet/dist/leaflet.css";
 import { createWaypointIcon } from "../../../components/mobile/map/createWaypointIcon";
 import { useTheme } from "@/src/utils/ThemeContext";
 import { useState } from "react";
-import { X } from "lucide-react";
+import { X, Undo2 } from "lucide-react";
 import MobileMapControls from "@/src/components/mobile/map/MapControls";
 import {
   AviationMarker,
@@ -401,6 +401,17 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
             className={`fixed top-4 right-4 z-[1000] w-14 h-14 rounded-full ${`button-gradient-${theme}`} text-white shadow-2xl border-2 border-white/20 hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center`}
           >
             <X size={30} strokeWidth={3} />
+          </button>
+
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteLastWaypoint();
+            }}
+            id="mobile-map-undo-button"
+            className={`fixed top-20 right-4 z-[1000] w-14 h-14 rounded-full ${`button-gradient-${theme}`} text-white shadow-2xl border-2 border-white/20 hover:opacity-90 hover:scale-105 active:scale-95 transition-all duration-200 flex items-center justify-center`}
+          >
+            <Undo2 size={26} strokeWidth={3} />
           </button>
           <div className="fixed top-0 left-1 z-[999] text-white">
             <MobileMapControls

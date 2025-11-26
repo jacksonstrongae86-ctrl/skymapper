@@ -8,7 +8,7 @@ import {
   Globe,
   Mountain,
   Trash2,
-  XCircle,
+  Undo2,
   Loader2,
   AlertCircle,
   Plane,
@@ -24,6 +24,7 @@ import {
   Share2,
   MapPin,
   MoreVertical,
+  XCircle,
 } from "lucide-react";
 import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
@@ -368,7 +369,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                     : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
                 }`}
               >
-                <Trash2 size={16} />
+                <MapPin size={16} />
                 Waypoints
               </button>
               <button
@@ -430,12 +431,12 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         onDeleteLastWaypoint();
                         setIsOpen(false);
                       }}
-                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-orange-600/20 border border-orange-600 text-orange-200 hover:bg-orange-600/30 transition-all duration-200"
+                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-[var(--sidebar-text)] hover:border-[var(--button-bg)] transition-all duration-200"
                     >
-                      <XCircle size={24} />
+                      <Undo2 size={24} />
                       <div className="text-left">
                         <div className="font-semibold text-base">Delete Last Waypoint</div>
-                        <div className="text-sm font-medium opacity-90">Remove the most recent point</div>
+                        <div className="text-sm font-medium opacity-70">Remove the most recent point</div>
                       </div>
                     </button>
                     <button
@@ -443,12 +444,12 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         onClearWaypoints();
                         setIsOpen(false);
                       }}
-                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-red-600/20 border border-red-600 text-red-200 hover:bg-red-600/30 transition-all duration-200"
+                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-[var(--sidebar-text)] hover:border-[var(--button-bg)] transition-all duration-200"
                     >
                       <Trash2 size={24} />
                       <div className="text-left">
                         <div className="font-semibold text-base">Clear All Waypoints</div>
-                        <div className="text-sm font-medium opacity-90">Remove all points from the map</div>
+                        <div className="text-sm font-medium opacity-70">Remove all points from the map</div>
                       </div>
                     </button>
                   </div>
