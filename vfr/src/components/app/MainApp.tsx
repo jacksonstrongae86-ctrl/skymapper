@@ -202,8 +202,23 @@ export default function MainApp() {
       const tabToOpen = lastWarning.hasViolation ? 'violations' : 'intersections';
       setWarningsInitialTab(tabToOpen);
 
-      // Open the warnings section
-      setShowWarnings(true);
+      // On mobile, close the map first if it's expanded
+      if (isMobile) {
+        const closeButton = document.getElementById('mobile-map-close-button');
+        if (closeButton) {
+          closeButton.click();
+          // Wait a bit for the map to close before opening warnings
+          setTimeout(() => {
+            setShowWarnings(true);
+          }, 300);
+        } else {
+          // Map not expanded, just open warnings
+          setShowWarnings(true);
+        }
+      } else {
+        // Desktop - just open the warnings section
+        setShowWarnings(true);
+      }
 
       // Scroll to the last warning after a delay to ensure rendering
       setTimeout(() => {
@@ -216,7 +231,7 @@ export default function MainApp() {
             warningElement.style.animation = '';
           }, 800);
         }
-      }, 500);
+      }, isMobile ? 800 : 500); // Longer delay on mobile to account for map closing
 
       // Reset the tab selection after a delay
       setTimeout(() => setWarningsInitialTab(undefined), 1000);
