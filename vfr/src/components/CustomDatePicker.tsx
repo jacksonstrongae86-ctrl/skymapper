@@ -49,7 +49,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
 
   return (
     <div className="flex flex-col items-center flex-1">
-      <div className="text-xs font-medium text-[var(--sidebar-text)] opacity-50 mb-2">
+      <div className="text-xs font-medium text-white opacity-50 mb-2">
         {label}
       </div>
       <div className="relative w-full">
@@ -76,8 +76,8 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
                   h-[36px] flex items-center justify-center cursor-pointer
                   transition-all duration-200 select-none
                   ${isSelected
-                    ? 'font-semibold text-base text-[var(--sidebar-text)]'
-                    : 'text-sm text-[var(--sidebar-text)] opacity-30'}
+                    ? 'font-semibold text-base text-white'
+                    : 'text-sm text-white opacity-30'}
                 `}
                 style={{ scrollSnapAlign: 'start' }}
               >
@@ -239,7 +239,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
       >
         {/* Header */}
         <div className="border-b border-[var(--sidebar-border)] px-4 py-3">
-          <h3 className="font-semibold text-[var(--sidebar-text)] text-sm text-center">
+          <h3 className="font-semibold text-white text-sm text-center">
             {showTimeSelect ? "Date & Time" : "Date"}
           </h3>
         </div>
@@ -277,7 +277,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
                 options={hourOptions}
                 label="Hour"
               />
-              <div className="flex items-center justify-center text-lg font-bold text-[var(--sidebar-text)] opacity-30 pt-6">:</div>
+              <div className="flex items-center justify-center text-lg font-bold text-white opacity-30 pt-6">:</div>
               <WheelPicker
                 value={tempDate.getMinutes()}
                 onChange={handleMinuteChange}
@@ -310,7 +310,7 @@ export const CustomDatePicker: React.FC<CustomDatePickerProps> = ({
               rounded-lg
               border border-[var(--sidebar-border)]
               bg-transparent
-              text-[var(--sidebar-text)]
+              text-white
               hover:bg-[var(--sidebar-border)] hover:bg-opacity-20
               transition-all duration-200
               flex-1 px-3 py-2 text-xs font-medium
