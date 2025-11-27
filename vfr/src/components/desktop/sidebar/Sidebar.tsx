@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarProps } from "../../../utils/types";
 import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
@@ -29,6 +29,8 @@ const Sidebar: React.FC<SidebarProps> = ({
   set_gal_liter,
   // Airspace warning props
   airspaces = [],
+  showWarnings,
+  setShowWarnings,
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
@@ -36,7 +38,31 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  const [isWarningsVisible, setIsWarningsVisible] = useState(true);
+  const [localWarningsVisible, setLocalWarningsVisible] = useState(true);
+
+  // Use external state if provided, otherwise use local state
+  const isWarningsVisible = showWarnings ?? localWarningsVisible;
+  const setIsWarningsVisible = setShowWarnings ?? setLocalWarningsVisible;
+
+  // Open and scroll to airspace warnings when triggered from outside
+  useEffect(() => {
+    if (showWarnings && !isMinimized) {
+      // Open the warnings section if it's not already open
+      setLocalWarningsVisible(true);
+
+      const warningsElement = document.getElementById('airspace-warnings');
+      if (warningsElement) {
+        setTimeout(() => {
+          warningsElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 300);
+      }
+
+      // Reset the flag after processing
+      if (setShowWarnings) {
+        setTimeout(() => setShowWarnings(false), 100);
+      }
+    }
+  }, [showWarnings, isMinimized, setShowWarnings]);
 
   const { handleMouseDown, handleTouchStart } = useSidebarResize({
     setSidebarWidth,

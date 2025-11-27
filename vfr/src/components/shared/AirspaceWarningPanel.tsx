@@ -114,7 +114,11 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
                   const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
 
                   return (
-                    <div key={`${warning.waypointIndex}-violation`} className="p-3 bg-red-600/10 rounded-lg border-l-2 border-red-500">
+                    <div
+                      key={`${warning.waypointIndex}-violation`}
+                      id={`warning-${warning.waypointIndex}`}
+                      className="p-3 bg-red-600/10 rounded-lg border-l-2 border-red-500"
+                    >
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-xs font-semibold text-[var(--sidebar-text)]">
                           {waypointName}
@@ -157,7 +161,11 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
                   const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
 
                   return (
-                    <div key={`${warning.waypointIndex}-info`} className="p-3 bg-orange-600/10 rounded-lg border-l-2 border-orange-500">
+                    <div
+                      key={`${warning.waypointIndex}-info`}
+                      id={`warning-${warning.waypointIndex}`}
+                      className="p-3 bg-orange-600/10 rounded-lg border-l-2 border-orange-500"
+                    >
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-xs font-semibold text-[var(--sidebar-text)]">
                           {waypointName}

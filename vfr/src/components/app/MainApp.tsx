@@ -186,6 +186,37 @@ export default function MainApp() {
     setAlertDismissed(true); // Dismiss page-level alert
   };
 
+  // Handle airspace alert click - open warnings, scroll to last violation, and dismiss alert
+  const handleAirspaceAlertClick = () => {
+    if (waypoints.length === 0) return;
+
+    const analysis = analyzeRouteWarnings(waypoints);
+    const warningsWithIssues = analysis.warnings.filter(w => w.hasViolation || w.isInRestrictedAirspace);
+
+    if (warningsWithIssues.length > 0) {
+      // Get the last warning (highest waypointIndex)
+      const lastWarning = warningsWithIssues[warningsWithIssues.length - 1];
+
+      // Open the warnings section
+      setShowWarnings(true);
+
+      // Scroll to the last warning after a delay to ensure rendering
+      setTimeout(() => {
+        const warningElement = document.getElementById(`warning-${lastWarning.waypointIndex}`);
+        if (warningElement) {
+          warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Add a highlight effect
+          warningElement.classList.add('ring-2', 'ring-yellow-400', 'ring-offset-2');
+          setTimeout(() => {
+            warningElement.classList.remove('ring-2', 'ring-yellow-400', 'ring-offset-2');
+          }, 2000);
+        }
+      }, 500);
+    }
+
+    setAlertDismissed(true); // Dismiss the alert after clicking
+  };
+
   const handleLayerToggle = (
     layer: keyof typeof aviationLayers,
     enabled: boolean
@@ -206,6 +237,7 @@ export default function MainApp() {
           waypoints={waypoints}
           analyzeRouteWarnings={analyzeRouteWarnings}
           onDismiss={() => setAlertDismissed(true)}
+          onClick={handleAirspaceAlertClick}
         />
       )}
 

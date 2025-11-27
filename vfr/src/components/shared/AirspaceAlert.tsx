@@ -27,12 +27,14 @@ interface AirspaceAlertProps {
   waypoints: Waypoint[];
   analyzeRouteWarnings: (waypoints: Waypoint[]) => RouteWarningAnalysis;
   onDismiss?: () => void;
+  onClick?: () => void;
 }
 
 const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
   waypoints,
   analyzeRouteWarnings,
   onDismiss,
+  onClick,
 }) => {
   const { theme } = useTheme();
   const [isVisible, setIsVisible] = useState(false);
@@ -73,21 +75,27 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
 
   const isViolation = warningAnalysis.hasViolations;
 
+  // Count only violations and intersections (not all waypoints)
+  const violationsCount = warningAnalysis.warnings.filter(w => w.hasViolation || w.isInRestrictedAirspace).length;
+
   return (
     <div
+      onClick={onClick}
       className={`
-        fixed bottom-6 right-4 md:bottom-auto md:top-20 md:right-8 md:left-auto z-[100]
+        fixed bottom-6 right-4 md:bottom-auto md:top-[220px] md:right-4 md:left-auto z-[100]
         transition-all duration-500 ease-out
         ${isVisible
           ? 'opacity-100 scale-100'
           : 'opacity-0 scale-75 pointer-events-none'
         }
+        ${onClick ? 'cursor-pointer' : ''}
       `}
     >
       <div className={`
         relative w-16 h-16 rounded-full flex items-center justify-center
         shadow-2xl border-2 border-[var(--sidebar-border)]
         ${`button-gradient-${theme}`}
+        ${onClick ? 'hover:opacity-90 hover:scale-105 transition-transform' : ''}
       `}>
         {/* Pulse animation ring */}
         <div className={`
@@ -108,7 +116,7 @@ const AirspaceAlert: React.FC<AirspaceAlertProps> = ({
           ${isViolation ? 'bg-red-600' : 'bg-blue-600'}
           border-2 border-white
         `}>
-          {warningAnalysis.totalWarnings}
+          {violationsCount}
         </div>
       </div>
     </div>
