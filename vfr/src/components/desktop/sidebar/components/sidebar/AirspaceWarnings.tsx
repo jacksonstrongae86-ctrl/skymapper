@@ -32,6 +32,7 @@ interface AirspaceWarningsProps {
   warningAlerts: string[];
   onClearAlerts: () => void;
   analyzeRouteWarnings: (waypoints: Waypoint[]) => RouteWarningAnalysis;
+  initialTab?: 'violations' | 'intersections' | 'stats';
 }
 
 export const AirspaceWarnings: React.FC<AirspaceWarningsProps> = ({
@@ -42,6 +43,7 @@ export const AirspaceWarnings: React.FC<AirspaceWarningsProps> = ({
   warningAlerts,
   onClearAlerts,
   analyzeRouteWarnings,
+  initialTab,
 }) => {
   const { theme } = useTheme();
 
@@ -85,6 +87,7 @@ export const AirspaceWarnings: React.FC<AirspaceWarningsProps> = ({
             warningAlerts={warningAlerts}
             onClearAlerts={onClearAlerts}
             analyzeRouteWarnings={analyzeRouteWarnings}
+            initialTab={initialTab}
           />
         </div>
       </div>

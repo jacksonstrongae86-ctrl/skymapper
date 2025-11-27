@@ -127,6 +127,7 @@ export default function MainApp() {
   const [alertDismissed, setAlertDismissed] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
+  const [warningsInitialTab, setWarningsInitialTab] = useState<'violations' | 'intersections' | 'stats' | undefined>(undefined);
 
   // Trivia popup - only show on first load after tutorial and consent are complete
   const [showTriviaPopup, setShowTriviaPopup] = useState(false);
@@ -197,6 +198,10 @@ export default function MainApp() {
       // Get the last warning (highest waypointIndex)
       const lastWarning = warningsWithIssues[warningsWithIssues.length - 1];
 
+      // Determine which tab to open based on whether it's a violation or just an intersection
+      const tabToOpen = lastWarning.hasViolation ? 'violations' : 'intersections';
+      setWarningsInitialTab(tabToOpen);
+
       // Open the warnings section
       setShowWarnings(true);
 
@@ -212,6 +217,9 @@ export default function MainApp() {
           }, 2000);
         }
       }, 500);
+
+      // Reset the tab selection after a delay
+      setTimeout(() => setWarningsInitialTab(undefined), 1000);
     }
 
     setAlertDismissed(true); // Dismiss the alert after clicking
@@ -275,6 +283,7 @@ export default function MainApp() {
               airspaces={airspaces}
               showWarnings={showWarnings}
               setShowWarnings={setShowWarnings}
+              warningsInitialTab={warningsInitialTab}
               analyzeRouteWarnings={analyzeRouteWarnings}
               warningAlerts={warningAlerts}
               clearWarningAlerts={handleClearAllAlerts}
@@ -341,6 +350,7 @@ export default function MainApp() {
             airspaces={airspaces}
             showWarnings={showWarnings}
             setShowWarnings={setShowWarnings}
+            warningsInitialTab={warningsInitialTab}
             analyzeRouteWarnings={analyzeRouteWarnings}
             warningAlerts={warningAlerts}
             clearWarningAlerts={handleClearAllAlerts}

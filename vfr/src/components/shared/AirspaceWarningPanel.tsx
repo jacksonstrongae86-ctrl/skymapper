@@ -29,6 +29,7 @@ interface AirspaceWarningPanelProps {
   warningAlerts: string[];
   onClearAlerts: () => void;
   analyzeRouteWarnings: (waypoints: Waypoint[]) => RouteWarningAnalysis;
+  initialTab?: 'violations' | 'intersections' | 'stats';
 }
 
 const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
@@ -36,10 +37,18 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
   airspaces,
   onClearAlerts,
   analyzeRouteWarnings,
+  initialTab,
 }) => {
   const { theme } = useTheme();
   const [activeTab, setActiveTab] = useState<'violations' | 'intersections' | 'stats'>('violations');
   const warningAnalysis = analyzeRouteWarnings(waypoints);
+
+  // Switch to the requested tab when initialTab changes
+  React.useEffect(() => {
+    if (initialTab) {
+      setActiveTab(initialTab);
+    }
+  }, [initialTab]);
 
   const violationWarnings = warningAnalysis.warnings.filter(w => w.hasViolation);
   const informationalWarnings = warningAnalysis.warnings.filter(w => !w.hasViolation);

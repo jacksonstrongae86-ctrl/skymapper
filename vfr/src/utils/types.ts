@@ -169,6 +169,7 @@ export interface SidebarProps {
   airspaces?: Airspace[];
   showWarnings?: boolean;
   setShowWarnings?: (enabled: boolean) => void;
+  warningsInitialTab?: 'violations' | 'intersections' | 'stats';
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => {
     warnings: Array<{
       waypointIndex: number;

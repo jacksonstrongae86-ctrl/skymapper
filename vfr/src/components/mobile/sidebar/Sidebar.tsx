@@ -32,6 +32,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   airspaces = [],
   showWarnings,
   setShowWarnings,
+  warningsInitialTab,
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
@@ -194,6 +195,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   warningAlerts={warningAlerts}
                   onClearAlerts={clearWarningAlerts || (() => {})}
                   analyzeRouteWarnings={analyzeRouteWarnings}
+                  initialTab={warningsInitialTab}
                 />
               )}
             </div>
