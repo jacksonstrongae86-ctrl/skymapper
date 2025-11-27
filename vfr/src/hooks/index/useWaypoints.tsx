@@ -418,7 +418,9 @@ export function useWaypoints(
               lastWp,
               currentWp,
               nextWp,
-              value as "BOC" | "TOC" | "TOD" | "BOD"
+              value as "BOC" | "TOC" | "TOD" | "BOD",
+              storedWindData[index]?.speed || 0,
+              storedWindData[index]?.direction || 0
             );
             if (!transitionWp) return updated;
 
@@ -476,15 +478,16 @@ export function useWaypoints(
           const lastWp = updated[index - 1];
           if (
             currentWp.transitionWaypointIndex !== undefined &&
-            lastWp &&
             updated[currentWp.transitionWaypointIndex + 1]
           ) {
             const nextWp = updated[currentWp.transitionWaypointIndex + 1];
             const newTransition = calculateTransitionWaypoint(
-              lastWp,
+              lastWp || currentWp, // Fallback to currentWp if lastWp is undefined (e.g. first waypoint)
               currentWp,
               nextWp,
-              currentWp.type as "BOC" | "TOD"
+              currentWp.type as "BOC" | "TOD",
+              storedWindData[index]?.speed || 0,
+              storedWindData[index]?.direction || 0
             );
             if (newTransition) {
               updated[currentWp.transitionWaypointIndex] = {
@@ -504,15 +507,16 @@ export function useWaypoints(
           const nextWp = updated[index + 1];
           if (
             currentWp.transitionWaypointIndex !== undefined &&
-            nextWp &&
             updated[currentWp.transitionWaypointIndex - 1]
           ) {
             const lastWp = updated[currentWp.transitionWaypointIndex - 1];
             const newTransition = calculateTransitionWaypoint(
               lastWp,
               currentWp,
-              nextWp,
-              currentWp.type as "TOC" | "BOD"
+              nextWp || currentWp, // Fallback to currentWp if nextWp is undefined
+              currentWp.type as "TOC" | "BOD",
+              storedWindData[index]?.speed || 0,
+              storedWindData[index]?.direction || 0
             );
             if (newTransition) {
               updated[currentWp.transitionWaypointIndex] = {
@@ -530,7 +534,7 @@ export function useWaypoints(
         return updated;
       });
     },
-    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName, showWarnings, checkWaypointWarning, addWarningAlert]
+    [defaultTAS, calculateSpecialSegment, exitAltitude, updateWaypointName, showWarnings, checkWaypointWarning, addWarningAlert, storedWindData]
   );
 
   const handleMapClick = useCallback(

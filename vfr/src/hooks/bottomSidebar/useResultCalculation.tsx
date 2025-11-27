@@ -52,9 +52,10 @@ const formatLegName = (
   }
 
   if (["BOC", "TOC", "TOD", "BOD"].includes(wp.type)) {
+    const isClimb = ["BOC", "TOC"].includes(wp.type);
     return {
       mainText: `${prevName} → ${nextName}`,
-      subText: wp.type,
+      subText: isClimb ? "Climb" : "Descent",
       isSpecialFormat: true,
     };
   }
@@ -163,10 +164,15 @@ export const useResultsCalculation = ({
 
         // Row styling
         const isTransition = !wp.visible;
+
+        // Determine if this is a special segment (climb/descent)
+        const isSpecialSegment =
+          (wp.specialFuel && ["BOC", "TOD"].includes(wp.type) && nextWp.isTransition) ||
+          (wp.isTransition && nextWp.specialFuel && ["TOC", "BOD"].includes(nextWp.type));
+
         const rowClass = `
           transition-colors duration-150
-          ${isTransition ? "italic text-gray-500" : ""}
-          ${i % 2 === 0 ? "bg-[var(--results-bg2)]" : "bg-[var(--results-bg1)]"}
+          ${isSpecialSegment ? "bg-blue-900/30 font-semibold" : i % 2 === 0 ? "bg-[var(--results-bg2)]" : "bg-[var(--results-bg1)]"}
           hover:bg-[var(--results-hover)]
         `;
 
@@ -180,11 +186,54 @@ export const useResultsCalculation = ({
           { lat: nextWp.position[0], lng: nextWp.position[1] }
         );
         const windInfo = storedWindData[i] || { speed: 0, direction: 0 };
-        const tas = IAStoTAS(wp.ias, wp.altitude / 100);
+
+        // Determine which IAS to use based on segment type
+        let iasToUse = wp.ias;
+
+        // Check if this is a climb/descent segment and get the appropriate IAS
+        if (wp.specialFuel && ["BOC", "TOD"].includes(wp.type) && nextWp.isTransition) {
+          // Climb/descent segment: use iasClimbDescent
+          iasToUse = wp.iasClimbDescent || wp.ias;
+        } else if (wp.isTransition && nextWp.specialFuel && ["TOC", "BOD"].includes(nextWp.type)) {
+          // Climb/descent segment: use iasClimbDescent
+          iasToUse = nextWp.iasClimbDescent || nextWp.ias;
+        } else if (wp.isTransition && !nextWp.isTransition) {
+          // Cruise segment after climb/descent: look back to find the BOC/TOD waypoint
+          // and use its normal IAS
+          const prevWp = waypoints[i - 1];
+          if (prevWp && ["BOC", "TOD"].includes(prevWp.type)) {
+            iasToUse = prevWp.ias;
+          }
+        }
+
+        const tas = IAStoTAS(iasToUse, wp.altitude / 100);
         const heading = getHeading(track, tas, windInfo.direction, windInfo.speed);
         const gs = getGroundSpeed(track, tas, windInfo.direction, windInfo.speed);
-        const time = (distance / gs) * 60;
-        const fuelBurn = (time / 60) * fuelConsumption;
+
+        // Calculate time - for climb/descent segments, use altitude/ROC, not distance/GS
+        let time = (distance / gs) * 60;
+
+        // Determine fuel consumption and override time for climb/descent
+        let currentFuelConsumption = fuelConsumption;
+
+        // For BOC/TOD: special fuel and fixed time apply to segment FROM wp TO transition
+        if (wp.specialFuel && ["BOC", "TOD"].includes(wp.type) && nextWp.isTransition) {
+          currentFuelConsumption = wp.specialFuel;
+          // Calculate time from altitude change and ROC
+          const altChange = wp.altitudeChange || 0;
+          const rocRod = wp.rocRod || 500;
+          time = Math.abs(altChange) / rocRod;
+        }
+        // For TOC/BOD: special fuel and fixed time apply to segment FROM transition TO wp
+        else if (wp.isTransition && nextWp.specialFuel && ["TOC", "BOD"].includes(nextWp.type)) {
+          currentFuelConsumption = nextWp.specialFuel;
+          // Calculate time from altitude change and ROC
+          const altChange = nextWp.altitudeChange || 0;
+          const rocRod = nextWp.rocRod || 500;
+          time = Math.abs(altChange) / rocRod;
+        }
+
+        const fuelBurn = (time / 60) * currentFuelConsumption;
 
         return formatResultRow({
           wp,
