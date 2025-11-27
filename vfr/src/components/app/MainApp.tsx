@@ -210,11 +210,11 @@ export default function MainApp() {
         const warningElement = document.getElementById(`warning-${lastWarning.waypointIndex}`);
         if (warningElement) {
           warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Add a highlight effect
-          warningElement.classList.add('ring-2', 'ring-yellow-400', 'ring-offset-2');
+          // Add a short pulse effect
+          warningElement.style.animation = 'pulse 0.4s ease-in-out 2';
           setTimeout(() => {
-            warningElement.classList.remove('ring-2', 'ring-yellow-400', 'ring-offset-2');
-          }, 2000);
+            warningElement.style.animation = '';
+          }, 800);
         }
       }, 500);
 
