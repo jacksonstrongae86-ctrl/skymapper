@@ -97,7 +97,9 @@ export const calculateTransitionWaypoint = (
   lastWaypoint: Waypoint,
   currentWaypoint: Waypoint,
   nextWaypoint: Waypoint,
-  type: "BOC" | "TOC" | "TOD" | "BOD"
+  type: "BOC" | "TOC" | "TOD" | "BOD",
+  windSpeed: number = 0,
+  windDirection: number = 0
 ): Waypoint | null => {
   if (!currentWaypoint.altitudeChange || !currentWaypoint.rocRod || !currentWaypoint.iasClimbDescent) {
     console.warn('Missing required parameters for transition calculation');
@@ -108,24 +110,50 @@ export const calculateTransitionWaypoint = (
   const timeInMinutes = Math.abs(currentWaypoint.altitudeChange) / currentWaypoint.rocRod;
   const timeInHours = timeInMinutes / 60;
 
-  // 2. Use the fixed time to calculate distance dynamically based on the current speed
-  const speed = currentWaypoint.iasClimbDescent || 100; // Default to 100 if speed is not provided
-  const distanceNM = speed * timeInHours;
+  // 2. Use the fixed time to calculate distance dynamically based on Ground Speed
+  const ias = currentWaypoint.iasClimbDescent || 100;
 
-  // 3. Define direction and positions based on type
+  // Calculate average altitude for TAS calculation
+  const baseAlt = currentWaypoint.originalAltitude || currentWaypoint.altitude!;
+  // const targetAlt = type === "TOC" || type === "BOD"
+  //   ? baseAlt + currentWaypoint.altitudeChange
+  //   : baseAlt; // For BOC/TOD, we are descending/climbing TO this point, but let's use average for better accuracy
+
+  // Simple average altitude for the segment
+  const avgAltitude = baseAlt + (currentWaypoint.altitudeChange / 2);
+  const tas = IAStoTAS(ias, avgAltitude / 100);
+
+  // 3. Define direction and positions based on type to get track
   let from: LatLng, to: LatLng;
+  let flightTrack: number;
 
   if (type === "TOC" || type === "BOD") {
     // For TOC/BOD: calculate from current waypoint to last waypoint (reversed direction)
     from = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
     to = { lat: lastWaypoint.position[0], lng: lastWaypoint.position[1] };
+    // Flight is FROM last TO current
+    flightTrack = getBearing(
+      { lat: lastWaypoint.position[0], lng: lastWaypoint.position[1] },
+      { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] }
+    );
   } else {
-    // For BOC/TOD: calculate from next waypoint to current
-    from = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
-    to = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
+    // BOC/TOD: calculate from current to next (Forward direction)
+    from = { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] };
+    to = { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] };
+    // Flight is FROM current TO next
+    flightTrack = getBearing(
+      { lat: currentWaypoint.position[0], lng: currentWaypoint.position[1] },
+      { lat: nextWaypoint.position[0], lng: nextWaypoint.position[1] }
+    );
   }
 
-  // 4. Calculate bearing
+  // Calculate Ground Speed using the actual direction of flight
+  const gs = getGroundSpeed(flightTrack, tas, windDirection, windSpeed);
+
+  // Distance is GS * Time
+  const distanceNM = gs * timeInHours;
+
+  // 4. Calculate bearing for placement
   const bearing = getBearing(from, to);
 
   // 5. Calculate position at given distance
@@ -145,12 +173,13 @@ export const calculateTransitionWaypoint = (
     position: [newPosition.lat, newPosition.lng],
     type,
     altitude: newAltitude,
-    ias: speed,
+    ias: ias,
     visible: false,
     altitudeChange: 0,
     rocRod: currentWaypoint.rocRod,
     iasClimbDescent: currentWaypoint.iasClimbDescent,
     normalDistance: distanceNM,
     specialDistance: distanceNM,
+    // specialFuel: currentWaypoint.specialFuel, // REMOVED: Transition waypoint starts the cruise leg, so it should use global fuel
   };
 };
