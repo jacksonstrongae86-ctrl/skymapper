@@ -115,9 +115,9 @@ export const calculateTransitionWaypoint = (
 
   // Calculate average altitude for TAS calculation
   const baseAlt = currentWaypoint.originalAltitude || currentWaypoint.altitude!;
-  const targetAlt = type === "TOC" || type === "BOD"
-    ? baseAlt + currentWaypoint.altitudeChange
-    : baseAlt; // For BOC/TOD, we are descending/climbing TO this point, but let's use average for better accuracy
+  // const targetAlt = type === "TOC" || type === "BOD"
+  //   ? baseAlt + currentWaypoint.altitudeChange
+  //   : baseAlt; // For BOC/TOD, we are descending/climbing TO this point, but let's use average for better accuracy
 
   // Simple average altitude for the segment
   const avgAltitude = baseAlt + (currentWaypoint.altitudeChange / 2);

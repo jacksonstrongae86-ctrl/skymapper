@@ -163,7 +163,7 @@ export const useResultsCalculation = ({
         const nextVisibleIndex = waypoints.slice(0, i + 2).filter((w) => w.visible !== false).length;
 
         // Row styling
-        const isTransition = !wp.visible;
+        // const isTransition = !wp.visible;
 
         // Determine if this is a special segment (climb/descent)
         const isSpecialSegment =
