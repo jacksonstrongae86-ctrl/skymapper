@@ -776,7 +776,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             ${
               aviationLayers.hotspots
                 ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                : "hover:bg-[var(--button-text)]"
+                : "hover:bg-[var(--button-text)] text-[var(--sidebar-text)]"
             }
           `}
                   title="Toggle Hotspots"
