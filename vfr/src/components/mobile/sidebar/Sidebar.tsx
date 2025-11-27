@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { SidebarProps } from "../../../utils/types";
 import { Header } from "./components/sidebar/Header";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
@@ -30,6 +30,9 @@ const Sidebar: React.FC<SidebarProps> = ({
   set_gal_liter,
   // Airspace warning props
   airspaces = [],
+  showWarnings,
+  setShowWarnings,
+  warningsInitialTab,
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
@@ -38,6 +41,17 @@ const Sidebar: React.FC<SidebarProps> = ({
   const [activeTab, setActiveTab] = useState<"settings" | "waypoints" | "warnings">(
     "settings"
   );
+
+  // Switch to warnings tab when showWarnings becomes true
+  useEffect(() => {
+    if (showWarnings) {
+      setActiveTab("warnings");
+      // Reset the flag after switching
+      if (setShowWarnings) {
+        setTimeout(() => setShowWarnings(false), 100);
+      }
+    }
+  }, [showWarnings, setShowWarnings]);
 
   // Use the same resize logic as BottomSidebar
   const {
@@ -181,6 +195,7 @@ const Sidebar: React.FC<SidebarProps> = ({
                   warningAlerts={warningAlerts}
                   onClearAlerts={clearWarningAlerts || (() => {})}
                   analyzeRouteWarnings={analyzeRouteWarnings}
+                  initialTab={warningsInitialTab}
                 />
               )}
             </div>

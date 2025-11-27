@@ -127,6 +127,7 @@ export default function MainApp() {
   const [alertDismissed, setAlertDismissed] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
+  const [warningsInitialTab, setWarningsInitialTab] = useState<'violations' | 'intersections' | 'stats' | undefined>(undefined);
 
   // Trivia popup - only show on first load after tutorial and consent are complete
   const [showTriviaPopup, setShowTriviaPopup] = useState(false);
@@ -186,6 +187,44 @@ export default function MainApp() {
     setAlertDismissed(true); // Dismiss page-level alert
   };
 
+  // Handle airspace alert click - open warnings, scroll to last violation, and dismiss alert
+  const handleAirspaceAlertClick = () => {
+    if (waypoints.length === 0) return;
+
+    const analysis = analyzeRouteWarnings(waypoints);
+    const warningsWithIssues = analysis.warnings.filter(w => w.hasViolation || w.isInRestrictedAirspace);
+
+    if (warningsWithIssues.length > 0) {
+      // Get the last warning (highest waypointIndex)
+      const lastWarning = warningsWithIssues[warningsWithIssues.length - 1];
+
+      // Determine which tab to open based on whether it's a violation or just an intersection
+      const tabToOpen = lastWarning.hasViolation ? 'violations' : 'intersections';
+      setWarningsInitialTab(tabToOpen);
+
+      // Open the warnings section
+      setShowWarnings(true);
+
+      // Scroll to the last warning after a delay to ensure rendering
+      setTimeout(() => {
+        const warningElement = document.getElementById(`warning-${lastWarning.waypointIndex}`);
+        if (warningElement) {
+          warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          // Add a short pulse effect
+          warningElement.style.animation = 'pulse 0.4s ease-in-out 2';
+          setTimeout(() => {
+            warningElement.style.animation = '';
+          }, 800);
+        }
+      }, 500);
+
+      // Reset the tab selection after a delay
+      setTimeout(() => setWarningsInitialTab(undefined), 1000);
+    }
+
+    setAlertDismissed(true); // Dismiss the alert after clicking
+  };
+
   const handleLayerToggle = (
     layer: keyof typeof aviationLayers,
     enabled: boolean
@@ -206,6 +245,7 @@ export default function MainApp() {
           waypoints={waypoints}
           analyzeRouteWarnings={analyzeRouteWarnings}
           onDismiss={() => setAlertDismissed(true)}
+          onClick={handleAirspaceAlertClick}
         />
       )}
 
@@ -243,6 +283,7 @@ export default function MainApp() {
               airspaces={airspaces}
               showWarnings={showWarnings}
               setShowWarnings={setShowWarnings}
+              warningsInitialTab={warningsInitialTab}
               analyzeRouteWarnings={analyzeRouteWarnings}
               warningAlerts={warningAlerts}
               clearWarningAlerts={handleClearAllAlerts}
@@ -309,6 +350,7 @@ export default function MainApp() {
             airspaces={airspaces}
             showWarnings={showWarnings}
             setShowWarnings={setShowWarnings}
+            warningsInitialTab={warningsInitialTab}
             analyzeRouteWarnings={analyzeRouteWarnings}
             warningAlerts={warningAlerts}
             clearWarningAlerts={handleClearAllAlerts}

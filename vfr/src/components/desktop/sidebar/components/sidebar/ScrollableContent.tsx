@@ -45,9 +45,10 @@ export const ScrollableContent: React.FC<ScrollableContentProps> = ({
           id="waypoints-section"
           className={`
             transition-all duration-300 ease-in-out
-            ${isWaypointsVisible ? "max-h-[2000px] opacity-100" : "max-h-0 opacity-0"}
+            ${isWaypointsVisible ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"}
             ${`gradient-${theme}`}
-            overflow-hidden
+            ${isWaypointsVisible ? "overflow-y-auto" : "overflow-hidden"}
+            custom-scrollbar
           `}
         >
           {isWaypointsVisible && (
