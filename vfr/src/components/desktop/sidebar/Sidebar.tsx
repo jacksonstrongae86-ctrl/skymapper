@@ -38,17 +38,13 @@ const Sidebar: React.FC<SidebarProps> = ({
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  const [localWarningsVisible, setLocalWarningsVisible] = useState(true);
-
-  // Use external state if provided, otherwise use local state
-  const isWarningsVisible = showWarnings ?? localWarningsVisible;
-  const setIsWarningsVisible = setShowWarnings ?? setLocalWarningsVisible;
+  const [isWarningsVisible, setIsWarningsVisible] = useState(true);
 
   // Open and scroll to airspace warnings when triggered from outside
   useEffect(() => {
     if (showWarnings && !isMinimized) {
       // Open the warnings section if it's not already open
-      setLocalWarningsVisible(true);
+      setIsWarningsVisible(true);
 
       const warningsElement = document.getElementById('airspace-warnings');
       if (warningsElement) {
