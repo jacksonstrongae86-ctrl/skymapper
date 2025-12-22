@@ -122,6 +122,29 @@ const MapComponent: React.FC<MapComponentProps> = ({
     }
   }, [selectedCountry]);
 
+  // Invalidate map size on mount and when window resizes to fix tile rendering issues
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapRef.current) {
+        mapRef.current.invalidateSize();
+      }
+    };
+
+    // Invalidate size on mount after a short delay
+    const timer = setTimeout(() => {
+      if (mapRef.current) {
+        mapRef.current.invalidateSize();
+      }
+    }, 100);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   // Remove all custom event handling for now
   // Load aviation data
   const {

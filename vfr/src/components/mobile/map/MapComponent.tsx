@@ -146,6 +146,17 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     }
   }, [selectedCountry]);
 
+  // Invalidate map size when expanded state changes to fix tile rendering issues
+  useEffect(() => {
+    if (mapRef.current && isExpanded) {
+      // Small delay to ensure the transition is complete
+      const timer = setTimeout(() => {
+        mapRef.current?.invalidateSize();
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isExpanded]);
+
   // Load aviation data
   const {
     airports,
