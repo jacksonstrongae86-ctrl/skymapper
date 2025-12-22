@@ -100,6 +100,12 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   renameRoute,
   analyzeRouteWarnings,
 }) => {
+  // Function to move the map to specific coordinates
+  const handleMoveMap = (lat: number, lon: number, zoom: number = 12) => {
+    if (mapRef.current) {
+      mapRef.current.setView([lat, lon], zoom);
+    }
+  };
   const [isExpanded, setIsExpanded] = useState(false);
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
@@ -420,6 +426,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
               onDeleteLastWaypoint={onDeleteLastWaypoint}
               onClearWaypoints={onClearWaypoints}
               onAddSearchWaypoint={onAddSearchWaypoint}
+              onMoveMap={handleMoveMap}
               showAviationData={showAviationData}
               onToggleAviationData={onToggleAviationData}
               aviationLayers={aviationLayers}

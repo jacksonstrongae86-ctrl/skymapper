@@ -44,6 +44,7 @@ type MapComponentProps = {
   selectedCountry: string;
   onCountryChange: (country: string) => void;
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
+  onMoveMapRef?: React.MutableRefObject<((lat: number, lon: number, zoom?: number) => void) | null>;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -63,12 +64,24 @@ const MapComponent: React.FC<MapComponentProps> = ({
   selectedCountry,
   onCountryChange,
   analyzeRouteWarnings,
+  onMoveMapRef,
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Expose map movement function via ref
+  useEffect(() => {
+    if (onMoveMapRef) {
+      onMoveMapRef.current = (lat: number, lon: number, zoom: number = 12) => {
+        if (mapRef.current) {
+          mapRef.current.setView([lat, lon], zoom);
+        }
+      };
+    }
+  }, [onMoveMapRef]);
 
   // Analyze route warnings to get violation information for waypoints
   const routeWarnings = useMemo(() => {

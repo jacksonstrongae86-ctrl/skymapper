@@ -63,6 +63,7 @@ interface ExtendedMapControlsProps extends MapControlsProps {
   loadRoute: (id: string) => void;
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
+  onMoveMap?: (lat: number, lon: number, zoom?: number) => void;
 }
 
 const MapControls: React.FC<ExtendedMapControlsProps> = ({
@@ -71,6 +72,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   onDeleteLastWaypoint,
   onClearWaypoints,
   onAddSearchWaypoint,
+  onMoveMap,
   showAviationData,
   onToggleAviationData,
   aviationLayers,
@@ -264,6 +266,10 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
     }
 
     onAddSearchWaypoint(lat, lon, shortenedName);
+    // Move map to the new waypoint
+    if (onMoveMap) {
+      onMoveMap(lat, lon, 12);
+    }
   };
 
   const handleSearchToggle = () => {

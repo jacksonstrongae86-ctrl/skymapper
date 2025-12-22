@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import dynamic from "next/dynamic";
 import { useWaypoints } from "../../hooks/index/useWaypoints";
 import { useFlightCalculations } from "../../hooks/index/useFlightCalculations";
@@ -42,6 +42,9 @@ export default function MainApp() {
   } = useWindData();
 
   const [selectedCountry, setSelectedCountry] = useState("es");
+
+  // Ref to hold the map move function
+  const moveMapRef = useRef<((lat: number, lon: number, zoom?: number) => void) | null>(null);
 
   // Load aviation data for altitude compliance
   const { airspaces } = useAviationData(selectedCountry);
@@ -385,6 +388,7 @@ export default function MainApp() {
                 selectedCountry={selectedCountry}
                 onCountryChange={setSelectedCountry}
                 analyzeRouteWarnings={analyzeRouteWarnings}
+                onMoveMapRef={moveMapRef}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">
@@ -394,6 +398,7 @@ export default function MainApp() {
                 onDeleteLastWaypoint={handleDeleteLastWaypoint}
                 onClearWaypoints={handleClearWaypoints}
                 onAddSearchWaypoint={onAddSearchWaypoint}
+                onMoveMap={(lat, lon, zoom) => moveMapRef.current?.(lat, lon, zoom)}
                 showAviationData={showAviationData}
                 onToggleAviationData={setShowAviationData}
                 aviationLayers={aviationLayers}
