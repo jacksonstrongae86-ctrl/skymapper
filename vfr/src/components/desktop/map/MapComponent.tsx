@@ -44,6 +44,7 @@ type MapComponentProps = {
   selectedCountry: string;
   onCountryChange: (country: string) => void;
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
+  onMoveMapRef?: React.MutableRefObject<((lat: number, lon: number, zoom?: number) => void) | null>;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -63,12 +64,24 @@ const MapComponent: React.FC<MapComponentProps> = ({
   selectedCountry,
   onCountryChange,
   analyzeRouteWarnings,
+  onMoveMapRef,
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
   const mapRef = useRef<Map | null>(null);
   const [countryDetected, setCountryDetected] = useState(false);
+
+  // Expose map movement function via ref
+  useEffect(() => {
+    if (onMoveMapRef) {
+      onMoveMapRef.current = (lat: number, lon: number, zoom: number = 12) => {
+        if (mapRef.current) {
+          mapRef.current.setView([lat, lon], zoom);
+        }
+      };
+    }
+  }, [onMoveMapRef]);
 
   // Analyze route warnings to get violation information for waypoints
   const routeWarnings = useMemo(() => {
@@ -108,6 +121,29 @@ const MapComponent: React.FC<MapComponentProps> = ({
       mapRef.current.setView(newCenter, 6);
     }
   }, [selectedCountry]);
+
+  // Invalidate map size on mount and when window resizes to fix tile rendering issues
+  useEffect(() => {
+    const handleResize = () => {
+      if (mapRef.current) {
+        mapRef.current.invalidateSize();
+      }
+    };
+
+    // Invalidate size on mount after a short delay
+    const timer = setTimeout(() => {
+      if (mapRef.current) {
+        mapRef.current.invalidateSize();
+      }
+    }, 100);
+
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   // Remove all custom event handling for now
   // Load aviation data

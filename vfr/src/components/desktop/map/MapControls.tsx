@@ -63,6 +63,7 @@ interface ExtendedMapControlsProps extends MapControlsProps {
   loadRoute: (id: string) => void;
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
+  onMoveMap?: (lat: number, lon: number, zoom?: number) => void;
 }
 
 const MapControls: React.FC<ExtendedMapControlsProps> = ({
@@ -71,6 +72,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   onDeleteLastWaypoint,
   onClearWaypoints,
   onAddSearchWaypoint,
+  onMoveMap,
   showAviationData,
   onToggleAviationData,
   aviationLayers,
@@ -264,6 +266,10 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
     }
 
     onAddSearchWaypoint(lat, lon, shortenedName);
+    // Move map to the new waypoint
+    if (onMoveMap) {
+      onMoveMap(lat, lon, 12);
+    }
   };
 
   const handleSearchToggle = () => {
@@ -445,8 +451,8 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                     flex-1 px-3 py-2 rounded-lg
                     bg-[var(--input-bg)]
                     border border-[var(--sidebar-border)]
-                    text-[var(--sidebar-text)]
-                    placeholder:text-[var(--sidebar-text-muted)]
+                    text-white
+                    placeholder:text-gray-400
                     focus:outline-none
                     focus:ring-2
                     focus:ring-[var(--accent-color)]
@@ -457,7 +463,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   <div className="flex items-center justify-center w-10 h-10">
                     <Loader2
                       size={16}
-                      className="animate-spin text-[var(--sidebar-text)]"
+                      className="animate-spin text-white"
                     />
                   </div>
                 )}
@@ -479,7 +485,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                         key={result.place_id}
                         className={`
                           block w-full text-left px-3 py-2 rounded-lg
-                          text-[var(--sidebar-text)]
+                          text-white
                           hover:bg-[var(--button-hover)]
                           transition-all duration-200
                           text-sm
@@ -498,7 +504,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                             .join(",")
                             .trim()}
                         </div>
-                        <div className="text-xs opacity-50 mt-1">
+                        <div className="text-xs text-gray-400 mt-1">
                           {result.lat}, {result.lon}
                         </div>
                       </button>
@@ -510,7 +516,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   searchResults.length === 0 &&
                   !searchError &&
                   searchQuery.length >= 2 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-sm py-4 text-center">
+                    <div className="text-gray-400 text-sm py-4 text-center">
                       No locations found
                     </div>
                   )}
@@ -520,7 +526,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   !searchError &&
                   searchQuery.length < 2 &&
                   searchQuery.length > 0 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-sm py-4 text-center">
+                    <div className="text-gray-400 text-sm py-4 text-center">
                       Type at least 2 characters to search
                     </div>
                   )}
@@ -529,7 +535,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   searchResults.length === 0 &&
                   !searchError &&
                   searchQuery.length === 0 && (
-                    <div className="text-[var(--sidebar-text-muted)] text-sm py-4 text-center">
+                    <div className="text-gray-400 text-sm py-4 text-center">
                       Start typing to search for locations
                     </div>
                   )}
@@ -582,7 +588,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                     ${
                       mapType === value
                         ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                        : "hover:bg-[var(--button-hover)] text-white"
                     }
                   `}
                   title={label}
@@ -638,7 +644,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                   ${
                     selectedCountry === country.code
                       ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                      : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                      : "hover:bg-[var(--button-hover)] text-white"
                   }
                 `}
                   title={country.name}
@@ -690,7 +696,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
           ${
             showAviationData
               ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-              : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+              : "hover:bg-[var(--button-hover)] text-white"
           }
         `}
                 title="Toggle Aviation Data"
@@ -713,7 +719,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             ${
               aviationLayers.airports
                 ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                : "hover:bg-[var(--button-hover)] text-white"
             }
           `}
                   title="Toggle Airports"
@@ -734,7 +740,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             ${
               aviationLayers.navigation
                 ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                : "hover:bg-[var(--button-hover)] text-white"
             }
           `}
                   title="Toggle Navigation"
@@ -755,7 +761,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             ${
               aviationLayers.obstacles
                 ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+                : "hover:bg-[var(--button-hover)] text-white"
             }
           `}
                   title="Toggle Obstacles"
@@ -776,7 +782,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
             ${
               aviationLayers.hotspots
                 ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                : "hover:bg-[var(--button-text)] text-[var(--sidebar-text)]"
+                : "hover:bg-[var(--button-hover)] text-white"
             }
           `}
                   title="Toggle Hotspots"
@@ -799,7 +805,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
     ${
       aviationLayers.reportingpoints
         ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-        : "hover:bg-[var(--button-hover)] text-[var(--sidebar-text)]"
+        : "hover:bg-[var(--button-hover)] text-white"
     }
   `}
                   title="Toggle Reporting Points"
