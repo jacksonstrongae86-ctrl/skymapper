@@ -228,39 +228,96 @@ function createPopupContent(
     case "navigation":
       const navPoint = data as NavigationPoint;
       return `
-        <div class="aviation-popup">
-          <h3>${navPoint.name || "Unknown Navigation Point"}</h3>
-          <p><strong>Identifier:</strong> ${navPoint.identifier || "N/A"}</p>
-          <p><strong>Type:</strong> ${navPoint.type || "N/A"}</p>
-          <p><strong>Frequency:</strong> ${
-            navPoint.frequency?.value || "N/A"
-          }</p>
-          <p><strong>Elevation:</strong> ${
-            navPoint.elevation?.value || "N/A"
-          }m</p>
-          ${
-            navPoint.channel
-              ? `<p><strong>Channel:</strong> ${navPoint.channel}</p>`
-              : ""
-          }
+        <div class="aviation-popup themed-popup" style="min-width: 280px; max-width: 360px;">
+          <div class="popup-header">
+            <h3 class="popup-title">${navPoint.name || "Unknown Navigation Point"}</h3>
+            <div class="popup-subtitle">
+              ${navPoint.identifier || "N/A"} • ${navPoint.type || "Navigation Aid"}
+            </div>
+          </div>
+
+          <div class="popup-content">
+            <div class="info-section">
+              <div class="info-item">
+                <span class="info-label">Type:</span>
+                <span class="info-value">${navPoint.type || "N/A"}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Identifier:</span>
+                <span class="info-value">${navPoint.identifier || "N/A"}</span>
+              </div>
+              ${
+                navPoint.frequency?.value
+                  ? `<div class="info-item">
+                      <span class="info-label">Frequency:</span>
+                      <span class="info-value">${navPoint.frequency.value} MHz</span>
+                    </div>`
+                  : ""
+              }
+              ${
+                navPoint.channel
+                  ? `<div class="info-item">
+                      <span class="info-label">Channel:</span>
+                      <span class="info-value">${navPoint.channel}</span>
+                    </div>`
+                  : ""
+              }
+              <div class="info-item">
+                <span class="info-label">Elevation:</span>
+                <span class="info-value">${navPoint.elevation?.value || "N/A"}m</span>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 
     case "obstacle":
       const obstacle = data as Obstacle;
       return `
-        <div class="aviation-popup">
-          <h3>${obstacle.name || "Unknown Obstacle"}</h3>
-          <p><strong>Type:</strong> ${obstacle.type || "N/A"}</p>
-          <p><strong>Elevation:</strong> ${
-            obstacle.elevation?.value || "N/A"
-          }m</p>
-          <p><strong>OSM ID:</strong> ${obstacle.osmId || "N/A"}</p>
-          ${
-            obstacle.osmTags?.power
-              ? `<p><strong>Power:</strong> ${obstacle.osmTags.power}</p>`
-              : ""
-          }
+        <div class="aviation-popup themed-popup" style="min-width: 280px; max-width: 360px;">
+          <div class="popup-header">
+            <h3 class="popup-title">${obstacle.name || "Unknown Obstacle"}</h3>
+            <div class="popup-subtitle">
+              ${obstacle.type || "Obstacle"}
+            </div>
+          </div>
+
+          <div class="popup-content">
+            <div class="info-section">
+              <div class="info-item">
+                <span class="info-label">Type:</span>
+                <span class="info-value">${obstacle.type || "N/A"}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Elevation:</span>
+                <span class="info-value">${obstacle.elevation?.value || "N/A"}m</span>
+              </div>
+              ${
+                obstacle.osmId
+                  ? `<div class="info-item">
+                      <span class="info-label">OSM ID:</span>
+                      <span class="info-value">${obstacle.osmId}</span>
+                    </div>`
+                  : ""
+              }
+              ${
+                obstacle.osmTags?.power
+                  ? `<div class="info-item">
+                      <span class="info-label">Power:</span>
+                      <span class="info-value">${obstacle.osmTags.power}</span>
+                    </div>`
+                  : ""
+              }
+              ${
+                obstacle.osmTags?.height
+                  ? `<div class="info-item">
+                      <span class="info-label">Height:</span>
+                      <span class="info-value">${obstacle.osmTags.height}</span>
+                    </div>`
+                  : ""
+              }
+            </div>
+          </div>
         </div>
       `;
 

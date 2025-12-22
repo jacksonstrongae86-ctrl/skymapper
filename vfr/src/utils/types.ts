@@ -485,6 +485,7 @@ export interface Obstacle {
   geometry: AviationGeometry;
   name: string;
   osmTags: {
+    height: unknown;
     key: string;
     value: string;
     name: string;
