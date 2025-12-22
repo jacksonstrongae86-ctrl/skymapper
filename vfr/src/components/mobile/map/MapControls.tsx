@@ -349,14 +349,14 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
           >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b rounded-lg border-[var(--sidebar-border)] bg-[var(--sidebar-bg)]">
-              <h3 className="text-lg font-semibold text-[var(--sidebar-text)]">
+              <h3 className="text-lg font-semibold text-white">
                 Map Controls
               </h3>
               <button
                 onClick={() => setIsOpen(false)}
                 className="p-2 rounded-xl hover:bg-[var(--button-hover)] transition-all duration-200 hover:scale-110 active:scale-95"
               >
-                <XCircle size={26} strokeWidth={2.5} className="text-[var(--sidebar-text)]" />
+                <XCircle size={26} strokeWidth={2.5} className="text-white" />
               </button>
             </div>
             {/* Tab Navigation */}
@@ -366,7 +366,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "waypoints"
                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                    : "text-white hover:bg-[var(--button-hover)]"
                 }`}
               >
                 <MapPin size={16} />
@@ -377,7 +377,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "routes"
                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                    : "text-white hover:bg-[var(--button-hover)]"
                 }`}
               >
                 <Save size={16} />
@@ -388,7 +388,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "search"
                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                    : "text-white hover:bg-[var(--button-hover)]"
                 }`}
               >
                 <MapPin size={16} />
@@ -399,7 +399,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "map"
                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                    : "text-white hover:bg-[var(--button-hover)]"
                 }`}
               >
                 <Map size={16} />
@@ -410,7 +410,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 className={`px-4 py-2 rounded-lg text-sm font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-2 ${
                   activeTab === "aviation"
                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                    : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+                    : "text-white hover:bg-[var(--button-hover)]"
                 }`}
               >
                 <Plane size={16} />
@@ -425,13 +425,13 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 {/* Waypoints Tab */}
                 {activeTab === "waypoints" && (
                   <div className="space-y-3">
-                    <h3 className="text-lg font-semibold text-[var(--sidebar-text)] mb-4">Manage Waypoints</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Manage Waypoints</h3>
                     <button
                       onClick={() => {
                         onDeleteLastWaypoint();
                         setIsOpen(false);
                       }}
-                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-[var(--sidebar-text)] hover:border-[var(--button-bg)] transition-all duration-200"
+                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-white hover:border-[var(--button-bg)] transition-all duration-200"
                     >
                       <Undo2 size={24} />
                       <div className="text-left">
@@ -444,7 +444,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         onClearWaypoints();
                         setIsOpen(false);
                       }}
-                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-[var(--sidebar-text)] hover:border-[var(--button-bg)] transition-all duration-200"
+                      className="w-full px-4 py-4 flex items-center gap-3 rounded-xl bg-[var(--sidebar-bg)] border-2 border-[var(--sidebar-border)] text-white hover:border-[var(--button-bg)] transition-all duration-200"
                     >
                       <Trash2 size={24} />
                       <div className="text-left">
@@ -458,7 +458,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 {/* Search Tab */}
                 {activeTab === "search" && (
                   <div>
-                  <h3 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                  <h3 className="text-sm font-medium mb-2 text-white">
                     Search Location
                   </h3>
                   <div className="flex items-center gap-2 mb-2">
@@ -472,8 +472,8 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                   flex-1 px-3 py-2 rounded-lg text-sm
                   bg-[var(--input-bg)]
                   border border-[var(--sidebar-border)]
-                  text-[var(--sidebar-text)]
-                  placeholder:text-[var(--sidebar-text-muted)]
+                  text-white
+                  placeholder:text-gray-400
                   focus:outline-none
                   focus:ring-2
                   focus:ring-[var(--accent-color)]
@@ -482,7 +482,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 `}
                     />
                     {isSearching && (
-                      <Loader2 className="w-4 h-4 animate-spin text-[var(--sidebar-text-muted)]" />
+                      <Loader2 className="w-4 h-4 animate-spin text-gray-400" />
                     )}
                   </div>
 
@@ -503,17 +503,17 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                             onClick={() => handleResultClick(result)}
                             className="w-full text-left p-2 rounded-lg hover:bg-[var(--button-hover)] transition-colors"
                           >
-                            <div className="font-medium text-[var(--sidebar-text)] truncate">
+                            <div className="font-medium text-white truncate">
                               {result.display_name.split(",")[0]}
                             </div>
-                            <div className="text-sm text-[var(--sidebar-text-muted)] truncate">
+                            <div className="text-sm text-gray-400 truncate">
                               {result.display_name
                                 .split(",")
                                 .slice(1)
                                 .join(",")
                                 .trim()}
                             </div>
-                            <div className="text-xs text-[var(--sidebar-text-muted)]">
+                            <div className="text-xs text-gray-400">
                               {result.lat}, {result.lon}
                             </div>
                           </button>
@@ -526,7 +526,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       searchResults.length === 0 &&
                       !searchError &&
                       searchQuery.length >= 2 && (
-                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                        <div className="p-2 text-gray-400 text-sm">
                           No locations found
                         </div>
                       )}
@@ -536,7 +536,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       !searchError &&
                       searchQuery.length < 2 &&
                       searchQuery.length > 0 && (
-                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                        <div className="p-2 text-gray-400 text-sm">
                           Type at least 2 characters to search
                         </div>
                       )}
@@ -545,7 +545,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                       searchResults.length === 0 &&
                       !searchError &&
                       searchQuery.length === 0 && (
-                        <div className="p-2 text-[var(--sidebar-text-muted)] text-sm">
+                        <div className="p-2 text-gray-400 text-sm">
                           Start typing to search for locations
                         </div>
                       )}
@@ -556,10 +556,10 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 {/* Routes Tab */}
                 {activeTab === "routes" && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-[var(--sidebar-text)] mb-4">Saved Routes</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Saved Routes</h3>
                     <div className="space-y-2 max-h-[50vh] overflow-y-auto custom-scrollbar">
                       {listSavedRoutes().length === 0 && (
-                        <div className="text-center text-[var(--sidebar-text-muted)] italic py-8">
+                        <div className="text-center text-gray-400 italic py-8">
                           No routes saved yet.
                         </div>
                       )}
@@ -579,7 +579,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                                 <input
                                   value={renameValue}
                                   onChange={(e) => setRenameValue(e.target.value)}
-                                  className="rounded px-3 py-2 text-sm border flex-1 bg-[var(--input-bg)] text-[var(--sidebar-text)]"
+                                  className="rounded px-3 py-2 text-sm border flex-1 bg-[var(--input-bg)] text-white"
                                   autoFocus
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
@@ -611,12 +611,12 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               <div className="flex items-center justify-between px-3 py-3 rounded-lg bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)] transition-all duration-200">
                                 <div className="min-w-0 flex-1 pr-3">
                                   <div
-                                    className="font-semibold text-[var(--sidebar-text)] mb-1 break-words"
+                                    className="font-semibold text-white mb-1 break-words"
                                     title={route.name}
                                   >
                                     {route.name}
                                   </div>
-                                  <div className="text-xs text-[var(--sidebar-text-muted)]">
+                                  <div className="text-xs text-gray-400">
                                     {new Date(route.lastModified).toLocaleDateString()} {new Date(route.lastModified).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                                   </div>
                                 </div>
@@ -628,7 +628,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                                   className="p-2 hover:bg-[var(--button-hover)] rounded-lg transition-all flex-shrink-0"
                                   title="Options"
                                 >
-                                  <MoreVertical size={20} className="text-[var(--sidebar-text)]" />
+                                  <MoreVertical size={20} className="text-white" />
                                 </button>
                               </div>
                             )}
@@ -648,8 +648,8 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         {/* Modal */}
                         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[61] w-[80vw] max-w-sm bg-[var(--sidebar-bg)] border border-[var(--sidebar-border)] rounded-xl shadow-2xl overflow-hidden">
                           <div className="p-4 border-b border-[var(--sidebar-border)]">
-                            <h3 className="font-semibold text-[var(--sidebar-text)]">Route Actions</h3>
-                            <p className="text-sm text-[var(--sidebar-text-muted)] mt-1 truncate">
+                            <h3 className="font-semibold text-white">Route Actions</h3>
+                            <p className="text-sm text-gray-400 mt-1 truncate">
                               {listSavedRoutes().find(r => r.id === activeRouteMenu)?.name}
                             </p>
                           </div>
@@ -663,7 +663,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
                             >
                               <FolderOpen size={20} className="text-blue-500" />
-                              <span className="text-[var(--sidebar-text)] font-medium">Load Route</span>
+                              <span className="text-white font-medium">Load Route</span>
                             </button>
                             <button
                               onClick={() => {
@@ -674,7 +674,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
                             >
                               <Edit size={20} className="text-yellow-500" />
-                              <span className="text-[var(--sidebar-text)] font-medium">Rename</span>
+                              <span className="text-white font-medium">Rename</span>
                             </button>
                             <button
                               onClick={() => {
@@ -685,7 +685,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
                             >
                               <Save size={20} className="text-orange-500" />
-                              <span className="text-[var(--sidebar-text)] font-medium">Overwrite</span>
+                              <span className="text-white font-medium">Overwrite</span>
                             </button>
                             <button
                               onClick={() => {
@@ -696,7 +696,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               className="w-full px-4 py-3 flex items-center gap-3 hover:bg-[var(--button-hover)] transition-all text-left rounded-lg"
                             >
                               <Share2 size={20} className="text-teal-500" />
-                              <span className="text-[var(--sidebar-text)] font-medium">Share Link</span>
+                              <span className="text-white font-medium">Share Link</span>
                             </button>
                             <button
                               onClick={() => {
@@ -715,7 +715,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                     )}
 
                     <div className="mt-4 pt-4 border-t border-[var(--sidebar-border)]">
-                      <h4 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                      <h4 className="text-sm font-medium mb-2 text-white">
                         Save Current Route
                       </h4>
                       <div className="flex gap-2">
@@ -723,7 +723,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                           value={saveName}
                           onChange={(e) => setSaveName(e.target.value)}
                           placeholder="Enter route name..."
-                          className="flex-1 px-3 py-2 rounded-lg text-sm bg-[var(--input-bg)] border border-[var(--sidebar-border)] text-[var(--sidebar-text)]"
+                          className="flex-1 px-3 py-2 rounded-lg text-sm bg-[var(--input-bg)] border border-[var(--sidebar-border)] text-white"
                           onKeyDown={(e) => {
                             if (e.key === "Enter" && saveName.trim()) {
                               saveNewRoute(saveName.trim());
@@ -753,9 +753,9 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 {/* Map Tab */}
                 {activeTab === "map" && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-[var(--sidebar-text)] mb-4">Map Settings</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Map Settings</h3>
                     <div>
-                      <h4 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                      <h4 className="text-sm font-medium mb-2 text-white">
                         Map Type
                       </h4>
                       <div className="grid grid-cols-2 gap-2">
@@ -772,7 +772,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 mapType === value
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)] border-2 border-white/20`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
@@ -785,7 +785,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
 
                     {onCountryChange && (
                       <div>
-                        <h4 className="text-sm font-medium mb-2 text-[var(--sidebar-text)]">
+                        <h4 className="text-sm font-medium mb-2 text-white">
                           Country
                         </h4>
                         <div className="grid grid-cols-2 gap-2 max-h-[40vh] overflow-y-auto custom-scrollbar">
@@ -800,7 +800,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                                 ${
                                   selectedCountry === country.code
                                     ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                    : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                    : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                                 }
                               `}
                             >
@@ -817,7 +817,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                 {/* Aviation Tab */}
                 {activeTab === "aviation" && onToggleAviationData && onLayerToggle && (
                   <div className="space-y-4">
-                    <h3 className="text-lg font-semibold text-[var(--sidebar-text)] mb-4">Aviation Data</h3>
+                    <h3 className="text-lg font-semibold text-white mb-4">Aviation Data</h3>
 
                     <button
                       onClick={() => onToggleAviationData(!showAviationData)}
@@ -828,7 +828,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                         ${
                           showAviationData
                             ? `${`button-gradient-${theme}`} text-[var(--button-text)] border-2 border-white/20`
-                            : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border-2 border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                            : "bg-[var(--sidebar-bg)] text-white border-2 border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                         }
                       `}
                     >
@@ -838,7 +838,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
 
                     {showAviationData && (
                       <>
-                        <h4 className="text-sm font-medium text-[var(--sidebar-text)] mt-4">Aviation Layers</h4>
+                        <h4 className="text-sm font-medium text-white mt-4">Aviation Layers</h4>
                         <div className="grid grid-cols-2 gap-2">
                           <button
                             onClick={() => onLayerToggle("airports", !aviationLayers.airports)}
@@ -849,7 +849,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 aviationLayers.airports
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
@@ -866,7 +866,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 aviationLayers.navigation
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
@@ -883,7 +883,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 aviationLayers.obstacles
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
@@ -900,7 +900,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 aviationLayers.hotspots
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
@@ -917,7 +917,7 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                               ${
                                 aviationLayers.reportingpoints
                                   ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-[var(--sidebar-text)] border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
+                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
                               }
                             `}
                           >
