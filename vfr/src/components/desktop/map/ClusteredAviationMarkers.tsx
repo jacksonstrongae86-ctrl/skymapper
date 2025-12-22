@@ -278,7 +278,7 @@ function createPopupContent(
       const reportingPoint = data as ReportingPoint;
       const compulsoryText = reportingPoint.compulsory ? "Yes" : "No";
 
-      // UPDATED: Look up airport names instead of showing IDs
+      // Look up airport names instead of showing IDs
       const airportNames: string[] = [];
       if (reportingPoint.airports?.length > 0) {
         reportingPoint.airports.forEach((airportId) => {
@@ -288,8 +288,8 @@ function createPopupContent(
           }
         });
       }
-      const airportsText =
-        airportNames.length > 0 ? airportNames.join(", ") : "N/A";
+      // const airportsText =
+      //   airportNames.length > 0 ? airportNames.join(", ") : "N/A";
 
       const createdDate = reportingPoint.createdAt
         ? new Date(reportingPoint.createdAt).toLocaleDateString()
@@ -299,23 +299,61 @@ function createPopupContent(
         : "N/A";
 
       return `
-        <div class="aviation-popup">
-          <h3>${reportingPoint.name || "Unknown Reporting Point"}</h3>
-          <p><strong>Compulsory:</strong> ${compulsoryText}</p>
-          <p><strong>Country:</strong> ${reportingPoint.country || "N/A"}</p>
-          <p><strong>Linked Airports:</strong> ${airportsText}</p>
-          <p><strong>Elevation:</strong> ${
-            reportingPoint.elevation?.value || "N/A"
-          }m</p>
-          ${
-            reportingPoint.elevationGeoid?.hae
-              ? `<p><strong>Elevation HAE:</strong> ${
-                  Math.round(reportingPoint.elevationGeoid.hae * 100) / 100
-                }m</p>`
-              : ""
-          }
-          <p><strong>Created:</strong> ${createdDate}</p>
-          <p><strong>Updated:</strong> ${updatedDate}</p>
+        <div class="aviation-popup themed-popup" style="min-width: 280px; max-width: 360px;">
+          <div class="popup-header">
+            <h3 class="popup-title">${reportingPoint.name || "Unknown Reporting Point"}</h3>
+            <div class="popup-subtitle">
+              ${reportingPoint.country || "N/A"}${reportingPoint.compulsory ? ' • Compulsory' : ''}
+            </div>
+          </div>
+
+          <div class="popup-content">
+            <div class="info-section">
+              <div class="info-item">
+                <span class="info-label">Type:</span>
+                <span class="info-value">Reporting Point</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Compulsory:</span>
+                <span class="info-value">${compulsoryText}</span>
+              </div>
+              <div class="info-item">
+                <span class="info-label">Elevation:</span>
+                <span class="info-value">${reportingPoint.elevation?.value || "N/A"}m</span>
+              </div>
+              ${
+                reportingPoint.elevationGeoid?.hae
+                  ? `<div class="info-item">
+                      <span class="info-label">Elevation HAE:</span>
+                      <span class="info-value">${Math.round(reportingPoint.elevationGeoid.hae * 100) / 100}m</span>
+                    </div>`
+                  : ""
+              }
+            </div>
+
+            ${airportNames.length > 0 ? `
+              <div class="section">
+                <h4 class="section-title">Linked Airports</h4>
+                <div class="frequencies-container">
+                  ${airportNames.map(name => `<div>${name}</div>`).join('')}
+                </div>
+              </div>
+            ` : ''}
+
+            <div class="section">
+              <h4 class="section-title">Metadata</h4>
+              <div class="info-section">
+                <div class="info-item">
+                  <span class="info-label">Created:</span>
+                  <span class="info-value">${createdDate}</span>
+                </div>
+                <div class="info-item">
+                  <span class="info-label">Updated:</span>
+                  <span class="info-value">${updatedDate}</span>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       `;
 

@@ -44,7 +44,6 @@ type AviationLayerKey =
   | "airspaces"
   | "navigation"
   | "obstacles"
-  | "hotspots"
   | "reportingpoints";
 
 interface SavedRoute {
@@ -62,7 +61,6 @@ interface ExtendedMapComponentProps extends MapComponentProps {
     airspaces: boolean;
     navigation: boolean;
     obstacles: boolean;
-    hotspots: boolean;
     reportingpoints: boolean;
   };
   onLayerToggle: (layer: AviationLayerKey, enabled: boolean) => void;
@@ -217,7 +215,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     const filteredAirspaces = aviationLayers.airspaces ? airspaces : [];
     const filteredNavigation = aviationLayers.navigation ? navigation : [];
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
-    const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
     const filteredReportingPoints = aviationLayers.reportingpoints
       ? reportingpoints
       : [];
@@ -236,23 +233,13 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
       filteredAirspaces,
       filteredNavigation,
       filteredObstacles,
-      filteredHotspots,
+      [], // Empty array for hotspots - not displayed
       filteredReportingPoints
     );
 
     // console.log("Successfully generated markers:", markers.length);
     return markers;
-  }, [
-    showAviationData,
-    aviationLayers,
-    airports,
-    airspaces,
-    navigation,
-    obstacles,
-    reportingpoints,
-    hotspots,
-    loading,
-  ]);
+  }, [showAviationData, loading, airports, airspaces, navigation, obstacles, hotspots.length, reportingpoints, aviationLayers.airports, aviationLayers.airspaces, aviationLayers.navigation, aviationLayers.obstacles, aviationLayers.reportingpoints]);
 
   // Debug: Show loading state
   if (loading) {

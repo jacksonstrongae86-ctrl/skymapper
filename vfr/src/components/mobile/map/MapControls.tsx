@@ -14,7 +14,6 @@ import {
   Plane,
   Radio,
   AlertTriangle,
-  Flame,
   Save,
   FolderOpen,
   Edit,
@@ -33,7 +32,6 @@ type AviationLayerKey =
   | "airspaces"
   | "navigation"
   | "obstacles"
-  | "hotspots"
   | "reportingpoints";
 
 interface SavedRoute {
@@ -51,7 +49,6 @@ interface ExtendedMapControlProps extends MapControlsProps {
     airspaces: boolean;
     navigation: boolean;
     obstacles: boolean;
-    hotspots: boolean;
     reportingpoints: boolean;
   };
   onLayerToggle?: (layer: AviationLayerKey, enabled: boolean) => void;
@@ -81,7 +78,6 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
     airspaces: true,
     navigation: true,
     obstacles: true,
-    hotspots: true,
     reportingpoints: true,
   },
   onLayerToggle,
@@ -895,23 +891,6 @@ const MapControls: React.FC<ExtendedMapControlProps> = ({
                           >
                             <AlertTriangle size={16} />
                             <span>Obstacles</span>
-                          </button>
-
-                          <button
-                            onClick={() => onLayerToggle("hotspots", !aviationLayers.hotspots)}
-                            className={`
-                              px-3 py-3 rounded-lg text-sm
-                              flex items-center gap-2
-                              transition-all duration-200
-                              ${
-                                aviationLayers.hotspots
-                                  ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
-                                  : "bg-[var(--sidebar-bg)] text-white border border-[var(--sidebar-border)] hover:border-[var(--button-bg)]"
-                              }
-                            `}
-                          >
-                            <Flame size={16} />
-                            <span>Hotspots</span>
                           </button>
 
                           <button

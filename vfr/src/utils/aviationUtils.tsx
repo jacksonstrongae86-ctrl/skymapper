@@ -5,7 +5,6 @@ import {
   Shield,
   Radio,
   AlertTriangle,
-  Flame,
   MapPin,
 } from 'lucide-static';
 import { Theme } from './ThemeContext';
@@ -43,7 +42,7 @@ export function createAviationIcon(
     airspace: { icon: Shield, color: '#ffffff' },
     navigation: { icon: Radio, color: '#ffffff' },
     obstacle: { icon: AlertTriangle, color: '#ffffff' },
-    hotspot: { icon: Flame, color: '#ffffff' },
+    hotspot: { icon: MapPin, color: '#ffffff' }, // Kept for type compatibility but not used
     reportingpoint: { icon: MapPin , color: '#ffffff'}
   };
 

@@ -38,7 +38,6 @@ type MapComponentProps = {
     airspaces: boolean;
     navigation: boolean;
     obstacles: boolean;
-    hotspots: boolean;
     reportingpoints: boolean;
   };
   selectedCountry: string;
@@ -58,7 +57,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
     airspaces: true,
     navigation: true,
     obstacles: true,
-    hotspots: true,
     reportingpoints: true,
   },
   selectedCountry,
@@ -206,7 +204,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
     const filteredAirspaces = aviationLayers.airspaces ? airspaces : [];
     const filteredNavigation = aviationLayers.navigation ? navigation : [];
     const filteredObstacles = aviationLayers.obstacles ? obstacles : [];
-    const filteredHotspots = aviationLayers.hotspots ? hotspots : [];
     const filteredReportingPoints = aviationLayers.reportingpoints ? reportingpoints : [];
 
     // console.log("Processing aviation data into markers...");
@@ -223,23 +220,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
       filteredAirspaces,
       filteredNavigation,
       filteredObstacles,
-      filteredHotspots,
+      [], // Empty array for hotspots - not displayed
       filteredReportingPoints
     );
 
     // console.log("Successfully generated markers:", markers.length);
     return markers;
-  }, [
-    showAviationData,
-    aviationLayers,
-    airports,
-    airspaces,
-    navigation,
-    obstacles,
-    hotspots,
-    reportingpoints,
-    loading,
-  ]);
+  }, [showAviationData, loading, airports, airspaces, navigation, obstacles, hotspots.length, reportingpoints, aviationLayers.airports, aviationLayers.airspaces, aviationLayers.navigation, aviationLayers.obstacles, aviationLayers.reportingpoints]);
 
   // Debug: Show loading state
   if (loading) {

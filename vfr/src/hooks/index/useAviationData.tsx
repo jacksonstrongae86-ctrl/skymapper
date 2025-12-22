@@ -76,7 +76,6 @@ export const useAviationData = (country: string = "es") => {
         airspaceData,
         navigationData,
         obstacleData,
-        hotspotData,
         reportingpointData,
       ] = await Promise.all(promises);
 
@@ -90,7 +89,7 @@ export const useAviationData = (country: string = "es") => {
         airspaces: validatedAirspaces,
         navigation: navigationData?.data?.items || [],
         obstacles: obstacleData?.data?.items || [],
-        hotspots: hotspotData?.data?.items || [],
+        hotspots: [], // No longer fetching hotspots
         reportingpoints: reportingpointData?.data?.items || [],
         lastUpdated: airportData?.lastUpdated || new Date().toISOString(),
         loading: false,

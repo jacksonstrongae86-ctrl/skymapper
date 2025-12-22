@@ -123,7 +123,7 @@ export default function MainApp() {
     navigation: false,
     obstacles: false,
     hotspots: false,
-    reportingpoints:false,
+    reportingpoints: false,
   });
 
   // Airspace alert dismissal
