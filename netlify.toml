@@ -1,8 +1,9 @@
 [build]
-  command = "rm -rf node_modules && npm install && npm run build"
+  command = "npm ci && npm run build"
   publish = ".next"
-  NPM_CONFIG_PRODUCTION = "false"
 
+[build.environment]
+  NODE_ENV = "production"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
