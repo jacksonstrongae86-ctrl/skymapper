@@ -23,7 +23,7 @@ interface PolicySection {
   id: string;
   title: string;
   content: React.ReactNode;
-  icon?: React.ComponentType<{ size?: number; className?: string }>;
+  icon?: React.ComponentType<{ size?: string | number; className?: string }>;
 }
 
 export const PolicyModal: React.FC<PolicyModalProps> = ({
