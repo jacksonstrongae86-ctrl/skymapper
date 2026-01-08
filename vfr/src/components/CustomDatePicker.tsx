@@ -23,27 +23,47 @@ interface WheelPickerProps {
 
 const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, label }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     if (scrollRef.current) {
       const selectedIndex = options.findIndex(opt => opt.value === value);
       if (selectedIndex !== -1) {
         const itemHeight = 36;
+        // No offset needed - the padding div naturally shifts everything
         const scrollTop = selectedIndex * itemHeight;
         scrollRef.current.scrollTop = scrollTop;
       }
     }
+
+    // Cleanup timeout on unmount
+    return () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [value, options]);
 
   const handleScroll = () => {
     if (scrollRef.current) {
-      const itemHeight = 36;
-      const scrollTop = scrollRef.current.scrollTop;
-      const centerIndex = Math.round(scrollTop / itemHeight);
-      const selectedOption = options[centerIndex];
-      if (selectedOption && selectedOption.value !== value) {
-        onChange(selectedOption.value);
+      // Clear any existing timeout
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
       }
+
+      // Debounce the onChange call
+      scrollTimeoutRef.current = setTimeout(() => {
+        if (scrollRef.current) {
+          const itemHeight = 36;
+          const scrollTop = scrollRef.current.scrollTop;
+          const centerIndex = Math.round(scrollTop / itemHeight);
+          const selectedOption = options[centerIndex];
+          // Use explicit comparison to handle 0 values correctly
+          if (selectedOption !== undefined && selectedOption.value !== value) {
+            onChange(selectedOption.value);
+          }
+        }
+      }, 50);
     }
   };
 
@@ -65,7 +85,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
             scrollSnapType: 'y mandatory',
           }}
         >
-          <div style={{ height: '36px' }} />
+          <div style={{ height: '36px', scrollSnapAlign: 'start' }} />
           {options.map((option) => {
             const isSelected = option.value === value;
             return (
@@ -85,7 +105,7 @@ const WheelPicker: React.FC<WheelPickerProps> = ({ value, onChange, options, lab
               </div>
             );
           })}
-          <div style={{ height: '36px' }} />
+          <div style={{ height: '36px', scrollSnapAlign: 'start' }} />
         </div>
       </div>
     </div>
