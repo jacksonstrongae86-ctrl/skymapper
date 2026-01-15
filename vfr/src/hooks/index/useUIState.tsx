@@ -7,6 +7,7 @@ export function useUIState() {
   const [isFullScreen, setIsFullScreen] = useState(false);
   const [bottomHeight, setBottomHeight] = useState(25);
   const [mapType, setMapType] = useState<string>("street");
+  const [isSidebarResizing, setIsSidebarResizing] = useState(false);
 
   return {
     sidebarWidth,
@@ -21,5 +22,7 @@ export function useUIState() {
     setBottomHeight,
     mapType,
     setMapType,
+    isSidebarResizing,
+    setIsSidebarResizing,
   };
 }
