@@ -112,7 +112,7 @@ const Sidebar: React.FC<ExtendedSidebarProps> = ({
             isFullScreen={isFullScreen}
           />
 
-          <div className="flex-1 overflow-y-auto overflow-x-hidden custom-scrollbar">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden hide-scrollbar">
             <FlightSettings
               isSettingsVisible={isSettingsVisible}
               setIsSettingsVisible={setIsSettingsVisible}
