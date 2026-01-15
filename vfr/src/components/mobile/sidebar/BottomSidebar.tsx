@@ -57,7 +57,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         text-[var(--results-text)]
         shadow-lg
         rounded-t-xl
-        transition-all duration-300 ease-in-out
+        ${!isResizing ? 'transition-all duration-300 ease-in-out' : ''}
         border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
         w-full
