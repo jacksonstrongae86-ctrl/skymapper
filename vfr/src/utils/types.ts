@@ -69,6 +69,7 @@ export interface BottomSidebarProps {
   topSidebarHeight?: number;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
+  isSidebarResizing?: boolean;
 }
 export interface FlightResultsTableProps {
   results: JSX.Element[];

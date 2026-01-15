@@ -1,4 +1,4 @@
-import { useState, useEffect, TouchEvent } from "react";
+import { useState, useRef, useCallback, TouchEvent } from "react";
 import { UseSidebarResizeProps } from "@/src/utils/types";
 
 export const useSidebarResize = ({
@@ -7,62 +7,100 @@ export const useSidebarResize = ({
   maxWidth,
 }: UseSidebarResizeProps) => {
   const [isResizing, setIsResizing] = useState(false);
-  const [startX, setStartX] = useState(0);
-  const [startWidth, setStartWidth] = useState(0);
+  const startXRef = useRef(0);
+  const startWidthRef = useRef(0);
+  const rafRef = useRef<number | null>(null);
   const effectiveMaxWidth = typeof window !== "undefined" ? maxWidth ?? window.innerWidth * 0.8 : 800;
-  const handleMouseDown = (e: React.MouseEvent) => {
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
     setIsResizing(true);
-    setStartX(e.clientX);
-    setStartWidth(e.currentTarget.parentElement?.offsetWidth || 0);
-  };
+    startXRef.current = e.clientX;
+    startWidthRef.current = e.currentTarget.parentElement?.offsetWidth || 0;
 
-  const handleTouchStart = (e: TouchEvent) => {
-    setIsResizing(true);
-    setStartX(e.touches[0].clientX);
-    setStartWidth(e.currentTarget.parentElement?.offsetWidth || 0);
-  };
+    const handleMove = (event: MouseEvent) => {
+      const diff = event.clientX - startXRef.current;
 
-  useEffect(() => {
-    const handleResize = (clientX: number) => {
-      if (!isResizing) return;
+      // Use requestAnimationFrame for smoother updates
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
 
-      const diff = clientX - startX;
-      const newWidth = Math.min(
-        effectiveMaxWidth,
-        Math.max(minWidth, startWidth + diff)
-      );
-      setSidebarWidth(newWidth);
+      rafRef.current = requestAnimationFrame(() => {
+        const newWidth = Math.min(
+          effectiveMaxWidth,
+          Math.max(minWidth, startWidthRef.current + diff)
+        );
+        setSidebarWidth(newWidth);
+      });
     };
-    const handleMouseMove = (e: MouseEvent) => handleResize(e.clientX);
-    const handleTouchMove = (e: TouchEvent) =>
-      handleResize(e.touches[0].clientX);
 
-    const handleEnd = () => setIsResizing(false);
+    const handleEnd = () => {
+      setIsResizing(false);
 
-    if (isResizing) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleEnd);
-      document.addEventListener(
-        "touchmove",
-        handleTouchMove as unknown as EventListener
-      );
-      document.addEventListener("touchend", handleEnd);
-      document.body.style.cursor = "ew-resize";
-      document.body.style.userSelect = "none";
-    }
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
 
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
+      // Clean up event listeners
+      document.removeEventListener("mousemove", handleMove);
       document.removeEventListener("mouseup", handleEnd);
-      document.removeEventListener(
-        "touchmove",
-        handleTouchMove as unknown as EventListener
-      );
+      document.body.style.cursor = "";
+      document.body.style.userSelect = "";
+    };
+
+    // Add event listeners
+    document.addEventListener("mousemove", handleMove);
+    document.addEventListener("mouseup", handleEnd);
+    document.body.style.cursor = "ew-resize";
+    document.body.style.userSelect = "none";
+  }, [setSidebarWidth, effectiveMaxWidth, minWidth]);
+
+  const handleTouchStart = useCallback((e: TouchEvent) => {
+    setIsResizing(true);
+    startXRef.current = e.touches[0].clientX;
+    startWidthRef.current = e.currentTarget.parentElement?.offsetWidth || 0;
+
+    const handleMove = (event: TouchEvent) => {
+      const diff = event.touches[0].clientX - startXRef.current;
+
+      // Use requestAnimationFrame for smoother updates
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(() => {
+        const newWidth = Math.min(
+          effectiveMaxWidth,
+          Math.max(minWidth, startWidthRef.current + diff)
+        );
+        setSidebarWidth(newWidth);
+      });
+    };
+
+    const handleEnd = () => {
+      setIsResizing(false);
+
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+
+      // Clean up event listeners
+      document.removeEventListener("touchmove", handleMove as unknown as EventListener);
       document.removeEventListener("touchend", handleEnd);
       document.body.style.cursor = "";
       document.body.style.userSelect = "";
     };
-  }, [isResizing, startX, startWidth, setSidebarWidth, effectiveMaxWidth, minWidth]);
+
+    // Add event listeners
+    document.addEventListener("touchmove", handleMove as unknown as EventListener, { passive: false });
+    document.addEventListener("touchend", handleEnd);
+    document.body.style.cursor = "ew-resize";
+    document.body.style.userSelect = "none";
+  }, [setSidebarWidth, effectiveMaxWidth, minWidth]);
 
   return {
     handleMouseDown,

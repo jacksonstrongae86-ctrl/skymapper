@@ -14,9 +14,10 @@ export const useSidebarResize = ({
   bottomSidebarHeight = 0, // Default to 0 if not provided
 }: UseSidebarResizeProps) => {
   const [height, setHeight] = useState(25);
-  const isResizingRef = useRef(false);
+  const [isResizing, setIsResizing] = useState(false);
   const startYRef = useRef(0);
   const startHeightRef = useRef(25);
+  const rafRef = useRef<number | null>(null);
 
   const calculateNewHeight = useCallback((clientY: number) => {
     const windowHeight = window.innerHeight;
@@ -35,7 +36,7 @@ export const useSidebarResize = ({
     e.preventDefault();
     e.stopPropagation();
 
-    isResizingRef.current = true;
+    setIsResizing(true);
 
     // Get initial Y position from either mouse or touch event
     const clientY = 'touches' in e
@@ -46,20 +47,31 @@ export const useSidebarResize = ({
     startHeightRef.current = height;
 
     const handleMove = (event: MouseEvent | TouchEvent) => {
-      if (!isResizingRef.current) return;
-
       // Get clientY from either mouse or touch event
       const currentClientY = 'touches' in event
         ? event.touches[0].clientY
         : event.clientY;
 
-      const newHeight = calculateNewHeight(currentClientY);
-      setHeight(newHeight);
-      onHeightChange?.(newHeight);
+      // Use requestAnimationFrame for smoother, more responsive updates
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
+
+      rafRef.current = requestAnimationFrame(() => {
+        const newHeight = calculateNewHeight(currentClientY);
+        setHeight(newHeight);
+        onHeightChange?.(newHeight);
+      });
     };
 
     const handleEnd = () => {
-      isResizingRef.current = false;
+      setIsResizing(false);
+
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
 
       // Clean up all event listeners
       document.removeEventListener('mousemove', handleMove);
@@ -98,7 +110,7 @@ export const useSidebarResize = ({
     img.src = 'data:image/gif;base64,R0lGODlhAQABAIAAAAUEBAAAACwAAAAAAQABAAACAkQBADs=';
     e.dataTransfer.setDragImage(img, 0, 0);
 
-    isResizingRef.current = true;
+    setIsResizing(true);
     startYRef.current = e.clientY;
     startHeightRef.current = height;
   }, [height]);
@@ -107,17 +119,30 @@ export const useSidebarResize = ({
     e.preventDefault();
     e.stopPropagation();
 
-    if (!isResizingRef.current) return;
+    if (!isResizing) return;
 
-    const newHeight = calculateNewHeight(e.clientY);
-    setHeight(newHeight);
-    onHeightChange?.(newHeight);
-  }, [calculateNewHeight, onHeightChange]);
+    // Use requestAnimationFrame for smoother updates
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+    }
+
+    rafRef.current = requestAnimationFrame(() => {
+      const newHeight = calculateNewHeight(e.clientY);
+      setHeight(newHeight);
+      onHeightChange?.(newHeight);
+    });
+  }, [isResizing, calculateNewHeight, onHeightChange]);
 
   const handleDragEnd = useCallback((e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    isResizingRef.current = false;
+    setIsResizing(false);
+
+    // Cancel any pending animation frame
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
   }, []);
 
   // Unified handler that works for all interaction types
@@ -152,6 +177,6 @@ export const useSidebarResize = ({
     handleDragOver,
     handleDragEnd,
     getResizeHandlers, // Convenience method to get all handlers at once
-    isResizing: isResizingRef.current,
+    isResizing,
   };
 };
