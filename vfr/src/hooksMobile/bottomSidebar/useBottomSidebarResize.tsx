@@ -18,7 +18,6 @@ export const useBottomSidebarResize = ({
   const startYRef = useRef(0);
   const startHeightRef = useRef(25);
   const rafRef = useRef<number | null>(null);
-  const hasDraggedRef = useRef(false);
 
   const calculateNewHeight = useCallback((clientY: number) => {
     const windowHeight = window.innerHeight;
@@ -38,7 +37,6 @@ export const useBottomSidebarResize = ({
     e.stopPropagation();
 
     setIsResizing(true);
-    hasDraggedRef.current = false;
 
     // Get initial Y position from either mouse or touch event
     const clientY = 'touches' in e
@@ -54,12 +52,6 @@ export const useBottomSidebarResize = ({
         ? event.touches[0].clientY
         : event.clientY;
 
-      // Check if user has dragged significantly (more than 5 pixels)
-      const dragDistance = Math.abs(currentClientY - startYRef.current);
-      if (dragDistance > 5) {
-        hasDraggedRef.current = true;
-      }
-
       // Use requestAnimationFrame for smoother, more responsive updates
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
@@ -74,16 +66,6 @@ export const useBottomSidebarResize = ({
 
     const handleEnd = () => {
       setIsResizing(false);
-
-      // If it was a click (not a drag), toggle between min and max
-      if (!hasDraggedRef.current) {
-        const effectiveMaxHeight = Math.min(maxHeight, 100 - topSidebarHeight - 5);
-        // Only close if very close to max (within 85% of max height), otherwise always open
-        const isNearMax = height >= (effectiveMaxHeight * 0.85);
-        const targetHeight = isNearMax ? minHeight : effectiveMaxHeight;
-        setHeight(targetHeight);
-        onHeightChange?.(targetHeight);
-      }
 
       // Cancel any pending animation frame
       if (rafRef.current) {
@@ -105,7 +87,7 @@ export const useBottomSidebarResize = ({
     document.addEventListener('touchmove', handleMove, { passive: false });
     document.addEventListener('touchend', handleEnd);
     document.addEventListener('touchcancel', handleEnd);
-  }, [height, calculateNewHeight, onHeightChange, minHeight, maxHeight, topSidebarHeight]);
+  }, [height, calculateNewHeight, onHeightChange]);
 
   // Handle touch-specific events
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -129,7 +111,6 @@ export const useBottomSidebarResize = ({
     e.dataTransfer.setDragImage(img, 0, 0);
 
     setIsResizing(true);
-    hasDraggedRef.current = false;
     startYRef.current = e.clientY;
     startHeightRef.current = height;
   }, [height]);
@@ -139,12 +120,6 @@ export const useBottomSidebarResize = ({
     e.stopPropagation();
 
     if (!isResizing) return;
-
-    // Check if user has dragged significantly
-    const dragDistance = Math.abs(e.clientY - startYRef.current);
-    if (dragDistance > 5) {
-      hasDraggedRef.current = true;
-    }
 
     // Use requestAnimationFrame for smoother updates
     if (rafRef.current) {
@@ -163,22 +138,12 @@ export const useBottomSidebarResize = ({
     e.stopPropagation();
     setIsResizing(false);
 
-    // If it was a click (not a drag), toggle between min and max
-    if (!hasDraggedRef.current) {
-      const effectiveMaxHeight = Math.min(maxHeight, 100 - topSidebarHeight - 5);
-      // Only close if very close to max (within 85% of max height), otherwise always open
-      const isNearMax = height >= (effectiveMaxHeight * 0.85);
-      const targetHeight = isNearMax ? minHeight : effectiveMaxHeight;
-      setHeight(targetHeight);
-      onHeightChange?.(targetHeight);
-    }
-
     // Cancel any pending animation frame
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
     }
-  }, [height, minHeight, maxHeight, topSidebarHeight, onHeightChange]);
+  }, []);
 
   // Unified handler that works for all interaction types
   const getResizeHandlers = useCallback(() => ({
