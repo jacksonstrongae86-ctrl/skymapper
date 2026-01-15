@@ -11,7 +11,11 @@ import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibilit
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { ResizeHandle } from "./components/sidebar/ResizeHandle";
 
-const Sidebar: React.FC<SidebarProps> = ({
+interface ExtendedSidebarProps extends SidebarProps {
+  setIsSidebarResizing?: (isResizing: boolean) => void;
+}
+
+const Sidebar: React.FC<ExtendedSidebarProps> = ({
   fuelConsumption,
   setFuelConsumption,
   selectedDateTime,
@@ -36,6 +40,7 @@ const Sidebar: React.FC<SidebarProps> = ({
   warningAlerts = [],
   clearWarningAlerts,
   aviationLayers,
+  setIsSidebarResizing,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
@@ -61,7 +66,7 @@ const Sidebar: React.FC<SidebarProps> = ({
     }
   }, [showWarnings, isMinimized, setShowWarnings]);
 
-  const { handleMouseDown, handleTouchStart } = useSidebarResize({
+  const { handleMouseDown, handleTouchStart, isResizing } = useSidebarResize({
     setSidebarWidth,
     minWidth: 472,
     maxWidth: typeof window !== "undefined" ? window.innerWidth * 0.8 : 800,
@@ -77,10 +82,15 @@ const Sidebar: React.FC<SidebarProps> = ({
 
   const { handleNumericInput } = useInputHandlers();
 
+  // Sync isResizing state with parent so BottomSidebar can disable transitions too
+  useEffect(() => {
+    setIsSidebarResizing?.(isResizing);
+  }, [isResizing, setIsSidebarResizing]);
+
   return (
     <div
     id="main-sidebar"
-      className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] transition-all duration-300 md:translate-x-0 md:block fixed ${
+      className={`bg-[var(--button-bg)] text-[var(--sidebar-text)] ${!isResizing ? 'transition-all duration-300' : ''} md:translate-x-0 md:block fixed ${
         isFullScreen ? "inset-0" : "top-0 left-0 h-full"
       } z-50 flex`}
       style={{
