@@ -14,40 +14,52 @@ export const useBottomSidebarResize = ({
   topSidebarHeight = 0, // Default to 0 if not provided
 }: UseBottomSidebarResizeProps) => {
   const [height, setHeight] = useState(25);
-  const isResizingRef = useRef(false);
+  const [isResizing, setIsResizing] = useState(false);
+  const rafRef = useRef<number | null>(null);
 
   const handleMouseDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
-    isResizingRef.current = true;
+    setIsResizing(true);
 
     const handleMove = (event: MouseEvent | TouchEvent) => {
-      if (!isResizingRef.current) return;
-
       // Get clientY from either mouse or touch event
       const clientY = 'touches' in event
         ? event.touches[0].clientY
         : event.clientY;
 
-      // Calculate height percentage from BOTTOM of screen
-      const windowHeight = window.innerHeight;
-      const fromBottom = windowHeight - clientY;
-      const percentage = Math.max(0, Math.min(100, (fromBottom / windowHeight) * 100));
+      // Use requestAnimationFrame for smoother updates
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+      }
 
-      // Calculate effective max height considering top sidebar
-      // Leave some space (5%) between sidebars to prevent overlap
-      const effectiveMaxHeight = Math.min(maxHeight, 100 - topSidebarHeight - 5);
+      rafRef.current = requestAnimationFrame(() => {
+        // Calculate height percentage from BOTTOM of screen
+        const windowHeight = window.innerHeight;
+        const fromBottom = windowHeight - clientY;
+        const percentage = Math.max(0, Math.min(100, (fromBottom / windowHeight) * 100));
 
-      // Clamp between min and effective max heights
-      const newHeight = Math.min(effectiveMaxHeight, Math.max(minHeight, percentage));
+        // Calculate effective max height considering top sidebar
+        // Leave some space (5%) between sidebars to prevent overlap
+        const effectiveMaxHeight = Math.min(maxHeight, 100 - topSidebarHeight - 5);
 
-      setHeight(newHeight);
-      onHeightChange?.(newHeight);
+        // Clamp between min and effective max heights
+        const newHeight = Math.min(effectiveMaxHeight, Math.max(minHeight, percentage));
+
+        setHeight(newHeight);
+        onHeightChange?.(newHeight);
+      });
     };
 
     const handleEnd = () => {
-      isResizingRef.current = false;
+      setIsResizing(false);
+
+      // Cancel any pending animation frame
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
 
       // Clean up all event listeners
       document.removeEventListener('mousemove', handleMove);
@@ -66,5 +78,6 @@ export const useBottomSidebarResize = ({
   return {
     height,
     handleMouseDown,
+    isResizing,
   };
 };

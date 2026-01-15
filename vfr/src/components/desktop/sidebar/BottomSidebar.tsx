@@ -18,10 +18,11 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
   isFullScreen: isParentFullScreen,
   onHeightChange,
   gal_liter,
+  isSidebarResizing,
 }) => {
   const { theme } = useTheme();
 
-  const { height, handleMouseDown } = useBottomSidebarResize({
+  const { height, handleMouseDown, isResizing } = useBottomSidebarResize({
     onHeightChange: onHeightChange || (() => {}),
     minHeight: 7, // Reduced minimum height
     maxHeight: 90,
@@ -54,7 +55,7 @@ const BottomSidebar: React.FC<BottomSidebarProps> = ({
         fixed bottom-0
         text-[var(--results-text)]
         shadow-lg
-        transition-all duration-300 ease-in-out
+        ${!isResizing && !isSidebarResizing ? 'transition-all duration-300 ease-in-out' : ''}
         border-t border-[var(--sidebar-border)]
         ${`gradient-${theme}`}
       `}
