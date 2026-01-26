@@ -10,6 +10,7 @@ import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVis
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
 import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
+import { Settings2, MapPin, AlertTriangle } from "lucide-react";
 
 const Sidebar: React.FC<SidebarProps> = ({
   fuelConsumption,
@@ -122,46 +123,56 @@ const Sidebar: React.FC<SidebarProps> = ({
       {/* Tabs and Content - Only show when expanded */}
       <div
         className={`
-          flex-1 flex flex-col
+          flex-1 flex flex-col overflow-hidden
           transition-all duration-300
         `}
       >
         {/* Tab Buttons */}
-        <div className="flex border-b border-[var(--sidebar-border)]">
+        <div className="flex justify-center items-center gap-2 py-1.5 border-b border-[var(--sidebar-border)] flex-shrink-0">
           <button
             onClick={() => setActiveTab("settings")}
-            className={`flex-1 text-xs py-2 transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
               activeTab === "settings"
-                ? "bg-[var(--sidebar-bg)] font-semibold"
-                : "bg-transparent text-[var(--text-muted)]"
+                ? `button-gradient-${theme} text-[var(--button-text)]`
+                : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
             }`}
           >
+            <Settings2 size={14} />
             Settings
           </button>
           <button
             onClick={() => setActiveTab("waypoints")}
-            id = "waypoints-tab"
-            className={`flex-1 text-xs py-2 transition-all ${
+            id="waypoints-tab"
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
               activeTab === "waypoints"
-                ? "bg-[var(--sidebar-bg)] font-semibold"
-                : "bg-transparent text-[var(--text-muted)]"
+                ? `button-gradient-${theme} text-[var(--button-text)]`
+                : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
             }`}
           >
+            <MapPin size={14} />
             Waypoints
+            {waypoints.length > 0 && (
+              <span className={`px-1.5 py-.5 rounded text-xs font-semibold ${
+                activeTab === "waypoints" ? "bg-white/20" : "bg-blue-600/20 text-blue-300"
+              }`}>
+                {waypoints.length}
+              </span>
+            )}
           </button>
           <button
             onClick={() => setActiveTab("warnings")}
-            className={`flex-1 text-xs py-2 transition-all ${
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
               activeTab === "warnings"
-                ? "bg-[var(--sidebar-bg)] font-semibold"
-                : "bg-transparent text-[var(--text-muted)]"
+                ? `button-gradient-${theme} text-[var(--button-text)]`
+                : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
             }`}
           >
+            <AlertTriangle size={14} />
             Warnings
           </button>
         </div>
 
-        <div className="flex-1 flex flex-col">
+        <div className="flex-1 flex flex-col overflow-hidden">
           {activeTab === "settings" ? (
             <div className="flex-1 flex flex-col">
               <FlightSettings
@@ -187,7 +198,7 @@ const Sidebar: React.FC<SidebarProps> = ({
               gal_liter={gal_liter}
             />
           ) : activeTab === "warnings" ? (
-            <div className="flex-1 flex flex-col p-2">
+            <div className="flex-1 flex flex-col overflow-hidden">
               {analyzeRouteWarnings && (
                 <AirspaceWarningPanel
                   waypoints={waypoints}

@@ -22,7 +22,7 @@ export const Header: React.FC<HeaderProps> = ({}) => {
   return (
     <div
       className={`
-      px-4 py-3 mb-4
+      px-4 py-3
       ${`gradient-${theme}`}
       border-b border-[var(--sidebar-border)]
       flex items-center justify-between

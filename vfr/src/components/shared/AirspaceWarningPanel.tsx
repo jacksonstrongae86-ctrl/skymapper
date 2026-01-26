@@ -56,12 +56,12 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
   return (
     <div>
       {/* Tabs */}
-      <div className="flex gap-1 p-3 border-b border-[var(--sidebar-border)] overflow-x-auto overflow-y-hidden custom-scrollbar">
+      <div className="flex justify-center items-center gap-2 py-1.5 border-b border-[var(--sidebar-border)]">
         <button
           onClick={() => setActiveTab('violations')}
-          className={`px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
             activeTab === 'violations'
-              ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+              ? `button-gradient-${theme} text-[var(--button-text)]`
               : 'text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]'
           }`}
         >
@@ -77,9 +77,9 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
         </button>
         <button
           onClick={() => setActiveTab('intersections')}
-          className={`px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
             activeTab === 'intersections'
-              ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+              ? `button-gradient-${theme} text-[var(--button-text)]`
               : 'text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]'
           }`}
         >
@@ -95,9 +95,9 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
         </button>
         <button
           onClick={() => setActiveTab('stats')}
-          className={`px-3 py-2 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center gap-1.5 ${
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
             activeTab === 'stats'
-              ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+              ? `button-gradient-${theme} text-[var(--button-text)]`
               : 'text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]'
           }`}
         >
@@ -117,7 +117,7 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
                 <p className="text-sm text-[var(--sidebar-text-muted)]">No altitude violations detected</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
+              <div className="space-y-2 max-h-[380px] overflow-y-auto custom-scrollbar">
                 {violationWarnings.map((warning) => {
                   const waypoint = waypoints[warning.waypointIndex];
                   const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
@@ -164,7 +164,7 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
                 <p className="text-sm text-[var(--sidebar-text-muted)]">No airspace intersections</p>
               </div>
             ) : (
-              <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar">
+              <div className="space-y-2 max-h-[380px] overflow-y-auto custom-scrollbar">
                 {informationalWarnings.map((warning) => {
                   const waypoint = waypoints[warning.waypointIndex];
                   const waypointName = waypoint?.name || `WP ${warning.waypointIndex + 1}`;
