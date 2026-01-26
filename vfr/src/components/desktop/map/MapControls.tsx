@@ -851,7 +851,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
       `}
               style={{ width: 340 }}
             >
-              <div className="font-bold text-lg mb-3">Saved Routes</div>
+              <div className="font-bold text-lg mb-3 text-white">Saved Routes</div>
               <div className="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
                 {listSavedRoutes().length === 0 && (
                   <div className="text-gray-400 italic px-3 py-2">
@@ -1011,7 +1011,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
               )}
 
               <div className="mt-4">
-                <div className="mb-2 font-medium">
+                <div className="mb-2 font-medium text-white">
                   Save current route as new:
                 </div>
                 <div className="flex gap-2">
@@ -1019,7 +1019,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                     value={saveName}
                     onChange={(e) => setSaveName(e.target.value)}
                     placeholder="Route name"
-                    className="px-2 py-1 rounded border flex-1 text-sm"
+                    className="px-2 py-1 rounded border flex-1 text-sm text-white"
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && saveName.trim()) {
                         saveNewRoute(saveName.trim());
