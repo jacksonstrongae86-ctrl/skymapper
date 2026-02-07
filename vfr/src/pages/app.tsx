@@ -233,6 +233,8 @@ export default function App() {
               deleteRoute={deleteRoute}
               renameRoute={renameRoute}
               analyzeRouteWarnings={analyzeRouteWarnings}
+              flightRules="VFR"
+              showWeather={false}
             />
           </div>
 

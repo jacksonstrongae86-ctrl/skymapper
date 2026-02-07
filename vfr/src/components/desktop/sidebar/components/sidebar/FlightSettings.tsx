@@ -15,7 +15,6 @@ import { FlightRules } from "@/src/utils/types";
 import { FEATURES } from "@/src/utils/featureFlags";
 import { FlightRulesSelector } from "@/src/components/shared/FlightRulesSelector";
 import IFRRoutePanel from "@/src/components/shared/IFRRoutePanel";
-import LiveFlight from "@/src/components/shared/LiveFlight";
 
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
@@ -121,15 +120,10 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
               <IFRRoutePanel />
             )}
 
-            {/* Live Flight Tracking */}
-            {FEATURES.LIVE_TRACKING && (
-              <div className="border-t border-[var(--sidebar-border)] pt-4">
-                <LiveFlight flightRules={flightRules} />
-              </div>
-            )}
+            {/* Live Flight Tracking - Now handled by FlightControlBar and map UI */}
 
-            {/* Divider between new features and existing settings */}
-            {(FEATURES.IFR_SUPPORT || FEATURES.LIVE_TRACKING) && (
+            {/* Divider before settings */}
+            {FEATURES.IFR_SUPPORT && (
               <div className="border-t border-[var(--sidebar-border)] pt-4" />
             )}
 

@@ -8,14 +8,32 @@ interface AirportDirectoryProps {
   onSelectAirport?: (airport: Airport) => void;
 }
 
+interface TAFData {
+  raw: string;
+  icao: string;
+}
+
+interface NOTAMData {
+  id: string;
+  icao: string;
+  message: string;
+  effective: string;
+  expires?: string;
+}
+
+type TabType = 'info' | 'weather' | 'notams' | 'runways';
+
 export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, userPosition, onSelectAirport }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
-  const [filterSurface, setFilterSurface] = useState<string>('all');
-  const [minRunwayLength, setMinRunwayLength] = useState<number>(0);
   const [sortBy, setSortBy] = useState<'name' | 'distance'>('name');
   const [metar, setMetar] = useState<METAR | null>(null);
+  const [taf, setTaf] = useState<TAFData | null>(null);
+  const [notams, setNotams] = useState<NOTAMData[]>([]);
+  const [activeTab, setActiveTab] = useState<TabType>('info');
+  const [loadingWeather, setLoadingWeather] = useState(false);
+  const [loadingNotams, setLoadingNotams] = useState(false);
 
   // Helper to get coordinates from geometry
   const getCoords = (airport: Airport): { lat: number; lon: number } | null => {
@@ -25,24 +43,74 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
     return null;
   };
 
-  // Fetch METAR when airport is selected
+  // Fetch METAR and TAF when airport is selected and weather tab is opened
   useEffect(() => {
-    if (!selectedAirport || !selectedAirport.icaoCode) {
-      setMetar(null);
+    if (!selectedAirport || !selectedAirport.icaoCode || activeTab !== 'weather') {
       return;
     }
 
     const fetchWeather = async () => {
-      const metarData = await fetchMETAR(selectedAirport.icaoCode);
-      if (metarData.length > 0) {
-        setMetar(metarData[0]);
-      } else {
-        setMetar(null);
+      setLoadingWeather(true);
+      try {
+        // Fetch METAR
+        const metarData = await fetchMETAR(selectedAirport.icaoCode!);
+        if (metarData.length > 0) {
+          setMetar(metarData[0]);
+        } else {
+          setMetar(null);
+        }
+
+        // Fetch TAF
+        try {
+          const tafResponse = await fetch(`/api/weather/taf?icao=${selectedAirport.icaoCode}`);
+          if (tafResponse.ok) {
+            const tafData = await tafResponse.json();
+            if (tafData && tafData.raw) {
+              setTaf(tafData);
+            } else {
+              setTaf(null);
+            }
+          }
+        } catch (err) {
+          console.error('Error fetching TAF:', err);
+          setTaf(null);
+        }
+      } catch (err) {
+        console.error('Error fetching weather:', err);
+      } finally {
+        setLoadingWeather(false);
       }
     };
 
     fetchWeather();
-  }, [selectedAirport]);
+  }, [selectedAirport, activeTab]);
+
+  // Fetch NOTAMs when airport is selected and notams tab is opened
+  useEffect(() => {
+    if (!selectedAirport || !selectedAirport.icaoCode || activeTab !== 'notams') {
+      return;
+    }
+
+    const fetchNotams = async () => {
+      setLoadingNotams(true);
+      try {
+        const response = await fetch(`/api/notams?icao=${selectedAirport.icaoCode}`);
+        if (response.ok) {
+          const data = await response.json();
+          setNotams(data.notams || []);
+        } else {
+          setNotams([]);
+        }
+      } catch (err) {
+        console.error('Error fetching NOTAMs:', err);
+        setNotams([]);
+      } finally {
+        setLoadingNotams(false);
+      }
+    };
+
+    fetchNotams();
+  }, [selectedAirport, activeTab]);
 
   // Calculate distance from user position
   const calculateDistance = (airport: Airport): number => {
@@ -86,7 +154,6 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
 
       // Type filter
       if (filterType !== 'all') {
-        // Map type numbers to names (simplified)
         const typeMap: Record<number, string> = {
           1: 'large_airport',
           2: 'medium_airport',
@@ -99,9 +166,6 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
         }
       }
 
-      // Surface filter (skip for now - would need runway data)
-      // Runway length filter (skip for now - would need runway data)
-
       return true;
     })
     .sort((a, b) => {
@@ -113,6 +177,10 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
 
   const handleSelectAirport = (airport: Airport) => {
     setSelectedAirport(airport);
+    setActiveTab('info');
+    setMetar(null);
+    setTaf(null);
+    setNotams([]);
     if (onSelectAirport) {
       onSelectAirport(airport);
     }
@@ -126,6 +194,32 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
     border: '1px solid var(--sidebar-border)',
     borderRadius: '4px',
     width: '100%',
+  };
+
+  const tabButtonStyle = (isActive: boolean): React.CSSProperties => ({
+    padding: '10px 20px',
+    fontSize: '14px',
+    fontWeight: isActive ? '600' : '500',
+    backgroundColor: isActive ? 'var(--button-bg)' : 'transparent',
+    color: isActive ? 'var(--accent-color)' : 'var(--foreground)',
+    border: 'none',
+    borderBottom: isActive ? '3px solid var(--accent-color)' : '3px solid transparent',
+    cursor: 'pointer',
+    transition: 'all 0.2s',
+  });
+
+  // Simple runway diagram (SVG)
+  const renderRunwayDiagram = () => {
+    // Note: Runway data isn't available in OpenAIP airport data
+    // This is a placeholder for when runway data becomes available
+    return (
+      <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
+        <p>Información de pistas no disponible</p>
+        <p style={{ fontSize: '12px', marginTop: '10px' }}>
+          (Datos de pistas no incluidos en el conjunto de datos actual)
+        </p>
+      </div>
+    );
   };
 
   return (
@@ -163,24 +257,6 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
             <option value="small_airport">Aeropuerto pequeño</option>
             <option value="heliport">Helipuerto</option>
           </select>
-        </div>
-        <div>
-          <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Superficie:</label>
-          <select value={filterSurface} onChange={(e) => setFilterSurface(e.target.value)} style={inputStyle}>
-            <option value="all">Todas</option>
-            <option value="asphalt">Asfalto</option>
-            <option value="concrete">Hormigón</option>
-            <option value="grass">Hierba</option>
-          </select>
-        </div>
-        <div>
-          <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Long. pista mín. (m):</label>
-          <input
-            type="number"
-            value={minRunwayLength}
-            onChange={(e) => setMinRunwayLength(parseInt(e.target.value) || 0)}
-            style={inputStyle}
-          />
         </div>
         <div>
           <label style={{ display: 'block', marginBottom: '5px', fontSize: '14px' }}>Ordenar por:</label>
@@ -243,7 +319,7 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
           })}
         </div>
 
-        {/* Airport details */}
+        {/* Airport details with tabs */}
         {selectedAirport && (() => {
           const icao = selectedAirport.icaoCode || selectedAirport._id;
           const elevation = selectedAirport.elevation?.value || 0;
@@ -259,66 +335,193 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
           return (
             <div
               style={{
-                padding: '20px',
                 backgroundColor: 'var(--sidebar-bg)',
                 borderRadius: '8px',
                 border: '1px solid var(--sidebar-border)',
                 maxHeight: '70vh',
-                overflowY: 'auto',
+                display: 'flex',
+                flexDirection: 'column',
               }}
             >
-              <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '15px' }}>
-                {icao} - {selectedAirport.name}
-              </h3>
+              <div style={{ padding: '20px', borderBottom: '1px solid var(--sidebar-border)' }}>
+                <h3 style={{ fontSize: '20px', fontWeight: 'bold' }}>
+                  {icao} - {selectedAirport.name}
+                </h3>
+              </div>
 
-              <div style={{ display: 'grid', gap: '15px' }}>
-                <div>
-                  <div style={{ fontWeight: '600', marginBottom: '5px' }}>Información General:</div>
-                  <div style={{ fontSize: '14px', display: 'grid', gap: '3px' }}>
-                    <div>Tipo: {typeLabel}</div>
-                    <div>Elevación: {elevation} ft</div>
-                    {coords && (
-                      <div>
-                        Coordenadas: {coords.lat.toFixed(4)}°, {coords.lon.toFixed(4)}°
-                      </div>
-                    )}
-                    {userPosition && <div>Distancia: {calculateDistance(selectedAirport).toFixed(1)} km</div>}
-                  </div>
-                </div>
+              {/* Tabs */}
+              <div style={{ display: 'flex', borderBottom: '1px solid var(--sidebar-border)' }}>
+                <button
+                  onClick={() => setActiveTab('info')}
+                  style={tabButtonStyle(activeTab === 'info')}
+                >
+                  📋 Info
+                </button>
+                <button
+                  onClick={() => setActiveTab('weather')}
+                  style={tabButtonStyle(activeTab === 'weather')}
+                >
+                  🌤️ Meteorología
+                </button>
+                <button
+                  onClick={() => setActiveTab('notams')}
+                  style={tabButtonStyle(activeTab === 'notams')}
+                >
+                  ⚠️ NOTAMs
+                </button>
+                <button
+                  onClick={() => setActiveTab('runways')}
+                  style={tabButtonStyle(activeTab === 'runways')}
+                >
+                  🛬 Pistas
+                </button>
+              </div>
 
-                {/* Frequencies and runways not available in OpenAIP airport data */}
-                {/* Would need to load from separate data source */}
-
-                {metar && (
-                  <div>
-                    <div style={{ fontWeight: '600', marginBottom: '5px' }}>Meteorología Actual:</div>
-                    <div
-                      style={{
-                        padding: '10px',
-                        backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR') + '22',
-                        border: `2px solid ${getFlightCategoryColor(metar.flightCategory || 'VFR')}`,
-                        borderRadius: '4px',
-                      }}
-                    >
-                      <div
-                        style={{
-                          display: 'inline-block',
-                          padding: '4px 10px',
-                          backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR'),
-                          color: 'white',
-                          borderRadius: '4px',
-                          fontWeight: 'bold',
-                          marginBottom: '8px',
-                        }}
-                      >
-                        {metar.flightCategory || 'UNKNOWN'}
-                      </div>
-                      <div style={{ fontFamily: 'monospace', fontSize: '13px', wordWrap: 'break-word' }}>
-                        {metar.raw}
+              {/* Tab Content */}
+              <div style={{ padding: '20px', overflowY: 'auto', flex: 1 }}>
+                {activeTab === 'info' && (
+                  <div style={{ display: 'grid', gap: '15px' }}>
+                    <div>
+                      <div style={{ fontWeight: '600', marginBottom: '5px' }}>Información General:</div>
+                      <div style={{ fontSize: '14px', display: 'grid', gap: '5px' }}>
+                        <div>ICAO: <strong>{icao}</strong></div>
+                        <div>Tipo: {typeLabel}</div>
+                        <div>Elevación: <strong>{elevation} ft MSL</strong></div>
+                        {coords && (
+                          <div>
+                            Coordenadas: {coords.lat.toFixed(4)}°, {coords.lon.toFixed(4)}°
+                          </div>
+                        )}
+                        {userPosition && <div>Distancia: {calculateDistance(selectedAirport).toFixed(1)} km</div>}
                       </div>
                     </div>
                   </div>
                 )}
+
+                {activeTab === 'weather' && (
+                  <div>
+                    {loadingWeather ? (
+                      <div style={{ textAlign: 'center', padding: '40px' }}>Cargando meteorología...</div>
+                    ) : (
+                      <div style={{ display: 'grid', gap: '20px' }}>
+                        {metar ? (
+                          <div>
+                            <div style={{ fontWeight: '600', marginBottom: '10px', fontSize: '16px' }}>
+                              METAR:
+                            </div>
+                            <div
+                              style={{
+                                padding: '15px',
+                                backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR') + '22',
+                                border: `2px solid ${getFlightCategoryColor(metar.flightCategory || 'VFR')}`,
+                                borderRadius: '6px',
+                              }}
+                            >
+                              <div
+                                style={{
+                                  display: 'inline-block',
+                                  padding: '6px 12px',
+                                  backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR'),
+                                  color: 'white',
+                                  borderRadius: '4px',
+                                  fontWeight: 'bold',
+                                  marginBottom: '10px',
+                                  fontSize: '14px',
+                                }}
+                              >
+                                {metar.flightCategory || 'UNKNOWN'}
+                              </div>
+                              <div style={{ fontFamily: 'monospace', fontSize: '13px', wordWrap: 'break-word' }}>
+                                {metar.raw}
+                              </div>
+                              {metar.temperature && (
+                                <div style={{ marginTop: '10px', fontSize: '13px' }}>
+                                  🌡️ Temperatura: <strong>{metar.temperature}°C</strong>
+                                  {metar.dewpoint && <> | Punto de rocío: {metar.dewpoint}°C</>}
+                                </div>
+                              )}
+                              {metar.wind && (
+                                <div style={{ fontSize: '13px' }}>
+                                  💨 Viento: <strong>{metar.wind.direction}° a {metar.wind.speed} kt</strong>
+                                  {metar.wind.gust && <> (ráfagas {metar.wind.gust} kt)</>}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{ opacity: 0.6, textAlign: 'center', padding: '20px' }}>
+                            METAR no disponible
+                          </div>
+                        )}
+
+                        {taf ? (
+                          <div>
+                            <div style={{ fontWeight: '600', marginBottom: '10px', fontSize: '16px' }}>
+                              TAF:
+                            </div>
+                            <div
+                              style={{
+                                padding: '15px',
+                                backgroundColor: 'var(--input-bg)',
+                                border: '1px solid var(--sidebar-border)',
+                                borderRadius: '6px',
+                                fontFamily: 'monospace',
+                                fontSize: '13px',
+                                whiteSpace: 'pre-wrap',
+                                wordWrap: 'break-word',
+                              }}
+                            >
+                              {taf.raw}
+                            </div>
+                          </div>
+                        ) : (
+                          <div style={{ opacity: 0.6, textAlign: 'center', padding: '20px' }}>
+                            TAF no disponible
+                          </div>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === 'notams' && (
+                  <div>
+                    {loadingNotams ? (
+                      <div style={{ textAlign: 'center', padding: '40px' }}>Cargando NOTAMs...</div>
+                    ) : notams.length > 0 ? (
+                      <div style={{ display: 'grid', gap: '15px' }}>
+                        {notams.map((notam) => (
+                          <div
+                            key={notam.id}
+                            style={{
+                              padding: '15px',
+                              backgroundColor: 'var(--input-bg)',
+                              border: '2px solid #F59E0B',
+                              borderRadius: '6px',
+                            }}
+                          >
+                            <div style={{ fontWeight: '600', marginBottom: '8px', color: '#F59E0B' }}>
+                              {notam.id}
+                            </div>
+                            <div style={{ fontSize: '13px', marginBottom: '8px', whiteSpace: 'pre-wrap' }}>
+                              {notam.message}
+                            </div>
+                            <div style={{ fontSize: '12px', opacity: 0.7 }}>
+                              Efectivo: {new Date(notam.effective).toLocaleString()}
+                              {notam.expires && <> | Expira: {new Date(notam.expires).toLocaleString()}</>}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
+                        No hay NOTAMs activos para este aeródromo
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {activeTab === 'runways' && renderRunwayDiagram()}
               </div>
             </div>
           );

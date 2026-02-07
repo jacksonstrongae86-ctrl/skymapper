@@ -2,18 +2,20 @@
 
 import { useState } from 'react';
 import { GPSPosition } from '@/src/services/gpsService';
-import { Gauge, Minimize2, Maximize2 } from 'lucide-react';
+import { Gauge, Minimize2, Maximize2, X } from 'lucide-react';
 
 interface FlightStatsOverlayProps {
   currentPosition: GPSPosition | null;
   startTime: number;
   maxAltitude: number;
+  onClose?: () => void;
 }
 
 export default function FlightStatsOverlay({
   currentPosition,
   startTime,
   maxAltitude,
+  onClose,
 }: FlightStatsOverlayProps) {
   const [isMinimized, setIsMinimized] = useState(false);
 
@@ -80,15 +82,29 @@ export default function FlightStatsOverlay({
               Instrumentos
             </span>
           </div>
-          <button
-            onClick={() => setIsMinimized(true)}
-            className="
-              p-1 rounded hover:bg-[var(--results-hover)]
-              transition-colors
-            "
-          >
-            <Minimize2 size={14} className="text-[var(--text-secondary)]" />
-          </button>
+          <div className="flex items-center gap-1">
+            <button
+              onClick={() => setIsMinimized(true)}
+              className="
+                p-1 rounded hover:bg-[var(--results-hover)]
+                transition-colors
+              "
+            >
+              <Minimize2 size={14} className="text-[var(--text-secondary)]" />
+            </button>
+            {onClose && (
+              <button
+                onClick={onClose}
+                className="
+                  p-1 rounded hover:bg-[var(--results-hover)]
+                  transition-colors
+                "
+                title="Cerrar"
+              >
+                <X size={14} className="text-[var(--text-secondary)]" />
+              </button>
+            )}
+          </div>
         </div>
 
         <div className="space-y-3">

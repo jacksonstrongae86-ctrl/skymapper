@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { Map, DivIcon } from "leaflet";
+import { Map } from "leaflet";
 import {
   MapContainer,
   TileLayer,
@@ -25,9 +25,9 @@ import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
 import { GPSPosition } from "../../../services/gpsService";
-// Weather and IFR layers to be integrated later
-// import { WeatherOverlay } from "../../shared/WeatherOverlay";
-// import { AirwayLayer } from "../../shared/AirwayLayer";
+import FlightTracker from "../../shared/FlightTracker";
+import { WeatherOverlay } from "../../shared/WeatherOverlay";
+import AirwayLayer from "../../shared/AirwayLayer";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -77,8 +77,8 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
-  flightRules?: 'VFR' | 'IFR';
-  showWeather?: boolean;
+  flightRules: 'VFR' | 'IFR';
+  showWeather: boolean;
   currentPosition?: GPSPosition | null;
   flightTrail?: GPSPosition[];
   isFlightActive?: boolean;
@@ -111,8 +111,8 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   flightTrail = [],
   isFlightActive = false,
   onStartFlight,
-  // flightRules = 'VFR', // To be integrated later
-  // showWeather = false, // To be integrated later
+  flightRules = 'VFR',
+  showWeather = false,
 }) => {
   // Function to move the map to specific coordinates
   const handleMoveMap = (lat: number, lon: number, zoom: number = 12) => {
@@ -266,29 +266,6 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     console.error("Aviation data error:", error);
   }
 
-  // Create aircraft icon
-  const createAircraftIcon = (heading: number) => {
-    return new DivIcon({
-      html: `
-        <div style="transform: rotate(${heading}deg); width: 32px; height: 32px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(16, 16)">
-              <!-- Aircraft body -->
-              <path d="M 0,-12 L -3,8 L 0,10 L 3,8 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-              <!-- Wings -->
-              <path d="M -10,0 L 10,0 L 9,3 L -9,3 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-              <!-- Tail -->
-              <path d="M -4,8 L 4,8 L 3,11 L -3,11 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-            </g>
-          </svg>
-        </div>
-      `,
-      className: 'aircraft-icon',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-    });
-  };
-
   return (
     <div
       className={`
@@ -430,24 +407,36 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           />
         )}
 
-        {/* Flight trail (actual track) */}
-        {flightTrail && flightTrail.length > 1 && (
-          <Polyline
-            positions={flightTrail.map(pos => [pos.latitude, pos.longitude])}
-            color="#10B981"
-            weight={3}
-            opacity={0.8}
+        {/* Flight Tracker - shows aircraft position and trail */}
+        <FlightTracker
+          currentPosition={currentPosition}
+          trail={flightTrail}
+          autoCenter={true}
+        />
+
+        {/* Weather Overlay */}
+        {showWeather && showAviationData && (
+          <WeatherOverlay 
+            airports={airports.filter(a => {
+              return a.icaoCode && 
+                     a.geometry?.type === 'Point' && 
+                     Array.isArray(a.geometry.coordinates) &&
+                     a.geometry.coordinates.length === 2;
+            }).map(a => {
+              const coords = a.geometry!.coordinates as [number, number];
+              return {
+                icao: a.icaoCode!,
+                lat: coords[1],
+                lon: coords[0],
+                name: a.name || a.icaoCode!,
+              };
+            })}
+            enabled={true}
           />
         )}
 
-        {/* Aircraft marker at current position */}
-        {currentPosition && (
-          <Marker
-            position={[currentPosition.latitude, currentPosition.longitude]}
-            icon={createAircraftIcon(currentPosition.heading)}
-            zIndexOffset={1000}
-          />
-        )}
+        {/* IFR Airways Layer */}
+        {flightRules === 'IFR' && <AirwayLayer airways={[]} visible={true} />}
       </MapContainer>
       
       {/* Start Flight Button - Mobile (bottom floating) */}

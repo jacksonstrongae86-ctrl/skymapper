@@ -9,7 +9,7 @@ import {
   Circle,
 } from "react-leaflet";
 import { useRef } from "react";
-import { Map, DivIcon } from "leaflet";
+import { Map } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
@@ -25,6 +25,8 @@ import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance
 import { WeatherOverlay } from "../../shared/WeatherOverlay";
 import AirwayLayer from "../../shared/AirwayLayer";
 import { GPSPosition } from "../../../services/gpsService";
+import FlightTracker from "../../shared/FlightTracker";
+import { RangeRings } from "../../shared/RangeRings";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -53,6 +55,8 @@ type MapComponentProps = {
   flightTrail?: GPSPosition[];
   isFlightActive?: boolean;
   onStartFlight?: () => void;
+  showRangeRings?: boolean;
+  trackUpMode?: boolean;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -78,7 +82,13 @@ const MapComponent: React.FC<MapComponentProps> = ({
   flightTrail = [],
   isFlightActive = false,
   onStartFlight,
+  showRangeRings = false,
+  trackUpMode = false, // TODO: Implement track-up mode with map rotation
 }) => {
+  // Track-up mode placeholder - requires Leaflet setBearing or CSS transform
+  const _ = trackUpMode; // Prevent unused warning
+  void _; // Mark as intentionally unused
+  
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
@@ -252,29 +262,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
     // console.error("Aviation data error:", error);
   }
 
-  // Create aircraft icon
-  const createAircraftIcon = (heading: number) => {
-    return new DivIcon({
-      html: `
-        <div style="transform: rotate(${heading}deg); width: 32px; height: 32px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <g transform="translate(16, 16)">
-              <!-- Aircraft body -->
-              <path d="M 0,-12 L -3,8 L 0,10 L 3,8 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-              <!-- Wings -->
-              <path d="M -10,0 L 10,0 L 9,3 L -9,3 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-              <!-- Tail -->
-              <path d="M -4,8 L 4,8 L 3,11 L -3,11 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
-            </g>
-          </svg>
-        </div>
-      `,
-      className: 'aircraft-icon',
-      iconSize: [32, 32],
-      iconAnchor: [16, 16],
-    });
-  };
-
   return (
     <MapContainer
       center={mapCenter}
@@ -428,24 +415,18 @@ const MapComponent: React.FC<MapComponentProps> = ({
         />
       )}
 
-      {/* Flight trail (actual track) */}
-      {flightTrail && flightTrail.length > 1 && (
-        <Polyline
-          positions={flightTrail.map(pos => [pos.latitude, pos.longitude])}
-          color="#10B981"
-          weight={3}
-          opacity={0.8}
-        />
-      )}
+      {/* Flight Tracker - shows aircraft position and trail */}
+      <FlightTracker
+        currentPosition={currentPosition}
+        trail={flightTrail}
+        autoCenter={true}
+      />
 
-      {/* Aircraft marker at current position */}
-      {currentPosition && (
-        <Marker
-          position={[currentPosition.latitude, currentPosition.longitude]}
-          icon={createAircraftIcon(currentPosition.heading)}
-          zIndexOffset={1000}
-        />
-      )}
+      {/* Range Rings - concentric circles around aircraft */}
+      <RangeRings
+        currentPosition={currentPosition}
+        visible={showRangeRings && isFlightActive}
+      />
 
       {/* Start Flight Button */}
       {!isFlightActive && onStartFlight && (

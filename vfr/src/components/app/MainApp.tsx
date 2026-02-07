@@ -17,6 +17,9 @@ import { ToolsPanel } from "../shared/ToolsPanel";
 import { FlightRulesSelector } from "../shared/FlightRulesSelector";
 import { FlightControlBar } from "../shared/FlightControlBar";
 import { gpsService, GPSPosition } from "../../services/gpsService";
+import FlightStatsOverlay from "../shared/FlightStatsOverlay";
+import { InstrumentsPanel } from "../shared/InstrumentsPanel";
+import { CourseDeviationIndicator } from "../shared/CourseDeviationIndicator";
 
 const MapComponent = dynamic(
   () => import("../desktop/map/MapComponent"),
@@ -136,12 +139,19 @@ export default function MainApp() {
   // Weather overlay
   const [showWeatherOverlay, setShowWeatherOverlay] = useState(false);
 
+  // Phase 8C: ForeFlight-style features
+  const [trackUpMode, setTrackUpMode] = useState(false);
+  const [showRangeRings, setShowRangeRings] = useState(false);
+  const [showInstruments, setShowInstruments] = useState(false);
+
   // GPS Flight Tracking
   const [isFlightActive, setIsFlightActive] = useState(false);
   const [currentPosition, setCurrentPosition] = useState<GPSPosition | null>(null);
   const [flightTrail, setFlightTrail] = useState<GPSPosition[]>([]);
   const [flightStartTime, setFlightStartTime] = useState<number>(0);
   const [gpsError, setGpsError] = useState<string | null>(null);
+  const [showFlightStats, setShowFlightStats] = useState(false);
+  const [maxAltitude, setMaxAltitude] = useState<number>(0);
 
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
@@ -282,11 +292,15 @@ export default function MainApp() {
       setIsFlightActive(true);
       setFlightStartTime(Date.now());
       setFlightTrail([]);
+      setMaxAltitude(0);
+      setShowFlightStats(false);
       
       // Subscribe to position updates
       const unsubscribe = gpsService.onPosition((position: GPSPosition) => {
         setCurrentPosition(position);
         setFlightTrail(prev => [...prev, position]);
+        // Track max altitude
+        setMaxAltitude(prev => Math.max(prev, position.altitude));
       });
       
       // Store unsubscribe function
@@ -300,7 +314,7 @@ export default function MainApp() {
   const handleEndFlight = () => {
     const recording = gpsService.stop();
     setIsFlightActive(false);
-    setCurrentPosition(null);
+    setShowFlightStats(true);
     
     // Unsubscribe from GPS updates
     const w = window as { __gpsUnsubscribe?: () => void };
@@ -318,8 +332,14 @@ export default function MainApp() {
       positions: recording.positions.length,
     });
     
-    // Reset trail after a moment (to see final path)
-    setTimeout(() => setFlightTrail([]), 5000);
+    // Don't auto-clear trail - let user dismiss stats overlay first
+  };
+
+  const handleDismissFlightStats = () => {
+    setShowFlightStats(false);
+    setCurrentPosition(null);
+    // Clear trail when user dismisses stats
+    setTimeout(() => setFlightTrail([]), 1000);
   };
 
   return (
@@ -354,6 +374,29 @@ export default function MainApp() {
         />
       )}
 
+      {/* Instruments Panel - ForeFlight-style instruments */}
+      <InstrumentsPanel
+        currentPosition={currentPosition}
+        visible={showInstruments && isFlightActive}
+      />
+
+      {/* Course Deviation Indicator - CDI */}
+      <CourseDeviationIndicator
+        currentPosition={currentPosition}
+        waypoints={waypoints}
+        visible={isFlightActive && waypoints.length >= 2}
+      />
+
+      {/* Flight Stats Overlay - appears after flight ends */}
+      {showFlightStats && currentPosition && (
+        <FlightStatsOverlay
+          currentPosition={currentPosition}
+          startTime={flightStartTime}
+          maxAltitude={maxAltitude}
+          onClose={handleDismissFlightStats}
+        />
+      )}
+
       {/* GPS Error Message */}
       {gpsError && (
         <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[600] bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg max-w-md">
@@ -373,17 +416,15 @@ export default function MainApp() {
         </div>
       )}
 
-      {/* Tools Panel - Desktop only (mobile will use bottom sheet) */}
-      {!isMobile && (
-        <ToolsPanel 
-          waypoints={waypoints} 
-          fuelConsumption={fuelConsumption}
-          gal_liter={gal_liter}
-          flightRules={flightRules}
-          airports={airports}
-          userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
-        />
-      )}
+      {/* Tools Panel - Available on both desktop and mobile */}
+      <ToolsPanel 
+        waypoints={waypoints} 
+        fuelConsumption={fuelConsumption}
+        gal_liter={gal_liter}
+        flightRules={flightRules}
+        airports={airports}
+        userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
+      />
 
       {isMobile ? (
         <div className="flex flex-col h-full">
@@ -544,6 +585,8 @@ export default function MainApp() {
                 flightTrail={flightTrail}
                 isFlightActive={isFlightActive}
                 onStartFlight={handleStartFlight}
+                showRangeRings={showRangeRings}
+                trackUpMode={trackUpMode}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">
@@ -569,6 +612,12 @@ export default function MainApp() {
                 renameRoute={renameRoute}
                 showWeatherOverlay={showWeatherOverlay}
                 toggleWeatherOverlay={toggleWeatherOverlay}
+                trackUpMode={trackUpMode}
+                onToggleTrackUp={() => setTrackUpMode(!trackUpMode)}
+                showRangeRings={showRangeRings}
+                onToggleRangeRings={() => setShowRangeRings(!showRangeRings)}
+                showInstruments={showInstruments}
+                onToggleInstruments={() => setShowInstruments(!showInstruments)}
               />
             </div>
           </div>
