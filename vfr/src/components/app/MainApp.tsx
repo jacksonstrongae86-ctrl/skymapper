@@ -20,6 +20,7 @@ import { gpsService, GPSPosition } from "../../services/gpsService";
 import FlightStatsOverlay from "../shared/FlightStatsOverlay";
 import { InstrumentsPanel } from "../shared/InstrumentsPanel";
 import { CourseDeviationIndicator } from "../shared/CourseDeviationIndicator";
+import { ToolView } from "../shared/ToolsPanel";
 
 const MapComponent = dynamic(
   () => import("../desktop/map/MapComponent"),
@@ -143,6 +144,10 @@ export default function MainApp() {
   const [trackUpMode, setTrackUpMode] = useState(false);
   const [showRangeRings, setShowRangeRings] = useState(false);
   const [showInstruments, setShowInstruments] = useState(false);
+
+  // Phase 8C.4: Split view for desktop tools
+  const [activeToolView, setActiveToolView] = useState<ToolView>(null);
+  const [splitViewWidth, setSplitViewWidth] = useState(65); // Default 65% for map
 
   // GPS Flight Tracking
   const [isFlightActive, setIsFlightActive] = useState(false);
@@ -416,15 +421,18 @@ export default function MainApp() {
         </div>
       )}
 
-      {/* Tools Panel - Available on both desktop and mobile */}
-      <ToolsPanel 
-        waypoints={waypoints} 
-        fuelConsumption={fuelConsumption}
-        gal_liter={gal_liter}
-        flightRules={flightRules}
-        airports={airports}
-        userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
-      />
+      {/* Tools Panel - Floating mode for mobile, controlled for desktop split view */}
+      {isMobile && (
+        <ToolsPanel 
+          waypoints={waypoints} 
+          fuelConsumption={fuelConsumption}
+          gal_liter={gal_liter}
+          flightRules={flightRules}
+          airports={airports}
+          userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
+          mode="floating"
+        />
+      )}
 
       {isMobile ? (
         <div className="flex flex-col h-full">
@@ -566,8 +574,16 @@ export default function MainApp() {
             aviationLayers={aviationLayers}
           />
 
-          <div className="relative flex-1 h-full">
-            <div className="absolute inset-0 z-20">
+          {/* Desktop: Split view when tool is active, full map otherwise */}
+          <div className="relative flex-1 h-full flex">
+            {/* Map Container */}
+            <div 
+              className="relative h-full z-20"
+              style={{ 
+                width: activeToolView ? `${splitViewWidth}%` : '100%',
+                transition: 'width 0.3s ease-in-out',
+              }}
+            >
               <MapComponent
                 onMapClick={handleMapClick}
                 waypoints={waypoints}
@@ -588,8 +604,9 @@ export default function MainApp() {
                 showRangeRings={showRangeRings}
                 trackUpMode={trackUpMode}
               />
-            </div>
-            <div className="absolute top-4 right-4 z-30">
+
+              {/* Map Controls - positioned inside map container */}
+              <div className="absolute top-4 right-4 z-30">
               <MapControls
                 mapType={uiState.mapType}
                 setMapType={uiState.setMapType}
@@ -619,7 +636,189 @@ export default function MainApp() {
                 showInstruments={showInstruments}
                 onToggleInstruments={() => setShowInstruments(!showInstruments)}
               />
+              </div>
             </div>
+
+            {/* Draggable Divider - only visible when tool is active */}
+            {activeToolView && (
+              <div
+                style={{
+                  width: '4px',
+                  cursor: 'col-resize',
+                  backgroundColor: 'var(--sidebar-border)',
+                  position: 'relative',
+                  zIndex: 40,
+                }}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  const startX = e.clientX;
+                  const startWidth = splitViewWidth;
+
+                  const handleMouseMove = (moveEvent: MouseEvent) => {
+                    const deltaX = moveEvent.clientX - startX;
+                    const containerWidth = window.innerWidth - 300; // Subtract sidebar width
+                    const deltaPercent = (deltaX / containerWidth) * 100;
+                    const newWidth = Math.max(30, Math.min(80, startWidth + deltaPercent));
+                    setSplitViewWidth(newWidth);
+                  };
+
+                  const handleMouseUp = () => {
+                    document.removeEventListener('mousemove', handleMouseMove);
+                    document.removeEventListener('mouseup', handleMouseUp);
+                  };
+
+                  document.addEventListener('mousemove', handleMouseMove);
+                  document.addEventListener('mouseup', handleMouseUp);
+                }}
+              >
+                {/* Divider handle */}
+                <div
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '50%',
+                    transform: 'translate(-50%, -50%)',
+                    width: '8px',
+                    height: '40px',
+                    backgroundColor: 'var(--button-bg)',
+                    borderRadius: '4px',
+                  }}
+                />
+              </div>
+            )}
+
+            {/* Tool Panel - only visible when a tool is active */}
+            {activeToolView && (
+              <div
+                style={{
+                  width: `${100 - splitViewWidth}%`,
+                  height: '100%',
+                  backgroundColor: 'var(--sidebar-bg)',
+                  borderLeft: '1px solid var(--sidebar-border)',
+                  zIndex: 30,
+                }}
+              >
+                <ToolsPanel
+                  waypoints={waypoints}
+                  fuelConsumption={fuelConsumption}
+                  gal_liter={gal_liter}
+                  flightRules={flightRules}
+                  airports={airports}
+                  userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
+                  mode="split"
+                  activeView={activeToolView}
+                  onActiveViewChange={setActiveToolView}
+                />
+              </div>
+            )}
+
+            {/* Floating FAB for opening tools - only when no tool is active */}
+            {!activeToolView && (
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: '24px',
+                  right: '24px',
+                  zIndex: 900,
+                }}
+              >
+                <button
+                  onClick={() => {
+                    // Show tools menu
+                    const toolsMenu = document.getElementById('desktop-tools-menu');
+                    if (toolsMenu) {
+                      toolsMenu.style.display = toolsMenu.style.display === 'none' ? 'block' : 'none';
+                    }
+                  }}
+                  style={{
+                    width: '56px',
+                    height: '56px',
+                    borderRadius: '50%',
+                    backgroundColor: 'var(--button-bg)',
+                    color: 'var(--button-text)',
+                    border: 'none',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                    cursor: 'pointer',
+                    fontSize: '24px',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: 'transform 0.2s, background-color 0.2s',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform = 'scale(1.1)';
+                    e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform = 'scale(1)';
+                    e.currentTarget.style.backgroundColor = 'var(--button-bg)';
+                  }}
+                  title="Herramientas"
+                >
+                  🛠️
+                </button>
+
+                {/* Quick tools menu */}
+                <div
+                  id="desktop-tools-menu"
+                  style={{
+                    display: 'none',
+                    position: 'absolute',
+                    bottom: '70px',
+                    right: '0',
+                    backgroundColor: 'var(--sidebar-bg)',
+                    border: '1px solid var(--sidebar-border)',
+                    borderRadius: '8px',
+                    padding: '8px',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                    minWidth: '200px',
+                  }}
+                >
+                  {[
+                    { id: 'weather' as ToolView, label: 'Meteorología', icon: '🌤️' },
+                    { id: 'fuel' as ToolView, label: 'Combustible', icon: '⛽' },
+                    { id: 'notams' as ToolView, label: 'NOTAMs', icon: '📢' },
+                    { id: 'flight-plan' as ToolView, label: 'Plan de Vuelo', icon: '📄' },
+                    { id: 'weight-balance' as ToolView, label: 'Peso y Centrado', icon: '⚖️' },
+                    { id: 'logbook' as ToolView, label: 'Diario de Vuelo', icon: '📋' },
+                    { id: 'airport-directory' as ToolView, label: 'Directorio', icon: '🛩️' },
+                  ].map((tool) => (
+                    <button
+                      key={tool.id}
+                      onClick={() => {
+                        setActiveToolView(tool.id);
+                        const toolsMenu = document.getElementById('desktop-tools-menu');
+                        if (toolsMenu) toolsMenu.style.display = 'none';
+                      }}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        width: '100%',
+                        padding: '12px',
+                        backgroundColor: 'transparent',
+                        border: 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '14px',
+                        color: 'var(--foreground)',
+                        textAlign: 'left',
+                        transition: 'background-color 0.2s',
+                      }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = 'var(--button-hover)';
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = 'transparent';
+                      }}
+                    >
+                      <span style={{ fontSize: '20px' }}>{tool.icon}</span>
+                      <span>{tool.label}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
           <BottomSidebar

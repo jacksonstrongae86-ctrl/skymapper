@@ -9,7 +9,7 @@ import { FlightPlanForm } from './FlightPlanForm';
 import { FuelPlanner } from './FuelPlanner';
 import { Waypoint, Airport } from '../../utils/types';
 
-type ToolView = 'weather' | 'weight-balance' | 'logbook' | 'airport-directory' | 'notams' | 'flight-plan' | 'fuel' | null;
+export type ToolView = 'weather' | 'weight-balance' | 'logbook' | 'airport-directory' | 'notams' | 'flight-plan' | 'fuel' | null;
 
 interface ToolsPanelProps {
   waypoints: Waypoint[];
@@ -18,11 +18,31 @@ interface ToolsPanelProps {
   flightRules?: 'VFR' | 'IFR';
   airports?: Airport[];
   userPosition?: { lat: number; lon: number };
+  // Controlled state for split view support
+  mode?: 'floating' | 'split';
+  activeView?: ToolView;
+  onActiveViewChange?: (view: ToolView) => void;
 }
 
-export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumption, gal_liter, flightRules = 'VFR', airports = [], userPosition }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeView, setActiveView] = useState<ToolView>(null);
+export const ToolsPanel: React.FC<ToolsPanelProps> = ({ 
+  waypoints, 
+  fuelConsumption, 
+  gal_liter, 
+  flightRules = 'VFR', 
+  airports = [], 
+  userPosition,
+  mode = 'floating',
+  activeView: externalActiveView,
+  onActiveViewChange,
+}) => {
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const [internalActiveView, setInternalActiveView] = useState<ToolView>(null);
+
+  // Use external state if provided (for split mode), otherwise use internal state
+  const isControlled = mode === 'split' && onActiveViewChange !== undefined;
+  const activeView = isControlled ? externalActiveView : internalActiveView;
+  const setActiveView = isControlled ? onActiveViewChange : setInternalActiveView;
+  const isOpen = isControlled ? (activeView !== null) : internalIsOpen;
 
   const tools = [
     {
@@ -71,22 +91,119 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
 
   const handleToolClick = (toolId: ToolView) => {
     if (activeView === toolId && isOpen) {
-      setIsOpen(false);
+      setInternalIsOpen(false);
       setActiveView(null);
     } else {
       setActiveView(toolId);
-      setIsOpen(true);
+      setInternalIsOpen(true);
     }
   };
 
   const handleClose = () => {
-    setIsOpen(false);
-    setTimeout(() => setActiveView(null), 300); // Delay clearing view until animation completes
+    if (isControlled) {
+      setActiveView(null);
+    } else {
+      setInternalIsOpen(false);
+      setTimeout(() => setActiveView(null), 300); // Delay clearing view until animation completes
+    }
   };
 
   const handleBack = () => {
     setActiveView(null);
   };
+
+  // Render tool content
+  const renderToolContent = () => {
+    if (!activeView) return null;
+
+    switch (activeView) {
+      case 'weather':
+        return waypoints.length >= 2 ? (
+          <WeatherBriefing 
+            departure={waypoints[0].name || `${waypoints[0].position[0].toFixed(4)}, ${waypoints[0].position[1].toFixed(4)}`}
+            destination={waypoints[waypoints.length - 1].name || `${waypoints[waypoints.length - 1].position[0].toFixed(4)}, ${waypoints[waypoints.length - 1].position[1].toFixed(4)}`}
+            enroute={waypoints.slice(1, -1).map(wp => wp.name || `${wp.position[0].toFixed(4)}, ${wp.position[1].toFixed(4)}`)}
+          />
+        ) : (
+          <div style={{ textAlign: 'center', padding: '32px', color: 'var(--foreground)', opacity: 0.7 }}>
+            Planifica una ruta con al menos dos puntos para ver la meteorología
+          </div>
+        );
+      case 'fuel':
+        return (
+          <FuelPlanner 
+            waypoints={waypoints} 
+            fuelConsumption={fuelConsumption} 
+            flightRules={flightRules}
+            gal_liter={gal_liter}
+          />
+        );
+      case 'notams':
+        return <NOTAMPanel waypoints={waypoints} mode="route" />;
+      case 'flight-plan':
+        return <FlightPlanForm waypoints={waypoints} flightRules={flightRules} />;
+      case 'weight-balance':
+        return <WeightBalance />;
+      case 'logbook':
+        return <Logbook />;
+      case 'airport-directory':
+        return <AirportDirectory airports={airports} userPosition={userPosition} />;
+      default:
+        return null;
+    }
+  };
+
+  // Split mode rendering (for desktop split view)
+  if (mode === 'split') {
+    return (
+      <div style={{
+        height: '100%',
+        backgroundColor: 'var(--sidebar-bg)',
+        display: 'flex',
+        flexDirection: 'column',
+        overflow: 'hidden',
+      }}>
+        {/* Header */}
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            padding: '16px',
+            borderBottom: '1px solid var(--sidebar-border)',
+            backgroundColor: 'var(--button-bg)',
+            color: 'var(--button-text)',
+          }}
+        >
+          <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>
+            {activeView ? tools.find(t => t.id === activeView)?.label : 'Herramientas'}
+          </h2>
+          <button
+            onClick={handleClose}
+            style={{
+              backgroundColor: 'transparent',
+              border: 'none',
+              color: 'var(--button-text)',
+              fontSize: '24px',
+              cursor: 'pointer',
+              padding: '4px 8px',
+            }}
+          >
+            ✕
+          </button>
+        </div>
+
+        {/* Content */}
+        <div style={{
+          flex: 1,
+          overflow: 'auto',
+          padding: '16px',
+        }}>
+          {renderToolContent()}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -104,7 +221,7 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
             if (isOpen) {
               handleClose();
             } else {
-              setIsOpen(true);
+              setInternalIsOpen(true);
             }
           }}
           style={{
@@ -279,41 +396,7 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
                 padding: '16px',
               }}
             >
-              {activeView === 'weather' && waypoints.length >= 2 && (
-                <WeatherBriefing 
-                  departure={waypoints[0].name || `${waypoints[0].position[0].toFixed(4)}, ${waypoints[0].position[1].toFixed(4)}`}
-                  destination={waypoints[waypoints.length - 1].name || `${waypoints[waypoints.length - 1].position[0].toFixed(4)}, ${waypoints[waypoints.length - 1].position[1].toFixed(4)}`}
-                  enroute={waypoints.slice(1, -1).map(wp => wp.name || `${wp.position[0].toFixed(4)}, ${wp.position[1].toFixed(4)}`)}
-                />
-              )}
-              {activeView === 'weather' && waypoints.length < 2 && (
-                <div style={{ textAlign: 'center', padding: '32px', color: 'var(--foreground)', opacity: 0.7 }}>
-                  Planifica una ruta con al menos dos puntos para ver la meteorología
-                </div>
-              )}
-              {activeView === 'fuel' && (
-                <FuelPlanner 
-                  waypoints={waypoints} 
-                  fuelConsumption={fuelConsumption} 
-                  flightRules={flightRules}
-                  gal_liter={gal_liter}
-                />
-              )}
-              {activeView === 'notams' && (
-                <NOTAMPanel waypoints={waypoints} mode="route" />
-              )}
-              {activeView === 'flight-plan' && (
-                <FlightPlanForm waypoints={waypoints} flightRules={flightRules} />
-              )}
-              {activeView === 'weight-balance' && (
-                <WeightBalance />
-              )}
-              {activeView === 'logbook' && (
-                <Logbook />
-              )}
-              {activeView === 'airport-directory' && (
-                <AirportDirectory airports={airports} userPosition={userPosition} />
-              )}
+              {renderToolContent()}
             </div>
           </div>
 

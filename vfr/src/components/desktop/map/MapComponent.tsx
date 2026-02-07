@@ -85,10 +85,6 @@ const MapComponent: React.FC<MapComponentProps> = ({
   showRangeRings = false,
   trackUpMode = false, // TODO: Implement track-up mode with map rotation
 }) => {
-  // Track-up mode placeholder - requires Leaflet setBearing or CSS transform
-  const _ = trackUpMode; // Prevent unused warning
-  void _; // Mark as intentionally unused
-  
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
   const mapTypeUrl = validMapTypes.includes(mapType) ? mapType : "sat";
@@ -167,6 +163,41 @@ const MapComponent: React.FC<MapComponentProps> = ({
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
+  // Track-up mode: Rotate map based on heading
+  useEffect(() => {
+    if (!mapRef.current) return;
+
+    const mapContainer = mapRef.current.getContainer();
+    const mapPane = mapContainer.querySelector('.leaflet-map-pane') as HTMLElement;
+    const markerPane = mapContainer.querySelector('.leaflet-marker-pane') as HTMLElement;
+    const shadowPane = mapContainer.querySelector('.leaflet-shadow-pane') as HTMLElement;
+    
+    if (!mapPane) return;
+
+    if (trackUpMode && isFlightActive && currentPosition) {
+      const heading = currentPosition.heading;
+      // Rotate the map pane
+      mapPane.style.transform = `rotate(-${heading}deg)`;
+      
+      // Counter-rotate markers and labels so they stay upright
+      if (markerPane) {
+        markerPane.style.transform = `rotate(${heading}deg)`;
+      }
+      if (shadowPane) {
+        shadowPane.style.transform = `rotate(${heading}deg)`;
+      }
+    } else {
+      // Reset rotation when track-up is off or flight is not active
+      mapPane.style.transform = 'rotate(0deg)';
+      if (markerPane) {
+        markerPane.style.transform = 'rotate(0deg)';
+      }
+      if (shadowPane) {
+        shadowPane.style.transform = 'rotate(0deg)';
+      }
+    }
+  }, [trackUpMode, isFlightActive, currentPosition]);
 
   // Remove all custom event handling for now
   // Load aviation data

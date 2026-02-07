@@ -210,14 +210,154 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
 
   // Simple runway diagram (SVG)
   const renderRunwayDiagram = () => {
-    // Note: Runway data isn't available in OpenAIP airport data
-    // This is a placeholder for when runway data becomes available
+    if (!selectedAirport?.runways || selectedAirport.runways.length === 0) {
+      return (
+        <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
+          <p>Información de pistas no disponible</p>
+        </div>
+      );
+    }
+
+    const surfaceTypeMap: Record<number, string> = {
+      1: 'Asfalto',
+      2: 'Hormigón',
+      3: 'Hierba',
+      4: 'Grava',
+      5: 'Tierra',
+      6: 'Arena',
+      7: 'Nieve',
+      8: 'Agua',
+    };
+
     return (
-      <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
-        <p>Información de pistas no disponible</p>
-        <p style={{ fontSize: '12px', marginTop: '10px' }}>
-          (Datos de pistas no incluidos en el conjunto de datos actual)
-        </p>
+      <div style={{ display: 'grid', gap: '30px' }}>
+        {selectedAirport.runways.map((runway, idx) => {
+          const heading = runway.trueHeading || 0;
+          const length = runway.dimension?.length?.value || 0;
+          const width = runway.dimension?.width?.value || 0;
+          const surfaceType = runway.surface?.mainComposite 
+            ? surfaceTypeMap[runway.surface.mainComposite] || 'Desconocido'
+            : 'Desconocido';
+          
+          // Get opposite runway designator (e.g., 14 -> 32)
+          const designator = runway.designator || '??';
+          const heading1 = parseInt(designator.replace(/[LRC]/g, ''));
+          const heading2 = ((heading1 + 18) % 36) || 36;
+          const opposite = heading2.toString().padStart(2, '0');
+
+          return (
+            <div
+              key={runway._id || idx}
+              style={{
+                padding: '20px',
+                backgroundColor: 'var(--input-bg)',
+                border: '1px solid var(--sidebar-border)',
+                borderRadius: '8px',
+              }}
+            >
+              <h4 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '15px' }}>
+                Pista {designator}/{opposite}
+              </h4>
+              
+              {/* Runway diagram SVG */}
+              <div style={{ 
+                display: 'flex', 
+                justifyContent: 'center', 
+                marginBottom: '15px',
+                minHeight: '200px',
+              }}>
+                <svg width="300" height="200" viewBox="0 0 300 200">
+                  {/* Background */}
+                  <rect x="0" y="0" width="300" height="200" fill="transparent" />
+                  
+                  {/* Runway rectangle - oriented by heading */}
+                  <g transform={`translate(150, 100) rotate(${heading}) translate(-75, -40)`}>
+                    {/* Runway surface */}
+                    <rect
+                      x="0"
+                      y="0"
+                      width="150"
+                      height="80"
+                      fill="#4B5563"
+                      stroke="#1F2937"
+                      strokeWidth="2"
+                      rx="2"
+                    />
+                    
+                    {/* Center line dashes */}
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <rect
+                        key={i}
+                        x={10 + i * 14}
+                        y="36"
+                        width="8"
+                        height="8"
+                        fill="white"
+                        opacity="0.9"
+                      />
+                    ))}
+                    
+                    {/* Runway numbers (counter-rotated to stay upright) */}
+                    <g transform={`translate(15, 40) rotate(-${heading})`}>
+                      <text
+                        x="0"
+                        y="0"
+                        textAnchor="middle"
+                        fill="white"
+                        fontSize="24"
+                        fontWeight="bold"
+                      >
+                        {designator}
+                      </text>
+                    </g>
+                    
+                    <g transform={`translate(135, 40) rotate(-${heading})`}>
+                      <text
+                        x="0"
+                        y="0"
+                        textAnchor="middle"
+                        fill="white"
+                        fontSize="24"
+                        fontWeight="bold"
+                      >
+                        {opposite}
+                      </text>
+                    </g>
+                  </g>
+                  
+                  {/* Compass heading indicator */}
+                  <g transform="translate(270, 20)">
+                    <circle cx="0" cy="0" r="15" fill="none" stroke="#9CA3AF" strokeWidth="1" />
+                    <line x1="0" y1="-12" x2="0" y2="-8" stroke="#EF4444" strokeWidth="2" />
+                    <text x="0" y="-18" textAnchor="middle" fill="#9CA3AF" fontSize="10">N</text>
+                    <text x="0" y="6" textAnchor="middle" fill="#9CA3AF" fontSize="9" fontWeight="bold">
+                      {heading.toString().padStart(3, '0')}°
+                    </text>
+                  </g>
+                </svg>
+              </div>
+
+              {/* Runway details */}
+              <div style={{ display: 'grid', gap: '8px', fontSize: '14px' }}>
+                <div>
+                  <strong>Rumbo verdadero:</strong> {heading.toString().padStart(3, '0')}°
+                </div>
+                <div>
+                  <strong>Dimensiones:</strong> {length > 0 ? `${length}m × ${width}m` : 'Desconocido'}
+                </div>
+                <div>
+                  <strong>Superficie:</strong> {surfaceType}
+                </div>
+                {runway.operations && (
+                  <div>
+                    <strong>Operaciones:</strong>{' '}
+                    {runway.takeOffOnly ? 'Solo despegue' : runway.landingOnly ? 'Solo aterrizaje' : 'Despegue y aterrizaje'}
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })}
       </div>
     );
   };

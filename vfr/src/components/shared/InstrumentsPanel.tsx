@@ -1,5 +1,5 @@
 // InstrumentsPanel.tsx - ForeFlight-style flight instruments
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import { GPSPosition } from '../../services/gpsService';
 
 interface InstrumentsPanelProps {
@@ -8,19 +8,67 @@ interface InstrumentsPanelProps {
   visible: boolean;
 }
 
+interface AltitudeReading {
+  altitude: number; // in feet
+  timestamp: number;
+}
+
 export const InstrumentsPanel: React.FC<InstrumentsPanelProps> = ({
   currentPosition,
   targetAltitude,
   visible,
 }) => {
+  const altitudeHistoryRef = useRef<AltitudeReading[]>([]);
+  const vsiRef = useRef<number>(0);
+
+  useEffect(() => {
+    if (!currentPosition) return;
+
+    const currentAltitudeFt = currentPosition.altitude * 3.28084; // meters to feet
+    const now = Date.now();
+
+    // Add current reading to history
+    altitudeHistoryRef.current.push({
+      altitude: currentAltitudeFt,
+      timestamp: now,
+    });
+
+    // Keep only last 5 readings (for smoothing)
+    if (altitudeHistoryRef.current.length > 5) {
+      altitudeHistoryRef.current.shift();
+    }
+
+    // Calculate VSI if we have at least 2 readings
+    if (altitudeHistoryRef.current.length >= 2) {
+      const readings = altitudeHistoryRef.current;
+      let totalVSI = 0;
+      let count = 0;
+
+      // Calculate VSI for each pair and average them
+      for (let i = 1; i < readings.length; i++) {
+        const prevReading = readings[i - 1];
+        const currReading = readings[i];
+        const timeDeltaMin = (currReading.timestamp - prevReading.timestamp) / 1000 / 60;
+        
+        if (timeDeltaMin > 0) {
+          const vsi = (currReading.altitude - prevReading.altitude) / timeDeltaMin;
+          totalVSI += vsi;
+          count++;
+        }
+      }
+
+      if (count > 0) {
+        vsiRef.current = Math.round(totalVSI / count);
+      }
+    }
+  }, [currentPosition]);
+
   if (!visible || !currentPosition) return null;
 
   const groundSpeed = Math.round(currentPosition.speed * 1.94384); // m/s to knots
   const altitude = Math.round(currentPosition.altitude * 3.28084); // meters to feet
   const heading = Math.round(currentPosition.heading);
-  // Vertical speed not available in GPSPosition - would need to calculate from altitude changes
-  // For now, default to 0
-  const verticalSpeed = 0;
+  const verticalSpeed = vsiRef.current;
 
   return (
     <div
