@@ -15,6 +15,8 @@ import AirspaceAlert from "../shared/AirspaceAlert";
 import TriviaPopup from "../shared/TriviaPopup";
 import { ToolsPanel } from "../shared/ToolsPanel";
 import { FlightRulesSelector } from "../shared/FlightRulesSelector";
+import { FlightControlBar } from "../shared/FlightControlBar";
+import { gpsService, GPSPosition } from "../../services/gpsService";
 
 const MapComponent = dynamic(
   () => import("../desktop/map/MapComponent"),
@@ -48,8 +50,8 @@ export default function MainApp() {
   // Ref to hold the map move function
   const moveMapRef = useRef<((lat: number, lon: number, zoom?: number) => void) | null>(null);
 
-  // Load aviation data for altitude compliance
-  const { airspaces } = useAviationData(selectedCountry);
+  // Load aviation data for altitude compliance and airport directory
+  const { airspaces, airports } = useAviationData(selectedCountry);
 
   const {
     waypoints,
@@ -133,6 +135,13 @@ export default function MainApp() {
 
   // Weather overlay
   const [showWeatherOverlay, setShowWeatherOverlay] = useState(false);
+
+  // GPS Flight Tracking
+  const [isFlightActive, setIsFlightActive] = useState(false);
+  const [currentPosition, setCurrentPosition] = useState<GPSPosition | null>(null);
+  const [flightTrail, setFlightTrail] = useState<GPSPosition[]>([]);
+  const [flightStartTime, setFlightStartTime] = useState<number>(0);
+  const [gpsError, setGpsError] = useState<string | null>(null);
 
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
@@ -265,6 +274,54 @@ export default function MainApp() {
     setShowWeatherOverlay(prev => !prev);
   };
 
+  // GPS Flight Tracking Handlers
+  const handleStartFlight = async () => {
+    try {
+      setGpsError(null);
+      gpsService.start(flightRules);
+      setIsFlightActive(true);
+      setFlightStartTime(Date.now());
+      setFlightTrail([]);
+      
+      // Subscribe to position updates
+      const unsubscribe = gpsService.onPosition((position: GPSPosition) => {
+        setCurrentPosition(position);
+        setFlightTrail(prev => [...prev, position]);
+      });
+      
+      // Store unsubscribe function
+      (window as { __gpsUnsubscribe?: () => void }).__gpsUnsubscribe = unsubscribe;
+    } catch (error) {
+      setGpsError(error instanceof Error ? error.message : 'Error al iniciar GPS');
+      setIsFlightActive(false);
+    }
+  };
+
+  const handleEndFlight = () => {
+    const recording = gpsService.stop();
+    setIsFlightActive(false);
+    setCurrentPosition(null);
+    
+    // Unsubscribe from GPS updates
+    const w = window as { __gpsUnsubscribe?: () => void };
+    if (w.__gpsUnsubscribe) {
+      w.__gpsUnsubscribe();
+      delete w.__gpsUnsubscribe;
+    }
+    
+    // Log flight summary
+    console.log('Flight ended:', {
+      duration: Math.round((Date.now() - flightStartTime) / 1000 / 60),
+      maxAltitude: Math.round(recording.maxAltitude),
+      maxSpeed: Math.round(recording.maxSpeed * 1.94384), // Convert m/s to knots
+      totalDistance: Math.round(recording.totalDistance / 1852), // Convert m to nm
+      positions: recording.positions.length,
+    });
+    
+    // Reset trail after a moment (to see final path)
+    setTimeout(() => setFlightTrail([]), 5000);
+  };
+
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
@@ -288,6 +345,34 @@ export default function MainApp() {
         />
       )}
 
+      {/* Flight Control Bar - appears during active flight */}
+      {isFlightActive && currentPosition && (
+        <FlightControlBar
+          currentPosition={currentPosition}
+          flightStartTime={flightStartTime}
+          onEndFlight={handleEndFlight}
+        />
+      )}
+
+      {/* GPS Error Message */}
+      {gpsError && (
+        <div className="fixed top-20 left-1/2 transform -translate-x-1/2 z-[600] bg-red-600 text-white px-6 py-3 rounded-lg shadow-lg max-w-md">
+          <div className="flex items-center gap-3">
+            <span className="text-2xl">⚠️</span>
+            <div>
+              <div className="font-semibold">Error GPS</div>
+              <div className="text-sm">{gpsError}</div>
+            </div>
+            <button
+              onClick={() => setGpsError(null)}
+              className="ml-auto text-white hover:text-gray-200"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* Tools Panel - Desktop only (mobile will use bottom sheet) */}
       {!isMobile && (
         <ToolsPanel 
@@ -295,6 +380,8 @@ export default function MainApp() {
           fuelConsumption={fuelConsumption}
           gal_liter={gal_liter}
           flightRules={flightRules}
+          airports={airports}
+          userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
         />
       )}
 
@@ -371,6 +458,10 @@ export default function MainApp() {
               analyzeRouteWarnings={analyzeRouteWarnings}
               flightRules={flightRules}
               showWeather={showWeatherOverlay}
+              currentPosition={currentPosition}
+              flightTrail={flightTrail}
+              isFlightActive={isFlightActive}
+              onStartFlight={handleStartFlight}
             />
           </div>
 
@@ -449,6 +540,10 @@ export default function MainApp() {
                 onMoveMapRef={moveMapRef}
                 flightRules={flightRules}
                 showWeather={showWeatherOverlay}
+                currentPosition={currentPosition}
+                flightTrail={flightTrail}
+                isFlightActive={isFlightActive}
+                onStartFlight={handleStartFlight}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">

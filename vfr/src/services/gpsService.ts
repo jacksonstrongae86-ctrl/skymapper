@@ -60,6 +60,16 @@ class GPSService {
       },
       (error) => {
         console.error('GPS Error:', error);
+        this.isTracking = false;
+        
+        // Provide user-friendly error messages
+        if (error.code === error.PERMISSION_DENIED) {
+          throw new Error('Permiso GPS denegado. Por favor, habilita la ubicación en la configuración del navegador.');
+        } else if (error.code === error.POSITION_UNAVAILABLE) {
+          throw new Error('Posición GPS no disponible. Verifica que tengas señal GPS.');
+        } else if (error.code === error.TIMEOUT) {
+          console.warn('GPS timeout - retrying...');
+        }
       },
       {
         enableHighAccuracy: true,

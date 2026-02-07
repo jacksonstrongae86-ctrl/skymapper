@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useRef } from "react";
-import { Map } from "leaflet";
+import { Map, DivIcon } from "leaflet";
 import {
   MapContainer,
   TileLayer,
@@ -24,6 +24,7 @@ import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
+import { GPSPosition } from "../../../services/gpsService";
 // Weather and IFR layers to be integrated later
 // import { WeatherOverlay } from "../../shared/WeatherOverlay";
 // import { AirwayLayer } from "../../shared/AirwayLayer";
@@ -78,6 +79,10 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
   flightRules?: 'VFR' | 'IFR';
   showWeather?: boolean;
+  currentPosition?: GPSPosition | null;
+  flightTrail?: GPSPosition[];
+  isFlightActive?: boolean;
+  onStartFlight?: () => void;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -102,6 +107,10 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   deleteRoute,
   renameRoute,
   analyzeRouteWarnings,
+  currentPosition = null,
+  flightTrail = [],
+  isFlightActive = false,
+  onStartFlight,
   // flightRules = 'VFR', // To be integrated later
   // showWeather = false, // To be integrated later
 }) => {
@@ -257,6 +266,29 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
     console.error("Aviation data error:", error);
   }
 
+  // Create aircraft icon
+  const createAircraftIcon = (heading: number) => {
+    return new DivIcon({
+      html: `
+        <div style="transform: rotate(${heading}deg); width: 32px; height: 32px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(16, 16)">
+              <!-- Aircraft body -->
+              <path d="M 0,-12 L -3,8 L 0,10 L 3,8 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+              <!-- Wings -->
+              <path d="M -10,0 L 10,0 L 9,3 L -9,3 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+              <!-- Tail -->
+              <path d="M -4,8 L 4,8 L 3,11 L -3,11 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </div>
+      `,
+      className: 'aircraft-icon',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    });
+  };
+
   return (
     <div
       className={`
@@ -397,7 +429,46 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
             color="black"
           />
         )}
+
+        {/* Flight trail (actual track) */}
+        {flightTrail && flightTrail.length > 1 && (
+          <Polyline
+            positions={flightTrail.map(pos => [pos.latitude, pos.longitude])}
+            color="#10B981"
+            weight={3}
+            opacity={0.8}
+          />
+        )}
+
+        {/* Aircraft marker at current position */}
+        {currentPosition && (
+          <Marker
+            position={[currentPosition.latitude, currentPosition.longitude]}
+            icon={createAircraftIcon(currentPosition.heading)}
+            zIndexOffset={1000}
+          />
+        )}
       </MapContainer>
+      
+      {/* Start Flight Button - Mobile (bottom floating) */}
+      {!isFlightActive && !isExpanded && onStartFlight && (
+        <div
+          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-[500]"
+        >
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              onStartFlight();
+            }}
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold 
+                       px-6 py-3 rounded-full shadow-lg flex items-center gap-2 
+                       transition-all transform hover:scale-105"
+          >
+            <span className="text-xl">▶️</span>
+            <span>Iniciar Vuelo</span>
+          </button>
+        </div>
+      )}
       {isExpanded && (
         <div
           className="absolute top-0 left-0 w-full h-ful z-[999]"

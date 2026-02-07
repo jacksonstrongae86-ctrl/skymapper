@@ -21,6 +21,12 @@ class MotionService {
       return;
     }
 
+    // Check if DeviceOrientation is supported
+    if (typeof DeviceOrientationEvent === 'undefined') {
+      console.warn('DeviceOrientation is not supported by this browser');
+      return;
+    }
+
     this.isActive = true;
 
     // Request permission for iOS 13+
@@ -34,14 +40,23 @@ class MotionService {
         .then((permissionState: string) => {
           if (permissionState === 'granted') {
             this.attachOrientationListener();
+          } else {
+            console.warn('Device orientation permission denied');
           }
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error('Error requesting device orientation permission:', err);
+        });
     } else {
       this.attachOrientationListener();
     }
 
     // Request permission for motion on iOS 13+
+    if (typeof DeviceMotionEvent === 'undefined') {
+      console.warn('DeviceMotion is not supported by this browser');
+      return;
+    }
+
     const motionEvent = DeviceMotionEvent as unknown as {
       requestPermission?: () => Promise<string>;
     };
@@ -52,9 +67,13 @@ class MotionService {
         .then((permissionState: string) => {
           if (permissionState === 'granted') {
             this.attachMotionListener();
+          } else {
+            console.warn('Device motion permission denied');
           }
         })
-        .catch(console.error);
+        .catch((err) => {
+          console.error('Error requesting device motion permission:', err);
+        });
     } else {
       this.attachMotionListener();
     }

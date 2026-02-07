@@ -7,7 +7,7 @@ import { AirportDirectory } from './AirportDirectory';
 import { NOTAMPanel } from './NOTAMPanel';
 import { FlightPlanForm } from './FlightPlanForm';
 import { FuelPlanner } from './FuelPlanner';
-import { Waypoint } from '../../utils/types';
+import { Waypoint, Airport } from '../../utils/types';
 
 type ToolView = 'weather' | 'weight-balance' | 'logbook' | 'airport-directory' | 'notams' | 'flight-plan' | 'fuel' | null;
 
@@ -16,9 +16,11 @@ interface ToolsPanelProps {
   fuelConsumption: number;
   gal_liter: string;
   flightRules?: 'VFR' | 'IFR';
+  airports?: Airport[];
+  userPosition?: { lat: number; lon: number };
 }
 
-export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumption, gal_liter, flightRules = 'VFR' }) => {
+export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumption, gal_liter, flightRules = 'VFR', airports = [], userPosition }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeView, setActiveView] = useState<ToolView>(null);
 
@@ -33,19 +35,19 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
       id: 'fuel' as ToolView,
       label: 'Planificador de Combustible',
       icon: '⛽',
-      feature: 'WEATHER' as keyof typeof FEATURES, // Use WEATHER as proxy for general planning
+      feature: 'FUEL_PLANNER' as keyof typeof FEATURES,
     },
     {
       id: 'notams' as ToolView,
       label: 'NOTAMs',
       icon: '📢',
-      feature: 'WEATHER' as keyof typeof FEATURES,
+      feature: 'NOTAMS' as keyof typeof FEATURES,
     },
     {
       id: 'flight-plan' as ToolView,
       label: 'Plan de Vuelo',
       icon: '📄',
-      feature: 'WEATHER' as keyof typeof FEATURES,
+      feature: 'FLIGHT_PLAN' as keyof typeof FEATURES,
     },
     {
       id: 'weight-balance' as ToolView,
@@ -79,6 +81,10 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
 
   const handleClose = () => {
     setIsOpen(false);
+    setTimeout(() => setActiveView(null), 300); // Delay clearing view until animation completes
+  };
+
+  const handleBack = () => {
     setActiveView(null);
   };
 
@@ -90,7 +96,7 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
           position: 'fixed',
           bottom: '24px',
           right: '24px',
-          zIndex: 1000,
+          zIndex: 900,
         }}
       >
         <button
@@ -203,13 +209,13 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
               top: 0,
               right: 0,
               bottom: 0,
-              width: '90%',
+              width: window.innerWidth < 768 ? '100%' : '90%',
               maxWidth: '600px',
               backgroundColor: 'var(--sidebar-bg)',
               borderLeft: '1px solid var(--sidebar-border)',
               zIndex: 1000,
               boxShadow: '-4px 0 12px rgba(0,0,0,0.2)',
-              animation: 'slideInFromRight 0.3s ease-in-out',
+              animation: isOpen ? 'slideInFromRight 0.3s ease-in-out' : 'slideOutToRight 0.3s ease-in-out',
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden',
@@ -227,9 +233,29 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
                 color: 'var(--button-text)',
               }}
             >
-              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>
-                {tools.find(t => t.id === activeView)?.label}
-              </h2>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {activeView && (
+                  <button
+                    onClick={handleBack}
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      color: 'var(--button-text)',
+                      fontSize: '20px',
+                      cursor: 'pointer',
+                      padding: '4px 8px',
+                      display: 'flex',
+                      alignItems: 'center',
+                    }}
+                    title="Volver"
+                  >
+                    ←
+                  </button>
+                )}
+                <h2 style={{ margin: 0, fontSize: '18px', fontWeight: '600' }}>
+                  {activeView ? tools.find(t => t.id === activeView)?.label : 'Herramientas'}
+                </h2>
+              </div>
               <button
                 onClick={handleClose}
                 style={{
@@ -286,7 +312,7 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
                 <Logbook />
               )}
               {activeView === 'airport-directory' && (
-                <AirportDirectory airports={[]} />
+                <AirportDirectory airports={airports} userPosition={userPosition} />
               )}
             </div>
           </div>
@@ -303,6 +329,15 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({ waypoints, fuelConsumpti
               }
               to {
                 transform: translateX(0);
+              }
+            }
+
+            @keyframes slideOutToRight {
+              from {
+                transform: translateX(0);
+              }
+              to {
+                transform: translateX(100%);
               }
             }
           `}</style>

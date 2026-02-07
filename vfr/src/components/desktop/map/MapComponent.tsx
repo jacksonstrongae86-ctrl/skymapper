@@ -9,7 +9,7 @@ import {
   Circle,
 } from "react-leaflet";
 import { useRef } from "react";
-import { Map } from "leaflet";
+import { Map, DivIcon } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { getCountryCenter, Waypoint } from "../../../utils/types";
 import { LeafletMouseEvent } from "leaflet";
@@ -24,6 +24,7 @@ import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
 import { WeatherOverlay } from "../../shared/WeatherOverlay";
 import AirwayLayer from "../../shared/AirwayLayer";
+import { GPSPosition } from "../../../services/gpsService";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -48,6 +49,10 @@ type MapComponentProps = {
   onMoveMapRef?: React.MutableRefObject<((lat: number, lon: number, zoom?: number) => void) | null>;
   flightRules?: 'VFR' | 'IFR';
   showWeather?: boolean;
+  currentPosition?: GPSPosition | null;
+  flightTrail?: GPSPosition[];
+  isFlightActive?: boolean;
+  onStartFlight?: () => void;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -69,6 +74,10 @@ const MapComponent: React.FC<MapComponentProps> = ({
   onMoveMapRef,
   flightRules = 'VFR',
   showWeather = false,
+  currentPosition = null,
+  flightTrail = [],
+  isFlightActive = false,
+  onStartFlight,
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
@@ -243,6 +252,29 @@ const MapComponent: React.FC<MapComponentProps> = ({
     // console.error("Aviation data error:", error);
   }
 
+  // Create aircraft icon
+  const createAircraftIcon = (heading: number) => {
+    return new DivIcon({
+      html: `
+        <div style="transform: rotate(${heading}deg); width: 32px; height: 32px;">
+          <svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(16, 16)">
+              <!-- Aircraft body -->
+              <path d="M 0,-12 L -3,8 L 0,10 L 3,8 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+              <!-- Wings -->
+              <path d="M -10,0 L 10,0 L 9,3 L -9,3 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+              <!-- Tail -->
+              <path d="M -4,8 L 4,8 L 3,11 L -3,11 Z" fill="#FF6B00" stroke="#FFF" stroke-width="1.5"/>
+            </g>
+          </svg>
+        </div>
+      `,
+      className: 'aircraft-icon',
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    });
+  };
+
   return (
     <MapContainer
       center={mapCenter}
@@ -394,6 +426,47 @@ const MapComponent: React.FC<MapComponentProps> = ({
             .map((wp) => wp.position)}
           color="black"
         />
+      )}
+
+      {/* Flight trail (actual track) */}
+      {flightTrail && flightTrail.length > 1 && (
+        <Polyline
+          positions={flightTrail.map(pos => [pos.latitude, pos.longitude])}
+          color="#10B981"
+          weight={3}
+          opacity={0.8}
+        />
+      )}
+
+      {/* Aircraft marker at current position */}
+      {currentPosition && (
+        <Marker
+          position={[currentPosition.latitude, currentPosition.longitude]}
+          icon={createAircraftIcon(currentPosition.heading)}
+          zIndexOffset={1000}
+        />
+      )}
+
+      {/* Start Flight Button */}
+      {!isFlightActive && onStartFlight && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '16px',
+            right: '16px',
+            zIndex: 400,
+          }}
+        >
+          <button
+            onClick={onStartFlight}
+            className="bg-green-600 hover:bg-green-700 text-white font-semibold 
+                       px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 
+                       transition-all transform hover:scale-105"
+          >
+            <span className="text-xl">▶️</span>
+            <span>Iniciar Vuelo</span>
+          </button>
+        </div>
       )}
     </MapContainer>
   );

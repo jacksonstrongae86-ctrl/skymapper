@@ -46,6 +46,24 @@ export const FEATURES = {
    * Searchable airport database with detailed information
    */
   AIRPORT_DIRECTORY: true,
+  
+  /**
+   * Fuel planner
+   * Route fuel calculation and planning
+   */
+  FUEL_PLANNER: true,
+  
+  /**
+   * NOTAM display
+   * Notices to Airmen along route
+   */
+  NOTAMS: true,
+  
+  /**
+   * Flight plan generation
+   * ICAO flight plan form generation
+   */
+  FLIGHT_PLAN: true,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;

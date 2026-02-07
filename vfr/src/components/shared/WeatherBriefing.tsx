@@ -22,13 +22,22 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
   const [loading, setLoading] = useState(false);
   const [goNoGo, setGoNoGo] = useState<'GO' | 'NO-GO' | 'CAUTION' | null>(null);
 
+  // Helper function to check if a string is a valid ICAO code
+  const isIcaoCode = (code: string): boolean => {
+    return /^[A-Z]{4}$/.test(code.trim());
+  };
+
   useEffect(() => {
     if (!departure && !destination) return;
 
     const fetchWeather = async () => {
       setLoading(true);
 
-      const allIcaos = [departure, destination, ...enroute].filter(Boolean) as string[];
+      // Filter to only valid ICAO codes
+      const allIcaos = [departure, destination, ...enroute]
+        .filter(Boolean)
+        .filter(code => isIcaoCode(code as string)) as string[];
+      
       if (allIcaos.length === 0) {
         setLoading(false);
         return;
@@ -202,6 +211,9 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
     );
   };
 
+  // Check if we have any valid ICAO codes
+  const hasValidIcao = [departure, destination, ...enroute].some(code => code && isIcaoCode(code));
+
   return (
     <div style={{ padding: '20px', color: 'var(--foreground)', maxWidth: '1000px', margin: '0 auto' }}>
       <h2 style={{ fontSize: '24px', fontWeight: 'bold', marginBottom: '20px' }}>🌤️ Briefing Meteorológico</h2>
@@ -213,6 +225,24 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
       {!loading && (!departure && !destination) && (
         <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
           Selecciona aeródromos de salida y destino para ver el briefing meteorológico
+        </div>
+      )}
+
+      {!loading && (departure || destination) && !hasValidIcao && (
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '40px', 
+          backgroundColor: 'var(--sidebar-bg)',
+          borderRadius: '8px',
+          border: '2px dashed var(--sidebar-border)',
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛩️</div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+            Agrega aeropuertos con códigos ICAO a tu ruta
+          </div>
+          <div style={{ fontSize: '14px', opacity: 0.7 }}>
+            El briefing meteorológico requiere waypoints con códigos ICAO válidos (ej: LEMD, LEBL)
+          </div>
         </div>
       )}
 

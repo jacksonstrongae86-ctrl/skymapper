@@ -1,22 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { METAR, fetchMETAR, getFlightCategoryColor } from '../../services/weatherService';
-
-interface Airport {
-  icao: string;
-  name: string;
-  type: string;
-  elevation: number;
-  lat: number;
-  lon: number;
-  frequencies?: Array<{ type: string; frequency: string }>;
-  runways?: Array<{
-    name: string;
-    length: number;
-    width?: number;
-    surface: string;
-    heading?: number;
-  }>;
-}
+import { Airport } from '../../utils/types';
 
 interface AirportDirectoryProps {
   airports: Airport[];
@@ -33,15 +17,23 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
   const [sortBy, setSortBy] = useState<'name' | 'distance'>('name');
   const [metar, setMetar] = useState<METAR | null>(null);
 
+  // Helper to get coordinates from geometry
+  const getCoords = (airport: Airport): { lat: number; lon: number } | null => {
+    if (airport.geometry?.type === 'Point' && airport.geometry.coordinates) {
+      return { lat: airport.geometry.coordinates[1], lon: airport.geometry.coordinates[0] };
+    }
+    return null;
+  };
+
   // Fetch METAR when airport is selected
   useEffect(() => {
-    if (!selectedAirport) {
+    if (!selectedAirport || !selectedAirport.icaoCode) {
       setMetar(null);
       return;
     }
 
     const fetchWeather = async () => {
-      const metarData = await fetchMETAR(selectedAirport.icao);
+      const metarData = await fetchMETAR(selectedAirport.icaoCode);
       if (metarData.length > 0) {
         setMetar(metarData[0]);
       } else {
@@ -56,16 +48,19 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
   const calculateDistance = (airport: Airport): number => {
     if (!userPosition) return 0;
 
+    const coords = getCoords(airport);
+    if (!coords) return 0;
+
     const toRad = (deg: number) => (deg * Math.PI) / 180;
     const R = 6371; // Earth radius in km
 
-    const dLat = toRad(airport.lat - userPosition.lat);
-    const dLon = toRad(airport.lon - userPosition.lon);
+    const dLat = toRad(coords.lat - userPosition.lat);
+    const dLon = toRad(coords.lon - userPosition.lon);
 
     const a =
       Math.sin(dLat / 2) * Math.sin(dLat / 2) +
       Math.cos(toRad(userPosition.lat)) *
-        Math.cos(toRad(airport.lat)) *
+        Math.cos(toRad(coords.lat)) *
         Math.sin(dLon / 2) *
         Math.sin(dLon / 2);
 
@@ -79,32 +74,33 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
       // Search query
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
+        const icao = airport.icaoCode || '';
+        const name = airport.name || '';
         if (
-          !airport.icao.toLowerCase().includes(query) &&
-          !airport.name.toLowerCase().includes(query)
+          !icao.toLowerCase().includes(query) &&
+          !name.toLowerCase().includes(query)
         ) {
           return false;
         }
       }
 
       // Type filter
-      if (filterType !== 'all' && airport.type !== filterType) {
-        return false;
-      }
-
-      // Surface filter
-      if (filterSurface !== 'all') {
-        if (!airport.runways || !airport.runways.some((r) => r.surface.toLowerCase().includes(filterSurface))) {
+      if (filterType !== 'all') {
+        // Map type numbers to names (simplified)
+        const typeMap: Record<number, string> = {
+          1: 'large_airport',
+          2: 'medium_airport',
+          3: 'small_airport',
+          4: 'heliport',
+        };
+        const airportType = typeMap[airport.type] || 'small_airport';
+        if (airportType !== filterType) {
           return false;
         }
       }
 
-      // Runway length filter
-      if (minRunwayLength > 0) {
-        if (!airport.runways || !airport.runways.some((r) => r.length >= minRunwayLength)) {
-          return false;
-        }
-      }
+      // Surface filter (skip for now - would need runway data)
+      // Runway length filter (skip for now - would need runway data)
 
       return true;
     })
@@ -112,7 +108,7 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
       if (sortBy === 'distance' && userPosition) {
         return calculateDistance(a) - calculateDistance(b);
       }
-      return a.name.localeCompare(b.name);
+      return (a.name || '').localeCompare(b.name || '');
     });
 
   const handleSelectAirport = (airport: Airport) => {
@@ -209,35 +205,37 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
           )}
           {filteredAirports.map((airport) => {
             const distance = userPosition ? calculateDistance(airport) : null;
+            const icao = airport.icaoCode || airport._id;
+            const elevation = airport.elevation?.value || 0;
             return (
               <div
-                key={airport.icao}
+                key={airport._id}
                 onClick={() => handleSelectAirport(airport)}
                 style={{
                   padding: '12px',
                   backgroundColor:
-                    selectedAirport?.icao === airport.icao ? 'var(--button-hover)' : 'var(--sidebar-bg)',
+                    selectedAirport?._id === airport._id ? 'var(--button-hover)' : 'var(--sidebar-bg)',
                   borderRadius: '6px',
                   border: '1px solid var(--sidebar-border)',
                   cursor: 'pointer',
                   transition: 'background-color 0.2s',
                 }}
                 onMouseEnter={(e) => {
-                  if (selectedAirport?.icao !== airport.icao) {
+                  if (selectedAirport?._id !== airport._id) {
                     e.currentTarget.style.backgroundColor = 'var(--button-bg)';
                   }
                 }}
                 onMouseLeave={(e) => {
-                  if (selectedAirport?.icao !== airport.icao) {
+                  if (selectedAirport?._id !== airport._id) {
                     e.currentTarget.style.backgroundColor = 'var(--sidebar-bg)';
                   }
                 }}
               >
                 <div style={{ fontWeight: '600', fontSize: '15px', marginBottom: '3px' }}>
-                  {airport.icao} - {airport.name}
+                  {icao} - {airport.name}
                 </div>
                 <div style={{ fontSize: '13px', opacity: 0.8 }}>
-                  Elevación: {airport.elevation} ft
+                  Elevación: {elevation} ft
                   {distance && ` • ${distance.toFixed(1)} km`}
                 </div>
               </div>
@@ -246,106 +244,85 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
         </div>
 
         {/* Airport details */}
-        {selectedAirport && (
-          <div
-            style={{
-              padding: '20px',
-              backgroundColor: 'var(--sidebar-bg)',
-              borderRadius: '8px',
-              border: '1px solid var(--sidebar-border)',
-              maxHeight: '70vh',
-              overflowY: 'auto',
-            }}
-          >
-            <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '15px' }}>
-              {selectedAirport.icao} - {selectedAirport.name}
-            </h3>
+        {selectedAirport && (() => {
+          const icao = selectedAirport.icaoCode || selectedAirport._id;
+          const elevation = selectedAirport.elevation?.value || 0;
+          const coords = getCoords(selectedAirport);
+          const typeMap: Record<number, string> = {
+            1: 'Aeropuerto grande',
+            2: 'Aeropuerto mediano',
+            3: 'Aeropuerto pequeño',
+            4: 'Helipuerto',
+          };
+          const typeLabel = typeMap[selectedAirport.type] || 'Desconocido';
 
-            <div style={{ display: 'grid', gap: '15px' }}>
-              <div>
-                <div style={{ fontWeight: '600', marginBottom: '5px' }}>Información General:</div>
-                <div style={{ fontSize: '14px', display: 'grid', gap: '3px' }}>
-                  <div>Tipo: {selectedAirport.type}</div>
-                  <div>Elevación: {selectedAirport.elevation} ft</div>
-                  <div>
-                    Coordenadas: {selectedAirport.lat.toFixed(4)}°, {selectedAirport.lon.toFixed(4)}°
-                  </div>
-                  {userPosition && <div>Distancia: {calculateDistance(selectedAirport).toFixed(1)} km</div>}
-                </div>
-              </div>
+          return (
+            <div
+              style={{
+                padding: '20px',
+                backgroundColor: 'var(--sidebar-bg)',
+                borderRadius: '8px',
+                border: '1px solid var(--sidebar-border)',
+                maxHeight: '70vh',
+                overflowY: 'auto',
+              }}
+            >
+              <h3 style={{ fontSize: '20px', fontWeight: 'bold', marginBottom: '15px' }}>
+                {icao} - {selectedAirport.name}
+              </h3>
 
-              {selectedAirport.frequencies && selectedAirport.frequencies.length > 0 && (
+              <div style={{ display: 'grid', gap: '15px' }}>
                 <div>
-                  <div style={{ fontWeight: '600', marginBottom: '5px' }}>Frecuencias:</div>
+                  <div style={{ fontWeight: '600', marginBottom: '5px' }}>Información General:</div>
                   <div style={{ fontSize: '14px', display: 'grid', gap: '3px' }}>
-                    {selectedAirport.frequencies.map((freq, idx) => (
-                      <div key={idx}>
-                        {freq.type}: {freq.frequency} MHz
+                    <div>Tipo: {typeLabel}</div>
+                    <div>Elevación: {elevation} ft</div>
+                    {coords && (
+                      <div>
+                        Coordenadas: {coords.lat.toFixed(4)}°, {coords.lon.toFixed(4)}°
                       </div>
-                    ))}
+                    )}
+                    {userPosition && <div>Distancia: {calculateDistance(selectedAirport).toFixed(1)} km</div>}
                   </div>
                 </div>
-              )}
 
-              {selectedAirport.runways && selectedAirport.runways.length > 0 && (
-                <div>
-                  <div style={{ fontWeight: '600', marginBottom: '5px' }}>Pistas:</div>
-                  <div style={{ fontSize: '14px', display: 'grid', gap: '5px' }}>
-                    {selectedAirport.runways.map((runway, idx) => (
-                      <div
-                        key={idx}
-                        style={{
-                          padding: '8px',
-                          backgroundColor: 'var(--background)',
-                          borderRadius: '4px',
-                        }}
-                      >
-                        <div>
-                          <strong>{runway.name}</strong>
-                        </div>
-                        <div>
-                          {runway.length} m × {runway.width || '?'} m • {runway.surface}
-                        </div>
-                        {runway.heading && <div>Rumbo: {runway.heading}°</div>}
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
+                {/* Frequencies and runways not available in OpenAIP airport data */}
+                {/* Would need to load from separate data source */}
 
-              {metar && (
-                <div>
-                  <div style={{ fontWeight: '600', marginBottom: '5px' }}>Meteorología Actual:</div>
-                  <div
-                    style={{
-                      padding: '10px',
-                      backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR') + '22',
-                      border: `2px solid ${getFlightCategoryColor(metar.flightCategory || 'VFR')}`,
-                      borderRadius: '4px',
-                    }}
-                  >
+                {metar && (
+                  <div>
+                    <div style={{ fontWeight: '600', marginBottom: '5px' }}>Meteorología Actual:</div>
                     <div
                       style={{
-                        display: 'inline-block',
-                        padding: '4px 10px',
-                        backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR'),
-                        color: 'white',
+                        padding: '10px',
+                        backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR') + '22',
+                        border: `2px solid ${getFlightCategoryColor(metar.flightCategory || 'VFR')}`,
                         borderRadius: '4px',
-                        fontWeight: 'bold',
-                        marginBottom: '8px',
                       }}
                     >
-                      {metar.flightCategory || 'UNKNOWN'}
-                    </div>
-                    <div style={{ fontFamily: 'monospace', fontSize: '13px', wordWrap: 'break-word' }}>
-                      {metar.raw}
+                      <div
+                        style={{
+                          display: 'inline-block',
+                          padding: '4px 10px',
+                          backgroundColor: getFlightCategoryColor(metar.flightCategory || 'VFR'),
+                          color: 'white',
+                          borderRadius: '4px',
+                          fontWeight: 'bold',
+                          marginBottom: '8px',
+                        }}
+                      >
+                        {metar.flightCategory || 'UNKNOWN'}
+                      </div>
+                      <div style={{ fontFamily: 'monospace', fontSize: '13px', wordWrap: 'break-word' }}>
+                        {metar.raw}
+                      </div>
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          );
+        })()}
       </div>
     </div>
   );

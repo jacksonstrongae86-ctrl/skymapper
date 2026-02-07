@@ -1,0 +1,372 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "SkyMapper Aviation API",
+    "version": "1.0.0",
+    "description": "REST API for SkyMapper VFR flight planning and aviation data system"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3338/api",
+      "description": "Development server"
+    }
+  ],
+  "paths": {
+    "/flight/plan": {
+      "get": {
+        "summary": "Get current flight plan",
+        "tags": ["Flight Planning"],
+        "responses": {
+          "200": { "description": "Flight plan retrieved" },
+          "404": { "description": "No flight plan found" }
+        }
+      },
+      "post": {
+        "summary": "Create or update flight plan",
+        "tags": ["Flight Planning"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "waypoints": { "type": "array" },
+                  "aircraft": { "type": "object" },
+                  "fuelSettings": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Flight plan saved" }
+        }
+      }
+    },
+    "/flight/calculate": {
+      "get": {
+        "summary": "Calculate route",
+        "tags": ["Flight Planning"],
+        "parameters": [
+          {
+            "name": "waypoints",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "JSON array of waypoints"
+          },
+          {
+            "name": "cruiseSpeed",
+            "in": "query",
+            "schema": { "type": "number" }
+          },
+          {
+            "name": "fuelConsumption",
+            "in": "query",
+            "schema": { "type": "number" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Route calculated" }
+        }
+      }
+    },
+    "/weather/metar": {
+      "get": {
+        "summary": "Get METAR for airport",
+        "tags": ["Weather"],
+        "parameters": [
+          {
+            "name": "icao",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "METAR retrieved" }
+        }
+      }
+    },
+    "/weather/taf": {
+      "get": {
+        "summary": "Get TAF for airport",
+        "tags": ["Weather"],
+        "parameters": [
+          {
+            "name": "icao",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "TAF retrieved" }
+        }
+      }
+    },
+    "/weather/briefing": {
+      "get": {
+        "summary": "Get route weather briefing",
+        "tags": ["Weather"],
+        "parameters": [
+          {
+            "name": "departure",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "destination",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Weather briefing retrieved" }
+        }
+      }
+    },
+    "/notams": {
+      "get": {
+        "summary": "Get NOTAMs for airport",
+        "tags": ["NOTAMs"],
+        "parameters": [
+          {
+            "name": "icao",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "NOTAMs retrieved" }
+        }
+      }
+    },
+    "/notams/route": {
+      "get": {
+        "summary": "Get NOTAMs for route",
+        "tags": ["NOTAMs"],
+        "parameters": [
+          {
+            "name": "waypoints",
+            "in": "query",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "Comma-separated ICAO codes"
+          }
+        ],
+        "responses": {
+          "200": { "description": "Route NOTAMs retrieved" }
+        }
+      }
+    },
+    "/airports": {
+      "get": {
+        "summary": "List airports",
+        "tags": ["Airports"],
+        "parameters": [
+          { "name": "country", "in": "query", "schema": { "type": "string" } },
+          { "name": "type", "in": "query", "schema": { "type": "string" } },
+          { "name": "search", "in": "query", "schema": { "type": "string" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Airports list retrieved" }
+        }
+      }
+    },
+    "/airports/{icao}": {
+      "get": {
+        "summary": "Get airport details",
+        "tags": ["Airports"],
+        "parameters": [
+          {
+            "name": "icao",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Airport details retrieved" },
+          "404": { "description": "Airport not found" }
+        }
+      }
+    },
+    "/airports/nearest": {
+      "get": {
+        "summary": "Find nearest airports",
+        "tags": ["Airports"],
+        "parameters": [
+          { "name": "lat", "in": "query", "required": true, "schema": { "type": "number" } },
+          { "name": "lon", "in": "query", "required": true, "schema": { "type": "number" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Nearest airports found" }
+        }
+      }
+    },
+    "/aircraft/profiles": {
+      "get": {
+        "summary": "List aircraft profiles",
+        "tags": ["Weight & Balance"],
+        "responses": {
+          "200": { "description": "Aircraft profiles retrieved" }
+        }
+      }
+    },
+    "/aircraft/calculate-wb": {
+      "post": {
+        "summary": "Calculate weight & balance",
+        "tags": ["Weight & Balance"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "emptyWeight": { "type": "number" },
+                  "emptyWeightArm": { "type": "number" },
+                  "stations": { "type": "array" },
+                  "limits": { "type": "object" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "W&B calculated" }
+        }
+      }
+    },
+    "/logbook": {
+      "get": {
+        "summary": "Get all logbook entries",
+        "tags": ["Logbook"],
+        "responses": {
+          "200": { "description": "Logbook entries retrieved" }
+        }
+      },
+      "post": {
+        "summary": "Add logbook entry",
+        "tags": ["Logbook"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["date", "departure", "destination", "flightTime"],
+                "properties": {
+                  "date": { "type": "string" },
+                  "departure": { "type": "string" },
+                  "destination": { "type": "string" },
+                  "flightTime": { "type": "number" },
+                  "aircraft": { "type": "string" },
+                  "registration": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Entry created" }
+        }
+      }
+    },
+    "/logbook/{id}": {
+      "put": {
+        "summary": "Update logbook entry",
+        "tags": ["Logbook"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Entry updated" }
+        }
+      },
+      "delete": {
+        "summary": "Delete logbook entry",
+        "tags": ["Logbook"],
+        "parameters": [
+          { "name": "id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Entry deleted" }
+        }
+      }
+    },
+    "/logbook/totals": {
+      "get": {
+        "summary": "Get logbook totals",
+        "tags": ["Logbook"],
+        "responses": {
+          "200": { "description": "Totals calculated" }
+        }
+      }
+    },
+    "/logbook/currency": {
+      "get": {
+        "summary": "Get currency status",
+        "tags": ["Logbook"],
+        "responses": {
+          "200": { "description": "Currency status retrieved" }
+        }
+      }
+    },
+    "/fuel/calculate": {
+      "post": {
+        "summary": "Calculate fuel requirements",
+        "tags": ["Fuel"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["distance", "consumption"],
+                "properties": {
+                  "distance": { "type": "number" },
+                  "consumption": { "type": "number" },
+                  "flightRules": { "type": "string" },
+                  "alternate": { "type": "number" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Fuel calculated" }
+        }
+      }
+    },
+    "/aviation-data": {
+      "get": {
+        "summary": "Get aviation data (existing)",
+        "tags": ["Aviation Data"],
+        "parameters": [
+          { "name": "country", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "type", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Aviation data retrieved" }
+        }
+      }
+    },
+    "/sync/status": {
+      "get": {
+        "summary": "Get sync status (existing)",
+        "tags": ["Aviation Data"],
+        "responses": {
+          "200": { "description": "Sync status retrieved" }
+        }
+      }
+    }
+  }
+}

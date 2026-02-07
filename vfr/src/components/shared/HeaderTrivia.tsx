@@ -42,11 +42,7 @@ const HeaderTrivia: React.FC<HeaderTriviaProps> = ({
           const textWidth = textRef.current.scrollWidth;
           const containerWidth = container.clientWidth;
 
-          console.log('Text width:', textWidth, 'Container width:', containerWidth);
-
           const needsScrolling = textWidth > containerWidth - 10; // 10px buffer
-
-          console.log('Needs scrolling:', needsScrolling);
 
           setIsScrolling(needsScrolling);
 
