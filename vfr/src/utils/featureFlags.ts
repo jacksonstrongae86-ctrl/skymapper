@@ -25,9 +25,27 @@ export const FEATURES = {
   
   /**
    * Digital logbook
-   * Coming soon - flight log management and analysis
+   * Flight log management and currency tracking
    */
-  LOGBOOK: false,
+  LOGBOOK: true,
+  
+  /**
+   * Weight & Balance calculator
+   * Aircraft loading and CG calculations
+   */
+  WEIGHT_BALANCE: true,
+  
+  /**
+   * Weather overlays and briefings
+   * METAR/TAF display and route weather analysis
+   */
+  WEATHER: true,
+  
+  /**
+   * Enhanced airport directory
+   * Searchable airport database with detailed information
+   */
+  AIRPORT_DIRECTORY: true,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;
