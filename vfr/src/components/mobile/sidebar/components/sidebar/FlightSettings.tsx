@@ -6,7 +6,7 @@ import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
 import { AltitudeUnit } from "@/src/utils/unitConversions";
 import { FlightRules } from "@/src/utils/types";
 import { FEATURES } from "@/src/utils/featureFlags";
-import FlightRulesSelector from "@/src/components/shared/FlightRulesSelector";
+import { FlightRulesSelector } from "@/src/components/shared/FlightRulesSelector";
 import IFRRoutePanel from "@/src/components/shared/IFRRoutePanel";
 import LiveFlight from "@/src/components/shared/LiveFlight";
 
@@ -103,8 +103,8 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
             {/* Flight Rules Selector - IFR Support */}
             {FEATURES.IFR_SUPPORT && (
               <FlightRulesSelector
-                selected={flightRules}
-                onChange={setFlightRules}
+                currentRule={flightRules as 'VFR' | 'IFR'}
+                onChange={(rule) => setFlightRules(rule as FlightRules)}
               />
             )}
 

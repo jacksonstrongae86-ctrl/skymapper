@@ -24,6 +24,9 @@ import { useAviationData } from "@/src/hooks/index/useAviationData";
 import ClusteredAviationMarkers from "../../desktop/map/ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
+// Weather and IFR layers to be integrated later
+// import { WeatherOverlay } from "../../shared/WeatherOverlay";
+// import { AirwayLayer } from "../../shared/AirwayLayer";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -73,6 +76,8 @@ interface ExtendedMapComponentProps extends MapComponentProps {
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
+  flightRules?: 'VFR' | 'IFR';
+  showWeather?: boolean;
 }
 
 const MapComponent: React.FC<ExtendedMapComponentProps> = ({
@@ -97,6 +102,8 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   deleteRoute,
   renameRoute,
   analyzeRouteWarnings,
+  // flightRules = 'VFR', // To be integrated later
+  // showWeather = false, // To be integrated later
 }) => {
   // Function to move the map to specific coordinates
   const handleMoveMap = (lat: number, lon: number, zoom: number = 12) => {

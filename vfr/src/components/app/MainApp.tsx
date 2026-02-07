@@ -13,6 +13,8 @@ import BottomSidebar from "../desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../mobile/sidebar/BottomSidebar";
 import AirspaceAlert from "../shared/AirspaceAlert";
 import TriviaPopup from "../shared/TriviaPopup";
+import { ToolsPanel } from "../shared/ToolsPanel";
+import { FlightRulesSelector } from "../shared/FlightRulesSelector";
 
 const MapComponent = dynamic(
   () => import("../desktop/map/MapComponent"),
@@ -125,6 +127,12 @@ export default function MainApp() {
     hotspots: false,
     reportingpoints: false,
   });
+
+  // Flight rules (VFR/IFR)
+  const [flightRules, setFlightRules] = useState<'VFR' | 'IFR'>('VFR');
+
+  // Weather overlay
+  const [showWeatherOverlay, setShowWeatherOverlay] = useState(false);
 
   // Airspace alert dismissal
   const [alertDismissed, setAlertDismissed] = useState(false);
@@ -252,6 +260,11 @@ export default function MainApp() {
     }));
   };
 
+  // Toggle weather overlay
+  const toggleWeatherOverlay = () => {
+    setShowWeatherOverlay(prev => !prev);
+  };
+
   return (
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
@@ -275,8 +288,35 @@ export default function MainApp() {
         />
       )}
 
+      {/* Tools Panel - Desktop only (mobile will use bottom sheet) */}
+      {!isMobile && (
+        <ToolsPanel 
+          waypoints={waypoints} 
+          fuelConsumption={fuelConsumption}
+          gal_liter={gal_liter}
+          flightRules={flightRules}
+        />
+      )}
+
       {isMobile ? (
         <div className="flex flex-col h-full">
+          {/* Flight Rules Selector - Mobile */}
+          <div style={{ 
+            position: 'fixed', 
+            top: '10px', 
+            left: '10px', 
+            zIndex: 500,
+            backgroundColor: 'var(--sidebar-bg)',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            padding: '4px',
+          }}>
+            <FlightRulesSelector
+              currentRule={flightRules}
+              onChange={setFlightRules}
+            />
+          </div>
+
           <div id="mobile-top-sidebar" className="flex-none">
             <MobileSidebar
               results={undefined}
@@ -329,6 +369,8 @@ export default function MainApp() {
               deleteRoute={deleteRoute}
               renameRoute={renameRoute}
               analyzeRouteWarnings={analyzeRouteWarnings}
+              flightRules={flightRules}
+              showWeather={showWeatherOverlay}
             />
           </div>
 
@@ -348,6 +390,23 @@ export default function MainApp() {
         </div>
       ) : (
         <>
+          {/* Flight Rules Selector - Desktop in Sidebar */}
+          <div style={{
+            position: 'fixed',
+            top: '16px',
+            left: '16px',
+            zIndex: 500,
+            backgroundColor: 'var(--sidebar-bg)',
+            borderRadius: '8px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+            padding: '4px',
+          }}>
+            <FlightRulesSelector
+              currentRule={flightRules}
+              onChange={setFlightRules}
+            />
+          </div>
+
           <Sidebar
             results={undefined}
             {...uiState}
@@ -388,6 +447,8 @@ export default function MainApp() {
                 onCountryChange={setSelectedCountry}
                 analyzeRouteWarnings={analyzeRouteWarnings}
                 onMoveMapRef={moveMapRef}
+                flightRules={flightRules}
+                showWeather={showWeatherOverlay}
               />
             </div>
             <div className="absolute top-4 right-4 z-30">
@@ -411,6 +472,8 @@ export default function MainApp() {
                 loadRoute={loadRoute}
                 deleteRoute={deleteRoute}
                 renameRoute={renameRoute}
+                showWeatherOverlay={showWeatherOverlay}
+                toggleWeatherOverlay={toggleWeatherOverlay}
               />
             </div>
           </div>

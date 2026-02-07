@@ -22,6 +22,8 @@ import {
 import ClusteredAviationMarkers from "./ClusteredAviationMarkers";
 import { detectUserCountry } from "../../../utils/countryDetection";
 import { RouteWarningAnalysis } from "../../../hooks/index/useAltitudeCompliance";
+import { WeatherOverlay } from "../../shared/WeatherOverlay";
+import AirwayLayer from "../../shared/AirwayLayer";
 
 type MapComponentProps = {
   onMapClick: (e: LeafletMouseEvent) => void;
@@ -44,6 +46,8 @@ type MapComponentProps = {
   onCountryChange: (country: string) => void;
   analyzeRouteWarnings?: (waypoints: Waypoint[]) => RouteWarningAnalysis;
   onMoveMapRef?: React.MutableRefObject<((lat: number, lon: number, zoom?: number) => void) | null>;
+  flightRules?: 'VFR' | 'IFR';
+  showWeather?: boolean;
 };
 
 const MapComponent: React.FC<MapComponentProps> = ({
@@ -63,6 +67,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
   onCountryChange,
   analyzeRouteWarnings,
   onMoveMapRef,
+  flightRules = 'VFR',
+  showWeather = false,
 }) => {
   const { theme } = useTheme();
   const validMapTypes = ["street", "sat", "hybrid", "terrain"];
@@ -355,6 +361,30 @@ const MapComponent: React.FC<MapComponentProps> = ({
               return null;
           }
         })}
+
+      {/* Weather Overlay */}
+      {showWeather && showAviationData && (
+        <WeatherOverlay 
+          airports={airports.filter(a => {
+            return a.icaoCode && 
+                   a.geometry?.type === 'Point' && 
+                   Array.isArray(a.geometry.coordinates) &&
+                   a.geometry.coordinates.length === 2;
+          }).map(a => {
+            const coords = a.geometry!.coordinates as [number, number];
+            return {
+              icao: a.icaoCode!,
+              lat: coords[1],
+              lon: coords[0],
+              name: a.name || a.icaoCode!,
+            };
+          })}
+          enabled={true}
+        />
+      )}
+
+      {/* IFR Airways Layer - to be integrated with airways data */}
+      {flightRules === 'IFR' && <AirwayLayer airways={[]} visible={true} />}
 
       {/* Route polyline */}
       {waypoints.filter((wp) => wp.visible !== false).length > 1 && (

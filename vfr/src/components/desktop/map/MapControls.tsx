@@ -61,6 +61,8 @@ interface ExtendedMapControlsProps extends MapControlsProps {
   deleteRoute: (id: string) => void;
   renameRoute: (id: string, name: string) => void;
   onMoveMap?: (lat: number, lon: number, zoom?: number) => void;
+  showWeatherOverlay?: boolean;
+  toggleWeatherOverlay?: () => void;
 }
 
 const MapControls: React.FC<ExtendedMapControlsProps> = ({
@@ -83,7 +85,11 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   deleteRoute,
   renameRoute,
   waypoints,
+  showWeatherOverlay,
+  toggleWeatherOverlay,
 }) => {
+  // Use showWeatherOverlay to prevent unused var warning
+  const weatherEnabled = showWeatherOverlay || false;
   const { theme } = useTheme();
   const [isThemeSelectorOpen, setIsThemeSelectorOpen] = useState(false);
   const [isMapSelectorOpen, setIsMapSelectorOpen] = useState(false);
@@ -701,6 +707,28 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
                 <Plane size={16} />
                 <span className="text-sm font-medium">Show Aviation Data</span>
               </button>
+
+              {/* Weather Overlay Toggle */}
+              {toggleWeatherOverlay && (
+                <button
+                  onClick={toggleWeatherOverlay}
+                  className={`
+            w-full px-3 py-2 mt-1
+            flex items-center gap-2
+            rounded-lg
+            transition-all duration-200
+            ${
+              weatherEnabled
+                ? `${`button-gradient-${theme}`} text-[var(--button-text)]`
+                : "hover:bg-[var(--button-hover)] text-white"
+            }
+          `}
+                  title="Toggle Weather Overlay"
+                >
+                  <span style={{ fontSize: '16px' }}>🌤️</span>
+                  <span className="text-sm font-medium">Weather Overlay</span>
+                </button>
+              )}
 
               {/* Layer Options - Always show when dropdown is open */}
               <div className="mt-2 pt-2 border-t border-[var(--sidebar-border)]">
