@@ -13,15 +13,15 @@ export const FEATURES = {
   
   /**
    * IFR (Instrument Flight Rules) support
-   * Coming soon - flight planning and procedures for IFR operations
+   * Flight planning with airways and procedures for IFR operations
    */
-  IFR_SUPPORT: false,
+  IFR_SUPPORT: true,
   
   /**
    * Live flight tracking
-   * Coming soon - real-time aircraft position tracking
+   * Real-time aircraft position tracking with GPS and device sensors
    */
-  LIVE_TRACKING: false,
+  LIVE_TRACKING: true,
   
   /**
    * Digital logbook

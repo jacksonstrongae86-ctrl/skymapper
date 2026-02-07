@@ -4,6 +4,11 @@ import { CustomDatePicker } from "../../../../CustomDatePicker";
 import { Settings, ChevronDown, ChevronUp, Fuel, Clock, Ruler } from "lucide-react";
 import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
 import { AltitudeUnit } from "@/src/utils/unitConversions";
+import { FlightRules } from "@/src/utils/types";
+import { FEATURES } from "@/src/utils/featureFlags";
+import FlightRulesSelector from "@/src/components/shared/FlightRulesSelector";
+import IFRRoutePanel from "@/src/components/shared/IFRRoutePanel";
+import LiveFlight from "@/src/components/shared/LiveFlight";
 
 interface FlightSettingsProps {
   isSettingsVisible: boolean;
@@ -29,6 +34,9 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   const { theme } = useTheme();
   const { altitudeUnit, setAltitudeUnit } = useAltitudeUnit();
   const units: AltitudeUnit[] = ['ft', 'm', 'fl'];
+
+  // IFR Support state
+  const [flightRules, setFlightRules] = useState<FlightRules>('VFR');
 
   // Local state for fuel consumption display value
   const [fuelDisplayValue, setFuelDisplayValue] = useState(
@@ -86,11 +94,37 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
         <div
           className={`
             transition-all duration-300 ease-in-out
-            ${isSettingsVisible ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+            ${isSettingsVisible ? "max-h-[800px] opacity-100" : "max-h-0 opacity-0"}
             ${`gradient-${theme}`}
+            overflow-y-auto
           `}
         >
           <div className="p-4 space-y-4">
+            {/* Flight Rules Selector - IFR Support */}
+            {FEATURES.IFR_SUPPORT && (
+              <FlightRulesSelector
+                selected={flightRules}
+                onChange={setFlightRules}
+              />
+            )}
+
+            {/* IFR Route Panel - Only show when IFR is selected */}
+            {FEATURES.IFR_SUPPORT && flightRules === 'IFR' && (
+              <IFRRoutePanel />
+            )}
+
+            {/* Live Flight Tracking */}
+            {FEATURES.LIVE_TRACKING && (
+              <div className="border-t border-[var(--sidebar-border)] pt-4">
+                <LiveFlight flightRules={flightRules} />
+              </div>
+            )}
+
+            {/* Divider between new features and existing settings */}
+            {(FEATURES.IFR_SUPPORT || FEATURES.LIVE_TRACKING) && (
+              <div className="border-t border-[var(--sidebar-border)] pt-4" />
+            )}
+
             {/* Inputs with consistent styling */}
             <div className="space-y-4">
               <label className="block">

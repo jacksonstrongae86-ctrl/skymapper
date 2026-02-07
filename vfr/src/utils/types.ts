@@ -75,6 +75,45 @@ export interface FlightResultsTableProps {
   results: JSX.Element[];
 }
 
+// IFR Types
+export type FlightRules = 'VFR' | 'IFR' | 'SVFR';
+
+export interface Airway {
+  id: string;
+  name: string;
+  type: 'LOW' | 'HIGH'; // Victor (Low) or Jet (High) airways
+  fixes: AirwayFix[];
+  country: string;
+  minAltitude: number; // MEA in feet
+  maxAltitude?: number;
+}
+
+export interface AirwayFix {
+  name: string;
+  position: [number, number];
+  type: 'VOR' | 'NDB' | 'FIX' | 'DME' | 'WAYPOINT';
+}
+
+export interface Procedure {
+  id: string;
+  name: string;
+  type: 'SID' | 'STAR' | 'APPROACH';
+  airport: string; // ICAO code
+  runway?: string;
+  fixes: ProcedureFix[];
+  minimumAltitude?: number;
+  transitionAltitude?: number;
+}
+
+export interface ProcedureFix {
+  name: string;
+  position: [number, number];
+  altitude?: number; // Constraint altitude
+  altitudeConstraint?: 'AT' | 'AT_OR_ABOVE' | 'AT_OR_BELOW' | 'BETWEEN';
+  speed?: number;
+  speedConstraint?: 'AT' | 'AT_OR_BELOW';
+}
+
 // Index
 export interface Waypoint {
   position: [number, number];
@@ -94,6 +133,7 @@ export interface Waypoint {
   transitionWaypointIndex?: number;
   time?: number; // Optional time for the waypoint
   isManualName?: boolean;
+  flightRules?: FlightRules;
 }
 export interface LegCalculation {
   distance: number;
