@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import path from "path";
 import fs from "fs/promises";
 import { AviationGeometry, AviationProperties, GeoJsonFeature, GeoJsonFeatureCollection  } from "@/src/utils/types";
+import { isDataStale } from "@/src/services/syncStatus";
 
 
 interface CachedData {
@@ -172,6 +173,16 @@ export default async function handler(
     // Read the cached file
     const fileContent = await fs.readFile(filepath, "utf-8");
     const cachedData: CachedData = JSON.parse(fileContent);
+
+    // Check if data is stale (older than 48 hours)
+    const isStale = isDataStale(cachedData.lastUpdated);
+    if (isStale) {
+      console.warn(`Data for ${country}_${type} is stale (last updated: ${cachedData.lastUpdated})`);
+      // Trigger background re-sync (fire and forget)
+      fetch(`${req.headers.origin || 'http://localhost:3000'}/api/sync/manual`, {
+        method: 'POST',
+      }).catch(err => console.error('Failed to trigger background sync:', err));
+    }
 
     // Transform GeoJSON features to your expected format
     let features = cachedData.data.features || [];

@@ -1,7 +1,15 @@
 import { useState } from "react";
+import { useIsMobile } from "../useIsMobile";
 
+/**
+ * Responsive UI state hook
+ * Uses different default sidebar widths for mobile vs desktop
+ */
 export function useUIState() {
-  const [sidebarWidth, setSidebarWidth] = useState(472);
+  const isMobile = useIsMobile();
+  const defaultSidebarWidth = isMobile ? 300 : 472;
+  
+  const [sidebarWidth, setSidebarWidth] = useState(defaultSidebarWidth);
   const [sidebarHeight, setSidebarHeight] = useState(25);
   const [isMinimized, setIsMinimized] = useState(false);
   const [isFullScreen, setIsFullScreen] = useState(false);

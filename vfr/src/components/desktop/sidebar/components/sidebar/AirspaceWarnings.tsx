@@ -3,6 +3,7 @@ import { useTheme } from "@/src/utils/ThemeContext";
 import { AlertTriangle, ChevronDown, ChevronUp } from "lucide-react";
 import AirspaceWarningPanel from "../../../../shared/AirspaceWarningPanel";
 import { Waypoint, Airspace } from "@/src/utils/types";
+import { FEATURES } from "@/src/utils/featureFlags";
 
 interface RouteWarningAnalysis {
   warnings: Array<{
@@ -46,6 +47,19 @@ export const AirspaceWarnings: React.FC<AirspaceWarningsProps> = ({
   initialTab,
 }) => {
   const { theme } = useTheme();
+
+  if (!FEATURES.AIRSPACE_WARNINGS) {
+    return (
+      <div id="airspace-warnings" className="px-4 mb-4">
+        <div className="border border-[var(--sidebar-border)] rounded-xl overflow-hidden shadow-lg p-4 text-sm text-[var(--text-secondary)] opacity-60">
+          <div className="flex items-center gap-2">
+            <AlertTriangle size={16} />
+            <span>Sistema de avisos deshabilitado temporalmente. Los datos de espacio aéreo no están verificados oficialmente.</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div id="airspace-warnings" className="px-4 mb-4">

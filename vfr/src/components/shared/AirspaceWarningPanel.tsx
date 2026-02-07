@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Waypoint, Airspace } from '@/src/utils/types';
 import { useTheme } from '@/src/utils/ThemeContext';
-import { AlertTriangle, Info, CheckCircle, BarChart3 } from 'lucide-react';
+import { AlertTriangle, Info, CheckCircle, BarChart3, XCircle } from 'lucide-react';
+import { FEATURES } from '@/src/utils/featureFlags';
 
 interface RouteWarningAnalysis {
   warnings: Array<{
@@ -52,6 +53,35 @@ const AirspaceWarningPanel: React.FC<AirspaceWarningPanelProps> = ({
 
   const violationWarnings = warningAnalysis.warnings.filter(w => w.hasViolation);
   const informationalWarnings = warningAnalysis.warnings.filter(w => !w.hasViolation);
+
+  // Check if feature is disabled
+  if (!FEATURES.AIRSPACE_WARNINGS) {
+    return (
+      <div className="p-6">
+        <div className="text-center py-8">
+          <XCircle className="w-16 h-16 text-orange-400 mx-auto mb-4" />
+          <h3 className="text-lg font-semibold text-[var(--sidebar-text)] mb-2">
+            Sistema Temporalmente Deshabilitado
+          </h3>
+          <p className="text-sm text-[var(--sidebar-text-muted)] max-w-md mx-auto leading-relaxed">
+            Sistema de avisos deshabilitado temporalmente. Los datos de espacio aéreo no están verificados oficialmente.
+          </p>
+          <div className="mt-6 p-4 bg-blue-600/10 rounded-lg border border-blue-600/30">
+            <div className="flex items-start gap-3">
+              <Info className="w-5 h-5 text-blue-400 mt-0.5 flex-shrink-0" />
+              <div className="text-xs text-left text-[var(--sidebar-text-muted)]">
+                <div className="font-semibold mb-1 text-[var(--sidebar-text)]">Próximamente</div>
+                <div>
+                  El sistema de alertas de espacio aéreo estará disponible próximamente con datos oficiales 
+                  verificados de ENAIRE AIS/AIP. Mientras tanto, consulte siempre el AIP oficial antes de volar.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>
