@@ -14,7 +14,7 @@ import MobileBottomSidebar from "../mobile/sidebar/BottomSidebar";
 // import AirspaceAlert from "../shared/AirspaceAlert";
 import TriviaPopup from "../shared/TriviaPopup";
 import { ToolsPanel } from "../shared/ToolsPanel";
-import { FlightRulesSelector } from "../shared/FlightRulesSelector";
+// FlightRulesSelector moved to FlightSettings
 import { FlightControlBar } from "../shared/FlightControlBar";
 import { gpsService, GPSPosition } from "../../services/gpsService";
 import FlightStatsOverlay from "../shared/FlightStatsOverlay";
@@ -135,6 +135,7 @@ export default function MainApp() {
   });
 
   // Flight rules (VFR/IFR)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [flightRules, setFlightRules] = useState<'VFR' | 'IFR'>('VFR');
 
   // Weather overlay
@@ -445,22 +446,7 @@ export default function MainApp() {
         </div>
       ) : (
         <>
-          {/* Flight Rules Selector - Desktop in Sidebar */}
-          <div style={{
-            position: 'fixed',
-            top: '16px',
-            left: '16px',
-            zIndex: 500,
-            backgroundColor: 'var(--sidebar-bg)',
-            borderRadius: '8px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            padding: '4px',
-          }}>
-            <FlightRulesSelector
-              currentRule={flightRules}
-              onChange={setFlightRules}
-            />
-          </div>
+          {/* Flight Rules Selector moved to FlightSettings */}
 
           <Sidebar
             results={undefined}
@@ -523,8 +509,7 @@ export default function MainApp() {
                 trackUpMode={trackUpMode}
               />
 
-              {/* Map Controls - positioned inside map container */}
-              <div className="absolute top-4 right-4 z-30">
+              {/* Map Controls */}
               <MapControls
                 mapType={uiState.mapType}
                 setMapType={uiState.setMapType}
@@ -554,7 +539,6 @@ export default function MainApp() {
                 showInstruments={showInstruments}
                 onToggleInstruments={() => setShowInstruments(!showInstruments)}
               />
-              </div>
             </div>
 
             {/* Draggable Divider - only visible when tool is active */}

@@ -81,7 +81,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   currentPosition = null,
   flightTrail = [],
   isFlightActive = false,
-  onStartFlight,
+  // onStartFlight moved to FlightSettings
   showRangeRings = false,
   trackUpMode = false, // TODO: Implement track-up mode with map rotation
 }) => {
@@ -459,26 +459,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
       />
 
       {/* Start Flight Button */}
-      {!isFlightActive && onStartFlight && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '24px',
-            right: '24px',
-            zIndex: 1000,
-          }}
-        >
-          <button
-            onClick={(e) => { e.stopPropagation(); onStartFlight(); }}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold 
-                       px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 
-                       transition-all transform hover:scale-105 border-2 border-green-400/30"
-          >
-            <span className="text-xl">▶️</span>
-            <span>Iniciar Vuelo</span>
-          </button>
-        </div>
-      )}
+      {/* Start Flight button moved to FlightSettings sidebar */}
     </MapContainer>
   );
 };

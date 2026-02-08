@@ -24,9 +24,9 @@ import {
   Share2,
   MapPin,
   MoreVertical,
-  Compass,
-  Circle,
-  Gauge,
+  // Compass,
+  // Circle,
+  // Gauge,
 } from "lucide-react";
 import { serializeRoute } from "@/src/hooks/index/useWaypoints";
 
@@ -96,12 +96,8 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   waypoints,
   showWeatherOverlay,
   toggleWeatherOverlay,
-  trackUpMode = false,
-  onToggleTrackUp,
-  showRangeRings = false,
-  onToggleRangeRings,
-  showInstruments = false,
-  onToggleInstruments,
+  // Flight-only controls — disabled for now
+  // trackUpMode, onToggleTrackUp, showRangeRings, onToggleRangeRings, showInstruments, onToggleInstruments
 }) => {
   // Use showWeatherOverlay to prevent unused var warning
   const weatherEnabled = showWeatherOverlay || false;
@@ -433,8 +429,8 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
   ]);
 
   return (
-    <div className="fixed right-4 top-4 z-50 grid grid-rows-2 gap-3">
-      <div className="grid grid-cols-2 gap-3">
+    <div className="fixed right-4 top-4 flex flex-col gap-2" style={{ zIndex: 1000 }}>
+      <div className="flex flex-col gap-2">
         {/* Search Button */}
         <div className="relative" ref={searchRef}>
           <button
@@ -856,47 +852,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         >
           <Trash2 size={18} className="text-[var(--button-text)]" />
         </button>
-        <div className="grid grid-cols-3 gap-3">
-          {/* Track Up / North Up Toggle */}
-          {onToggleTrackUp && (
-            <button
-              id="track-up-toggle"
-              className={`${ButtonClass} ${trackUpMode ? 'ring-2 ring-blue-500' : ''}`}
-              onClick={onToggleTrackUp}
-              title={trackUpMode ? "Track Up Mode" : "North Up Mode"}
-            >
-              <Compass 
-                size={18} 
-                className="text-[var(--button-text)]"
-                style={{ transform: trackUpMode ? 'rotate(0deg)' : 'rotate(0deg)' }}
-              />
-            </button>
-          )}
-
-          {/* Range Rings Toggle */}
-          {onToggleRangeRings && (
-            <button
-              id="range-rings-toggle"
-              className={`${ButtonClass} ${showRangeRings ? 'ring-2 ring-green-500' : ''}`}
-              onClick={onToggleRangeRings}
-              title={showRangeRings ? "Hide Range Rings" : "Show Range Rings"}
-            >
-              <Circle size={18} className="text-[var(--button-text)]" />
-            </button>
-          )}
-
-          {/* Instruments Panel Toggle */}
-          {onToggleInstruments && (
-            <button
-              id="instruments-toggle"
-              className={`${ButtonClass} ${showInstruments ? 'ring-2 ring-purple-500' : ''}`}
-              onClick={onToggleInstruments}
-              title={showInstruments ? "Hide Instruments" : "Show Instruments"}
-            >
-              <Gauge size={18} className="text-[var(--button-text)]" />
-            </button>
-          )}
-        </div>
+        {/* Track Up, Range Rings, Instruments — only visible during active flight */}
 
         {/* Route Manager Dropdown */}
         <div className="relative" ref={routeManagerRef}>
