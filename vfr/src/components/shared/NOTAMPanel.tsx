@@ -51,9 +51,15 @@ export const NOTAMPanel: React.FC<NOTAMPanelProps> = ({ icao, waypoints, mode = 
       setNotams(data);
     } catch (error) {
       console.error('Error loading route NOTAMs:', error);
+      setNotams([]);
     } finally {
       setLoading(false);
     }
+  };
+
+  // Helper to check if waypoints have valid ICAO codes
+  const hasValidIcaoCodes = (wps: Waypoint[]): boolean => {
+    return wps.some(wp => wp.name && /^[A-Z]{4}$/.test(wp.name.trim()));
   };
 
   const handleSearch = () => {
@@ -90,10 +96,32 @@ export const NOTAMPanel: React.FC<NOTAMPanelProps> = ({ icao, waypoints, mode = 
     return acc;
   }, {} as Record<string, NOTAM[]>);
 
+  // Check if we should show empty state for route mode
+  const showRouteEmptyState = mode === 'route' && (!waypoints || waypoints.length === 0 || !hasValidIcaoCodes(waypoints));
+
   return (
     <div style={{ fontFamily: 'sans-serif', fontSize: '14px', color: 'var(--foreground)' }}>
+      {/* Empty state for route mode */}
+      {showRouteEmptyState && !loading && (
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '40px', 
+          backgroundColor: 'var(--sidebar-bg)',
+          borderRadius: '8px',
+          border: '2px dashed var(--sidebar-border)',
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>📢</div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+            Agrega aeropuertos con códigos ICAO a tu ruta
+          </div>
+          <div style={{ fontSize: '14px', opacity: 0.7 }}>
+            Los NOTAMs se mostrarán automáticamente para todos los aeródromos ICAO en tu ruta
+          </div>
+        </div>
+      )}
+
       {/* Search bar (only in single mode without predefined ICAO) */}
-      {mode === 'single' && !icao && (
+      {mode === 'single' && !icao && !showRouteEmptyState && (
         <div style={{ marginBottom: '16px', display: 'flex', gap: '8px' }}>
           <input
             type="text"
@@ -137,6 +165,7 @@ export const NOTAMPanel: React.FC<NOTAMPanelProps> = ({ icao, waypoints, mode = 
       )}
 
       {/* Filter tabs */}
+      {!showRouteEmptyState && (
       <div style={{ display: 'flex', gap: '8px', marginBottom: '16px', flexWrap: 'wrap' }}>
         {[
           { key: 'active', label: 'Activos' },
@@ -170,8 +199,11 @@ export const NOTAMPanel: React.FC<NOTAMPanelProps> = ({ icao, waypoints, mode = 
           </button>
         ))}
       </div>
+      )}
 
       {/* Loading state */}
+      {!showRouteEmptyState && (
+      <>
       {loading && (
         <div style={{ textAlign: 'center', padding: '32px', color: 'var(--foreground)', opacity: 0.7 }}>
           Cargando NOTAMs...
@@ -266,6 +298,8 @@ export const NOTAMPanel: React.FC<NOTAMPanelProps> = ({ icao, waypoints, mode = 
           </div>
         </div>
       ))}
+      </>
+      )}
     </div>
   );
 };

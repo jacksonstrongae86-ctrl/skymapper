@@ -171,7 +171,19 @@ export default async function handler(
     }
 
     // Read the cached file
-    const fileContent = await fs.readFile(filepath, "utf-8");
+    let fileContent: string;
+    try {
+      fileContent = await fs.readFile(filepath, "utf-8");
+    } catch {
+      // File doesn't exist — return empty data
+      return res.status(200).json({
+        data: { items: [] },
+        lastUpdated: null,
+        cached: false,
+        itemsCount: 0,
+        freshlyFetched: false,
+      });
+    }
     const cachedData: CachedData = JSON.parse(fileContent);
 
     // Check if data is stale (older than 48 hours)

@@ -93,6 +93,22 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
     return 'GO';
   };
 
+  // Wind arrow SVG component
+  const WindArrow: React.FC<{ direction: number; speed: number }> = ({ direction, speed }) => {
+    return (
+      <svg width="60" height="60" viewBox="0 0 60 60" style={{ display: 'inline-block', marginLeft: '10px' }}>
+        <circle cx="30" cy="30" r="28" fill="none" stroke="var(--sidebar-border)" strokeWidth="1" />
+        <g transform={`rotate(${direction} 30 30)`}>
+          <line x1="30" y1="10" x2="30" y2="45" stroke="#3b82f6" strokeWidth="3" />
+          <polygon points="30,8 26,14 34,14" fill="#3b82f6" />
+        </g>
+        <text x="30" y="34" textAnchor="middle" fill="var(--foreground)" fontSize="10" fontWeight="bold">
+          {speed}kt
+        </text>
+      </svg>
+    );
+  };
+
   const renderAirportWeather = (icao: string, label: string) => {
     const metar = metars.get(icao);
     const taf = tafs.get(icao);
@@ -162,10 +178,13 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
 
         <div style={{ display: 'grid', gap: '6px', fontSize: '14px' }}>
           {metar.wind && (
-            <div>
-              <strong>Viento:</strong> {metar.wind.direction}° (
-              {decodeWindDirection(metar.wind.direction)}) a {metar.wind.speed} kt
-              {metar.wind.gust && ` con rachas de ${metar.wind.gust} kt`}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div>
+                <strong>Viento:</strong> {metar.wind.direction}° (
+                {decodeWindDirection(metar.wind.direction)}) a {metar.wind.speed} kt
+                {metar.wind.gust && ` con rachas de ${metar.wind.gust} kt`}
+              </div>
+              <WindArrow direction={Number(metar.wind.direction)} speed={Number(metar.wind.speed)} />
             </div>
           )}
           {metar.visibility !== undefined && (

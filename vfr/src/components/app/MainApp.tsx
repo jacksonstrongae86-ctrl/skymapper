@@ -363,22 +363,7 @@ export default function MainApp() {
 
       {isMobile ? (
         <div className="flex flex-col h-full">
-          {/* Flight Rules Selector - Mobile */}
-          <div style={{ 
-            position: 'fixed', 
-            top: '10px', 
-            left: '10px', 
-            zIndex: 500,
-            backgroundColor: 'var(--sidebar-bg)',
-            borderRadius: '8px',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
-            padding: '4px',
-          }}>
-            <FlightRulesSelector
-              currentRule={flightRules}
-              onChange={setFlightRules}
-            />
-          </div>
+          {/* Flight Rules Selector moved to FlightSettings */}
 
           <div id="mobile-top-sidebar" className="flex-none">
             <MobileSidebar

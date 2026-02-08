@@ -65,20 +65,33 @@ export const FlightPlanForm: React.FC<FlightPlanFormProps> = ({ waypoints, fligh
   const [plan, setPlan] = useState<FlightPlan>(defaultFlightPlan);
   const [showIcaoFormat, setShowIcaoFormat] = useState(false);
 
+  // Helper to check if a string is a valid ICAO code
+  const isIcaoCode = (code: string): boolean => {
+    return /^[A-Z]{4}$/.test(code.trim());
+  };
+
   // Auto-populate from waypoints
   useEffect(() => {
     if (waypoints && waypoints.length >= 2) {
       const departure = waypoints[0];
       const destination = waypoints[waypoints.length - 1];
 
-      // Build route string (waypoints don't have ICAO codes, only names/positions)
-      const routeWaypoints = waypoints.slice(1, -1).map(wp => wp.name || 'DCT').join(' ');
+      // Extract ICAO codes only if they're valid
+      const depIcao = departure.name && isIcaoCode(departure.name) ? departure.name : '';
+      const destIcao = destination.name && isIcaoCode(destination.name) ? destination.name : '';
+
+      // Build route string - only include valid ICAO waypoints or DCT
+      const routeWaypoints = waypoints
+        .slice(1, -1)
+        .map(wp => (wp.name && isIcaoCode(wp.name)) ? wp.name : null)
+        .filter(Boolean)
+        .join(' ') || 'DCT';
 
       setPlan(prev => ({
         ...prev,
-        departureIcao: departure.name || '',
-        destinationIcao: destination.name || '',
-        route: routeWaypoints || 'DCT',
+        departureIcao: depIcao,
+        destinationIcao: destIcao,
+        route: routeWaypoints,
       }));
     }
   }, [waypoints]);
@@ -152,8 +165,17 @@ J/${plan.lifeJackets.join('')} D/${plan.dinghies} A/${plan.aircraftColor} C/${pl
     borderRadius: '8px',
   };
 
+  const hasIcaoWaypoints = waypoints && waypoints.length >= 2 && 
+    isIcaoCode(waypoints[0].name || '') && 
+    isIcaoCode(waypoints[waypoints.length - 1].name || '');
+
   return (
     <div style={{ fontFamily: 'sans-serif', fontSize: '14px', color: 'var(--foreground)' }}>
+      {!hasIcaoWaypoints && waypoints && waypoints.length >= 2 && (
+        <div style={{ marginBottom: '16px', padding: '12px', backgroundColor: '#fee2e2', border: '1px solid #ef4444', borderRadius: '4px' }}>
+          <strong>💡 Sugerencia:</strong> Agrega aeropuertos con códigos ICAO válidos como salida y destino para que el formulario se complete automáticamente.
+        </div>
+      )}
       <div style={{ marginBottom: '16px', padding: '12px', backgroundColor: '#fef3c7', border: '1px solid #fbbf24', borderRadius: '4px' }}>
         <strong>⚠️ Nota importante:</strong> Este formulario genera el formato ICAO del plan de vuelo, pero NO lo presenta automáticamente. 
         Debes presentar tu plan de vuelo a través de los canales oficiales (AIS, EUROCONTROL, etc.).

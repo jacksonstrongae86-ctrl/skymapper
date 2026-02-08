@@ -28,6 +28,8 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
   const [selectedAirport, setSelectedAirport] = useState<Airport | null>(null);
   const [filterType, setFilterType] = useState<string>('all');
   const [sortBy, setSortBy] = useState<'name' | 'distance'>('name');
+  const [searchResults, setSearchResults] = useState<Airport[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [metar, setMetar] = useState<METAR | null>(null);
   const [taf, setTaf] = useState<TAFData | null>(null);
   const [notams, setNotams] = useState<NOTAMData[]>([]);
@@ -42,6 +44,35 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
     }
     return null;
   };
+
+  // Search airports via API when search query changes
+  useEffect(() => {
+    const searchAirports = async () => {
+      if (!searchQuery || searchQuery.length < 2) {
+        setSearchResults([]);
+        return;
+      }
+
+      setIsSearching(true);
+      try {
+        const response = await fetch(`/api/airports?search=${encodeURIComponent(searchQuery)}`);
+        if (response.ok) {
+          const data = await response.json();
+          setSearchResults(data.airports || []);
+        } else {
+          setSearchResults([]);
+        }
+      } catch (error) {
+        console.error('Error searching airports:', error);
+        setSearchResults([]);
+      } finally {
+        setIsSearching(false);
+      }
+    };
+
+    const debounceTimeout = setTimeout(searchAirports, 300);
+    return () => clearTimeout(debounceTimeout);
+  }, [searchQuery]);
 
   // Fetch METAR and TAF when airport is selected and weather tab is opened
   useEffect(() => {
@@ -136,8 +167,11 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
     return R * c; // Distance in km
   };
 
+  // Use search results if searching, otherwise use provided airports
+  const airportList = searchQuery && searchQuery.length >= 2 ? searchResults : airports;
+
   // Filter and sort airports
-  const filteredAirports = airports
+  const filteredAirports = airportList
     .filter((airport) => {
       // Search query
       if (searchQuery) {
@@ -414,7 +448,29 @@ export const AirportDirectory: React.FC<AirportDirectoryProps> = ({ airports, us
       <div style={{ display: 'grid', gridTemplateColumns: selectedAirport ? '1fr 2fr' : '1fr', gap: '20px' }}>
         {/* Airport list */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxHeight: '70vh', overflowY: 'auto' }}>
-          {filteredAirports.length === 0 && (
+          {isSearching && (
+            <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
+              Buscando aeródromos...
+            </div>
+          )}
+          {!isSearching && filteredAirports.length === 0 && airportList.length === 0 && !searchQuery && (
+            <div style={{ 
+              textAlign: 'center', 
+              padding: '40px',
+              backgroundColor: 'var(--sidebar-bg)',
+              borderRadius: '8px',
+              border: '2px dashed var(--sidebar-border)',
+            }}>
+              <div style={{ fontSize: '48px', marginBottom: '16px' }}>🛩️</div>
+              <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                Busca aeródromos por código ICAO o nombre
+              </div>
+              <div style={{ fontSize: '14px', opacity: 0.7 }}>
+                Escribe en el campo de búsqueda para encontrar aeropuertos
+              </div>
+            </div>
+          )}
+          {!isSearching && filteredAirports.length === 0 && (airportList.length > 0 || searchQuery) && (
             <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
               No se encontraron aeródromos con los filtros seleccionados
             </div>
