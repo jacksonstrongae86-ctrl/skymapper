@@ -125,8 +125,21 @@ export const FuelPlanner: React.FC<FuelPlannerProps> = ({
 
   if (!calculation || waypoints.length < 2) {
     return (
-      <div style={{ textAlign: 'center', padding: '32px', color: 'var(--foreground)', opacity: 0.7 }}>
-        Planifica una ruta con al menos dos puntos para calcular el combustible
+      <div style={{ 
+        textAlign: 'center', 
+        padding: '40px',
+        backgroundColor: 'var(--sidebar-bg)',
+        borderRadius: '8px',
+        border: '2px dashed var(--sidebar-border)',
+        color: 'var(--foreground)',
+      }}>
+        <div style={{ fontSize: '48px', marginBottom: '16px' }}>⛽</div>
+        <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+          Planifica una ruta para calcular el combustible
+        </div>
+        <div style={{ fontSize: '14px', opacity: 0.7 }}>
+          Agrega al menos dos waypoints con velocidad indicada (IAS) para calcular consumo y autonomía
+        </div>
       </div>
     );
   }

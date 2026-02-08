@@ -229,8 +229,20 @@ export const Logbook: React.FC = () => {
           {/* Entries list */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
             {entries.length === 0 && (
-              <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
-                No hay vuelos registrados. Añade tu primer vuelo.
+              <div style={{ 
+                textAlign: 'center', 
+                padding: '40px',
+                backgroundColor: 'var(--sidebar-bg)',
+                borderRadius: '8px',
+                border: '2px dashed var(--sidebar-border)',
+              }}>
+                <div style={{ fontSize: '48px', marginBottom: '16px' }}>📋</div>
+                <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+                  Tu diario de vuelo está vacío
+                </div>
+                <div style={{ fontSize: '14px', opacity: 0.7 }}>
+                  Haz clic en &quot;Añadir Vuelo&quot; para registrar tu primer vuelo
+                </div>
               </div>
             )}
             {entries.map((entry) => (

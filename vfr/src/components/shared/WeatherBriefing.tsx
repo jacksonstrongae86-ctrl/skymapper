@@ -242,8 +242,20 @@ export const WeatherBriefing: React.FC<WeatherBriefingProps> = ({ departure, des
       )}
 
       {!loading && (!departure && !destination) && (
-        <div style={{ textAlign: 'center', padding: '40px', opacity: 0.6 }}>
-          Selecciona aeródromos de salida y destino para ver el briefing meteorológico
+        <div style={{ 
+          textAlign: 'center', 
+          padding: '40px',
+          backgroundColor: 'var(--sidebar-bg)',
+          borderRadius: '8px',
+          border: '2px dashed var(--sidebar-border)',
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>🌤️</div>
+          <div style={{ fontSize: '16px', fontWeight: '600', marginBottom: '8px' }}>
+            Planifica una ruta para ver el briefing meteorológico
+          </div>
+          <div style={{ fontSize: '14px', opacity: 0.7 }}>
+            Agrega al menos dos waypoints con códigos ICAO para obtener METAR y TAF
+          </div>
         </div>
       )}
 
