@@ -29,7 +29,7 @@ export interface RouteWarningAnalysis {
 }
 
 export function useAltitudeCompliance(airspaces: Airspace[] = []) {
-  const [showWarnings, setShowWarnings] = useState(true);
+  const [showWarnings, setShowWarnings] = useState(false);
   const [warningAlerts, setWarningAlerts] = useState<string[]>([]);
 
   /**

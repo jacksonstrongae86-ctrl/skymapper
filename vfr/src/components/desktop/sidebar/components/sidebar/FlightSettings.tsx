@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import { useAltitudeUnit } from "@/src/utils/AltitudeUnitContext";
 import { AltitudeUnit } from "@/src/utils/unitConversions";
-import { FlightRules } from "@/src/utils/types";
+import { FlightRules, Waypoint } from "@/src/utils/types";
 import { FEATURES } from "@/src/utils/featureFlags";
 import { FlightRulesSelector } from "@/src/components/shared/FlightRulesSelector";
 import IFRRoutePanel from "@/src/components/shared/IFRRoutePanel";
@@ -25,6 +25,10 @@ interface FlightSettingsProps {
   setSelectedDateTime: (value: string) => void;
   gal_liter: string;
   set_gal_liter: (g_l: string) => void;
+  waypoints?: Waypoint[];
+  isFlightActive?: boolean;
+  onStartFlight?: () => void;
+  onEndFlight?: () => void;
 }
 
 export const FlightSettings: React.FC<FlightSettingsProps> = ({
@@ -36,6 +40,10 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
   setSelectedDateTime,
   gal_liter,
   set_gal_liter,
+  waypoints = [],
+  isFlightActive = false,
+  onStartFlight,
+  onEndFlight,
 }) => {
   const { theme } = useTheme();
   const { altitudeUnit, setAltitudeUnit } = useAltitudeUnit();
@@ -117,7 +125,7 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
 
             {/* IFR Route Panel - Only show when IFR is selected */}
             {FEATURES.IFR_SUPPORT && flightRules === 'IFR' && (
-              <IFRRoutePanel />
+              <IFRRoutePanel waypoints={waypoints} />
             )}
 
             {/* Live Flight Tracking - Now handled by FlightControlBar and map UI */}
@@ -185,6 +193,27 @@ export const FlightSettings: React.FC<FlightSettingsProps> = ({
                   placeholder="Select flight date and time"
                 />
               </label>
+
+              {/* Start/End Flight Button */}
+              <div>
+                {isFlightActive ? (
+                  <button
+                    onClick={() => onEndFlight?.()}
+                    className="w-full bg-red-600 hover:bg-red-700 text-white font-bold 
+                               py-3 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                  >
+                    ⏹️ Finalizar Vuelo
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => onStartFlight?.()}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-bold 
+                               py-3 rounded-xl shadow-lg flex items-center justify-center gap-2"
+                  >
+                    ▶️ Iniciar Vuelo
+                  </button>
+                )}
+              </div>
 
               {/* Altitude Unit Selector */}
               <label className="block">

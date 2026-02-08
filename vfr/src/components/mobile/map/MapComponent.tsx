@@ -109,8 +109,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   analyzeRouteWarnings,
   currentPosition = null,
   flightTrail = [],
-  isFlightActive = false,
-  onStartFlight,
+  // isFlightActive and onStartFlight moved to FlightSettings
   flightRules = 'VFR',
   showWeather = false,
 }) => {
@@ -128,6 +127,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
   const [countryDetected, setCountryDetected] = useState(false);
 
   // Analyze route warnings to get violation information for waypoints
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const routeWarnings = useMemo(() => {
     if (analyzeRouteWarnings && waypoints.length > 0) {
       return analyzeRouteWarnings(waypoints);
@@ -318,10 +318,8 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
           .filter((wp) => wp.visible !== false)
           .map((waypoint, absoluteIndex) => {
             // Find if this waypoint has a violation
-            const waypointWarning = routeWarnings.warnings?.find(
-              (warning) => warning.waypointIndex === absoluteIndex
-            );
-            const hasViolation = waypointWarning?.hasViolation || false;
+                        // Airspace warnings disabled
+            const hasViolation = false;
 
             return (
               <Marker
@@ -439,25 +437,7 @@ const MapComponent: React.FC<ExtendedMapComponentProps> = ({
         {flightRules === 'IFR' && <AirwayLayer airways={[]} visible={true} />}
       </MapContainer>
       
-      {/* Start Flight Button - Mobile (bottom floating) */}
-      {!isFlightActive && !isExpanded && onStartFlight && (
-        <div
-          className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-[500]"
-        >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              onStartFlight();
-            }}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold 
-                       px-6 py-3 rounded-full shadow-lg flex items-center gap-2 
-                       transition-all transform hover:scale-105"
-          >
-            <span className="text-xl">▶️</span>
-            <span>Iniciar Vuelo</span>
-          </button>
-        </div>
-      )}
+      {/* Start Flight button moved to FlightSettings sidebar */}
       {isExpanded && (
         <div
           className="absolute top-0 left-0 w-full h-ful z-[999]"

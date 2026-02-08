@@ -19,7 +19,7 @@ interface ToolsPanelProps {
   airports?: Airport[];
   userPosition?: { lat: number; lon: number };
   // Controlled state for split view support
-  mode?: 'floating' | 'split';
+  mode?: 'floating' | 'split' | 'inline';
   activeView?: ToolView;
   onActiveViewChange?: (view: ToolView) => void;
 }
@@ -152,6 +152,41 @@ export const ToolsPanel: React.FC<ToolsPanelProps> = ({
         return null;
     }
   };
+
+  // Inline mode rendering (for embedding in sidebar tabs)
+  if (mode === 'inline') {
+    return (
+      <div style={{ padding: '12px', height: '100%', overflowY: 'auto' }}>
+        {!internalActiveView ? (
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
+            {tools.map((tool) => (
+              <button
+                key={tool.id}
+                onClick={() => setInternalActiveView(tool.id)}
+                className="flex flex-col items-center gap-2 p-4 rounded-xl border border-[var(--sidebar-border)] 
+                           bg-[var(--sidebar-bg)] text-[var(--foreground)] hover:bg-[var(--button-hover)] 
+                           transition-all cursor-pointer active:scale-95"
+              >
+                <span className="text-2xl">{tool.icon}</span>
+                <span className="text-xs font-medium text-center">{tool.label}</span>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div>
+            <button
+              onClick={() => setInternalActiveView(null)}
+              className="flex items-center gap-2 px-3 py-2 mb-3 rounded-lg text-sm font-medium
+                         text-[var(--foreground)] hover:bg-[var(--button-hover)] transition-all"
+            >
+              ← {tools.find(t => t.id === internalActiveView)?.label || 'Herramientas'}
+            </button>
+            <div>{renderToolContent()}</div>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   // Split mode rendering (for desktop split view)
   if (mode === 'split') {

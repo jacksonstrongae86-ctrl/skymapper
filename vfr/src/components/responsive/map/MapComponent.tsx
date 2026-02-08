@@ -141,6 +141,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   };
 
   // Analyze route warnings to get violation information for waypoints
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const routeWarnings = useMemo(() => {
     if (analyzeRouteWarnings && waypoints.length > 0) {
       return analyzeRouteWarnings(waypoints);
@@ -337,10 +338,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
         {waypoints
           .filter((wp) => wp.visible !== false)
           .map((waypoint, absoluteIndex) => {
-            const waypointWarning = routeWarnings.warnings?.find(
-              (warning) => warning.waypointIndex === absoluteIndex
-            );
-            const hasViolation = waypointWarning?.hasViolation || false;
+            // Airspace warnings disabled
+            const hasViolation = false;
 
             return (
               <Marker

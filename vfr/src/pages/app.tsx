@@ -11,7 +11,7 @@ import MobileSidebar from "../components/mobile/sidebar/Sidebar";
 import MapControls from "../components/desktop/map/MapControls";
 import BottomSidebar from "../components/desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../components/mobile/sidebar/BottomSidebar";
-import AirspaceAlert from "../components/shared/AirspaceAlert";
+// import AirspaceAlert from "../components/shared/AirspaceAlert";
 import "intro.js/introjs.css";
 
 const MapComponent = dynamic(
@@ -113,7 +113,7 @@ export default function App() {
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
 
   // OpenAIP
-  const [showAviationData, setShowAviationData] = useState(true);
+  const [showAviationData, setShowAviationData] = useState(false);
   const [aviationLayers, setAviationLayers] = useState({
     airports: true,
     airspaces: false,
@@ -123,39 +123,8 @@ export default function App() {
     reportingpoints:false,
   });
 
-  // Airspace alert dismissal
-  const [alertDismissed, setAlertDismissed] = useState(false);
-  const [lastWarningState, setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
-
-  // Reset alert dismissal only when new violations appear
-  useEffect(() => {
-    if (waypoints.length > 0) {
-      const analysis = analyzeRouteWarnings(waypoints);
-      const currentState = {
-        hasViolations: analysis.hasViolations,
-        totalWarnings: analysis.totalWarnings
-      };
-
-      // Only reset dismissal if there are new violations or more warnings than before
-      if (lastWarningState &&
-          ((!lastWarningState.hasViolations && currentState.hasViolations) ||
-           (currentState.totalWarnings > lastWarningState.totalWarnings))) {
-        setAlertDismissed(false);
-      }
-
-      setLastWarningState(currentState);
-    } else {
-      // Reset when no waypoints
-      setAlertDismissed(false);
-      setLastWarningState(null);
-    }
-  }, [waypoints, analyzeRouteWarnings, lastWarningState]);
-
-  // Enhanced clear alerts function that also dismisses page-level alerts
-  const handleClearAllAlerts = () => {
-    clearWarningAlerts(); // Clear sidebar alerts
-    setAlertDismissed(true); // Dismiss page-level alert
-  };
+  // Airspace alerts disabled
+  const handleClearAllAlerts = () => { clearWarningAlerts(); };
 
   const handleLayerToggle = (
     layer: keyof typeof aviationLayers,
@@ -171,14 +140,7 @@ export default function App() {
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
       <meta></meta>
-      {/* Airspace Alert - appears on both mobile and desktop */}
-      {!alertDismissed && waypoints.length > 0 && (
-        <AirspaceAlert
-          waypoints={waypoints}
-          analyzeRouteWarnings={analyzeRouteWarnings}
-          onDismiss={() => setAlertDismissed(true)}
-        />
-      )}
+      {/* Airspace Alert — disabled until ENAIRE data */}
 
       {isMobile ? (
         <div className="flex flex-col h-full">

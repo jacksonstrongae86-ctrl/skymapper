@@ -4,8 +4,8 @@ import { Header } from "./components/sidebar/Header";
 import { MinimizedSidebar } from "./components/sidebar/MinimizeSidebar";
 import { FlightSettings } from "./components/sidebar/FlightSettings";
 import { ScrollableContent } from "./components/sidebar/ScrollableContent";
-import { AirspaceWarnings } from "./components/sidebar/AirspaceWarnings";
-import AirspaceLegend from "../../shared/AirspaceLegend";
+// import { AirspaceWarnings } from "./components/sidebar/AirspaceWarnings";
+// import AirspaceLegend from "../../shared/AirspaceLegend";
 import { useSidebarResize } from "../../../hooks/sidebar/useSidebarResize";
 import { useSidebarVisibility } from "../../../hooks/sidebar/useSidebarVisibility";
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
@@ -13,6 +13,9 @@ import { ResizeHandle } from "./components/sidebar/ResizeHandle";
 
 interface ExtendedSidebarProps extends SidebarProps {
   setIsSidebarResizing?: (isResizing: boolean) => void;
+  isFlightActive?: boolean;
+  onStartFlight?: () => void;
+  onEndFlight?: () => void;
 }
 
 const Sidebar: React.FC<ExtendedSidebarProps> = ({
@@ -31,40 +34,15 @@ const Sidebar: React.FC<ExtendedSidebarProps> = ({
   setIsFullScreen,
   gal_liter,
   set_gal_liter,
-  // Airspace warning props
-  airspaces = [],
-  showWarnings,
-  setShowWarnings,
-  warningsInitialTab,
-  analyzeRouteWarnings,
-  warningAlerts = [],
-  clearWarningAlerts,
-  aviationLayers,
+  // Airspace warning props — disabled
+  isFlightActive = false,
+  onStartFlight,
+  onEndFlight,
   setIsSidebarResizing,
 }) => {
   const [isSettingsVisible, setIsSettingsVisible] = useState(true);
   const [isWaypointsVisible, setIsWaypointsVisible] = useState(true);
-  const [isWarningsVisible, setIsWarningsVisible] = useState(true);
-
-  // Open and scroll to airspace warnings when triggered from outside
-  useEffect(() => {
-    if (showWarnings && !isMinimized) {
-      // Open the warnings section if it's not already open
-      setIsWarningsVisible(true);
-
-      const warningsElement = document.getElementById('airspace-warnings');
-      if (warningsElement) {
-        setTimeout(() => {
-          warningsElement.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        }, 300);
-      }
-
-      // Reset the flag after processing
-      if (setShowWarnings) {
-        setTimeout(() => setShowWarnings(false), 100);
-      }
-    }
-  }, [showWarnings, isMinimized, setShowWarnings]);
+  // Airspace warnings disabled
 
   const { handleMouseDown, handleTouchStart, isResizing } = useSidebarResize({
     setSidebarWidth,
@@ -122,6 +100,10 @@ const Sidebar: React.FC<ExtendedSidebarProps> = ({
               setSelectedDateTime={setSelectedDateTime}
               gal_liter={gal_liter}
               set_gal_liter={set_gal_liter}
+              waypoints={waypoints}
+              isFlightActive={isFlightActive}
+              onStartFlight={onStartFlight}
+              onEndFlight={onEndFlight}
             />
 
             <ScrollableContent
@@ -135,26 +117,7 @@ const Sidebar: React.FC<ExtendedSidebarProps> = ({
               gal_liter={gal_liter}
             />
 
-            {/* Airspace Warnings */}
-            {analyzeRouteWarnings && (
-              <AirspaceWarnings
-                isWarningsVisible={isWarningsVisible}
-                setIsWarningsVisible={setIsWarningsVisible}
-                waypoints={waypoints}
-                airspaces={airspaces}
-                warningAlerts={warningAlerts}
-                onClearAlerts={clearWarningAlerts || (() => {})}
-                analyzeRouteWarnings={analyzeRouteWarnings}
-                initialTab={warningsInitialTab}
-              />
-            )}
-
-            {/* Airspace Legend - Only show when airspaces are active */}
-            {aviationLayers?.airspaces && (
-              <div className="p-4 border-b border-gray-200 dark:border-gray-700">
-                <AirspaceLegend />
-              </div>
-            )}
+            {/* Airspace Warnings & Legend — hidden until ENAIRE data */}
           </div>
         </div>
       )}

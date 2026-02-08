@@ -12,6 +12,12 @@ export const FEATURES = {
   AIRSPACE_WARNINGS: false,
   
   /**
+   * Aviation data layer (OpenAIP airports, airspaces, etc.)
+   * Disabled until data quality is verified
+   */
+  AVIATION_DATA: false,
+  
+  /**
    * IFR (Instrument Flight Rules) support
    * Flight planning with airways and procedures for IFR operations
    */

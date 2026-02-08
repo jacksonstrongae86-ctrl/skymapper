@@ -676,7 +676,7 @@ const MapControls: React.FC<ExtendedMapControlsProps> = ({
         </div>
 
         {/* Aviation Layer Control */}
-        <div className="relative" ref={aviationRef}>
+        <div className="relative hidden" ref={aviationRef}>
           <button
             id="aviation-data-toggle"
             onClick={() => {

@@ -1,55 +1,29 @@
 // utils/countryDetection.ts
+
+const SUPPORTED_COUNTRIES = ['es', 'us', 'uk', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'];
+const DEFAULT_COUNTRY = 'es';
+
 export const detectUserCountry = async (): Promise<string> => {
-  // Try geolocation first
-  if (navigator.geolocation) {
-    try {
-      const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-        navigator.geolocation.getCurrentPosition(resolve, reject, {
-          timeout: 10000,
-          enableHighAccuracy: false
-        });
-      });
-
-      const { latitude, longitude } = position.coords;
-      const country = await getCountryFromCoordinates(latitude, longitude);
-      return country;
-    } catch (error) {
-      console.warn('Geolocation failed:', error);
-    }
+  // Try browser language as quick heuristic
+  const lang = navigator.language?.toLowerCase() || '';
+  const langCountry = lang.split('-')[1] || lang.split('-')[0];
+  if (SUPPORTED_COUNTRIES.includes(langCountry)) {
+    return langCountry;
   }
 
-  // Fallback to IP-based detection
-  return await getCountryFromIP();
-};
-
-// Get country from coordinates using reverse geocoding
-const getCountryFromCoordinates = async (lat: number, lng: number): Promise<string> => {
-  try {
-    const response = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=3&addressdetails=1`
-    );
-    const data = await response.json();
-    const countryCode = data.address?.country_code?.toLowerCase();
-
-    // Map to your supported countries
-    const supportedCountries = ['es', 'us', 'uk', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'];
-    return supportedCountries.includes(countryCode) ? countryCode : 'es';
-  } catch {
-    return 'es';
+  // Try timezone-based detection (no network needed)
+  const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+  const tzCountryMap: Record<string, string> = {
+    'Europe/Madrid': 'es', 'Europe/London': 'uk', 'Europe/Paris': 'fr',
+    'Europe/Berlin': 'de', 'Europe/Rome': 'it', 'Europe/Amsterdam': 'nl',
+    'Europe/Brussels': 'be', 'Europe/Zurich': 'ch', 'Europe/Vienna': 'at',
+    'Europe/Lisbon': 'pt', 'America/Mexico_City': 'mx', 'America/Toronto': 'ca',
+    'America/New_York': 'us', 'America/Chicago': 'us', 'America/Denver': 'us',
+    'America/Los_Angeles': 'us',
+  };
+  if (tzCountryMap[tz]) {
+    return tzCountryMap[tz];
   }
-};
 
-// Fallback: IP-based country detection
-const getCountryFromIP = async (): Promise<string> => {
-  try {
-    const response = await fetch('https://ipapi.co/json/');
-    const data = await response.json();
-    const countryCode = data.country_code?.toLowerCase();
-
-    // Map to your supported countries
-    const supportedCountries = ['es', 'us', 'uk', 'mx', 'it', 'fr', 'de', 'ca', 'nl', 'be', 'ch', 'at', 'pt'];
-    return supportedCountries.includes(countryCode) ? countryCode : 'es';
-  } catch {
-    return 'es'; // Default fallback
-  }
+  return DEFAULT_COUNTRY;
 };

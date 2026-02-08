@@ -103,6 +103,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   }, [onMoveMapRef]);
 
   // Analyze route warnings to get violation information for waypoints
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const routeWarnings = useMemo(() => {
     if (analyzeRouteWarnings && waypoints.length > 0) {
       return analyzeRouteWarnings(waypoints);
@@ -331,10 +332,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
         .filter((wp) => wp.visible !== false)
         .map((waypoint, absoluteIndex) => {
           // Find if this waypoint has a violation
-          const waypointWarning = routeWarnings.warnings?.find(
-            (warning) => warning.waypointIndex === absoluteIndex
-          );
-          const hasViolation = waypointWarning?.hasViolation || false;
+          // Airspace warnings disabled
+          const hasViolation = false;
 
           return (
             <Marker
@@ -464,16 +463,16 @@ const MapComponent: React.FC<MapComponentProps> = ({
         <div
           style={{
             position: 'absolute',
-            top: '16px',
-            right: '16px',
-            zIndex: 400,
+            bottom: '24px',
+            right: '24px',
+            zIndex: 1000,
           }}
         >
           <button
-            onClick={onStartFlight}
+            onClick={(e) => { e.stopPropagation(); onStartFlight(); }}
             className="bg-green-600 hover:bg-green-700 text-white font-semibold 
-                       px-6 py-3 rounded-lg shadow-lg flex items-center gap-2 
-                       transition-all transform hover:scale-105"
+                       px-6 py-3 rounded-xl shadow-2xl flex items-center gap-2 
+                       transition-all transform hover:scale-105 border-2 border-green-400/30"
           >
             <span className="text-xl">▶️</span>
             <span>Iniciar Vuelo</span>

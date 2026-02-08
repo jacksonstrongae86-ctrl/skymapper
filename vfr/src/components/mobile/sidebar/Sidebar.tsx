@@ -10,9 +10,10 @@ import { useSidebarVisibility } from "../../../hooksMobile/sidebar/useSidebarVis
 import { useInputHandlers } from "../../../hooks/sidebar/useInputHandlers";
 import { useTheme } from "@/src/utils/ThemeContext";
 import AirspaceWarningPanel from "../../shared/AirspaceWarningPanel";
-import { Settings2, MapPin, AlertTriangle } from "lucide-react";
+import { ToolsPanel } from "../../shared/ToolsPanel";
+import { Settings2, MapPin, Plane, Wrench } from "lucide-react";
 
-const Sidebar: React.FC<SidebarProps> = ({
+const Sidebar: React.FC<SidebarProps & { isFlightActive?: boolean; onStartFlight?: () => void; onEndFlight?: () => void }> = ({
   fuelConsumption,
   setFuelConsumption,
   selectedDateTime,
@@ -37,9 +38,12 @@ const Sidebar: React.FC<SidebarProps> = ({
   analyzeRouteWarnings,
   warningAlerts = [],
   clearWarningAlerts,
+  isFlightActive = false,
+  onStartFlight,
+  onEndFlight,
 }) => {
   const { theme } = useTheme();
-  const [activeTab, setActiveTab] = useState<"settings" | "waypoints" | "warnings">(
+  const [activeTab, setActiveTab] = useState<"settings" | "waypoints" | "warnings" | "flight" | "tools">(
     "settings"
   );
 
@@ -159,16 +163,28 @@ const Sidebar: React.FC<SidebarProps> = ({
               </span>
             )}
           </button>
+          {/* Warnings tab hidden — no authoritative data yet */}
           <button
-            onClick={() => setActiveTab("warnings")}
+            onClick={() => setActiveTab("flight")}
             className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
-              activeTab === "warnings"
+              activeTab === "flight"
                 ? `button-gradient-${theme} text-[var(--button-text)]`
                 : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
             }`}
           >
-            <AlertTriangle size={14} />
-            Warnings
+            <Plane size={14} />
+            Vuelo
+          </button>
+          <button
+            onClick={() => setActiveTab("tools")}
+            className={`px-3 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap transition-all duration-200 flex items-center justify-center gap-1.5 ${
+              activeTab === "tools"
+                ? `button-gradient-${theme} text-[var(--button-text)]`
+                : "text-[var(--sidebar-text)] hover:bg-[var(--button-hover)]"
+            }`}
+          >
+            <Wrench size={14} />
+            Tools
           </button>
         </div>
 
@@ -184,6 +200,10 @@ const Sidebar: React.FC<SidebarProps> = ({
                 setSelectedDateTime={setSelectedDateTime}
                 gal_liter={gal_liter}
                 set_gal_liter={set_gal_liter}
+                waypoints={waypoints}
+                isFlightActive={isFlightActive}
+                onStartFlight={onStartFlight}
+                onEndFlight={onEndFlight}
               />
             </div>
           ) : activeTab === "waypoints" ? (
@@ -209,6 +229,48 @@ const Sidebar: React.FC<SidebarProps> = ({
                   initialTab={warningsInitialTab}
                 />
               )}
+            </div>
+          ) : activeTab === "flight" ? (
+            <div className="flex-1 flex flex-col overflow-y-auto p-4 space-y-4">
+              <div className="text-sm font-medium text-[var(--sidebar-text)]">Control de Vuelo</div>
+              {isFlightActive ? (
+                <button
+                  onClick={() => onEndFlight?.()}
+                  className="w-full bg-red-600 hover:bg-red-700 text-white font-bold 
+                             py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 text-lg"
+                >
+                  ⏹️ Finalizar Vuelo
+                </button>
+              ) : (
+                <button
+                  onClick={() => onStartFlight?.()}
+                  className="w-full bg-green-600 hover:bg-green-700 text-white font-bold 
+                             py-4 rounded-xl shadow-lg flex items-center justify-center gap-2 text-lg"
+                >
+                  ▶️ Iniciar Vuelo
+                </button>
+              )}
+              {isFlightActive && (
+                <div className="text-xs text-[var(--sidebar-text)] opacity-70 text-center">
+                  GPS activo — seguimiento en tiempo real
+                </div>
+              )}
+              {!isFlightActive && (
+                <div className="text-xs text-[var(--sidebar-text)] opacity-70 text-center">
+                  Pulsa para iniciar el seguimiento GPS
+                </div>
+              )}
+            </div>
+          ) : activeTab === "tools" ? (
+            <div className="flex-1 flex flex-col overflow-y-auto">
+              <ToolsPanel 
+                waypoints={waypoints} 
+                fuelConsumption={fuelConsumption}
+                gal_liter={gal_liter}
+                flightRules={'VFR'}
+                airports={[]}
+                mode="inline"
+              />
             </div>
           ) : null}
         </div>

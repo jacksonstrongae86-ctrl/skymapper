@@ -11,7 +11,7 @@ import MobileSidebar from "../mobile/sidebar/Sidebar";
 import MapControls from "../desktop/map/MapControls";
 import BottomSidebar from "../desktop/sidebar/BottomSidebar";
 import MobileBottomSidebar from "../mobile/sidebar/BottomSidebar";
-import AirspaceAlert from "../shared/AirspaceAlert";
+// import AirspaceAlert from "../shared/AirspaceAlert";
 import TriviaPopup from "../shared/TriviaPopup";
 import { ToolsPanel } from "../shared/ToolsPanel";
 import { FlightRulesSelector } from "../shared/FlightRulesSelector";
@@ -124,7 +124,7 @@ export default function MainApp() {
   }, [waypoints, storedWindData, fuelConsumption, updateCalculations]);
 
   // OpenAIP
-  const [showAviationData, setShowAviationData] = useState(true);
+  const [showAviationData, setShowAviationData] = useState(false);
   const [aviationLayers, setAviationLayers] = useState({
     airports: false,
     airspaces: false,
@@ -147,6 +147,7 @@ export default function MainApp() {
 
   // Phase 8C.4: Split view for desktop tools
   const [activeToolView, setActiveToolView] = useState<ToolView>(null);
+  const [showToolsMenu, setShowToolsMenu] = useState(false);
   const [splitViewWidth, setSplitViewWidth] = useState(65); // Default 65% for map
 
   // GPS Flight Tracking
@@ -158,10 +159,9 @@ export default function MainApp() {
   const [showFlightStats, setShowFlightStats] = useState(false);
   const [maxAltitude, setMaxAltitude] = useState<number>(0);
 
-  // Airspace alert dismissal
-  const [alertDismissed, setAlertDismissed] = useState(false);
-  const [ , setLastWarningState] = useState<{ hasViolations: boolean; totalWarnings: number } | null>(null);
-  const [warningsInitialTab, setWarningsInitialTab] = useState<'violations' | 'intersections' | 'stats' | undefined>(undefined);
+  // Airspace alert — disabled until ENAIRE data
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [warningsInitialTab, _setWarningsInitialTab] = useState<'violations' | 'intersections' | 'stats' | undefined>(undefined);
 
   // Trivia popup - only show on first load after tutorial and consent are complete
   const [showTriviaPopup, setShowTriviaPopup] = useState(false);
@@ -190,88 +190,9 @@ export default function MainApp() {
     }
   }, []);
 
-  // Reset alert dismissal only when new violations appear
-  useEffect(() => {
-    if (waypoints.length > 0) {
-      const analysis = analyzeRouteWarnings(waypoints);
-      const currentState = {
-        hasViolations: analysis.hasViolations,
-        totalWarnings: analysis.totalWarnings
-      };
-
-      // Only reset dismissal if there are new violations or more warnings than before
-      setLastWarningState((prevState) => {
-        if (prevState &&
-            ((!prevState.hasViolations && currentState.hasViolations) ||
-             (currentState.totalWarnings > prevState.totalWarnings))) {
-          setAlertDismissed(false);
-        }
-        return currentState;
-      });
-    } else {
-      // Reset when no waypoints
-      setAlertDismissed(false);
-      setLastWarningState(null);
-    }
-  }, [waypoints, analyzeRouteWarnings]);
-
-  // Enhanced clear alerts function that also dismisses page-level alerts
+  // Airspace alerts disabled — pass-through for compatibility
   const handleClearAllAlerts = () => {
-    clearWarningAlerts(); // Clear sidebar alerts
-    setAlertDismissed(true); // Dismiss page-level alert
-  };
-
-  // Handle airspace alert click - open warnings, scroll to last violation, and dismiss alert
-  const handleAirspaceAlertClick = () => {
-    if (waypoints.length === 0) return;
-
-    const analysis = analyzeRouteWarnings(waypoints);
-    const warningsWithIssues = analysis.warnings.filter(w => w.hasViolation || w.isInRestrictedAirspace);
-
-    if (warningsWithIssues.length > 0) {
-      // Get the last warning (highest waypointIndex)
-      const lastWarning = warningsWithIssues[warningsWithIssues.length - 1];
-
-      // Determine which tab to open based on whether it's a violation or just an intersection
-      const tabToOpen = lastWarning.hasViolation ? 'violations' : 'intersections';
-      setWarningsInitialTab(tabToOpen);
-
-      // On mobile, close the map first if it's expanded
-      if (isMobile) {
-        const closeButton = document.getElementById('mobile-map-close-button');
-        if (closeButton) {
-          closeButton.click();
-          // Wait a bit for the map to close before opening warnings
-          setTimeout(() => {
-            setShowWarnings(true);
-          }, 300);
-        } else {
-          // Map not expanded, just open warnings
-          setShowWarnings(true);
-        }
-      } else {
-        // Desktop - just open the warnings section
-        setShowWarnings(true);
-      }
-
-      // Scroll to the last warning after a delay to ensure rendering
-      setTimeout(() => {
-        const warningElement = document.getElementById(`warning-${lastWarning.waypointIndex}`);
-        if (warningElement) {
-          warningElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-          // Add a short pulse effect
-          warningElement.style.animation = 'pulse 0.4s ease-in-out 2';
-          setTimeout(() => {
-            warningElement.style.animation = '';
-          }, 800);
-        }
-      }, isMobile ? 800 : 500); // Longer delay on mobile to account for map closing
-
-      // Reset the tab selection after a delay
-      setTimeout(() => setWarningsInitialTab(undefined), 1000);
-    }
-
-    setAlertDismissed(true); // Dismiss the alert after clicking
+    clearWarningAlerts();
   };
 
   const handleLayerToggle = (
@@ -291,8 +212,27 @@ export default function MainApp() {
 
   // GPS Flight Tracking Handlers
   const handleStartFlight = async () => {
+    setGpsError(null);
+    
+    // Check if geolocation is available
+    if (!navigator.geolocation) {
+      setGpsError('Tu navegador no soporta geolocalización.');
+      return;
+    }
+
+    // Check if HTTPS (required for geolocation on most browsers)
+    if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') {
+      setGpsError('Se requiere HTTPS para acceder al GPS. Usa la versión segura de la app.');
+      return;
+    }
+
     try {
-      setGpsError(null);
+      // Request permission first with a single position request
+      await new Promise<GeolocationPosition>((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 10000 });
+      });
+
+      // Permission granted — start tracking
       gpsService.start(flightRules);
       setIsFlightActive(true);
       setFlightStartTime(Date.now());
@@ -300,18 +240,24 @@ export default function MainApp() {
       setMaxAltitude(0);
       setShowFlightStats(false);
       
-      // Subscribe to position updates
       const unsubscribe = gpsService.onPosition((position: GPSPosition) => {
         setCurrentPosition(position);
         setFlightTrail(prev => [...prev, position]);
-        // Track max altitude
         setMaxAltitude(prev => Math.max(prev, position.altitude));
       });
       
-      // Store unsubscribe function
       (window as { __gpsUnsubscribe?: () => void }).__gpsUnsubscribe = unsubscribe;
     } catch (error) {
-      setGpsError(error instanceof Error ? error.message : 'Error al iniciar GPS');
+      const geoError = error as GeolocationPositionError;
+      if (geoError?.code === 1) {
+        setGpsError('Permiso GPS denegado. Habilita la ubicación en tu navegador.');
+      } else if (geoError?.code === 2) {
+        setGpsError('Posición GPS no disponible.');
+      } else if (geoError?.code === 3) {
+        setGpsError('Tiempo de espera GPS agotado.');
+      } else {
+        setGpsError(error instanceof Error ? error.message : 'Error al iniciar GPS');
+      }
       setIsFlightActive(false);
     }
   };
@@ -351,15 +297,7 @@ export default function MainApp() {
     <div className="relative h-screen flex flex-col">
       <title>Skymapper - Plan your VFR flight routes with ease</title>
       <meta></meta>
-      {/* Airspace Alert - appears on both mobile and desktop */}
-      {!alertDismissed && waypoints.length > 0 && (
-        <AirspaceAlert
-          waypoints={waypoints}
-          analyzeRouteWarnings={analyzeRouteWarnings}
-          onDismiss={() => setAlertDismissed(true)}
-          onClick={handleAirspaceAlertClick}
-        />
-      )}
+      {/* Airspace Alert - disabled until ENAIRE data available */}
 
       {/* Trivia Popup - shows once per session after tutorial and consent */}
       {showTriviaPopup && (
@@ -421,18 +359,7 @@ export default function MainApp() {
         </div>
       )}
 
-      {/* Tools Panel - Floating mode for mobile, controlled for desktop split view */}
-      {isMobile && (
-        <ToolsPanel 
-          waypoints={waypoints} 
-          fuelConsumption={fuelConsumption}
-          gal_liter={gal_liter}
-          flightRules={flightRules}
-          airports={airports}
-          userPosition={waypoints.length > 0 ? { lat: waypoints[0].position[0], lon: waypoints[0].position[1] } : undefined}
-          mode="floating"
-        />
-      )}
+      {/* Tools Panel on mobile moved to sidebar "Tools" tab */}
 
       {isMobile ? (
         <div className="flex flex-col h-full">
@@ -480,6 +407,9 @@ export default function MainApp() {
               analyzeRouteWarnings={analyzeRouteWarnings}
               warningAlerts={warningAlerts}
               clearWarningAlerts={handleClearAllAlerts}
+              isFlightActive={isFlightActive}
+              onStartFlight={handleStartFlight}
+              onEndFlight={handleEndFlight}
             />
           </div>
           <div id="map-container" className="flex-1 relative mt-0">
@@ -572,6 +502,9 @@ export default function MainApp() {
             clearWarningAlerts={handleClearAllAlerts}
             set_gal_liter={set_gal_liter}
             aviationLayers={aviationLayers}
+            isFlightActive={isFlightActive}
+            onStartFlight={handleStartFlight}
+            onEndFlight={handleEndFlight}
           />
 
           {/* Desktop: Split view when tool is active, full map otherwise */}
@@ -712,7 +645,7 @@ export default function MainApp() {
               </div>
             )}
 
-            {/* Floating FAB for opening tools - only when no tool is active */}
+            {/* Floating FAB for opening tools */}
             {!activeToolView && (
               <div
                 style={{
@@ -723,13 +656,7 @@ export default function MainApp() {
                 }}
               >
                 <button
-                  onClick={() => {
-                    // Show tools menu
-                    const toolsMenu = document.getElementById('desktop-tools-menu');
-                    if (toolsMenu) {
-                      toolsMenu.style.display = toolsMenu.style.display === 'none' ? 'block' : 'none';
-                    }
-                  }}
+                  onClick={() => setShowToolsMenu(prev => !prev)}
                   style={{
                     width: '56px',
                     height: '56px',
@@ -743,80 +670,51 @@ export default function MainApp() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    transition: 'transform 0.2s, background-color 0.2s',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.transform = 'scale(1.1)';
-                    e.currentTarget.style.backgroundColor = 'var(--button-hover)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.transform = 'scale(1)';
-                    e.currentTarget.style.backgroundColor = 'var(--button-bg)';
                   }}
                   title="Herramientas"
                 >
                   🛠️
                 </button>
 
-                {/* Quick tools menu */}
-                <div
-                  id="desktop-tools-menu"
-                  style={{
-                    display: 'none',
-                    position: 'absolute',
-                    bottom: '70px',
-                    right: '0',
-                    backgroundColor: 'var(--sidebar-bg)',
-                    border: '1px solid var(--sidebar-border)',
-                    borderRadius: '8px',
-                    padding: '8px',
-                    boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                    minWidth: '200px',
-                  }}
-                >
-                  {[
-                    { id: 'weather' as ToolView, label: 'Meteorología', icon: '🌤️' },
-                    { id: 'fuel' as ToolView, label: 'Combustible', icon: '⛽' },
-                    { id: 'notams' as ToolView, label: 'NOTAMs', icon: '📢' },
-                    { id: 'flight-plan' as ToolView, label: 'Plan de Vuelo', icon: '📄' },
-                    { id: 'weight-balance' as ToolView, label: 'Peso y Centrado', icon: '⚖️' },
-                    { id: 'logbook' as ToolView, label: 'Diario de Vuelo', icon: '📋' },
-                    { id: 'airport-directory' as ToolView, label: 'Directorio', icon: '🛩️' },
-                  ].map((tool) => (
-                    <button
-                      key={tool.id}
-                      onClick={() => {
-                        setActiveToolView(tool.id);
-                        const toolsMenu = document.getElementById('desktop-tools-menu');
-                        if (toolsMenu) toolsMenu.style.display = 'none';
-                      }}
-                      style={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        width: '100%',
-                        padding: '12px',
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '14px',
-                        color: 'var(--foreground)',
-                        textAlign: 'left',
-                        transition: 'background-color 0.2s',
-                      }}
-                      onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = 'var(--button-hover)';
-                      }}
-                      onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = 'transparent';
-                      }}
-                    >
-                      <span style={{ fontSize: '20px' }}>{tool.icon}</span>
-                      <span>{tool.label}</span>
-                    </button>
-                  ))}
-                </div>
+                {showToolsMenu && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      bottom: '70px',
+                      right: '0',
+                      backgroundColor: 'var(--sidebar-bg)',
+                      border: '1px solid var(--sidebar-border)',
+                      borderRadius: '12px',
+                      padding: '8px',
+                      boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
+                      minWidth: '220px',
+                    }}
+                  >
+                    {[
+                      { id: 'weather' as ToolView, label: 'Meteorología', icon: '🌤️' },
+                      { id: 'fuel' as ToolView, label: 'Combustible', icon: '⛽' },
+                      { id: 'notams' as ToolView, label: 'NOTAMs', icon: '📢' },
+                      { id: 'flight-plan' as ToolView, label: 'Plan de Vuelo', icon: '📄' },
+                      { id: 'weight-balance' as ToolView, label: 'Peso y Centrado', icon: '⚖️' },
+                      { id: 'logbook' as ToolView, label: 'Diario de Vuelo', icon: '📋' },
+                      { id: 'airport-directory' as ToolView, label: 'Directorio', icon: '🛩️' },
+                    ].map((tool) => (
+                      <button
+                        key={tool.id}
+                        onClick={() => {
+                          setActiveToolView(tool.id);
+                          setShowToolsMenu(false);
+                        }}
+                        className="flex items-center gap-3 w-full p-3 rounded-lg text-sm
+                                   text-[var(--foreground)] hover:bg-[var(--button-hover)] 
+                                   transition-all border-none bg-transparent cursor-pointer text-left"
+                      >
+                        <span className="text-xl">{tool.icon}</span>
+                        <span>{tool.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             )}
           </div>
